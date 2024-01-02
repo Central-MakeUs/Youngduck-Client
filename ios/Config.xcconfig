@@ -1,0 +1,10 @@
+//
+//  Config.xcconfig
+//  Youngduck
+//
+//  Created by 광수 on 2024/01/03.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+#include? "tmp.xcconfig"
