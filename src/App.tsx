@@ -1,14 +1,13 @@
 import {SafeAreaView, Text} from 'react-native';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import Navigator from './navigators/Navigator';
 
 function App() {
   const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SafeAreaView>
-        <Text>HomeScreen</Text>
-      </SafeAreaView>
+      <Navigator />
     </QueryClientProvider>
   );
 }
