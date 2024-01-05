@@ -1,4 +1,3 @@
-import {SafeAreaView, Text} from 'react-native';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import Navigator from './navigators/Navigator';
 
