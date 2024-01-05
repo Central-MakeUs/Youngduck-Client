@@ -1,7 +1,6 @@
-import React from 'react';
+import bottomTabScreens from '@/constants/bottomTabScreens';
+import HomeScreen from '@/screens/HomeScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/HomeScreen';
-import bottomTabScreens from '../constants/bottomTabScreens';
 
 function BottomTabNavigator() {
   const BottomTab = createBottomTabNavigator();

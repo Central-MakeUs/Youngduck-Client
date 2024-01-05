@@ -1,4 +1,3 @@
-import React from 'react';
 import {SafeAreaView, Text} from 'react-native';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
