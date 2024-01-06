@@ -53,6 +53,6 @@ const styles = StyleSheet.create({
   },
   activeContainer: {
     backgroundColor: '#FFCC00',
-    borderColor: 'none',
+    borderColor: 'white',
   },
 });
