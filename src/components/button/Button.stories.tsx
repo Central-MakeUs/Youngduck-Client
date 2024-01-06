@@ -1,7 +1,7 @@
 // stories/MyButton.stories.tsx
 import {ComponentMeta, ComponentStory} from '@storybook/react';
 import {Button} from '.';
-import {Variant} from '@/types/button';
+import {IVariant} from '@/types/button';
 
 // 어떤 컴포넌트의 story 인지, 어떤 설정으로 렌더링할지 정의
 export default {
@@ -21,13 +21,13 @@ Fill.args = {
 export const Line: ComponentStory<typeof Button> = Template.bind({});
 Line.args = {
   text: 'Hello World',
-  variant: 'line' as Variant,
+  variant: 'line' as IVariant,
 };
 
 export const Default: ComponentStory<typeof Button> = Template.bind({});
 Default.args = {
   text: 'Hello World',
-  variant: 'default' as Variant,
+  variant: 'default' as IVariant,
 };
 
 export const Disabled: ComponentStory<typeof Button> = Template.bind({});
