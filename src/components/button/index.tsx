@@ -1,41 +1,69 @@
+import {Variant} from '@/types/button';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 export type ButtonProps = {
   onPress: () => void;
   text: string;
-  color?: string;
-  textColor?: string;
+  //textColor?: string;
+  // 버튼 모양
+  variant?: Variant;
+  disabled?: boolean;
 };
 
-export const Button = ({text, onPress, color, textColor}: ButtonProps) => (
-  <View style={styles.buttonContainer}>
+export type ButtonStyle = {
+  backgroundColor: string;
+  borderWidth?: number;
+  borderColor?: string;
+};
+
+const styleButton: Record<Variant, ButtonStyle> = {
+  fill: {
+    backgroundColor: '#FFCC00',
+  },
+  line: {
+    borderWidth: 1,
+    borderColor: '#FFCC00',
+    backgroundColor: 'white',
+  },
+  default: {
+    backgroundColor: '#EBEBEA',
+  },
+};
+
+export const Button = ({
+  text,
+  onPress,
+  variant = 'fill',
+  disabled = false,
+}: ButtonProps) => (
+  <View style={styles.container}>
     <TouchableOpacity
-      style={[styles.button, !!color && {backgroundColor: color}]}
+      style={
+        disabled
+          ? StyleSheet.compose(styles.button, styles.disabled)
+          : StyleSheet.compose(styles.button, styleButton[variant])
+      }
       onPress={onPress}
-      activeOpacity={0.8}>
-      <Text style={[styles.buttonText, !!textColor && {color: textColor}]}>
-        {text}
-      </Text>
+      activeOpacity={0.8}
+      disabled={disabled}>
+      <Text>{text}</Text>
     </TouchableOpacity>
   </View>
 );
 
 const styles = StyleSheet.create({
-  button: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 4,
-    alignSelf: 'flex-start',
-    flexGrow: 0,
-    backgroundColor: 'purple',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  buttonContainer: {
-    alignItems: 'flex-start',
+  container: {
     flex: 1,
+    //paddingHorizontal: 16,
+  },
+  button: {
+    borderRadius: 8,
+    paddingVertical: 12,
+    alignItems: 'center',
+  },
+  disabled: {
+    backgroundColor: 'none',
+    borderWidth: 1,
+    borderColor: '#D1D1D1',
   },
 });
