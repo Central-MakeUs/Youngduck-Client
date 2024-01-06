@@ -51,6 +51,7 @@ const getStories = () => {
   return {
     './src/components/button/Button.stories.tsx': require('../src/components/button/Button.stories.tsx'),
     './src/components/chip/Chip.stories.tsx': require('../src/components/chip/Chip.stories.tsx'),
+    './src/components/checkBox/CheckBox.stories.tsx': require('../src/components/checkBox/CheckBox.stories.tsx'),
   };
 };
 

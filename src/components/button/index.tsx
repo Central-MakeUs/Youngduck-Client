@@ -1,4 +1,4 @@
-import {Variant} from '@/types/button';
+import {IVariant} from '@/types/button';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 export type ButtonProps = {
@@ -6,7 +6,7 @@ export type ButtonProps = {
   text: string;
   //textColor?: string;
   // 버튼 모양
-  variant?: Variant;
+  variant?: IVariant;
   disabled?: boolean;
 };
 
@@ -16,7 +16,7 @@ export type ButtonStyle = {
   borderColor?: string;
 };
 
-const styleButton: Record<Variant, ButtonStyle> = {
+const styleButton: Record<IVariant, ButtonStyle> = {
   fill: {
     backgroundColor: '#FFCC00',
   },

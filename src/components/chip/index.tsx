@@ -10,6 +10,7 @@ interface ChipStyle {
   backgroundColor: string;
   textColor: string;
 }
+
 const Chip = ({state = 'primary', text}: ChipProps) => {
   const chipStyle: Record<IChip, ChipStyle> = {
     primary: {
