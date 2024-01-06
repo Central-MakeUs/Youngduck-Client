@@ -1,4 +1,3 @@
-import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 export type ButtonProps = {
@@ -7,6 +6,19 @@ export type ButtonProps = {
   color?: string;
   textColor?: string;
 };
+
+export const Button = ({text, onPress, color, textColor}: ButtonProps) => (
+  <View style={styles.buttonContainer}>
+    <TouchableOpacity
+      style={[styles.button, !!color && {backgroundColor: color}]}
+      onPress={onPress}
+      activeOpacity={0.8}>
+      <Text style={[styles.buttonText, !!textColor && {color: textColor}]}>
+        {text}
+      </Text>
+    </TouchableOpacity>
+  </View>
+);
 
 const styles = StyleSheet.create({
   button: {
@@ -27,16 +39,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
-export const MyButton = ({text, onPress, color, textColor}: ButtonProps) => (
-  <View style={styles.buttonContainer}>
-    <TouchableOpacity
-      style={[styles.button, !!color && {backgroundColor: color}]}
-      onPress={onPress}
-      activeOpacity={0.8}>
-      <Text style={[styles.buttonText, !!textColor && {color: textColor}]}>
-        {text}
-      </Text>
-    </TouchableOpacity>
-  </View>
-);
