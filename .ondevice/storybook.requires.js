@@ -54,6 +54,7 @@ const getStories = () => {
     './src/components/checkBox/CheckBox.stories.tsx': require('../src/components/checkBox/CheckBox.stories.tsx'),
     './src/components/switch/Switch.stories.tsx': require('../src/components/switch/Switch.stories.tsx'),
     './src/components/textInput/TextInput.stories.tsx': require('../src/components/textInput/TextInput.stories.tsx'),
+    './src/components/topBar/menuTopBar/MenuTopBar.stories.tsx': require('../src/components/topBar/menuTopBar/MenuTopBar.stories.tsx'),
   };
 };
 
