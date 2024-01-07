@@ -1,10 +1,11 @@
-import React from 'react';
 import {SafeAreaView, Text} from 'react-native';
+import Config from 'react-native-config';
 
 function HomeScreen() {
+  const key = Config.KAKAO_API_KEY;
   return (
     <SafeAreaView>
-      <Text>HomeScreen</Text>
+      <Text>Home</Text>
     </SafeAreaView>
   );
 }
