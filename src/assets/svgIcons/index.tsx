@@ -1,4 +1,5 @@
 import {SvgIconProps} from '@/types/svgIcons';
+import {View} from 'react-native';
 import {Path, Svg} from 'react-native-svg';
 
 const SvgIcons = {
@@ -27,16 +28,28 @@ const SvgIcons = {
     </Svg>
   ),
   MenuIcon: ({width = 16, height = 14, fill = 'black'}: SvgIconProps) => (
-    <Svg
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
-      fill="none">
-      <Path
-        d="M0 1C0 0.447715 0.447715 0 1 0H15C15.5523 0 16 0.447715 16 1C16 1.55228 15.5523 2 15 2H1C0.447715 2 0 1.55228 0 1ZM0 7C0 6.44772 0.447715 6 1 6H15C15.5523 6 16 6.44772 16 7C16 7.55228 15.5523 8 15 8H1C0.447715 8 0 7.55228 0 7ZM0 13C0 12.4477 0.447715 12 1 12H15C15.5523 12 16 12.4477 16 13C16 13.5523 15.5523 14 15 14H1C0.447715 14 0 13.5523 0 13Z"
-        fill={fill}
-      />
-    </Svg>
+    <View style={{paddingHorizontal: 4, paddingVertical: 5}}>
+      <Svg
+        width={width}
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
+        fill="none">
+        <Path
+          d="M0 1C0 0.447715 0.447715 0 1 0H15C15.5523 0 16 0.447715 16 1C16 1.55228 15.5523 2 15 2H1C0.447715 2 0 1.55228 0 1ZM0 7C0 6.44772 0.447715 6 1 6H15C15.5523 6 16 6.44772 16 7C16 7.55228 15.5523 8 15 8H1C0.447715 8 0 7.55228 0 7ZM0 13C0 12.4477 0.447715 12 1 12H15C15.5523 12 16 12.4477 16 13C16 13.5523 15.5523 14 15 14H1C0.447715 14 0 13.5523 0 13Z"
+          fill={fill}
+        />
+      </Svg>
+    </View>
+  ),
+  BackArrowIcon: () => (
+    <View style={{paddingHorizontal: 8, paddingVertical: 5}}>
+      <Svg width="8" height="14" viewBox="0 0 8 14" fill="none">
+        <Path
+          d="M7.70711 0.292893C8.09763 0.683417 8.09763 1.31658 7.70711 1.70711L2.41421 7L7.70711 12.2929C8.09763 12.6834 8.09763 13.3166 7.70711 13.7071C7.31658 14.0976 6.68342 14.0976 6.29289 13.7071L0.292893 7.70711C-0.0976311 7.31658 -0.0976311 6.68342 0.292893 6.29289L6.29289 0.292893C6.68342 -0.0976311 7.31658 -0.0976311 7.70711 0.292893Z"
+          fill="#201F1E"
+        />
+      </Svg>
+    </View>
   ),
 };
 
