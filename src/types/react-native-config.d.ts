@@ -2,7 +2,8 @@
 declare module 'react-native-config' {
   export interface NativeConfig {
     API_KEY: any;
-    KAKAO_API_KEY: string;
+    KAKAO_NATIVE_APP_KEY_WITH_KAKAO: string;
+    APP_KEY_WITH_KAKAO: string;
   }
 
   export const Config: NativeConfig;
