@@ -55,6 +55,7 @@ const getStories = () => {
     './src/components/switch/Switch.stories.tsx': require('../src/components/switch/Switch.stories.tsx'),
     './src/components/textInput/TextInput.stories.tsx': require('../src/components/textInput/TextInput.stories.tsx'),
     './src/components/topBar/menuTopBar/MenuTopBar.stories.tsx': require('../src/components/topBar/menuTopBar/MenuTopBar.stories.tsx'),
+    './src/components/topBar/backMenuTopBar/BackMenuTopBar.stories.tsx': require('../src/components/topBar/backMenuTopBar/BackMenuTopBar.stories.tsx'),
   };
 };
 
