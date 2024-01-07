@@ -16,4 +16,6 @@ const palette = {
   Text: text,
 } as const;
 
+export type KeyofPalette = keyof typeof palette;
+
 export default palette;
