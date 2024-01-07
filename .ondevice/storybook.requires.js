@@ -53,6 +53,7 @@ const getStories = () => {
     './src/components/chip/Chip.stories.tsx': require('../src/components/chip/Chip.stories.tsx'),
     './src/components/checkBox/CheckBox.stories.tsx': require('../src/components/checkBox/CheckBox.stories.tsx'),
     './src/components/switch/Switch.stories.tsx': require('../src/components/switch/Switch.stories.tsx'),
+    './src/components/textInput/TextInput.stories.tsx': require('../src/components/textInput/TextInput.stories.tsx'),
   };
 };
 
