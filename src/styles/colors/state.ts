@@ -1,5 +1,5 @@
 const state = {
-  Caution: '#EE2B2B',
+  Point: '#FF3344',
 };
 
 export default state;
