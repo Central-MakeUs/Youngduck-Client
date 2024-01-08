@@ -66,3 +66,4 @@ yarn-error.log
 ios/tmp.xcconfig
 
 .env
+ios/Youngduck/Info.plist
