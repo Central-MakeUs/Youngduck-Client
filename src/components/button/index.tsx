@@ -54,7 +54,6 @@ export const Button = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //paddingHorizontal: 16,
   },
   button: {
     borderRadius: 8,
