@@ -1,7 +1,6 @@
 import {ILoginType} from '@/models/user/entity/loginType';
 import {IRegisterLoginBody} from '@/models/user/request/registerLoginBody';
-import axios from 'axios';
-import Config from 'react-native-config';
+
 import axiosInstance from '.';
 
 // 회원 가입 api 함수
