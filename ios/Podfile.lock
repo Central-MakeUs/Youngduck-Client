@@ -632,7 +632,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 3ca42e259043ee0dc5c0cdd76c4bc568b8e42af7
-  boost: a4affe924b4a240c0417ecd7921681d3bf92ee80
+  boost: 0a937fbcfdd646fca221c4f1d9750d7ccfdfc2dc
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: 446e84642979fff0ba57f3c804c2228a473aeac2

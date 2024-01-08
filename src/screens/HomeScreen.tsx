@@ -8,8 +8,7 @@ function HomeScreen() {
     KakaoLogin.login()
       .then(async result => {
         const idToken = result.idToken;
-        const withoutComma = idToken.replace(/"/g, '');
-        const res = postLoginUser('KAKAO', withoutComma);
+        const res = postLoginUser('KAKAO', idToken);
         console.log('로그인 응답', res);
         getKakaoProfile();
       })
