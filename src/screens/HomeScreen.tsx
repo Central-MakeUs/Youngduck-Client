@@ -2,6 +2,7 @@ import {SafeAreaView, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import * as KakaoLogin from '@react-native-seoul/kakao-login';
 import {postLoginUser} from '@/apis/user';
 import {getKakaoProfile} from '@/apis/social';
+import AppleLogin from '@/components/auth/AppleLogin';
 
 function HomeScreen() {
   const handleSignInKakao = async (): Promise<void> => {
@@ -28,6 +29,7 @@ function HomeScreen() {
         activeOpacity={0.8}>
         <Text>카카오 로그인</Text>
       </TouchableOpacity>
+      <AppleLogin />
     </SafeAreaView>
   );
 }
