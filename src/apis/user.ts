@@ -2,6 +2,7 @@ import {ILoginType} from '@/models/user/entity/loginType';
 import {IRegisterLoginBody} from '@/models/user/request/registerLoginBody';
 import axios from 'axios';
 import Config from 'react-native-config';
+import axiosInstance from '.';
 
 // 회원 가입 api 함수
 export const postRegisterUser = async (
@@ -10,8 +11,8 @@ export const postRegisterUser = async (
   body: IRegisterLoginBody,
 ) => {
   try {
-    const res = await axios.post(
-      `${Config.BASE_URL}/auth/oauth/register/${type}?idToken=${token}`,
+    const res = await axiosInstance.post(
+      `/auth/oauth/register/${type}?idToken=${token}`,
       body,
     );
     return res;
@@ -23,8 +24,8 @@ export const postRegisterUser = async (
 // 로그인 api 함수
 export const postLoginUser = async (type: ILoginType, token: string) => {
   try {
-    const res = await axios.post(
-      `${Config.BASE_URL}/auth/oauth/login/${type}/idtoken?idToken=${token}`,
+    const res = await axiosInstance.post(
+      `/auth/oauth/login/${type}/idtoken?idToken=${token}`,
     );
     console.log('response: ', res);
   } catch (e) {
