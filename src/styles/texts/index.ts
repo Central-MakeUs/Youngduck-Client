@@ -11,6 +11,16 @@ const text = StyleSheet.create({
     fontSize: 20,
     lineHeight: 28,
   },
+  Subtitle1: {
+    fontWeight: '600',
+    fontSize: 24,
+    lineHeight: 32,
+  },
+  Subtitle2: {
+    fontWeight: '600',
+    fontSize: 20,
+    lineHeight: 28,
+  },
   Label1: {
     fontWeight: '600',
     fontSize: 16,
@@ -57,7 +67,5 @@ const text = StyleSheet.create({
     lineHeight: 14,
   },
 });
-
-export type KeyofText = keyof typeof text;
 
 export default text;

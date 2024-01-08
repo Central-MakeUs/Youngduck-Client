@@ -1,4 +1,4 @@
-import {KeyofText} from '@/styles/texts';
+import text from '@/styles/texts';
 import {ValueOfTextColor} from './color';
 
 export interface ITypography {
@@ -13,3 +13,5 @@ export interface ITypography {
   mx?: number;
   my?: number;
 }
+
+export type KeyofText = keyof typeof text;
