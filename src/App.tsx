@@ -1,8 +1,16 @@
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import Navigator from './navigators/Navigator';
+import SplashScreen from 'react-native-splash-screen';
+import {useEffect} from 'react';
 
 function App() {
   const queryClient = new QueryClient();
+
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 1000); //스플래시 활성화 시간
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
