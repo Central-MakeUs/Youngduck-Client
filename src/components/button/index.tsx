@@ -4,8 +4,8 @@ import {
   TouchableOpacity,
   TouchableOpacityProps,
 } from 'react-native';
-import Typography from '../Typography';
 import {IVariant} from '@/types/button';
+import Typography from '../typography';
 
 export type ButtonProps = {
   onPress: () => void;

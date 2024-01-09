@@ -1,4 +1,4 @@
-import Typography from '@/components/Typography';
+import Typography from '@/components/typography';
 import palette from '@/styles/colors';
 import {StyleSheet, View} from 'react-native';
 

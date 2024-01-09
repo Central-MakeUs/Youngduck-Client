@@ -1,6 +1,6 @@
 import {IChip} from '@/types/chip';
 import {StyleSheet, View} from 'react-native';
-import Typography from '../Typography';
+import Typography from '../typography';
 import palette from '@/styles/colors';
 
 interface ChipProps {

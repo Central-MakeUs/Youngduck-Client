@@ -4,7 +4,7 @@ import {Button} from '.';
 import {IVariant} from '@/types/button';
 import {View} from 'react-native';
 import SvgIcons from '@/assets/svgIcons';
-import Typography from '../Typography';
+import Typography from '../typography';
 
 // 어떤 컴포넌트의 story 인지, 어떤 설정으로 렌더링할지 정의
 export default {
