@@ -3,11 +3,11 @@ import {useEffect, useState} from 'react';
 import {Animated, Easing, StyleSheet, Pressable} from 'react-native';
 
 type Props = {
-  setToggle: () => void;
+  onPress: () => void;
   isOn: boolean;
 };
 
-const Switch = ({setToggle, isOn}: Props) => {
+const Switch = ({onPress, isOn}: Props) => {
   const [animatedValue] = useState(new Animated.Value(isOn ? 1 : 0));
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const Switch = ({setToggle, isOn}: Props) => {
 
   return (
     <Pressable
-      onPress={setToggle}
+      onPress={onPress}
       style={[styles.toggleContainer, {backgroundColor: color}]}>
       <Animated.View
         style={[

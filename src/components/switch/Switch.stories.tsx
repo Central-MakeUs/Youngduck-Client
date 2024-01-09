@@ -14,16 +14,9 @@ const Template: ComponentStory<typeof Switch> = args => {
     setIsOn(prevState => !prevState);
   };
 
-  return <Switch {...args} isOn={isOn} setToggle={handleToggle} />;
+  return <Switch {...args} isOn={isOn} onPress={handleToggle} />;
 };
 export const isOn: ComponentStory<typeof Switch> = Template.bind({});
 isOn.args = {
   isOn: true,
-  //setToggle: () => {},
-};
-
-export const NonChecked: ComponentStory<typeof Switch> = Template.bind({});
-NonChecked.args = {
-  isOn: false,
-  //setToggle: () => {},
 };
