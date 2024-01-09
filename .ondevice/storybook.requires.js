@@ -70,6 +70,8 @@ const getStories = () => {
     './src/components/bottomSheet/BottomSheet.stories.tsx': require('../src/components/bottomSheet/BottomSheet.stories.tsx'),
     // Modal 컴포넌트
     './src/components/modal/Modal.stories.tsx': require('../src/components/modal/Modal.stories.tsx'),
+    // Numbering 컴포넌트
+    './src/components/numbering/Numbering.stories.tsx': require('../src/components/numbering/Numbering.stories.tsx'),
   };
 };
 
