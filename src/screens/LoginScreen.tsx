@@ -1,11 +1,11 @@
-import FullGradientView from '@/components/FullGradientView';
-import KakaoLogin from '@/components/KakaoLogin';
+import LoginContainer from '@/components/login/loginContainer/LoginContainer';
+import KakaoLogin from '@/components/login/kakaoLogin/KakaoLogin';
 
 function LoginScreen() {
   return (
-    <FullGradientView>
+    <LoginContainer>
       <KakaoLogin />
-    </FullGradientView>
+    </LoginContainer>
   );
 }
 
