@@ -1,5 +1,6 @@
+import palette from '@/styles/colors';
 import {useEffect, useState} from 'react';
-import {TouchableOpacity, Animated, Easing, StyleSheet} from 'react-native';
+import {Animated, Easing, StyleSheet, Pressable} from 'react-native';
 
 type Props = {
   setToggle: () => void;
@@ -23,10 +24,10 @@ const Switch = ({setToggle, isOn}: Props) => {
     outputRange: [4, 19],
   });
 
-  const color = isOn ? '#FFCC00' : '#EBEBEA';
+  const color = isOn ? palette.Primary.Normal : palette.Fill.Normal;
 
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={setToggle}
       style={[styles.toggleContainer, {backgroundColor: color}]}>
       <Animated.View
@@ -37,7 +38,7 @@ const Switch = ({setToggle, isOn}: Props) => {
           },
         ]}
       />
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
   toggleWheel: {
     width: 16,
     height: 16,
-    backgroundColor: 'white',
+    backgroundColor: palette.Another.White,
     borderRadius: 99,
   },
 });

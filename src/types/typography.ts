@@ -1,11 +1,10 @@
 import text from '@/styles/texts';
-import {ValueOfTextColor} from './color';
+import {ValueOfColor} from './color';
 
 export interface ITypography {
   style: KeyofText;
   children: string;
-  //color?: ValueOfTextColor;
-  color?: string;
+  color?: ValueOfColor;
   m?: number;
   mt?: number;
   mr?: number;

@@ -26,11 +26,9 @@ const Chip = ({state = 'primary', text}: ChipProps) => {
   };
   return (
     <View style={StyleSheet.compose(styles.container, chipStyle[state])}>
-      <Typography
-        style="Label3"
-        color={chipStyle[state].textColor}
-        children={text}
-      />
+      <Typography style="Label3" color={chipStyle[state].textColor}>
+        {text}
+      </Typography>
     </View>
   );
 };
