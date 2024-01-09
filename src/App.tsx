@@ -2,6 +2,7 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import Navigator from './navigators/Navigator';
 import SplashScreen from 'react-native-splash-screen';
 import {useEffect} from 'react';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 function App() {
   const queryClient = new QueryClient();
@@ -14,7 +15,9 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Navigator />
+      <SafeAreaProvider>
+        <Navigator />
+      </SafeAreaProvider>
     </QueryClientProvider>
   );
 }

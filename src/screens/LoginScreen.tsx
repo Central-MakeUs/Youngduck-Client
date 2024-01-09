@@ -1,11 +1,11 @@
+import FullGradientView from '@/components/FullGradientView';
 import KakaoLogin from '@/components/KakaoLogin';
-import {SafeAreaView} from 'react-native';
 
 function LoginScreen() {
   return (
-    <SafeAreaView>
+    <FullGradientView>
       <KakaoLogin />
-    </SafeAreaView>
+    </FullGradientView>
   );
 }
 
