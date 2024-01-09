@@ -11876,6 +11876,11 @@ react-is@^16.13.0, react-is@^16.13.1, react-is@^16.7.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-native-animated-bottom-drawer@^0.0.23:
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/react-native-animated-bottom-drawer/-/react-native-animated-bottom-drawer-0.0.23.tgz#22ebe9f5964ebb267d4c366e2b46a5e3e205fc5d"
+  integrity sha512-xOYOWxNViNno9wtYtvDpW90M5N4RDgdLq2jRjR9lxTAcpKsl93C7oex/NANQzd5aC9Vh7SEnyh0DlbSqprB6kg==
+
 react-native-calendars@^1.1303.0:
   version "1.1303.0"
   resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.1303.0.tgz#72f82135947c75c194ab893549e53de69ed27667"

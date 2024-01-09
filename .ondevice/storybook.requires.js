@@ -49,17 +49,25 @@ try {
 
 const getStories = () => {
   return {
+    // button 컴포넌트
     './src/components/button/Button.stories.tsx': require('../src/components/button/Button.stories.tsx'),
+    // chip 컴포넌트
     './src/components/chip/Chip.stories.tsx': require('../src/components/chip/Chip.stories.tsx'),
+    // checkbox 컴포넌트
     './src/components/checkBox/CheckBox.stories.tsx': require('../src/components/checkBox/CheckBox.stories.tsx'),
+    // switch 컴포넌트
     './src/components/switch/Switch.stories.tsx': require('../src/components/switch/Switch.stories.tsx'),
+    // textInput 컴포넌트
     './src/components/textInput/TextInput.stories.tsx': require('../src/components/textInput/TextInput.stories.tsx'),
+    // topBar 컴포넌트
     './src/components/topBar/menuTopBar/MenuTopBar.stories.tsx': require('../src/components/topBar/menuTopBar/MenuTopBar.stories.tsx'),
     './src/components/topBar/backMenuTopBar/BackMenuTopBar.stories.tsx': require('../src/components/topBar/backMenuTopBar/BackMenuTopBar.stories.tsx'),
     './src/components/topBar/subMenuTopBar/SubMenuTopBar.stories.tsx': require('../src/components/topBar/subMenuTopBar/SubMenuTopBar.stories.tsx'),
     './src/components/topBar/cancelTopBar/CancelTopBar.stories.tsx': require('../src/components/topBar/cancelTopBar/CancelTopBar.stories.tsx'),
     './src/components/topBar/titleTopBar/TitleTopBar.stories.tsx': require('../src/components/topBar/titleTopBar/TitleTopBar.stories.tsx'),
     './src/components/topBar/subTitleTopBar/SubTitleTopBar.stories.tsx': require('../src/components/topBar/subTitleTopBar/SubTitleTopBar.stories.tsx'),
+    // BottomSheet 컴포넌트
+    './src/components/bottomSheet/BottomSheet.stories.tsx': require('../src/components/bottomSheet/BottomSheet.stories.tsx'),
   };
 };
 
