@@ -1,4 +1,5 @@
 import SvgIcons from '@/assets/svgIcons';
+import palette from '@/styles/colors';
 import {ICheckBox} from '@/types/checkBox';
 import {Pressable, StyleSheet} from 'react-native';
 
@@ -29,12 +30,12 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     width: 24,
     height: 24,
-    borderColor: '#E6E6E5',
+    borderColor: palette.Line.Normal,
     alignItems: 'center',
     justifyContent: 'center',
   },
   activeContainer: {
-    backgroundColor: '#FFCC00',
-    borderColor: 'white',
+    backgroundColor: palette.Primary.Normal,
+    borderWidth: 0,
   },
 });
