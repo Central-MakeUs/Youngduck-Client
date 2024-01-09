@@ -1,69 +1,82 @@
+import palette from '@/styles/colors';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from 'react-native';
+import Typography from '../Typography';
 import {IVariant} from '@/types/button';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 export type ButtonProps = {
   onPress: () => void;
-  text: string;
-  //textColor?: string;
-  // 버튼 모양
+  children: React.ReactNode | string;
   variant?: IVariant;
   disabled?: boolean;
-};
+} & TouchableOpacityProps;
 
 export type ButtonStyle = {
   backgroundColor: string;
-  borderWidth?: number;
-  borderColor?: string;
+  textColor: string;
 };
 
 const styleButton: Record<IVariant, ButtonStyle> = {
-  fill: {
-    backgroundColor: '#FFCC00',
+  primary: {
+    backgroundColor: palette.Primary.Normal,
+    textColor: palette.Text.Normal,
   },
-  line: {
-    borderWidth: 1,
-    borderColor: '#FFCC00',
-    backgroundColor: 'white',
+  secondary: {
+    backgroundColor: palette.Primary.Alternative,
+    textColor: palette.Primary.Dark,
   },
   default: {
-    backgroundColor: '#EBEBEA',
+    backgroundColor: palette.Fill.Strong,
+    textColor: palette.Text.Normal,
   },
 };
 
 export const Button = ({
-  text,
+  children,
   onPress,
-  variant = 'fill',
   disabled = false,
-}: ButtonProps) => (
-  <View style={styles.container}>
+  variant = 'primary',
+  ...props
+}: ButtonProps) => {
+  return (
     <TouchableOpacity
-      style={
-        disabled
-          ? StyleSheet.compose(styles.button, styles.disabled)
-          : StyleSheet.compose(styles.button, styleButton[variant])
-      }
+      {...props}
+      style={[styles.button, styleButton[variant], disabled && styles.disabled]}
       onPress={onPress}
       activeOpacity={0.8}
       disabled={disabled}>
-      <Text>{text}</Text>
+      {(() => {
+        if (typeof children === 'string') {
+          return (
+            <Typography
+              style="Label1"
+              color={
+                disabled
+                  ? palette.Another.White
+                  : styleButton[variant].textColor
+              }>
+              {children}
+            </Typography>
+          );
+        } else {
+          return children;
+        }
+      })()}
     </TouchableOpacity>
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    //paddingHorizontal: 16,
-  },
   button: {
     borderRadius: 8,
     paddingVertical: 12,
     alignItems: 'center',
+    width: '100%',
   },
   disabled: {
-    backgroundColor: 'none',
-    borderWidth: 1,
-    borderColor: '#D1D1D1',
+    backgroundColor: palette.Fill.Disable,
   },
 });

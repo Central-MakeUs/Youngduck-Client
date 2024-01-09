@@ -1,1 +1,1 @@
-export type IVariant = 'line' | 'fill' | 'default';
+export type IVariant = 'primary' | 'secondary' | 'default';
