@@ -1,11 +1,11 @@
-import {SafeAreaView, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import * as KakaoLogin from '@react-native-seoul/kakao-login';
-import {postLoginUser} from '@/apis/user';
 import {getKakaoProfile} from '@/apis/social';
+import {postLoginUser} from '@/apis/user';
+import * as Kakao from '@react-native-seoul/kakao-login';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
-function HomeScreen() {
+function KakaoLogin() {
   const handleSignInKakao = async (): Promise<void> => {
-    KakaoLogin.login()
+    Kakao.login()
       .then(async result => {
         const idToken = result.idToken;
         const res = postLoginUser('KAKAO', idToken);
@@ -21,18 +21,16 @@ function HomeScreen() {
       });
   };
   return (
-    <SafeAreaView>
-      <TouchableOpacity
-        onPress={handleSignInKakao}
-        style={styles.button}
-        activeOpacity={0.8}>
-        <Text>카카오 로그인</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+    <TouchableOpacity
+      onPress={handleSignInKakao}
+      style={styles.button}
+      activeOpacity={0.8}>
+      <Text>카카오 로그인</Text>
+    </TouchableOpacity>
   );
 }
 
-export default HomeScreen;
+export default KakaoLogin;
 
 const styles = StyleSheet.create({
   button: {

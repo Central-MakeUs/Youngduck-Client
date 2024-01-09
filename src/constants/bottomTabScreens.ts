@@ -1,5 +1,5 @@
 const enum bottomTabScreens {
-  HomeScreen = 'HomeScreen',
+  LoginScreen = 'LoginScreen',
 }
 
 export default bottomTabScreens;

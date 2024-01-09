@@ -1,5 +1,5 @@
 import bottomTabScreens from '@/constants/bottomTabScreens';
-import HomeScreen from '@/screens/HomeScreen';
+import LoginScreen from '@/screens/LoginScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 function BottomTabNavigator() {
@@ -7,8 +7,8 @@ function BottomTabNavigator() {
   return (
     <BottomTab.Navigator>
       <BottomTab.Screen
-        name={bottomTabScreens.HomeScreen}
-        component={HomeScreen}
+        name={bottomTabScreens.LoginScreen}
+        component={LoginScreen}
       />
     </BottomTab.Navigator>
   );
