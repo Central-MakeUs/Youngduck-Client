@@ -3,4 +3,5 @@ export interface SvgIconProps {
   height?: number;
   //fill?: KeyOfPalette;
   fill?: any;
+  onPress?: () => void;
 }

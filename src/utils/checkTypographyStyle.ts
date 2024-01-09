@@ -1,4 +1,5 @@
-import text, {KeyofText} from '@/styles/texts';
+import text from '@/styles/texts';
+import {KeyofText} from '@/types/typography';
 
 function checkTypographyStyle(style: KeyofText) {
   switch (style) {
@@ -24,6 +25,10 @@ function checkTypographyStyle(style: KeyofText) {
       return text.Chips2;
     case 'Caption':
       return text.Caption;
+    case 'Subtitle1':
+      return text.Subtitle1;
+    case 'Subtitle2':
+      return text.Subtitle2;
     default:
       console.log('something went wrong!');
       break;

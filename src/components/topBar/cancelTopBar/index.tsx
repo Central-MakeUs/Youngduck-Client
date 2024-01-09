@@ -3,39 +3,36 @@ import Typography from '@/components/Typography';
 import palette from '@/styles/colors';
 import {StyleSheet, View} from 'react-native';
 
-interface BackMenuTopBarProps {
+interface CancelTopBarProps {
   text: string;
-  goBack: () => void;
   onPress: () => void;
 }
-const BackMenuTopBar = ({text, goBack, onPress}: BackMenuTopBarProps) => {
+
+const CancelTopBar = ({text, onPress}: CancelTopBarProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <SvgIcons.BackArrowIcon onPress={goBack} />
-        <Typography style="Subtitle2" color={palette.Another.Black} ml={8}>
+        <Typography style="Label1" color={palette.Another.Black}>
           {text}
         </Typography>
       </View>
-      <SvgIcons.MenuIcon onPress={onPress} />
+      <SvgIcons.CancelIcon onPress={onPress} />
     </View>
   );
 };
-export default BackMenuTopBar;
+export default CancelTopBar;
 
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    paddingVertical: 16,
     paddingHorizontal: 16,
-    paddingVertical: 18,
   },
   content: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
+    flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
   },
 });

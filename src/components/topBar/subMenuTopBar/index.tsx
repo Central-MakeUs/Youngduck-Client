@@ -1,31 +1,33 @@
 import SvgIcons from '@/assets/svgIcons';
 import Typography from '@/components/Typography';
 import palette from '@/styles/colors';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
-interface MenuTopBarProps {
+interface SubMenuTopBarProps {
   text: string;
-  onPress: () => void;
+  goback: () => void;
 }
-const MenuTopBar = ({text, onPress}: MenuTopBarProps) => {
+
+const SubMenuTopBar = ({text, goback}: SubMenuTopBarProps) => {
   return (
     <View style={styles.container}>
-      <Typography style="Title1" color={palette.Text.Strong}>
+      <Typography style="Label1" color={palette.Text.Normal}>
         {text}
       </Typography>
-      <SvgIcons.MenuIcon onPress={onPress} />
+      <SvgIcons.RightArrowIcon onPress={goback} />
     </View>
   );
 };
-export default MenuTopBar;
+export default SubMenuTopBar;
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
+    paddingVertical: 8,
     paddingHorizontal: 16,
-    paddingVertical: 16,
+    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    width: '100%',
     justifyContent: 'space-between',
   },
 });

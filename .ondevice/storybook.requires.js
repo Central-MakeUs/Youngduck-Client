@@ -56,6 +56,10 @@ const getStories = () => {
     './src/components/textInput/TextInput.stories.tsx': require('../src/components/textInput/TextInput.stories.tsx'),
     './src/components/topBar/menuTopBar/MenuTopBar.stories.tsx': require('../src/components/topBar/menuTopBar/MenuTopBar.stories.tsx'),
     './src/components/topBar/backMenuTopBar/BackMenuTopBar.stories.tsx': require('../src/components/topBar/backMenuTopBar/BackMenuTopBar.stories.tsx'),
+    './src/components/topBar/subMenuTopBar/SubMenuTopBar.stories.tsx': require('../src/components/topBar/subMenuTopBar/SubMenuTopBar.stories.tsx'),
+    './src/components/topBar/cancelTopBar/CancelTopBar.stories.tsx': require('../src/components/topBar/cancelTopBar/CancelTopBar.stories.tsx'),
+    './src/components/topBar/titleTopBar/TitleTopBar.stories.tsx': require('../src/components/topBar/titleTopBar/TitleTopBar.stories.tsx'),
+    './src/components/topBar/subTitleTopBar/SubTitleTopBar.stories.tsx': require('../src/components/topBar/subTitleTopBar/SubTitleTopBar.stories.tsx'),
   };
 };
 
