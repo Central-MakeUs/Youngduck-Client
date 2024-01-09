@@ -12,6 +12,7 @@ export type ButtonProps = {
   children: React.ReactNode | string;
   variant?: IVariant;
   disabled?: boolean;
+  width?: string;
 } & TouchableOpacityProps;
 
 export type ButtonStyle = {
@@ -39,12 +40,18 @@ export const Button = ({
   onPress,
   disabled = false,
   variant = 'primary',
+  width = '100%',
   ...props
 }: ButtonProps) => {
   return (
     <TouchableOpacity
       {...props}
-      style={[styles.button, styleButton[variant], disabled && styles.disabled]}
+      style={[
+        {width: width},
+        styles.button,
+        styleButton[variant],
+        disabled && styles.disabled,
+      ]}
       onPress={onPress}
       activeOpacity={0.8}
       disabled={disabled}>
@@ -74,7 +81,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 12,
     alignItems: 'center',
-    width: '100%',
   },
   disabled: {
     backgroundColor: palette.Fill.Disable,

@@ -68,6 +68,8 @@ const getStories = () => {
     './src/components/topBar/subTitleTopBar/SubTitleTopBar.stories.tsx': require('../src/components/topBar/subTitleTopBar/SubTitleTopBar.stories.tsx'),
     // BottomSheet 컴포넌트
     './src/components/bottomSheet/BottomSheet.stories.tsx': require('../src/components/bottomSheet/BottomSheet.stories.tsx'),
+    // Modal 컴포넌트
+    './src/components/modal/Modal.stories.tsx': require('../src/components/modal/Modal.stories.tsx'),
   };
 };
 
