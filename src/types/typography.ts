@@ -4,7 +4,8 @@ import {ValueOfTextColor} from './color';
 export interface ITypography {
   style: KeyofText;
   children: string;
-  color?: ValueOfTextColor;
+  //color?: ValueOfTextColor;
+  color?: string;
   m?: number;
   mt?: number;
   mr?: number;
