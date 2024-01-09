@@ -1,43 +1,95 @@
-import {ITextInput} from '@/types/textInput';
-import {useCallback} from 'react';
-import {TextInput as Input, StyleSheet} from 'react-native';
+import {TextInput as Input, StyleSheet, View} from 'react-native';
+import Typography from '../typography';
+import palette from '@/styles/colors';
+import {ITextInputTypes} from '@/types/textInput';
+import useFocus from '@/hooks/useFocus';
+import {useEffect} from 'react';
 
 interface TextInputProps {
-  input: string;
+  value: string;
   placeholder: string;
-  setInput: (value: string) => void;
-  type: ITextInput;
+  onChangeInput: (value: string) => void;
+  title: string;
+  content: string;
+  maxLength: number;
 }
-const TextInput = ({input, placeholder, setInput, type}: TextInputProps) => {
-  const onChangeInput = useCallback((text: string) => {
-    setInput(text);
-  }, []);
 
-  const textInputStyles: Record<ITextInput, any> = {
-    default: {
-      borderColor: '#E6E6E5',
-    },
-    active: {
-      borderColor: '#FFCC00',
-    },
-    error: {
-      borderColor: '#EE2B2B',
-    },
-  };
+interface TextInputStyle {
+  borderColor: string;
+  titleColor?: string;
+  contentColor?: string;
+}
+
+const textInputStyles: Record<ITextInputTypes, TextInputStyle> = {
+  default: {
+    borderColor: palette.Line.Normal,
+    titleColor: palette.Text.Alternative,
+    contentColor: palette.Text.Alternative,
+  },
+  writed: {
+    borderColor: palette.Line.Normal,
+    titleColor: palette.Text.Strong,
+    contentColor: palette.Text.Alternative,
+  },
+  caution: {
+    borderColor: palette.State.Point,
+    titleColor: palette.State.Point,
+    contentColor: palette.State.Point,
+  },
+  active: {
+    borderColor: palette.Primary.Normal,
+    titleColor: palette.Text.Strong,
+    contentColor: palette.Text.Alternative,
+  },
+};
+
+const TextInput = ({
+  value,
+  placeholder,
+  onChangeInput,
+  title,
+  content,
+  maxLength,
+}: TextInputProps) => {
+  const {type, onFocus, onBlur, onError} = useFocus();
+
+  useEffect(() => {
+    onBlur(value);
+    if (value.length > maxLength) {
+      onError();
+    }
+  }, [value]);
 
   return (
-    <Input
-      style={StyleSheet.compose(styles.input, textInputStyles[type])}
-      placeholder={placeholder}
-      onChangeText={onChangeInput}
-      value={input}
-      importantForAutofill="yes"
-      blurOnSubmit={false}
-      clearButtonMode="while-editing"
-      placeholderTextColor={'#C3C3C1'}
-    />
+    <View>
+      <Typography
+        style="Label2"
+        color={textInputStyles[type].titleColor}
+        mb={4}>
+        {title}
+      </Typography>
+      <Input
+        style={[styles.input, {borderColor: textInputStyles[type].borderColor}]}
+        placeholder={placeholder}
+        onChangeText={onChangeInput}
+        value={value}
+        onFocus={() => onFocus()}
+        onBlur={() => onBlur(value)}
+        importantForAutofill="yes"
+        blurOnSubmit={false}
+        clearButtonMode="while-editing"
+        placeholderTextColor={palette.Text.Assistive}
+      />
+      <Typography
+        style="Chips1"
+        color={textInputStyles[type].contentColor}
+        mt={4}>
+        {content}
+      </Typography>
+    </View>
   );
 };
+
 export default TextInput;
 
 const styles = StyleSheet.create({
@@ -48,6 +100,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#E6E6E5',
   },
 });

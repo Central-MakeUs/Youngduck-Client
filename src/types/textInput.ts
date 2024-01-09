@@ -1,1 +1,2 @@
-export type ITextInput = 'default' | 'error' | 'active';
+export type ITextInput = 'default' | 'writed' | 'caution';
+export type ITextInputTypes = 'default' | 'writed' | 'caution' | 'active';

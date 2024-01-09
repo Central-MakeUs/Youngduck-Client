@@ -1,29 +1,26 @@
-import {ComponentMeta, ComponentStory} from '@storybook/react';
+import {useCallback, useState} from 'react';
+import {storiesOf} from '@storybook/react-native';
 import TextInput from '.';
-import {useState} from 'react';
-import {ITextInput} from '@/types/textInput';
 
-export default {
-  title: 'components/TextInput',
-  component: TextInput,
-} as ComponentMeta<typeof TextInput>;
-
-const Template: ComponentStory<typeof TextInput> = args => {
+const TextInputTest = () => {
   const [input, setInput] = useState<string>('');
-  return <TextInput {...args} setInput={setInput} input={input} />;
+
+  const onChangeInput = useCallback((text: string) => {
+    setInput(text);
+  }, []);
+
+  return (
+    <TextInput
+      value={input}
+      placeholder="입력해주세용"
+      onChangeInput={onChangeInput}
+      maxLength={5}
+      title="텍스트 박스"
+      content="텍스트 박스"
+    />
+  );
 };
 
-export const Default: ComponentStory<typeof TextInput> = Template.bind({});
-Default.args = {
-  type: 'default' as ITextInput,
-};
-
-export const Active: ComponentStory<typeof TextInput> = Template.bind({});
-Active.args = {
-  type: 'active' as ITextInput,
-};
-
-export const Error: ComponentStory<typeof TextInput> = Template.bind({});
-Error.args = {
-  type: 'error' as ITextInput,
-};
+storiesOf('components/TextInpu', module).add('with type', () => (
+  <TextInputTest />
+));
