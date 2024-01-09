@@ -30,6 +30,7 @@
     "react-native": "0.71.4",
     "react-native-calendars": "^1.1303.0",
     "react-native-config": "^1.5.1",
+    "react-native-linear-gradient": "^2.8.3",
     "react-native-safe-area-context": "^4.8.2",
     "react-native-screens": "^3.29.0",
     "react-native-splash-screen": "^3.3.0",
