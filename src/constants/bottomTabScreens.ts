@@ -1,5 +1,7 @@
 const enum bottomTabScreens {
-  LoginScreen = 'LoginScreen',
+  ScreeningScreen = 'ScreeningScreen',
+  HomeScreen = 'HomeScreen',
+  PopcornPartyScreen = 'PopcornPartyScreen',
 }
 
 export default bottomTabScreens;
