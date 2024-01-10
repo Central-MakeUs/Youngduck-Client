@@ -1,10 +1,11 @@
 // stories/MyButton.stories.tsx
 import {ComponentMeta, ComponentStory} from '@storybook/react';
 import {Button} from '.';
-import {IVariant} from '@/types/button';
+
 import {View} from 'react-native';
 import SvgIcons from '@/assets/svgIcons';
 import Typography from '../typography';
+import {IVariant} from '@/types/ui';
 
 // 어떤 컴포넌트의 story 인지, 어떤 설정으로 렌더링할지 정의
 export default {
@@ -39,6 +40,7 @@ Disabled.args = {
   disabled: true,
 };
 
+// svg 포함한 children 형식 테스트
 export const Viewchild: ComponentStory<typeof Button> = Template.bind({});
 Viewchild.args = {
   children: (

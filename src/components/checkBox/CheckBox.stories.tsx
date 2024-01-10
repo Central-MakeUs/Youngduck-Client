@@ -1,6 +1,6 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react';
 import CheckBox from '.';
-import {ICheckBox} from '@/types/checkBox';
+import {ICheckBox} from '@/types/ui';
 
 // 어떤 컴포넌트의 story 인지, 어떤 설정으로 렌더링할지 정의
 export default {

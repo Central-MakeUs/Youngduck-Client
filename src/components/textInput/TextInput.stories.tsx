@@ -15,8 +15,8 @@ const TextInputTest = () => {
       placeholder="입력해주세용"
       onChangeInput={onChangeInput}
       maxLength={5}
-      title="텍스트 박스"
-      content="텍스트 박스"
+      title="닉네임"
+      content="닉네임을 입력해주세요"
     />
   );
 };

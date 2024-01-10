@@ -1,6 +1,6 @@
 import {ComponentMeta, ComponentStory} from '@storybook/react';
 import Chip from '.';
-import {IChip} from '@/types/chip';
+import {IChip} from '@/types/ui';
 
 export default {
   title: 'components/Chip',

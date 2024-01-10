@@ -1,9 +1,10 @@
 import {TextInput as Input, StyleSheet, View} from 'react-native';
 import Typography from '../typography';
 import palette from '@/styles/colors';
-import {ITextInputTypes} from '@/types/textInput';
+
 import useFocus from '@/hooks/useFocus';
 import {useEffect} from 'react';
+import {ITextInput} from '@/types/ui';
 
 interface TextInputProps {
   value: string;
@@ -20,7 +21,7 @@ interface TextInputStyle {
   contentColor?: string;
 }
 
-const textInputStyles: Record<ITextInputTypes, TextInputStyle> = {
+const textInputStyles: Record<ITextInput, TextInputStyle> = {
   default: {
     borderColor: palette.Line.Normal,
     titleColor: palette.Text.Alternative,
@@ -53,6 +54,10 @@ const TextInput = ({
 }: TextInputProps) => {
   const {type, onFocus, onBlur, onError} = useFocus();
 
+  console.log(type);
+
+  const errorMessage = `${maxLength}자 이하의 ${title}을 입력해주세요`;
+
   useEffect(() => {
     onBlur(value);
     if (value.length > maxLength) {
@@ -80,12 +85,27 @@ const TextInput = ({
         clearButtonMode="while-editing"
         placeholderTextColor={palette.Text.Assistive}
       />
-      <Typography
-        style="Chips1"
-        color={textInputStyles[type].contentColor}
-        mt={4}>
-        {content}
-      </Typography>
+      {(() => {
+        if (type === 'caution') {
+          return (
+            <Typography
+              style="Chips1"
+              color={textInputStyles[type].contentColor}
+              mt={4}>
+              {errorMessage}
+            </Typography>
+          );
+        } else if (type === 'active') {
+          return (
+            <Typography
+              style="Chips1"
+              color={textInputStyles[type].contentColor}
+              mt={4}>
+              {content}
+            </Typography>
+          );
+        }
+      })()}
     </View>
   );
 };

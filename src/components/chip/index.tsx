@@ -1,7 +1,7 @@
-import {IChip} from '@/types/chip';
 import {StyleSheet, View} from 'react-native';
 import Typography from '../typography';
 import palette from '@/styles/colors';
+import {IChip} from '@/types/ui';
 
 interface ChipProps {
   state?: IChip;
@@ -13,17 +13,18 @@ interface ChipStyle {
   textColor: string;
 }
 
+const chipStyle: Record<IChip, ChipStyle> = {
+  primary: {
+    backgroundColor: palette.Primary.Assistive,
+    textColor: palette.Primary.Dark,
+  },
+  default: {
+    backgroundColor: palette.Fill.Normal,
+    textColor: palette.Text.Alternative,
+  },
+};
+
 const Chip = ({state = 'primary', text}: ChipProps) => {
-  const chipStyle: Record<IChip, ChipStyle> = {
-    primary: {
-      backgroundColor: palette.Primary.Assistive,
-      textColor: palette.Primary.Dark,
-    },
-    default: {
-      backgroundColor: palette.Fill.Normal,
-      textColor: palette.Text.Alternative,
-    },
-  };
   return (
     <View style={StyleSheet.compose(styles.container, chipStyle[state])}>
       <Typography style="Label3" color={chipStyle[state].textColor}>
