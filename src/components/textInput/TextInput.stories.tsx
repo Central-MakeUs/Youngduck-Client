@@ -21,6 +21,6 @@ const TextInputTest = () => {
   );
 };
 
-storiesOf('components/TextInpu', module).add('with type', () => (
+storiesOf('components/TextInput', module).add('with type', () => (
   <TextInputTest />
 ));

@@ -1,6 +1,7 @@
 import palette from '@/styles/theme/color';
 import {useEffect, useState} from 'react';
-import {Animated, Easing, StyleSheet, Pressable} from 'react-native';
+import {Animated, Easing, Pressable} from 'react-native';
+import {styles} from './Switch.style';
 
 type Props = {
   onPress: () => void;
@@ -43,18 +44,3 @@ const Switch = ({onPress, isOn}: Props) => {
 };
 
 export default Switch;
-
-const styles = StyleSheet.create({
-  toggleContainer: {
-    width: 40,
-    height: 24,
-    borderRadius: 99,
-    justifyContent: 'center',
-  },
-  toggleWheel: {
-    width: 16,
-    height: 16,
-    backgroundColor: palette.Another.White,
-    borderRadius: 99,
-  },
-});

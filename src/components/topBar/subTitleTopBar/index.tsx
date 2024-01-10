@@ -2,7 +2,8 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 
 import {CommonTextProps} from '@/types/ui';
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
+import {styles} from './SubTitleTopBar.style';
 
 interface SubTitleTopBarProps extends CommonTextProps {
   subTitle: string;
@@ -20,12 +21,3 @@ const SubTitleTopBar = ({text, subTitle}: SubTitleTopBarProps) => {
   );
 };
 export default SubTitleTopBar;
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    alignItems: 'flex-start',
-    paddingVertical: 16,
-    paddingLeft: 16,
-  },
-});

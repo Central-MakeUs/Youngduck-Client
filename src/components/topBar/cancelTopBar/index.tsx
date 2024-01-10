@@ -3,7 +3,8 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 
 import {CommonTextProps} from '@/types/ui';
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
+import {styles} from './CancelTopBar.style';
 
 interface CancelTopBarProps extends CommonTextProps {
   onPress: () => void;
@@ -22,18 +23,3 @@ const CancelTopBar = ({text, onPress}: CancelTopBarProps) => {
   );
 };
 export default CancelTopBar;
-
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 16,
-    paddingHorizontal: 16,
-  },
-  content: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});

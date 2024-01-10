@@ -2,27 +2,11 @@ import {StyleSheet, View} from 'react-native';
 import Typography from '../typography';
 
 import {CommonTextProps, IChip} from '@/types/ui';
-import palette from '@/styles/theme/color';
+import {chipStyle, styles} from './Chip.style';
 
 interface ChipProps extends CommonTextProps {
   state?: IChip;
 }
-
-interface ChipStyle {
-  backgroundColor: string;
-  textColor: string;
-}
-
-const chipStyle: Record<IChip, ChipStyle> = {
-  primary: {
-    backgroundColor: palette.Primary.Assistive,
-    textColor: palette.Primary.Dark,
-  },
-  default: {
-    backgroundColor: palette.Fill.Normal,
-    textColor: palette.Text.Alternative,
-  },
-};
 
 const Chip = ({state = 'primary', text}: ChipProps) => {
   return (
@@ -34,13 +18,3 @@ const Chip = ({state = 'primary', text}: ChipProps) => {
   );
 };
 export default Chip;
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
-    alignItems: 'center',
-    alignSelf: 'flex-start',
-  },
-});

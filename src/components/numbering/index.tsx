@@ -1,15 +1,16 @@
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
 import Typography from '../typography';
 
 import {CommonTextProps} from '@/types/ui';
 import palette from '@/styles/theme/color';
+import {styles} from './Numbering.style';
 
 const Numbering = ({text}: CommonTextProps) => {
   return (
     <View
       style={[
-        stlyes.container,
-        text.length === 1 ? {paddingHorizontal: 8} : {paddingHorizontal: 4},
+        styles.container,
+        text.length === 1 ? styles.onePadding : styles.twoPadding,
       ]}>
       <Typography style="Label1" color={palette.Another.White}>
         {text}
@@ -18,12 +19,3 @@ const Numbering = ({text}: CommonTextProps) => {
   );
 };
 export default Numbering;
-
-const stlyes = StyleSheet.create({
-  container: {
-    borderRadius: 99,
-    backgroundColor: palette.Primary.Normal,
-    alignItems: 'center',
-    alignSelf: 'flex-start',
-  },
-});

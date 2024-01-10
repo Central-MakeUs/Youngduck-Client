@@ -1,12 +1,9 @@
-import {
-  StyleSheet,
-  TouchableOpacity,
-  TouchableOpacityProps,
-} from 'react-native';
+import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
 
 import Typography from '../typography';
 import {IVariant} from '@/types/ui';
 import palette from '@/styles/theme/color';
+import {styleButton, styles} from './Button.style';
 
 export type ButtonProps = {
   onPress: () => void;
@@ -16,27 +13,7 @@ export type ButtonProps = {
   width?: string;
 } & TouchableOpacityProps;
 
-export type ButtonStyle = {
-  backgroundColor: string;
-  textColor: string;
-};
-
-const styleButton: Record<IVariant, ButtonStyle> = {
-  primary: {
-    backgroundColor: palette.Primary.Normal,
-    textColor: palette.Text.Normal,
-  },
-  secondary: {
-    backgroundColor: palette.Primary.Alternative,
-    textColor: palette.Primary.Dark,
-  },
-  default: {
-    backgroundColor: palette.Fill.Strong,
-    textColor: palette.Text.Normal,
-  },
-};
-
-export const Button = ({
+const Button = ({
   children,
   onPress,
   disabled = false,
@@ -69,7 +46,8 @@ export const Button = ({
               {children}
             </Typography>
           );
-        } else {
+        }
+        {
           return children;
         }
       })()}
@@ -77,13 +55,4 @@ export const Button = ({
   );
 };
 
-const styles = StyleSheet.create({
-  button: {
-    borderRadius: 8,
-    paddingVertical: 12,
-    alignItems: 'center',
-  },
-  disabled: {
-    backgroundColor: palette.Fill.Disable,
-  },
-});
+export default Button;

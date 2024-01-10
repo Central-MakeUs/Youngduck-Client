@@ -3,7 +3,8 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 
 import {CommonTextProps} from '@/types/ui';
-import {View, StyleSheet} from 'react-native';
+import {View} from 'react-native';
+import {styles} from './MenuTopBar.style';
 
 interface MenuTopBarProps extends CommonTextProps {
   onPress: () => void;
@@ -19,14 +20,3 @@ const MenuTopBar = ({text, onPress}: MenuTopBarProps) => {
   );
 };
 export default MenuTopBar;
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '100%',
-    justifyContent: 'space-between',
-  },
-});

@@ -3,7 +3,8 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 
 import {CommonTextProps} from '@/types/ui';
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
+import {styles} from './BackMenuTopBar.style';
 
 interface BackMenuTopBarProps extends CommonTextProps {
   goBack: () => void;
@@ -23,20 +24,3 @@ const BackMenuTopBar = ({text, goBack, onPress}: BackMenuTopBarProps) => {
   );
 };
 export default BackMenuTopBar;
-
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 18,
-  },
-  content: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

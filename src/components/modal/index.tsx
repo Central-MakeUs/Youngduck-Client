@@ -1,9 +1,11 @@
-import {View, StyleSheet} from 'react-native';
+import {View} from 'react-native';
 import Typography from '../typography';
 
 import ModalContainer from 'react-native-modal';
-import {Button} from '../button';
+
 import palette from '@/styles/theme/color';
+import {styles} from './Modal.style';
+import Button from '../button';
 
 interface ModalProps {
   title: string;
@@ -37,24 +39,3 @@ const Modal = ({title, content, isVisible, onClose, onPress}: ModalProps) => {
 };
 
 export default Modal;
-
-const styles = StyleSheet.create({
-  modal: {
-    backgroundColor: palette.Another.White,
-    borderRadius: 16,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: palette.Primary.Normal,
-    paddingTop: 24,
-    paddingBottom: 16,
-    width: '100%',
-  },
-  container: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    marginHorizontal: 32,
-  },
-});

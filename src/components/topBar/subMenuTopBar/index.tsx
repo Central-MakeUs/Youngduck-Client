@@ -3,7 +3,8 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 
 import {CommonTextProps} from '@/types/ui';
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
+import {styles} from './SubMenuTopBar.style';
 
 interface SubMenuTopBarProps extends CommonTextProps {
   goback: () => void;
@@ -20,15 +21,3 @@ const SubMenuTopBar = ({text, goback}: SubMenuTopBarProps) => {
   );
 };
 export default SubMenuTopBar;
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-});

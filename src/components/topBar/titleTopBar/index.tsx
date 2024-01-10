@@ -2,7 +2,8 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 
 import {CommonTextProps} from '@/types/ui';
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
+import {styles} from './TitleTopBar.style';
 
 const TitleTopBar = ({text}: CommonTextProps) => {
   return (
@@ -14,12 +15,3 @@ const TitleTopBar = ({text}: CommonTextProps) => {
   );
 };
 export default TitleTopBar;
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    paddingVertical: 8,
-    paddingLeft: 16,
-    alignItems: 'flex-start',
-  },
-});
