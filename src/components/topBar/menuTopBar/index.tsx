@@ -1,10 +1,10 @@
 import SvgIcons from '@/assets/svgIcons';
 import Typography from '@/components/typography';
 import palette from '@/styles/colors';
+import {CommonTextProps} from '@/types/ui';
 import {View, StyleSheet} from 'react-native';
 
-interface MenuTopBarProps {
-  text: string;
+interface MenuTopBarProps extends CommonTextProps {
   onPress: () => void;
 }
 const MenuTopBar = ({text, onPress}: MenuTopBarProps) => {

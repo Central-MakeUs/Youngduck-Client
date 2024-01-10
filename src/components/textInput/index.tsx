@@ -54,8 +54,6 @@ const TextInput = ({
 }: TextInputProps) => {
   const {type, onFocus, onBlur, onError} = useFocus();
 
-  console.log(type);
-
   const errorMessage = `${maxLength}자 이하의 ${title}을 입력해주세요`;
 
   useEffect(() => {

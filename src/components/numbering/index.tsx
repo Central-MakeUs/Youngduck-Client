@@ -1,11 +1,9 @@
 import {StyleSheet, View} from 'react-native';
 import Typography from '../typography';
 import palette from '@/styles/colors';
+import {CommonTextProps} from '@/types/ui';
 
-interface NumberingProp {
-  text: string;
-}
-const Numbering = ({text}: NumberingProp) => {
+const Numbering = ({text}: CommonTextProps) => {
   return (
     <View
       style={[

@@ -1,9 +1,9 @@
 import Typography from '@/components/typography';
 import palette from '@/styles/colors';
+import {CommonTextProps} from '@/types/ui';
 import {StyleSheet, View} from 'react-native';
 
-interface SubTitleTopBarProps {
-  text: string;
+interface SubTitleTopBarProps extends CommonTextProps {
   subTitle: string;
 }
 const SubTitleTopBar = ({text, subTitle}: SubTitleTopBarProps) => {

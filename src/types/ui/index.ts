@@ -9,3 +9,7 @@ export type IChip = 'primary' | 'default';
 
 // textInput 타입 지정
 export type ITextInput = 'default' | 'writed' | 'caution' | 'active';
+
+export interface CommonTextProps {
+  text: string;
+}

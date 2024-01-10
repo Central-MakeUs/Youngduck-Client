@@ -1,10 +1,10 @@
 import SvgIcons from '@/assets/svgIcons';
 import Typography from '@/components/typography';
 import palette from '@/styles/colors';
+import {CommonTextProps} from '@/types/ui';
 import {StyleSheet, View} from 'react-native';
 
-interface SubMenuTopBarProps {
-  text: string;
+interface SubMenuTopBarProps extends CommonTextProps {
   goback: () => void;
 }
 
