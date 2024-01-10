@@ -1,5 +1,5 @@
+import text from '@/styles/texts';
 import {ITypography} from '@/types/typography';
-import checkTypographyStyle from '@/utils/checkTypographyStyle';
 import {Text} from 'react-native';
 
 function Typography({
@@ -14,11 +14,10 @@ function Typography({
   mx,
   my,
 }: ITypography) {
-  const styleType = checkTypographyStyle(style);
   return (
     <Text
       style={{
-        ...styleType,
+        ...text[style],
         color,
         marginTop: mt ? mt : undefined,
         marginRight: mr ? mr : undefined,
