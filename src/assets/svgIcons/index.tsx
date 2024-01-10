@@ -2,6 +2,7 @@ import palette from '@/styles/theme/color';
 import {SvgIconProps} from '@/types/ui/svgIcons';
 import {TouchableOpacity} from 'react-native';
 import {Path, Svg} from 'react-native-svg';
+import {styles} from './SvgIcon.style';
 
 const SvgIcons = {
   LineIcon: ({
@@ -42,9 +43,7 @@ const SvgIcons = {
     fill = palette.Text.Normal,
     onPress,
   }: SvgIconProps) => (
-    <TouchableOpacity
-      style={{paddingHorizontal: 8, paddingVertical: 5}}
-      onPress={onPress}>
+    <TouchableOpacity style={styles.arrow} onPress={onPress}>
       <Svg
         width={width}
         height={height}
@@ -63,9 +62,7 @@ const SvgIcons = {
     fill = palette.Text.Normal,
     onPress,
   }: SvgIconProps) => (
-    <TouchableOpacity
-      style={{paddingHorizontal: 8, paddingVertical: 5}}
-      onPress={onPress}>
+    <TouchableOpacity style={styles.arrow} onPress={onPress}>
       <Svg
         width={width}
         height={height}
@@ -84,9 +81,7 @@ const SvgIcons = {
     fill = palette.Text.Normal,
     onPress,
   }: SvgIconProps) => (
-    <TouchableOpacity
-      style={{paddingHorizontal: 8, paddingVertical: 5}}
-      onPress={onPress}>
+    <TouchableOpacity style={styles.arrow} onPress={onPress}>
       <Svg
         width={width}
         height={height}
@@ -107,9 +102,7 @@ const SvgIcons = {
     fill = palette.Text.Normal,
     onPress,
   }: SvgIconProps) => (
-    <TouchableOpacity
-      style={{paddingHorizontal: 5, paddingVertical: 5}}
-      onPress={onPress}>
+    <TouchableOpacity style={styles.cancel} onPress={onPress}>
       <Svg
         width={width}
         height={height}
