@@ -2,9 +2,13 @@ import {StyleSheet} from 'react-native';
 
 const kakaoLoginStyles = StyleSheet.create({
   button: {
-    backgroundColor: 'yellow',
+    backgroundColor: '#FFE600',
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 12,
+    flexDirection: 'row',
+    borderRadius: 8,
+    marginBottom: 12,
   },
 });
 

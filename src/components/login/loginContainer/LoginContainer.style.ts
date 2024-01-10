@@ -12,6 +12,7 @@ const loginContainerStyles = ({
       flex: 1,
       paddingTop: top,
       paddingBottom: bottom,
+      paddingHorizontal: 32,
     },
     image: {
       width: width,

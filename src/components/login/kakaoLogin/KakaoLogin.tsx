@@ -1,8 +1,10 @@
 import {getKakaoProfile} from '@/apis/social';
 import {postLoginUser} from '@/apis/user';
 import * as Kakao from '@react-native-seoul/kakao-login';
-import {Text, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import kakaoLoginStyles from './KakaoLogin.style';
+import Typography from '@/components/Typography';
+import KakoLogo from '@/assets/icons/kakao-logo.svg';
 
 function KakaoLogin() {
   const handleSignInKakao = async (): Promise<void> => {
@@ -26,7 +28,10 @@ function KakaoLogin() {
       onPress={handleSignInKakao}
       style={kakaoLoginStyles.button}
       activeOpacity={0.8}>
-      <Text>카카오 로그인</Text>
+      <KakoLogo />
+      <Typography typography="Body1" ml={16}>
+        카카오 로그인
+      </Typography>
     </TouchableOpacity>
   );
 }
