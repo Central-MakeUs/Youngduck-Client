@@ -13,7 +13,12 @@ const loginContainerStyles = ({
       paddingTop: top,
       paddingBottom: bottom,
     },
-    image: {width: width, height: height, position: 'absolute', top: 0},
+    image: {
+      width: width,
+      height: height,
+      position: 'absolute',
+      resizeMode: 'stretch',
+    },
   });
 
 export default loginContainerStyles;
