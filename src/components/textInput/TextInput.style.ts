@@ -2,7 +2,7 @@ import palette from '@/styles/theme/color';
 import {ITextInput, TextInputStyle} from '@/types/ui';
 import {StyleSheet} from 'react-native';
 
-export const textInputStyles: Record<ITextInput, TextInputStyle> = {
+export const textInputTypes: Record<ITextInput, TextInputStyle> = {
   default: {
     borderColor: palette.Line.Normal,
     titleColor: palette.Text.Alternative,
@@ -25,7 +25,7 @@ export const textInputStyles: Record<ITextInput, TextInputStyle> = {
   },
 };
 
-export const styles = StyleSheet.create({
+export const textInputStyles = StyleSheet.create({
   input: {
     width: '100%',
     height: 40,

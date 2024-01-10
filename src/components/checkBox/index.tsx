@@ -2,7 +2,7 @@ import SvgIcons from '@/assets/svgIcons';
 import {ICheckBox} from '@/types/ui';
 
 import {Pressable, StyleSheet} from 'react-native';
-import {styles} from './CheckBox.style';
+import {checkBoxStyles} from './CheckBox.style';
 
 interface CheckBoxProps {
   onPress: () => void;
@@ -14,8 +14,11 @@ const CheckBox = ({onPress, state}: CheckBoxProps) => {
     <Pressable
       style={
         state === 'off'
-          ? styles.container
-          : StyleSheet.compose(styles.container, styles.activeContainer)
+          ? checkBoxStyles.container
+          : StyleSheet.compose(
+              checkBoxStyles.container,
+              checkBoxStyles.activeContainer,
+            )
       }
       onPress={onPress}>
       {state === 'on' && <SvgIcons.RectangleIcon />}

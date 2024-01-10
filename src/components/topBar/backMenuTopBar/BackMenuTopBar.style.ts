@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-export const styles = StyleSheet.create({
+export const backMenuStyles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',

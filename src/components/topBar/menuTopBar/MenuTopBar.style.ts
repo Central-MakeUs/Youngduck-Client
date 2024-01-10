@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-export const styles = StyleSheet.create({
+export const menuStyles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     paddingVertical: 16,

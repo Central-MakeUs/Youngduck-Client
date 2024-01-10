@@ -5,7 +5,7 @@ import useFocus from '@/hooks/useFocus';
 import {useEffect} from 'react';
 
 import palette from '@/styles/theme/color';
-import {styles, textInputStyles} from './TextInput.style';
+import {textInputStyles, textInputTypes} from './TextInput.style';
 
 interface TextInputProps {
   value: string;
@@ -37,14 +37,14 @@ const TextInput = ({
 
   return (
     <View>
-      <Typography
-        style="Label2"
-        color={textInputStyles[type].titleColor}
-        mb={4}>
+      <Typography style="Label2" color={textInputTypes[type].titleColor} mb={4}>
         {title}
       </Typography>
       <Input
-        style={[styles.input, {borderColor: textInputStyles[type].borderColor}]}
+        style={[
+          textInputStyles.input,
+          {borderColor: textInputTypes[type].borderColor},
+        ]}
         placeholder={placeholder}
         onChangeText={onChangeInput}
         value={value}
@@ -60,7 +60,7 @@ const TextInput = ({
           return (
             <Typography
               style="Chips1"
-              color={textInputStyles[type].contentColor}
+              color={textInputTypes[type].contentColor}
               mt={4}>
               {errorMessage}
             </Typography>
@@ -69,7 +69,7 @@ const TextInput = ({
           return (
             <Typography
               style="Chips1"
-              color={textInputStyles[type].contentColor}
+              color={textInputTypes[type].contentColor}
               mt={4}>
               {content}
             </Typography>

@@ -13,7 +13,7 @@ export const chipStyle: Record<IChip, DetailStyle> = {
   },
 };
 
-export const styles = StyleSheet.create({
+export const chipStyles = StyleSheet.create({
   container: {
     paddingHorizontal: 8,
     paddingVertical: 4,

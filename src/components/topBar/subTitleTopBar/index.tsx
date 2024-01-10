@@ -3,14 +3,14 @@ import palette from '@/styles/theme/color';
 
 import {CommonTextProps} from '@/types/ui';
 import {View} from 'react-native';
-import {styles} from './SubTitleTopBar.style';
+import {subTitleStyles} from './SubTitleTopBar.style';
 
 interface SubTitleTopBarProps extends CommonTextProps {
   subTitle: string;
 }
 const SubTitleTopBar = ({text, subTitle}: SubTitleTopBarProps) => {
   return (
-    <View style={styles.container}>
+    <View style={subTitleStyles.container}>
       <Typography style="Subtitle2" color={palette.Text.Strong}>
         {text}
       </Typography>

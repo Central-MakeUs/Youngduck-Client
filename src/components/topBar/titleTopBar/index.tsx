@@ -3,11 +3,11 @@ import palette from '@/styles/theme/color';
 
 import {CommonTextProps} from '@/types/ui';
 import {View} from 'react-native';
-import {styles} from './TitleTopBar.style';
+import {titleStyles} from './TitleTopBar.style';
 
 const TitleTopBar = ({text}: CommonTextProps) => {
   return (
-    <View style={styles.container}>
+    <View style={titleStyles.container}>
       <Typography style="Subtitle2" color={palette.Another.Black}>
         {text}
       </Typography>

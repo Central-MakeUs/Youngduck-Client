@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-export const styles = StyleSheet.create({
+export const titleStyles = StyleSheet.create({
   container: {
     width: '100%',
     paddingVertical: 8,

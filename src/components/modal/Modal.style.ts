@@ -1,7 +1,7 @@
 import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
-export const styles = StyleSheet.create({
+export const modalStyles = StyleSheet.create({
   modal: {
     backgroundColor: palette.Another.White,
     borderRadius: 16,

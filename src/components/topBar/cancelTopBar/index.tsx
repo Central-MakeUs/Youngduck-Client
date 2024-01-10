@@ -4,7 +4,7 @@ import palette from '@/styles/theme/color';
 
 import {CommonTextProps} from '@/types/ui';
 import {View} from 'react-native';
-import {styles} from './CancelTopBar.style';
+import {cancelStyles} from './CancelTopBar.style';
 
 interface CancelTopBarProps extends CommonTextProps {
   onPress: () => void;
@@ -12,8 +12,8 @@ interface CancelTopBarProps extends CommonTextProps {
 
 const CancelTopBar = ({text, onPress}: CancelTopBarProps) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
+    <View style={cancelStyles.container}>
+      <View style={cancelStyles.content}>
         <Typography style="Label1" color={palette.Another.Black}>
           {text}
         </Typography>

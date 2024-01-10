@@ -3,7 +3,7 @@ import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
 import Typography from '../typography';
 import {IVariant} from '@/types/ui';
 import palette from '@/styles/theme/color';
-import {styleButton, styles} from './Button.style';
+import {styleButton, buttonStyles} from './Button.style';
 
 export type ButtonProps = {
   onPress: () => void;
@@ -26,9 +26,9 @@ const Button = ({
       {...props}
       style={[
         {width: width},
-        styles.button,
+        buttonStyles.button,
         styleButton[variant],
-        disabled && styles.disabled,
+        disabled && buttonStyles.disabled,
       ]}
       onPress={onPress}
       activeOpacity={0.8}

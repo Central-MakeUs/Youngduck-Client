@@ -4,7 +4,7 @@ import Typography from '../typography';
 import ModalContainer from 'react-native-modal';
 
 import palette from '@/styles/theme/color';
-import {styles} from './Modal.style';
+import {modalStyles} from './Modal.style';
 import Button from '../button';
 
 interface ModalProps {
@@ -18,14 +18,14 @@ interface ModalProps {
 const Modal = ({title, content, isVisible, onClose, onPress}: ModalProps) => {
   return (
     <ModalContainer isVisible={isVisible} onBackdropPress={onClose}>
-      <View style={styles.modal}>
+      <View style={modalStyles.modal}>
         <Typography style="Subtitle2" color={palette.Text.Strong}>
           {title}
         </Typography>
         <Typography style="Body1" color={palette.Text.Normal} mt={8} mb={16}>
           {content}
         </Typography>
-        <View style={styles.container}>
+        <View style={modalStyles.container}>
           <Button variant="default" onPress={onClose} width="50%">
             아니오
           </Button>

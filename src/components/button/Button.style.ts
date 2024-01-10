@@ -17,7 +17,7 @@ export const styleButton: Record<IVariant, DetailStyle> = {
   },
 };
 
-export const styles = StyleSheet.create({
+export const buttonStyles = StyleSheet.create({
   button: {
     borderRadius: 8,
     paddingVertical: 12,

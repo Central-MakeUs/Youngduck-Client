@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-export const styles = StyleSheet.create({
+export const subTitleStyles = StyleSheet.create({
   container: {
     width: '100%',
     alignItems: 'flex-start',

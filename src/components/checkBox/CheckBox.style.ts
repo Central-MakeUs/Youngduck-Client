@@ -1,7 +1,7 @@
 import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
-export const styles = StyleSheet.create({
+export const checkBoxStyles = StyleSheet.create({
   container: {
     borderWidth: 1,
     borderRadius: 4,

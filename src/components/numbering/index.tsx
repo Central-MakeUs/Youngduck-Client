@@ -3,14 +3,16 @@ import Typography from '../typography';
 
 import {CommonTextProps} from '@/types/ui';
 import palette from '@/styles/theme/color';
-import {styles} from './Numbering.style';
+import {numberingStyles} from './Numbering.style';
 
 const Numbering = ({text}: CommonTextProps) => {
   return (
     <View
       style={[
-        styles.container,
-        text.length === 1 ? styles.onePadding : styles.twoPadding,
+        numberingStyles.container,
+        text.length === 1
+          ? numberingStyles.onePadding
+          : numberingStyles.twoPadding,
       ]}>
       <Typography style="Label1" color={palette.Another.White}>
         {text}

@@ -1,7 +1,7 @@
 import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
-export const styles = StyleSheet.create({
+export const switchStyles = StyleSheet.create({
   toggleContainer: {
     width: 40,
     height: 24,

@@ -1,7 +1,7 @@
 import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
-export const styles = StyleSheet.create({
+export const numberingStyles = StyleSheet.create({
   container: {
     borderRadius: 99,
     backgroundColor: palette.Primary.Normal,

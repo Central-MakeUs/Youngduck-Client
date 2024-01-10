@@ -2,7 +2,7 @@ import {StyleSheet, View} from 'react-native';
 import Typography from '../typography';
 
 import {CommonTextProps, IChip} from '@/types/ui';
-import {chipStyle, styles} from './Chip.style';
+import {chipStyle, chipStyles} from './Chip.style';
 
 interface ChipProps extends CommonTextProps {
   state?: IChip;
@@ -10,7 +10,7 @@ interface ChipProps extends CommonTextProps {
 
 const Chip = ({state = 'primary', text}: ChipProps) => {
   return (
-    <View style={StyleSheet.compose(styles.container, chipStyle[state])}>
+    <View style={StyleSheet.compose(chipStyles.container, chipStyle[state])}>
       <Typography style="Label3" color={chipStyle[state].textColor}>
         {text}
       </Typography>

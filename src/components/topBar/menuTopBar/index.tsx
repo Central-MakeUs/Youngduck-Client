@@ -4,14 +4,14 @@ import palette from '@/styles/theme/color';
 
 import {CommonTextProps} from '@/types/ui';
 import {View} from 'react-native';
-import {styles} from './MenuTopBar.style';
+import {menuStyles} from './MenuTopBar.style';
 
 interface MenuTopBarProps extends CommonTextProps {
   onPress: () => void;
 }
 const MenuTopBar = ({text, onPress}: MenuTopBarProps) => {
   return (
-    <View style={styles.container}>
+    <View style={menuStyles.container}>
       <Typography style="Title1" color={palette.Text.Strong}>
         {text}
       </Typography>

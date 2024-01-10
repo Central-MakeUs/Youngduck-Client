@@ -4,7 +4,7 @@ import palette from '@/styles/theme/color';
 
 import {CommonTextProps} from '@/types/ui';
 import {View} from 'react-native';
-import {styles} from './SubMenuTopBar.style';
+import {subMenuStyles} from './SubMenuTopBar.style';
 
 interface SubMenuTopBarProps extends CommonTextProps {
   goback: () => void;
@@ -12,7 +12,7 @@ interface SubMenuTopBarProps extends CommonTextProps {
 
 const SubMenuTopBar = ({text, goback}: SubMenuTopBarProps) => {
   return (
-    <View style={styles.container}>
+    <View style={subMenuStyles.container}>
       <Typography style="Label1" color={palette.Text.Normal}>
         {text}
       </Typography>

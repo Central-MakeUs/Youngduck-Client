@@ -1,7 +1,7 @@
 import palette from '@/styles/theme/color';
 import {useEffect, useState} from 'react';
 import {Animated, Easing, Pressable} from 'react-native';
-import {styles} from './Switch.style';
+import {switchStyles} from './Switch.style';
 
 type Props = {
   onPress: () => void;
@@ -30,10 +30,10 @@ const Switch = ({onPress, isOn}: Props) => {
   return (
     <Pressable
       onPress={onPress}
-      style={[styles.toggleContainer, {backgroundColor: color}]}>
+      style={[switchStyles.toggleContainer, {backgroundColor: color}]}>
       <Animated.View
         style={[
-          styles.toggleWheel,
+          switchStyles.toggleWheel,
           {
             transform: [{translateX}],
           },
