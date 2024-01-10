@@ -14,6 +14,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-Youngduck-YoungduckTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-Youngduck-YoungduckTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		F50377AE2B4EB3980010FB4B /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = F50377AD2B4EB3980010FB4B /* Fonts */; };
 		F5A7F1B92B4BC1AD0039B26C /* SwiftBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A7F1B82B4BC1AD0039B26C /* SwiftBridge.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Youngduck/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-Youngduck-YoungduckTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Youngduck-YoungduckTests.release.xcconfig"; path = "Target Support Files/Pods-Youngduck-YoungduckTests/Pods-Youngduck-YoungduckTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F50377AD2B4EB3980010FB4B /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		F562C2B42B44775500AED450 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		F5A7F1B72B4BC1AC0039B26C /* Youngduck-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Youngduck-Bridging-Header.h"; sourceTree = "<group>"; };
 		F5A7F1B82B4BC1AD0039B26C /* SwiftBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBridge.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				F50377AD2B4EB3980010FB4B /* Fonts */,
 				F562C2B42B44775500AED450 /* Config.xcconfig */,
 				13B07FAE1A68108700A75B9A /* Youngduck */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -249,6 +252,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F50377AE2B4EB3980010FB4B /* Fonts in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
