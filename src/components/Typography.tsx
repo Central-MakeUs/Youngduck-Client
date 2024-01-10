@@ -3,6 +3,7 @@ import {ITypography} from '@/types/typography';
 import {Text} from 'react-native';
 
 function Typography({
+  typography,
   style,
   children,
   color,
@@ -14,10 +15,10 @@ function Typography({
   mx,
   my,
 }: ITypography) {
+  const selectedTypography = typography ? text[typography] : {};
   return (
     <Text
       style={{
-        ...text[style],
         color,
         marginTop: mt ? mt : undefined,
         marginRight: mr ? mr : undefined,
@@ -26,6 +27,9 @@ function Typography({
         marginHorizontal: mx ? mx : undefined,
         marginVertical: my ? my : undefined,
         margin: m ? m : undefined,
+        fontFamily: 'Pretendard Variable',
+        ...selectedTypography,
+        ...style,
       }}>
       {children}
     </Text>
