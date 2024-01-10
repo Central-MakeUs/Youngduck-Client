@@ -1,35 +1,19 @@
 import LoginContainer from '@/components/login/loginContainer/LoginContainer';
 import KakaoLogin from '@/components/login/kakaoLogin/KakaoLogin';
-import {View} from 'react-native';
-import palette from '@/styles/colors';
-import Typography from '@/components/Typography';
+import {Image, Text, View} from 'react-native';
+import loginScreenStyles from '@/components/login/LoginScreen.style';
 
 function LoginScreen() {
   return (
     <LoginContainer>
-      <View style={{flex: 1, justifyContent: 'center'}}>
-        <Typography
-          style={{
-            fontWeight: '400',
-            fontSize: 36,
-            lineHeight: 48,
-            color: palette.Primary.Dark,
-            marginBottom: 8,
-          }}>
+      <View style={loginScreenStyles.wrapper}>
+        <Text style={loginScreenStyles.description}>
           {`영잘알들의
 영화교류 플랫폼`}
-        </Typography>
-        <Typography
-          style={{
-            fontSize: 60,
-            color: palette.Primary.Dark,
-            letterSpacing: -1,
-            fontWeight: '900',
-          }}>
-          팝콘메이트
-        </Typography>
+        </Text>
+        <Image source={require('@/assets/popcornmate.png')} />
       </View>
-      <View style={{flex: 1, justifyContent: 'center'}}>
+      <View style={loginScreenStyles.wrapper}>
         <KakaoLogin />
         <KakaoLogin />
       </View>

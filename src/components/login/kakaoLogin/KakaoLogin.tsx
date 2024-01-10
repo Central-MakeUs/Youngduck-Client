@@ -29,7 +29,7 @@ function KakaoLogin() {
       style={kakaoLoginStyles.button}
       activeOpacity={0.8}>
       <KakoLogo />
-      <Typography typography="Body1" ml={16}>
+      <Typography style="Body1" ml={16}>
         카카오 로그인
       </Typography>
     </TouchableOpacity>
