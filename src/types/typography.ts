@@ -1,10 +1,8 @@
 import text from '@/styles/texts';
 import {ValueOfTextColor} from './color';
-import {TextStyle} from 'react-native';
 
 export interface ITypography {
-  typography?: KeyofText;
-  style?: TextStyle;
+  style: KeyofText;
   children: string;
   color?: ValueOfTextColor;
   m?: number;
