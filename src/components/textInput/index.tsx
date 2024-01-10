@@ -1,10 +1,10 @@
 import {TextInput as Input, StyleSheet, View} from 'react-native';
 import Typography from '../typography';
-import palette from '@/styles/colors';
 
 import useFocus from '@/hooks/useFocus';
 import {useEffect} from 'react';
 import {ITextInput} from '@/types/ui';
+import palette from '@/styles/theme/color';
 
 interface TextInputProps {
   value: string;

@@ -1,5 +1,6 @@
 import SvgIcons from '@/assets/svgIcons';
-import palette from '@/styles/colors';
+import palette from '@/styles/theme/color';
+
 import {ICheckBox} from '@/types/ui';
 
 import {Pressable, StyleSheet} from 'react-native';

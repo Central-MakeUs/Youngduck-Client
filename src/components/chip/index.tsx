@@ -1,7 +1,8 @@
 import {StyleSheet, View} from 'react-native';
 import Typography from '../typography';
-import palette from '@/styles/colors';
+
 import {CommonTextProps, IChip} from '@/types/ui';
+import palette from '@/styles/theme/color';
 
 interface ChipProps extends CommonTextProps {
   state?: IChip;

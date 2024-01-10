@@ -1,4 +1,4 @@
-import palette from '@/styles/colors';
+import palette from '@/styles/theme/color';
 import {useEffect, useState} from 'react';
 import {Animated, Easing, StyleSheet, Pressable} from 'react-native';
 

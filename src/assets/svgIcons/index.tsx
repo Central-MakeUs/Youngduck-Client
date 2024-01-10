@@ -1,10 +1,14 @@
-import palette from '@/styles/colors';
-import {SvgIconProps} from '@/types/svgIcons';
+import palette from '@/styles/theme/color';
+import {SvgIconProps} from '@/types/ui/svgIcons';
 import {TouchableOpacity} from 'react-native';
 import {Path, Svg} from 'react-native-svg';
 
 const SvgIcons = {
-  LineIcon: ({width = 8, height = 2, fill = 'white'}: SvgIconProps) => (
+  LineIcon: ({
+    width = 8,
+    height = 2,
+    fill = palette.Another.White,
+  }: SvgIconProps) => (
     <Svg
       width={width}
       height={height}
@@ -16,7 +20,11 @@ const SvgIcons = {
       />
     </Svg>
   ),
-  RectangleIcon: ({width = 12, height = 10, fill = 'white'}: SvgIconProps) => (
+  RectangleIcon: ({
+    width = 12,
+    height = 10,
+    fill = palette.Another.White,
+  }: SvgIconProps) => (
     <Svg
       width={width}
       height={height}

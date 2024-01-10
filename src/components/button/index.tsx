@@ -1,4 +1,3 @@
-import palette from '@/styles/colors';
 import {
   StyleSheet,
   TouchableOpacity,
@@ -7,6 +6,7 @@ import {
 
 import Typography from '../typography';
 import {IVariant} from '@/types/ui';
+import palette from '@/styles/theme/color';
 
 export type ButtonProps = {
   onPress: () => void;

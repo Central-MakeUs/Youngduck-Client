@@ -1,7 +1,8 @@
+import {ValueOfColor} from '../theme/color';
+
 export interface SvgIconProps {
   width?: number;
   height?: number;
-  //fill?: KeyOfPalette;
-  fill?: any;
+  fill?: ValueOfColor;
   onPress?: () => void;
 }

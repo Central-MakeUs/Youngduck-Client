@@ -1,4 +1,4 @@
-import {ITypography} from '@/types/typography';
+import {ITypography} from '@/types/theme/typography';
 import checkTypographyStyle from '@/utils/checkTypographyStyle';
 import {Text} from 'react-native';
 

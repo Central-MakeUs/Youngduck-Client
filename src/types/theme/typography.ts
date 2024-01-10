@@ -1,4 +1,4 @@
-import text from '@/styles/texts';
+import text from '@/styles/theme/typography';
 import {ValueOfColor} from './color';
 
 export interface ITypography {

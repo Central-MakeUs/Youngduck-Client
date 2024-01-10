@@ -1,6 +1,7 @@
 import SvgIcons from '@/assets/svgIcons';
 import Typography from '@/components/typography';
-import palette from '@/styles/colors';
+import palette from '@/styles/theme/color';
+
 import {CommonTextProps} from '@/types/ui';
 import {StyleSheet, View} from 'react-native';
 

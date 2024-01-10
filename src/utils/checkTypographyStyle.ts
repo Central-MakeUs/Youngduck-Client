@@ -1,5 +1,5 @@
-import text from '@/styles/texts';
-import {KeyofText} from '@/types/typography';
+import text from '@/styles/theme/typography';
+import {KeyofText} from '@/types/theme/typography';
 
 function checkTypographyStyle(style: KeyofText) {
   switch (style) {
