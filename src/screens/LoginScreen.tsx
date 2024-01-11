@@ -1,5 +1,5 @@
-import LoginContainer from '@/components/login/loginContainer/LoginContainer';
-import KakaoLogin from '@/components/login/kakaoLogin/KakaoLogin';
+import LoginContainer from '@/components/login/loginContainer';
+import KakaoLogin from '@/components/button/kakaoLogin';
 import {Image, Text, View} from 'react-native';
 import loginScreenStyles from '@/components/login/LoginScreen.style';
 

@@ -3,7 +3,7 @@ import {postLoginUser} from '@/apis/user';
 import * as Kakao from '@react-native-seoul/kakao-login';
 import {TouchableOpacity} from 'react-native';
 import kakaoLoginStyles from './KakaoLogin.style';
-import Typography from '@/components/Typography';
+import Typography from '@/components/typography';
 import KakoLogo from '@/assets/icons/kakao-logo.svg';
 
 function KakaoLogin() {
