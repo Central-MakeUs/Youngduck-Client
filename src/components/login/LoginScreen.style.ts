@@ -1,4 +1,4 @@
-import palette from '@/styles/colors';
+import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
 const loginScreenStyles = StyleSheet.create({

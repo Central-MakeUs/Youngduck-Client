@@ -6,37 +6,37 @@ import {
   addParameters,
   addArgsEnhancer,
   clearDecorators,
-} from "@storybook/react-native";
+} from '@storybook/react-native';
 
 global.STORIES = [
   {
-    titlePrefix: "",
-    directory: "./components",
-    files: "**/*.stories.?(ts|tsx|js|jsx)",
+    titlePrefix: '',
+    directory: './components',
+    files: '**/*.stories.?(ts|tsx|js|jsx)',
     importPathMatcher:
-      "^\\.[\\\\/](?:components(?:[\\\\/](?!\\.)(?:(?:(?!(?:^|[\\\\/])\\.).)*?)[\\\\/]|[\\\\/]|$)(?!\\.)(?=.)[^\\\\/]*?\\.stories\\.(?:ts|tsx|js|jsx)?)$",
+      '^\\.[\\\\/](?:components(?:[\\\\/](?!\\.)(?:(?:(?!(?:^|[\\\\/])\\.).)*?)[\\\\/]|[\\\\/]|$)(?!\\.)(?=.)[^\\\\/]*?\\.stories\\.(?:ts|tsx|js|jsx)?)$',
   },
 ];
 
-import "@storybook/addon-ondevice-notes/register";
-import "@storybook/addon-ondevice-controls/register";
-import "@storybook/addon-ondevice-backgrounds/register";
-import "@storybook/addon-ondevice-actions/register";
+import '@storybook/addon-ondevice-notes/register';
+import '@storybook/addon-ondevice-controls/register';
+import '@storybook/addon-ondevice-backgrounds/register';
+import '@storybook/addon-ondevice-actions/register';
 
-import { argsEnhancers } from "@storybook/addon-actions/dist/modern/preset/addArgs";
+import {argsEnhancers} from '@storybook/addon-actions/dist/modern/preset/addArgs';
 
-import { decorators, parameters } from "./preview";
+import {decorators, parameters} from './preview';
 
 if (decorators) {
   if (__DEV__) {
     // stops the warning from showing on every HMR
-    require("react-native").LogBox.ignoreLogs([
-      "`clearDecorators` is deprecated and will be removed in Storybook 7.0",
+    require('react-native').LogBox.ignoreLogs([
+      '`clearDecorators` is deprecated and will be removed in Storybook 7.0',
     ]);
   }
   // workaround for global decorators getting infinitely applied on HMR, see https://github.com/storybookjs/react-native/issues/185
   clearDecorators();
-  decorators.forEach((decorator) => addDecorator(decorator));
+  decorators.forEach(decorator => addDecorator(decorator));
 }
 
 if (parameters) {
@@ -44,12 +44,34 @@ if (parameters) {
 }
 
 try {
-  argsEnhancers.forEach((enhancer) => addArgsEnhancer(enhancer));
+  argsEnhancers.forEach(enhancer => addArgsEnhancer(enhancer));
 } catch {}
 
 const getStories = () => {
   return {
-    "./components/Button/Button.stories.tsx": require("../components/Button/Button.stories.tsx"),
+    // button 컴포넌트
+    './src/components/button/Button.stories.tsx': require('../src/components/button/Button.stories.tsx'),
+    // chip 컴포넌트
+    './src/components/chip/Chip.stories.tsx': require('../src/components/chip/Chip.stories.tsx'),
+    // checkbox 컴포넌트
+    './src/components/checkBox/CheckBox.stories.tsx': require('../src/components/checkBox/CheckBox.stories.tsx'),
+    // switch 컴포넌트
+    './src/components/switch/Switch.stories.tsx': require('../src/components/switch/Switch.stories.tsx'),
+    // textInput 컴포넌트
+    './src/components/textInput/TextInput.stories.tsx': require('../src/components/textInput/TextInput.stories.tsx'),
+    // topBar 컴포넌트
+    './src/components/topBar/menuTopBar/MenuTopBar.stories.tsx': require('../src/components/topBar/menuTopBar/MenuTopBar.stories.tsx'),
+    './src/components/topBar/backMenuTopBar/BackMenuTopBar.stories.tsx': require('../src/components/topBar/backMenuTopBar/BackMenuTopBar.stories.tsx'),
+    './src/components/topBar/subMenuTopBar/SubMenuTopBar.stories.tsx': require('../src/components/topBar/subMenuTopBar/SubMenuTopBar.stories.tsx'),
+    './src/components/topBar/cancelTopBar/CancelTopBar.stories.tsx': require('../src/components/topBar/cancelTopBar/CancelTopBar.stories.tsx'),
+    './src/components/topBar/titleTopBar/TitleTopBar.stories.tsx': require('../src/components/topBar/titleTopBar/TitleTopBar.stories.tsx'),
+    './src/components/topBar/subTitleTopBar/SubTitleTopBar.stories.tsx': require('../src/components/topBar/subTitleTopBar/SubTitleTopBar.stories.tsx'),
+    // BottomSheet 컴포넌트
+    './src/components/bottomSheet/BottomSheet.stories.tsx': require('../src/components/bottomSheet/BottomSheet.stories.tsx'),
+    // Modal 컴포넌트
+    './src/components/modal/Modal.stories.tsx': require('../src/components/modal/Modal.stories.tsx'),
+    // Numbering 컴포넌트
+    './src/components/numbering/Numbering.stories.tsx': require('../src/components/numbering/Numbering.stories.tsx'),
   };
 };
 
