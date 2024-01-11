@@ -9,6 +9,7 @@ import palette from '@/styles/theme/color';
 import {BottomTabParamList} from '@/types/navigator';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {bottomTabScreenOptions} from './BottomTabNavigator.style';
+import TitleTopBar from '@/components/topBar/titleTopBar';
 
 export const getTabBarIcon = (routeName: string, focused: boolean) => {
   const iconColor = focused ? palette.Primary.Normal : palette.Text.Disable;
@@ -34,17 +35,26 @@ function BottomTabNavigator() {
       <BottomTab.Screen
         name={bottomTabScreens.ScreeningScreen}
         component={ScreeningScreen}
-        options={{tabBarLabel: bottomTabBarLabel.ScreeningScreen}}
+        options={{
+          tabBarLabel: bottomTabBarLabel.ScreeningScreen,
+          header: () => <TitleTopBar text="스크리닝" />,
+        }}
       />
       <BottomTab.Screen
         name={bottomTabScreens.HomeScreen}
         component={HomeScreen}
-        options={{tabBarLabel: bottomTabBarLabel.HomeScreen}}
+        options={{
+          tabBarLabel: bottomTabBarLabel.HomeScreen,
+          header: () => <TitleTopBar text="파콩" />,
+        }}
       />
       <BottomTab.Screen
         name={bottomTabScreens.PopcornPartyScreen}
         component={PopcornPartyScreen}
-        options={{tabBarLabel: bottomTabBarLabel.PopcornPartyScreen}}
+        options={{
+          tabBarLabel: bottomTabBarLabel.PopcornPartyScreen,
+          header: () => <TitleTopBar text="팝콘 파티" />,
+        }}
       />
     </BottomTab.Navigator>
   );
