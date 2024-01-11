@@ -10,6 +10,4 @@ export const enum bottomTabBarLabel {
   PopcornPartyScreen = '팝콘파티',
 }
 
-export type BottomTabType = keyof typeof bottomTabScreens;
-
 export default bottomTabScreens;

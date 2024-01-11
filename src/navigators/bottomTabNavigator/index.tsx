@@ -2,9 +2,9 @@ import SvgIcons from '@/assets/svgIcons';
 import bottomTabScreens, {
   bottomTabBarLabel,
 } from '@/constants/bottomTabScreens';
-import HomeScreen from '@/screens/HomeScreen';
-import PopcornPartyScreen from '@/screens/PopcornPartyScreen';
-import ScreeningScreen from '@/screens/ScreeningScreen';
+import HomeScreen from '@/screens/home/HomeScreen';
+import PopcornPartyScreen from '@/screens/popCornParty/PopcornPartyScreen';
+import ScreeningScreen from '@/screens/screening/ScreeningScreen';
 import palette from '@/styles/theme/color';
 import {BottomTabParamList} from '@/types/navigator';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';

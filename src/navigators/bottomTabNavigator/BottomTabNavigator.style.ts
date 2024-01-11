@@ -1,11 +1,11 @@
 import palette from '@/styles/theme/color';
-import {RoutePropsType} from '@/types/navigator';
 import {getTabBarIcon} from '.';
 import {BottomTabNavigationOptions} from '@react-navigation/bottom-tabs';
+import {BottomTabNavigatorProps} from '@/types/navigator';
 
 export const bottomTabScreenOptions = ({
   route,
-}: RoutePropsType): BottomTabNavigationOptions => ({
+}: BottomTabNavigatorProps): BottomTabNavigationOptions => ({
   tabBarIcon: ({focused}: {focused: boolean}) =>
     getTabBarIcon(route.name, focused),
   tabBarActiveTintColor: palette.Primary.Normal,
@@ -22,5 +22,6 @@ export const bottomTabScreenOptions = ({
     fontSize: 11,
     lineHeight: 16,
     fontFamily: 'Pretendard Variable',
+    marginTop: 7,
   },
 });
