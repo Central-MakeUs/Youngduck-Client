@@ -1,8 +1,15 @@
 import palette from '@/styles/theme/color';
-import {SvgIconProps} from '@/types/ui/svgIcons';
 import {TouchableOpacity} from 'react-native';
 import {Path, Svg} from 'react-native-svg';
 import {svgIconStyles} from './SvgIcons.style';
+import {ValueOfColor} from '@/types/theme/color';
+
+export interface SvgIconProps {
+  width?: number;
+  height?: number;
+  fill?: ValueOfColor;
+  onPress?: () => void;
+}
 
 const SvgIcons = {
   LineIcon: ({
@@ -133,7 +140,11 @@ const SvgIcons = {
       />
     </Svg>
   ),
-  ScreeningIcon: ({width = 28, height = 26, fill = palette.Text.Disable}) => (
+  ScreeningIcon: ({
+    width = 28,
+    height = 26,
+    fill = palette.Text.Disable,
+  }: SvgIconProps) => (
     <Svg
       width={width}
       height={height}
@@ -147,7 +158,11 @@ const SvgIcons = {
       />
     </Svg>
   ),
-  PopCornParty: ({width = 32, height = 24, fill = palette.Text.Disable}) => (
+  PopCornParty: ({
+    width = 32,
+    height = 24,
+    fill = palette.Text.Disable,
+  }: SvgIconProps) => (
     <Svg
       width={width}
       height={height}
