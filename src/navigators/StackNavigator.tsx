@@ -1,7 +1,7 @@
 import stackScreens from '@/constants/stackScreens';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import BottomTabNavigator from './BottomTabNavigator';
-import LoginScreen from '@/screens/LoginScreen';
+import LoginScreen from '@/screens/login/LoginScreen';
 
 function StackNavigator() {
   const Stack = createNativeStackNavigator();

@@ -12,6 +12,7 @@ const loginScreenStyles = StyleSheet.create({
     lineHeight: 48,
     color: palette.Primary.Dark,
     marginBottom: 8,
+    fontFamily: 'Pretendard Variable',
   },
 });
 
