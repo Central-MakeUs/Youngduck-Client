@@ -1,13 +1,15 @@
 import SvgIcons from '@/assets/svgIcons';
 import {View} from 'react-native';
 import {backStyles} from './BackTopBar.style';
-import useNavigator from '@/hooks/useNavigator';
 
-const BackTopBar = () => {
-  const navigator = useNavigator();
+interface IBackTopBarProps {
+  onPress: () => void;
+}
+
+const BackTopBar = ({onPress}: IBackTopBarProps) => {
   return (
     <View style={backStyles.container}>
-      <SvgIcons.BackArrowIcon onPress={() => navigator.goBack()} />
+      <SvgIcons.BackArrowIcon onPress={onPress} />
     </View>
   );
 };
