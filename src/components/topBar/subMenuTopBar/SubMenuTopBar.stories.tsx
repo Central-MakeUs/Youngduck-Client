@@ -1,15 +1,15 @@
-import {ComponentMeta, ComponentStory} from '@storybook/react';
-import SubMenuTopBar from '.';
+//import {ComponentMeta, ComponentStory} from '@storybook/react';
+//import SubMenuTopBar from '.';
 
-export default {
-  title: 'components/TopBar/SubMenuTopBar',
-  component: SubMenuTopBar,
-} as ComponentMeta<typeof SubMenuTopBar>;
+//export default {
+//  title: 'components/TopBar/SubMenuTopBar',
+//  component: SubMenuTopBar,
+//} as ComponentMeta<typeof SubMenuTopBar>;
 
-export const Basic: ComponentStory<typeof SubMenuTopBar> = args => (
-  <SubMenuTopBar {...args} />
-);
+//export const Basic: ComponentStory<typeof SubMenuTopBar> = args => (
+//  <SubMenuTopBar {...args} />
+//);
 
-Basic.args = {
-  text: '제목',
-};
+//Basic.args = {
+//  text: '제목',
+//};

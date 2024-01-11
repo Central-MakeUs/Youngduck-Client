@@ -60,12 +60,12 @@ const getStories = () => {
     // textInput 컴포넌트
     './src/components/textInput/TextInput.stories.tsx': require('../src/components/textInput/TextInput.stories.tsx'),
     // topBar 컴포넌트
-    './src/components/topBar/menuTopBar/MenuTopBar.stories.tsx': require('../src/components/topBar/menuTopBar/MenuTopBar.stories.tsx'),
-    './src/components/topBar/backMenuTopBar/BackMenuTopBar.stories.tsx': require('../src/components/topBar/backMenuTopBar/BackMenuTopBar.stories.tsx'),
+    './src/components/topBar/subTitleTopBar/SubTitleTopBar.stories.tsx': require('../src/components/topBar/subTitleTopBar/SubTitleTopBar.stories'),
+    './src/components/topBar/backTitleTopBar/BackTitleTopBar.stories.tsx': require('../src/components/topBar/backTitleTopBar/BackTitleTopBar.stories'),
     './src/components/topBar/subMenuTopBar/SubMenuTopBar.stories.tsx': require('../src/components/topBar/subMenuTopBar/SubMenuTopBar.stories.tsx'),
     './src/components/topBar/cancelTopBar/CancelTopBar.stories.tsx': require('../src/components/topBar/cancelTopBar/CancelTopBar.stories.tsx'),
     './src/components/topBar/titleTopBar/TitleTopBar.stories.tsx': require('../src/components/topBar/titleTopBar/TitleTopBar.stories.tsx'),
-    './src/components/topBar/subTitleTopBar/SubTitleTopBar.stories.tsx': require('../src/components/topBar/subTitleTopBar/SubTitleTopBar.stories.tsx'),
+    './src/components/topBar/textTopBar/TextTopBar.stories.tsx': require('../src/components/topBar/textTopBar/TextTopBar.stories'),
     // BottomSheet 컴포넌트
     './src/components/bottomSheet/BottomSheet.stories.tsx': require('../src/components/bottomSheet/BottomSheet.stories.tsx'),
     // Modal 컴포넌트
