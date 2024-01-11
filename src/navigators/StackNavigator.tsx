@@ -9,7 +9,7 @@ function StackNavigator() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      {/*<Stack.Screen name={stackScreens.LoginScreen} component={LoginScreen} />*/}
+      <Stack.Screen name={stackScreens.LoginScreen} component={LoginScreen} />
       <Stack.Screen
         name={stackScreens.BottomTabScreens}
         component={BottomTabNavigator}
