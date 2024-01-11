@@ -1,6 +1,6 @@
 import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
 
-import Typography from '../typography';
+import Typography from '../Typography';
 import {IVariant} from '@/types/ui';
 import palette from '@/styles/theme/color';
 import {styleButton, buttonStyles} from './Button.style';

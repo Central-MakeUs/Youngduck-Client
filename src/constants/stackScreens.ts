@@ -1,4 +1,5 @@
 const enum stackScreens {
+  LoginScreen = 'LoginScreen',
   BottomTabScreens = 'BottomTabScreens',
 }
 

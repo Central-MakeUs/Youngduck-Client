@@ -1,5 +1,5 @@
+import text from '@/styles/theme/typography';
 import {ITypography} from '@/types/theme/typography';
-import checkTypographyStyle from '@/utils/checkTypographyStyle';
 import {Text} from 'react-native';
 
 function Typography({
@@ -14,11 +14,9 @@ function Typography({
   mx,
   my,
 }: ITypography) {
-  const styleType = checkTypographyStyle(style);
   return (
     <Text
       style={{
-        ...styleType,
         color,
         marginTop: mt ? mt : undefined,
         marginRight: mr ? mr : undefined,
@@ -27,6 +25,8 @@ function Typography({
         marginHorizontal: mx ? mx : undefined,
         marginVertical: my ? my : undefined,
         margin: m ? m : undefined,
+        fontFamily: 'Pretendard Variable',
+        ...text[style],
       }}>
       {children}
     </Text>

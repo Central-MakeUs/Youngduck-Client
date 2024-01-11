@@ -49,12 +49,12 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>localhost</key>
+			<key>$(EXCEPTION_DOMAIN)</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
-			<key>$(EXCEPTION_DOMAIN)</key>
+			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
@@ -63,6 +63,11 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Fonts/PretendardVariable.ttf</string>
+		<string>Fonts/DancingScript-Bold.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
