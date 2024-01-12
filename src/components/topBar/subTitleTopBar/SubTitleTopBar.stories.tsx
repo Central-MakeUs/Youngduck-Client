@@ -12,5 +12,4 @@ export const Basic: ComponentStory<typeof SubTitleTopBar> = args => (
 
 Basic.args = {
   text: '제목',
-  subTitle: '소제목',
 };

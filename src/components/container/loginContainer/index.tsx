@@ -2,6 +2,7 @@ import {Dimensions, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import loginContainerStyles from './LoginContainer.style';
+import {defaultImages} from '@/assets';
 
 function LoginContainer({children}: {children: React.ReactNode}) {
   const {top, bottom} = useSafeAreaInsets();
@@ -13,10 +14,7 @@ function LoginContainer({children}: {children: React.ReactNode}) {
     <LinearGradient
       colors={['rgba(255,240,143,1)', 'rgba(255,246,189,1)']}
       style={style.container}>
-      <Image
-        source={require('../../../assets/Bg-login.png')}
-        style={style.image}
-      />
+      <Image source={defaultImages.loginPopcorn} style={style.image} />
       {children}
     </LinearGradient>
   );

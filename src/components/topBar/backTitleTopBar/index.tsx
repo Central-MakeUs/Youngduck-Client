@@ -4,23 +4,23 @@ import palette from '@/styles/theme/color';
 
 import {CommonTextProps} from '@/types/ui';
 import {View} from 'react-native';
-import {backMenuStyles} from './BackMenuTopBar.style';
+import {backTitleStyles} from './BackTitleTopBar.style';
+import Profile from '@/components/profile';
 
-interface BackMenuTopBarProps extends CommonTextProps {
+interface BackTitleTopBarProps extends CommonTextProps {
   goBack: () => void;
-  onPress: () => void;
 }
-const BackMenuTopBar = ({text, goBack, onPress}: BackMenuTopBarProps) => {
+const BackTitleTopBar = ({text, goBack}: BackTitleTopBarProps) => {
   return (
-    <View style={backMenuStyles.container}>
-      <View style={backMenuStyles.content}>
+    <View style={backTitleStyles.container}>
+      <View style={backTitleStyles.content}>
         <SvgIcons.BackArrowIcon onPress={goBack} />
         <Typography style="Subtitle2" color={palette.Another.Black} ml={8}>
           {text}
         </Typography>
       </View>
-      <SvgIcons.MenuIcon onPress={onPress} />
+      <Profile />
     </View>
   );
 };
-export default BackMenuTopBar;
+export default BackTitleTopBar;
