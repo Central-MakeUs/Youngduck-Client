@@ -1,5 +1,4 @@
 import Carousel from '@/components/carousel';
-import DefaultContainer from '@/components/container/defaultContainer';
 
 const ReviewScreening = () => {
   // carousel 에 보여질 데이터 배열
@@ -27,10 +26,6 @@ const ReviewScreening = () => {
     },
   ];
 
-  return (
-    //<DefaultContainer>
-    <Carousel data={data} />
-    //</DefaultContainer>
-  );
+  return <Carousel data={data} />;
 };
 export default ReviewScreening;

@@ -5,7 +5,7 @@ import {StyleSheet} from 'react-native';
 const {screenWidth} = getScreenSize();
 export const reviewItemStyles = StyleSheet.create({
   container: {
-    width: screenWidth,
+    width: screenWidth - 32,
     borderWidth: 1,
     borderColor: palette.Line.Normal,
     borderRadius: 16,

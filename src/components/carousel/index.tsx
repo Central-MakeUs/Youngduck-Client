@@ -1,7 +1,8 @@
 import ReviewItem from '@/screens/screening/components/reviewItem';
 import {getScreenSize} from '@/utils/getScreenSize';
 import {useState} from 'react';
-import {Animated, FlatList, StyleSheet, View} from 'react-native';
+import {Animated, FlatList, View} from 'react-native';
+import {carouselStyles} from './Carousel.style';
 
 interface CarouselProps {
   data: any;
@@ -45,7 +46,7 @@ const Carousel = ({data, type = 'image'}: CarouselProps) => {
             key={i}
             style={[
               carouselStyles.indicator,
-              i === currentPage ? carouselStyles.activeIndicator : null,
+              i === currentPage && carouselStyles.activeIndicator,
             ]}
           />
         ))}
@@ -54,24 +55,3 @@ const Carousel = ({data, type = 'image'}: CarouselProps) => {
   );
 };
 export default Carousel;
-
-export const carouselStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  indicatorContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 10,
-  },
-  indicator: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: '#ccc',
-    marginHorizontal: 5,
-  },
-  activeIndicator: {
-    backgroundColor: '#000',
-  },
-});

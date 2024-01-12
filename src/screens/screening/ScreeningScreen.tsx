@@ -56,6 +56,7 @@ function ScreeningScreen() {
 
       <SubTitleTopBar text="관객 리뷰" mt={24} mb={8} />
       {/*carousel 컴포넌트 활용*/}
+
       <ReviewScreening />
 
       <Divider />
