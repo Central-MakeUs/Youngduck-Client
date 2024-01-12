@@ -1,7 +1,12 @@
 import SubTitleTopBar from '@/components/topBar/subTitleTopBar';
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, View} from 'react-native';
 import WeeklyScreening from './components/weeklyScreening';
 import Divider from '@/components/divider';
+import RecentScreening from './components/recentScreening';
+import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
+import Button from '@/components/button';
+import DefaultContainer from '@/components/container/defaultContainer';
+import {screeningStyle} from './ScreeningScreen.style';
 
 function ScreeningScreen() {
   // 이번주 스크리닝 데이터
@@ -37,7 +42,7 @@ function ScreeningScreen() {
   ];
   const renderItem = () => <WeeklyScreening />;
   return (
-    <View>
+    <DefaultScrollContainer>
       {/*이미지 자리*/}
       <SubTitleTopBar text="이번주 스크리닝" mt={12} mb={8} />
       <FlatList
@@ -46,17 +51,23 @@ function ScreeningScreen() {
         renderItem={renderItem}
         contentContainerStyle={{paddingHorizontal: 20}}
       />
+
       <SubTitleTopBar text="관객 리뷰" mt={24} mb={8} />
       {/*carousel 컴포넌트 활용*/}
       <Divider />
-    </View>
+
+      <SubTitleTopBar text="실시간 새 소식" mt={16} mb={8} />
+      <DefaultContainer>
+        <RecentScreening />
+        <RecentScreening />
+        <RecentScreening />
+        <Button variant="default" onPress={() => {}}>
+          더보기
+        </Button>
+      </DefaultContainer>
+      <View style={screeningStyle.bottom} />
+    </DefaultScrollContainer>
   );
 }
 
 export default ScreeningScreen;
-const styles = StyleSheet.create({
-  container: {
-    height: 200,
-    width: '100%',
-  },
-});
