@@ -7,9 +7,10 @@ import DefaultScrollContainer from '@/components/container/defaultScrollContaine
 import Button from '@/components/button';
 import DefaultContainer from '@/components/container/defaultContainer';
 import {screeningStyle} from './ScreeningScreen.style';
+import ReviewScreening from './components/reviewScreening';
 
 function ScreeningScreen() {
-  // 이번주 스크리닝 데이터
+  // 이번주 스크리닝 더미 데이터
   const data = [
     {
       id: 1,
@@ -49,11 +50,14 @@ function ScreeningScreen() {
         horizontal
         data={data}
         renderItem={renderItem}
-        contentContainerStyle={{paddingHorizontal: 20}}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{paddingHorizontal: 16}}
       />
 
       <SubTitleTopBar text="관객 리뷰" mt={24} mb={8} />
       {/*carousel 컴포넌트 활용*/}
+      <ReviewScreening />
+
       <Divider />
 
       <SubTitleTopBar text="실시간 새 소식" mt={16} mb={8} />
@@ -61,6 +65,7 @@ function ScreeningScreen() {
         <RecentScreening />
         <RecentScreening />
         <RecentScreening />
+        {/*TODO: 목록 페이지로 이동*/}
         <Button variant="default" onPress={() => {}}>
           더보기
         </Button>
