@@ -1,6 +1,7 @@
 import SubTitleTopBar from '@/components/topBar/subTitleTopBar';
-import {FlatList, View} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import WeeklyScreening from './components/weeklyScreening';
+import Divider from '@/components/divider';
 
 function ScreeningScreen() {
   // 이번주 스크리닝 데이터
@@ -45,9 +46,17 @@ function ScreeningScreen() {
         renderItem={renderItem}
         contentContainerStyle={{paddingHorizontal: 20}}
       />
-      <SubTitleTopBar text="관객 리뷰" mt={24} />
+      <SubTitleTopBar text="관객 리뷰" mt={24} mb={8} />
+      {/*carousel 컴포넌트 활용*/}
+      <Divider />
     </View>
   );
 }
 
 export default ScreeningScreen;
+const styles = StyleSheet.create({
+  container: {
+    height: 200,
+    width: '100%',
+  },
+});
