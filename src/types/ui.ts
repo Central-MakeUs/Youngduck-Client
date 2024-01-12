@@ -25,3 +25,16 @@ export type TextInputStyle = {
 export interface CommonTextProps {
   text: string;
 }
+
+export interface CommonMarginVerticalProps {
+  mt?: number;
+  mb?: number;
+}
+
+export interface CommonMarginProps extends CommonMarginVerticalProps {
+  m?: number;
+  mr?: number;
+  ml?: number;
+  mx?: number;
+  my?: number;
+}

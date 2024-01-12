@@ -1,14 +1,22 @@
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 
-import {CommonTextProps} from '@/types/ui';
+import {CommonMarginVerticalProps} from '@/types/ui';
 import {View} from 'react-native';
 import {titleStyles} from './TitleTopBar.style';
 import Profile from '@/components/profile';
 
-const TitleTopBar = ({text}: CommonTextProps) => {
+interface TitleTopBarProps extends CommonMarginVerticalProps {
+  text: string;
+}
+const TitleTopBar = ({text, mb, mt}: TitleTopBarProps) => {
   return (
-    <View style={titleStyles.container}>
+    <View
+      style={{
+        ...titleStyles.container,
+        marginTop: mt ? mt : undefined,
+        marginBottom: mb ? mb : undefined,
+      }}>
       <Typography style="Title1" color={palette.Another.Black}>
         {text}
       </Typography>
