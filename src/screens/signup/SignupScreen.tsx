@@ -4,39 +4,24 @@ import BackTopBar from '@/components/topBar/backTopBar';
 
 import useNavigator from '@/hooks/useNavigator';
 import {useRef, useState} from 'react';
-import {Dimensions, SafeAreaView, ScrollView, View} from 'react-native';
+import {Animated, SafeAreaView, ScrollView, View} from 'react-native';
 import ProgressBar from './components/progressBar';
 import SubTitleDescription from '@/components/title/subTitleDescription';
 import SelectButton from '@/components/buttons/selectButton';
 import {GenreTypes} from '@/types/genre';
+import selectGenre from '@/utils/selectGenre';
+import moveScreen from '@/utils/moveScreen';
+import {getScreenSize} from '@/utils/getScreenSize';
 
 function SignupScreen() {
   const [nickname, setNickname] = useState<string>('');
   const [currentScreen, setCurrentScreen] = useState<number>(0);
   const [selectedGenres, setSelectedGenres] = useState<GenreTypes[]>([]);
   const scrollViewRef = useRef<ScrollView>(null);
-  const {width} = Dimensions.get('screen');
+  const {screenWidth} = getScreenSize();
   const {stackNavigation} = useNavigator();
 
-  const previousScreen = () => {
-    scrollViewRef?.current?.scrollTo({x: -width, animated: true});
-    setCurrentScreen(0);
-  };
-
-  const handleGenre = (genre: GenreTypes) => {
-    if (!selectedGenres.includes(genre)) {
-      setSelectedGenres([...selectedGenres, genre]);
-    } else {
-      const indexOfGenre = selectedGenres.indexOf(genre);
-      const newDatas = [
-        ...selectedGenres.slice(0, indexOfGenre),
-        ...selectedGenres.slice(indexOfGenre + 1),
-      ];
-      setSelectedGenres([...newDatas]);
-    }
-  };
-
-  console.log(selectedGenres);
+  const animatedValue = useRef(new Animated.Value(0)).current;
 
   const genres: GenreTypes[] = [
     '멜로',
@@ -55,12 +40,18 @@ function SignupScreen() {
     '탐정',
     '판타지',
   ];
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <BackTopBar
         onPress={() =>
-          currentScreen ? previousScreen() : stackNavigation.goBack()
+          currentScreen
+            ? moveScreen({
+                scrollViewRef,
+                animatedValue,
+                currentScreen,
+                setCurrentScreen,
+              })
+            : stackNavigation.goBack()
         }
       />
       <ScrollView
@@ -69,8 +60,13 @@ function SignupScreen() {
         scrollEnabled={false}
         showsHorizontalScrollIndicator={false}
         ref={scrollViewRef}>
-        <ProgressBar currentScreen={currentScreen} />
-        <View style={{width, justifyContent: 'space-between', padding: 16}}>
+        <ProgressBar animatedValue={animatedValue} />
+        <View
+          style={{
+            width: screenWidth,
+            justifyContent: 'space-between',
+            padding: 16,
+          }}>
           <View
             style={{
               height: '35%',
@@ -90,15 +86,23 @@ function SignupScreen() {
             />
           </View>
           <BoxButton
-            onPress={() => {
-              scrollViewRef?.current?.scrollToEnd();
-              setCurrentScreen(1);
-            }}
-            style={{}}>
+            onPress={() =>
+              moveScreen({
+                scrollViewRef,
+                animatedValue,
+                currentScreen,
+                setCurrentScreen,
+              })
+            }>
             다음
           </BoxButton>
         </View>
-        <View style={{width, justifyContent: 'space-between', padding: 16}}>
+        <View
+          style={{
+            width: screenWidth,
+            justifyContent: 'space-between',
+            padding: 16,
+          }}>
           <View>
             <SubTitleDescription
               text="좋아하는 영화 장르를 선택해주세요"
@@ -112,7 +116,9 @@ function SignupScreen() {
               }}>
               {genres.map((genre: GenreTypes) => (
                 <SelectButton
-                  onPress={() => handleGenre(genre)}
+                  onPress={() =>
+                    selectGenre({selectedGenres, setSelectedGenres, genre})
+                  }
                   type={genre}
                   isSelected={selectedGenres.includes(genre)}
                   key={genre}
@@ -120,12 +126,7 @@ function SignupScreen() {
               ))}
             </View>
           </View>
-          <BoxButton
-            onPress={() => {
-              scrollViewRef?.current?.scrollToEnd();
-              setCurrentScreen(1);
-            }}
-            disabled={!selectedGenres.length}>
+          <BoxButton onPress={() => {}} disabled={!selectedGenres.length}>
             다음
           </BoxButton>
         </View>
