@@ -1,11 +1,11 @@
 import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
 
-import Typography from '../typography';
+import Typography from '../../typography';
 import {IVariant} from '@/types/ui';
 import palette from '@/styles/theme/color';
-import {styleButton, buttonStyles} from './Button.style';
+import {buttonStyles, styleButton} from './BoxButton.style';
 
-export type ButtonProps = {
+export type BoxButtonProps = {
   onPress: () => void;
   children: React.ReactNode | string;
   variant?: IVariant;
@@ -13,14 +13,14 @@ export type ButtonProps = {
   width?: string;
 } & TouchableOpacityProps;
 
-const Button = ({
+const BoxButton = ({
   children,
   onPress,
   disabled = false,
   variant = 'primary',
   width = '100%',
   ...props
-}: ButtonProps) => {
+}: BoxButtonProps) => {
   return (
     <TouchableOpacity
       {...props}
@@ -55,4 +55,4 @@ const Button = ({
   );
 };
 
-export default Button;
+export default BoxButton;

@@ -1,5 +1,11 @@
-import {ILoginContainerStyleProps} from '@/types/login';
 import {StyleSheet} from 'react-native';
+
+export interface ILoginContainerStyleProps {
+  top: number;
+  bottom: number;
+  width: number;
+  height: number;
+}
 
 const loginContainerStyles = ({
   top,
