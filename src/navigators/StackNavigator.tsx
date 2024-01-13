@@ -2,7 +2,7 @@ import stackScreens from '@/constants/stackScreens';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import BottomTabNavigator from './BottomTabNavigator';
 import LoginScreen from '@/screens/login/LoginScreen';
-import SignupScreen from '@/screens/SignupScreen';
+import SignupScreen from '@/screens/signup/SignupScreen';
 
 function StackNavigator() {
   const Stack = createNativeStackNavigator();
