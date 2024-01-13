@@ -6,6 +6,16 @@ export type DetailStyle = {
   textColor: string;
 };
 
+// 배너 타입 지정
+export type BannerType = 'screening' | 'popcornParty';
+export interface IBannerContent {
+  source: any;
+  title1: string;
+  title2: string;
+  content: string;
+  button: string;
+}
+
 // 체크박스 타입 지정
 export type ICheckBox = 'on' | 'off' | 'indeterminate';
 
