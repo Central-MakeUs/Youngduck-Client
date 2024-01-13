@@ -9,6 +9,7 @@ import {screeningStyle} from './ScreeningScreen.style';
 import ReviewScreening from './components/reviewScreening';
 import {defaultImages} from '@/assets';
 import BoxButton from '@/components/buttons/boxButton';
+import RoundButton from '@/components/buttons/roundButton';
 
 function ScreeningScreen() {
   // 이번주 스크리닝 더미 데이터
@@ -43,10 +44,19 @@ function ScreeningScreen() {
     },
   ];
   const renderItem = () => <WeeklyScreening />;
+
+  const handleGoWriteScreening = () => {
+    // TODO: 상영회 등록하기 페이지로 이동
+  };
   return (
     <DefaultScrollContainer>
       {/*이미지 자리*/}
       <Image source={defaultImages.loginPopcorn} style={screeningStyle.image} />
+      <View style={screeningStyle.button}>
+        <RoundButton onPress={handleGoWriteScreening}>
+          상영회 등록하기
+        </RoundButton>
+      </View>
       <SubTitleTopBar text="이번주 스크리닝" mt={12} mb={8} />
       <FlatList
         horizontal

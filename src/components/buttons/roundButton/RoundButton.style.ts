@@ -6,6 +6,9 @@ export const roundButtonStyles = StyleSheet.create({
     backgroundColor: palette.Primary.Normal,
     paddingVertical: 8,
     paddingHorizontal: 16,
+    borderRadius: 99,
+    alignItems: 'center',
+    alignSelf: 'flex-start',
   },
   buttonDisabled: {
     backgroundColor: palette.Fill.Disable,

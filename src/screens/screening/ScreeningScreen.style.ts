@@ -9,4 +9,9 @@ export const screeningStyle = StyleSheet.create({
     height: 194,
     position: 'relative',
   },
+  button: {
+    position: 'absolute',
+    top: 126,
+    left: 16,
+  },
 });
