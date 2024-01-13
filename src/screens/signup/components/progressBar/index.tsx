@@ -17,7 +17,6 @@ const ProgressBar = ({animatedValue}: {animatedValue: Animated.Value}) => {
     extrapolate: 'clamp',
   });
 
-  console.log(width);
   return (
     <View style={progressBarStyles.progressBarContainer}>
       <Animated.View style={[progressBarStyles.progressBar, {width}]} />
