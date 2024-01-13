@@ -5,6 +5,5 @@ export const subTitleDescriptionStyles = StyleSheet.create({
     width: '100%',
     alignItems: 'flex-start',
     paddingVertical: 16,
-    paddingLeft: 16,
   },
 });

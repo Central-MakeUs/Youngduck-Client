@@ -3,7 +3,7 @@ import palette from '@/styles/theme/color';
 
 import {CommonMarginVerticalProps} from '@/types/ui';
 import {View} from 'react-native';
-import {subTitleStyles} from '../subTitle/SubTitle.style';
+import {subTitleDescriptionStyles} from './SubTitleDescripiton.style';
 
 interface TextTopBarProps extends CommonMarginVerticalProps {
   subTitle: string;
@@ -13,7 +13,7 @@ const SubTitleDescription = ({text, subTitle, mb, mt}: TextTopBarProps) => {
   return (
     <View
       style={{
-        ...subTitleStyles.container,
+        ...subTitleDescriptionStyles.container,
         marginTop: mt ? mt : undefined,
         marginBottom: mb ? mb : undefined,
       }}>
