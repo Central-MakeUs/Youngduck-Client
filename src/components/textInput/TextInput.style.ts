@@ -18,6 +18,11 @@ export const textInputTypes: Record<ITextInput, TextInputStyle> = {
     titleColor: palette.State.Point,
     contentColor: palette.State.Point,
   },
+  warning: {
+    borderColor: palette.State.Point,
+    titleColor: palette.State.Point,
+    contentColor: palette.State.Point,
+  },
   active: {
     borderColor: palette.Primary.Normal,
     titleColor: palette.Text.Strong,

@@ -1,5 +1,5 @@
 import BoxButton from '@/components/buttons/boxButton';
-import TextInput from '@/components/textInput';
+import CheckDuplicate from '@/components/checkNickname/CheckNickname';
 import SubTitleDescription from '@/components/title/subTitleDescription';
 import {useState} from 'react';
 import {View} from 'react-native';
@@ -10,6 +10,7 @@ interface IInputNickname {
 
 const InputNickname = ({handleMoveScreen}: IInputNickname) => {
   const [nickname, setNickname] = useState<string>('');
+  const [isDuplicated, setIsDuplicated] = useState<boolean>(true);
   return (
     <>
       <View>
@@ -18,16 +19,22 @@ const InputNickname = ({handleMoveScreen}: IInputNickname) => {
           subTitle={`닉네임은 자신의 활동명이 될거에요\n변경하고 싶다면 설정에 변경할 수 있어요`}
           mb={40}
         />
-        <TextInput
+        <CheckDuplicate
           value={nickname}
           placeholder="닉네임을 입력해주세요"
           onChangeInput={e => setNickname(e)}
           title="닉네임"
-          content="닉네임을 입력해주세요"
+          content="2~10자 입력 가능해요."
           maxLength={10}
+          isDuplicated={isDuplicated}
+          setIsDuplicated={setIsDuplicated}
         />
       </View>
-      <BoxButton onPress={handleMoveScreen}>다음</BoxButton>
+      <BoxButton
+        disabled={nickname.length < 2 || isDuplicated}
+        onPress={handleMoveScreen}>
+        다음
+      </BoxButton>
     </>
   );
 };

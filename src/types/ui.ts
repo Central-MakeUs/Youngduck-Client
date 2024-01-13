@@ -23,7 +23,12 @@ export type ICheckBox = 'on' | 'off' | 'indeterminate';
 export type IChip = 'primary' | 'default';
 
 // textInput 타입 지정
-export type ITextInput = 'default' | 'writed' | 'caution' | 'active';
+export type ITextInput =
+  | 'default'
+  | 'writed'
+  | 'caution'
+  | 'active'
+  | 'warning';
 
 export type TextInputStyle = {
   borderColor: string;

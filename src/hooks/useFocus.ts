@@ -21,13 +21,20 @@ const useFocus = () => {
   };
 
   /**
+   * 닉네임 중복 시 에러 처리합니다.
+   */
+  const onWarning = () => {
+    setType('warning');
+  };
+
+  /**
    * Blur 처리 합니다.
    */
   const onBlur = (text: string) => {
     setType(text ? 'writed' : 'default');
   };
 
-  return {type, onFocus, onBlur, onError};
+  return {type, onFocus, onBlur, onError, onWarning};
 };
 
 export default useFocus;
