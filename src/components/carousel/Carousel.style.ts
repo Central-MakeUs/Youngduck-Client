@@ -8,14 +8,14 @@ export const carouselStyles = StyleSheet.create({
   indicatorContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 10,
+    marginTop: 12,
   },
   indicator: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: palette.Text.Alternative,
-    marginHorizontal: 5,
+    backgroundColor: palette.Fill.Strong,
+    marginHorizontal: 4,
   },
   activeIndicator: {
     backgroundColor: palette.Primary.Normal,

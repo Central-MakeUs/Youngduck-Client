@@ -25,7 +25,7 @@ const ReviewItem = () => {
           </Typography>
           <View style={reviewItemStyles.content}>
             {reviews.map((r: string) => (
-              <Chip text={r} />
+              <Chip text={r} key={r} />
             ))}
           </View>
         </View>

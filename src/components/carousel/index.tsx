@@ -5,17 +5,16 @@ import {Animated, FlatList, View} from 'react-native';
 import {carouselStyles} from './Carousel.style';
 
 interface CarouselProps {
-  data: any;
+  data: any; // TODO: 백엔드 통신 응답 값에 따른 타입 지정
   type?: 'image' | 'content';
 }
-const Carousel = ({data, type = 'image'}: CarouselProps) => {
+const Carousel = ({data, type = 'content'}: CarouselProps) => {
   const dots = Array.from({length: data.length}, (_, index) => index);
   const {screenWidth} = getScreenSize();
   const [currentPage, setCurrentPage] = useState(0);
   const scrollX = new Animated.Value(0);
 
   // 타입이 content 일 때 flatList 렌더링될 컴포넌트
-  // TODO: 백엔드 통신 응답 값에 따른 타입 지정
   const renderItem = ({item}: any) => <ReviewItem key={item.id} />;
 
   const handlePageChange = (event: any) => {
@@ -28,7 +27,7 @@ const Carousel = ({data, type = 'image'}: CarouselProps) => {
     <View>
       <FlatList
         data={data}
-        keyExtractor={item => String(item.id)}
+        keyExtractor={item => item.id.toString()}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
@@ -40,7 +39,11 @@ const Carousel = ({data, type = 'image'}: CarouselProps) => {
         renderItem={renderItem}
       />
 
-      <View style={carouselStyles.indicatorContainer}>
+      <View
+        style={[
+          carouselStyles.indicatorContainer,
+          type === 'image' && {marginTop: -10},
+        ]}>
         {dots.map(i => (
           <View
             key={i}
