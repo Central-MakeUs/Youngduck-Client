@@ -1,12 +1,13 @@
-import {Dimensions, Image} from 'react-native';
+import {Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import loginContainerStyles from './LoginContainer.style';
 import {defaultImages} from '@/assets';
+import {getScreenSize} from '@/utils/getScreenSize';
 
 function LoginContainer({children}: {children: React.ReactNode}) {
   const {top, bottom} = useSafeAreaInsets();
-  const {width, height} = Dimensions.get('screen');
+  const {screenWidth: width, screenHeight: height} = getScreenSize();
 
   const style = loginContainerStyles({top, bottom, width, height});
 

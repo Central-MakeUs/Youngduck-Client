@@ -49,8 +49,8 @@ try {
 
 const getStories = () => {
   return {
-    // button 컴포넌트
-    './src/components/button/Button.stories.tsx': require('../src/components/button/Button.stories.tsx'),
+    // boxButton 컴포넌트
+    './src/components/buttons/boxButton/BoxButton.stories.tsx': require('../src/components/buttons/boxButton/BoxButton.stories.tsx'),
     // chip 컴포넌트
     './src/components/chip/Chip.stories.tsx': require('../src/components/chip/Chip.stories.tsx'),
     // checkbox 컴포넌트
