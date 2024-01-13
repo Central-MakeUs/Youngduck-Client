@@ -2,9 +2,10 @@ import {StyleSheet} from 'react-native';
 
 export const subTitleStyles = StyleSheet.create({
   container: {
-    width: '100%',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    flexDirection: 'row',
     alignItems: 'flex-start',
-    paddingVertical: 16,
-    paddingLeft: 16,
+    width: '100%',
   },
 });

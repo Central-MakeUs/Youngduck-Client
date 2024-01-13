@@ -1,4 +1,4 @@
-import Button from '@/components/button';
+import BoxButton from '@/components/buttons/boxButton';
 import TextInput from '@/components/textInput';
 import BackTopBar from '@/components/topBar/backTopBar';
 import SubTitleTopBar from '@/components/topBar/subTitleTopBar';
@@ -13,7 +13,7 @@ function SignupScreen() {
   const [currentScreen, setCurrentScreen] = useState<number>(0);
   const scrollViewRef = useRef<ScrollView>(null);
   const {width} = Dimensions.get('screen');
-  const navigator = useNavigator();
+  const {stackNavigation} = useNavigator();
 
   const previousScreen = () => {
     scrollViewRef?.current?.scrollTo({x: -width, animated: true});
@@ -23,7 +23,9 @@ function SignupScreen() {
   return (
     <SafeAreaView style={{flex: 1}}>
       <BackTopBar
-        onPress={() => (currentScreen ? previousScreen() : navigator.goBack())}
+        onPress={() =>
+          currentScreen ? previousScreen() : stackNavigation.goBack()
+        }
       />
       <ScrollView
         horizontal
@@ -47,18 +49,18 @@ function SignupScreen() {
               maxLength={10}
             />
           </View>
-          <Button
+          <BoxButton
             onPress={() => {
               scrollViewRef?.current?.scrollToEnd();
               setCurrentScreen(1);
             }}
             style={{}}>
             다음
-          </Button>
+          </BoxButton>
         </View>
         <View style={{width}}>
           <Typography style="Title1">Hello World</Typography>
-          <Button onPress={() => {}}>다음</Button>
+          <BoxButton onPress={() => {}}>다음</BoxButton>
         </View>
       </ScrollView>
     </SafeAreaView>

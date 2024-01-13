@@ -36,7 +36,7 @@ const TextInput = ({
   }, [value]);
 
   return (
-    <View style={textInputStyles.container}>
+    <View>
       <Typography style="Label2" color={textInputTypes[type].titleColor} mb={4}>
         {title}
       </Typography>

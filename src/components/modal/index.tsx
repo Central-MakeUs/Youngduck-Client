@@ -5,7 +5,7 @@ import ModalContainer from 'react-native-modal';
 
 import palette from '@/styles/theme/color';
 import {modalStyles} from './Modal.style';
-import Button from '../button';
+import BoxButton from '../buttons/boxButton';
 
 interface ModalProps {
   title: string;
@@ -26,12 +26,12 @@ const Modal = ({title, content, isVisible, onClose, onPress}: ModalProps) => {
           {content}
         </Typography>
         <View style={modalStyles.container}>
-          <Button variant="default" onPress={onClose} width="50%">
+          <BoxButton variant="default" onPress={onClose} width="50%">
             아니오
-          </Button>
-          <Button onPress={onPress} width="50%">
+          </BoxButton>
+          <BoxButton onPress={onPress} width="50%">
             예
-          </Button>
+          </BoxButton>
         </View>
       </View>
     </ModalContainer>

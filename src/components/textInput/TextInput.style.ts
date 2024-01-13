@@ -26,9 +26,6 @@ export const textInputTypes: Record<ITextInput, TextInputStyle> = {
 };
 
 export const textInputStyles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 16,
-  },
   input: {
     width: '100%',
     height: 40,
