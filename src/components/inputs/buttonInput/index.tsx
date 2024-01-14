@@ -1,5 +1,5 @@
 import {View, TextInput as Input, Pressable} from 'react-native';
-import Typography from '../typography';
+
 import {inputTypes} from '@/styles/Input.style';
 import useFocus from '@/hooks/useFocus';
 import palette from '@/styles/theme/color';
@@ -8,8 +8,10 @@ import Calendar from '@/assets/icons/calendar.svg';
 import DownArrow from '@/assets/icons/down-arrow.svg';
 import Time from '@/assets/icons/time.svg';
 import Location from '@/assets/icons/location.svg';
-import {typeInputStyle} from './TypeInput.style';
+
 import {useState} from 'react';
+import Typography from '@/components/typography';
+import {buttonInputStyle} from './ButtonInput.style';
 
 interface TypeInputProps {
   value: any;
@@ -19,7 +21,7 @@ interface TypeInputProps {
   setValue: (value: any) => void;
 }
 
-const TypeInput = ({
+const ButtonInput = ({
   value, // 통신할  시간 value 값
   placeholder,
   title,
@@ -48,7 +50,7 @@ const TypeInput = ({
         onPressOut={() => onBlur(value)}>
         <Input
           style={[
-            typeInputStyle.input,
+            buttonInputStyle.input,
             {borderColor: inputTypes[type].borderColor},
           ]}
           placeholder={placeholder}
@@ -67,4 +69,4 @@ const TypeInput = ({
     </View>
   );
 };
-export default TypeInput;
+export default ButtonInput;

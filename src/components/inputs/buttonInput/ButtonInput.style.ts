@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-export const typeInputStyle = StyleSheet.create({
+export const buttonInputStyle = StyleSheet.create({
   input: {
     width: '100%',
     height: 40,

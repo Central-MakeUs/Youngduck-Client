@@ -15,6 +15,7 @@ const WritingScreen = () => {
   const onChangeGroup = useCallback((group: string) => {
     setGroup(group);
   }, []);
+
   return (
     <DefaultContainer>
       <Typography mt={40} mb={20} style="Title2" color={palette.Another.Black}>
