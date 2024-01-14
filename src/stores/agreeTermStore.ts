@@ -10,7 +10,7 @@ interface StoreAction {
   setIsFinishAgree: (isFinishAgree: boolean) => void;
 }
 
-export const agreeTermStore = create<StoreState & StoreAction>(set => ({
+export const useAgreeTermStore = create<StoreState & StoreAction>(set => ({
   allAgree: false,
   isFinishAgree: false,
   setAllAgree: (state: boolean) => set({allAgree: state}),

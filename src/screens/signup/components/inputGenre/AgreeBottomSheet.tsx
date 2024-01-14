@@ -10,7 +10,8 @@ import BoxButton from '@/components/buttons/boxButton';
 import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
 import {getScreenSize} from '@/utils/getScreenSize';
 import {GenreTypes} from '@/types/genre';
-import {useState} from 'react';
+import {useAgreeTermStore} from '@/stores/agreeTermStore';
+import useNavigator from '@/hooks/useNavigator';
 
 interface IAgreeBottomSheetProps {
   bottomDrawerRef: React.RefObject<BottomDrawerMethods>;
@@ -19,8 +20,8 @@ interface IAgreeBottomSheetProps {
 
 const AgreeBottomSheet = ({bottomDrawerRef}: IAgreeBottomSheetProps) => {
   const {screenHeight} = getScreenSize();
-  const [allAgree, setAllAgree] = useState<boolean>(false);
-  const [isFinishAgree, setIsFinishAgree] = useState<boolean>(false);
+  const {allAgree, isFinishAgree, setAllAgree} = useAgreeTermStore();
+  const {stackNavigation} = useNavigator();
 
   return (
     <BottomSheet drawerRef={bottomDrawerRef} height={(screenHeight * 2) / 3}>
@@ -37,12 +38,13 @@ const AgreeBottomSheet = ({bottomDrawerRef}: IAgreeBottomSheetProps) => {
           />
         </TextButtonContainer>
         <Divider mb={16} />
-        <AgreeTerms
-          allAgreeState={allAgree}
-          setAllAgreeState={setAllAgree}
-          setIsFinishAgreeState={setIsFinishAgree}
-        />
-        <BoxButton onPress={() => {}} disabled={!isFinishAgree}>
+        <AgreeTerms />
+        <BoxButton
+          onPress={() => {
+            bottomDrawerRef.current?.close();
+            stackNavigation.navigate('SignupCompleteScreen');
+          }}
+          disabled={!isFinishAgree}>
           동의하기
         </BoxButton>
       </DefaultContainer>

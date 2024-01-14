@@ -8,6 +8,7 @@ export type RootStackParamList = {
   BottomTabScreens: undefined;
   LoginScreen: undefined;
   SignupScreen: undefined;
+  SignupCompleteScreen: undefined;
   MyPageScreen: undefined;
   //TODO: 추후에 필요한 페이지 타입 주가
 };
