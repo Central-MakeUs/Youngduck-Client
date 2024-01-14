@@ -6,6 +6,11 @@ const inputGenreStyles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 1,
   },
+  textButtonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
 });
 
 export default inputGenreStyles;

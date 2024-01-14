@@ -3,12 +3,15 @@ import SelectButton from '@/components/buttons/selectButton';
 import SubTitleDescription from '@/components/title/subTitleDescription';
 import {GenreTypes} from '@/types/genre';
 import selectGenre from '@/utils/selectGenre';
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 import {View} from 'react-native';
 import inputGenreStyles from './InputGenre.style';
+import AgreeBottomSheet from './AgreeBottomSheet';
+import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
 
 const InputGenre = () => {
   const [selectedGenres, setSelectedGenres] = useState<GenreTypes[]>([]);
+  const bottomDrawerRef = useRef<BottomDrawerMethods>(null);
 
   const genres: GenreTypes[] = [
     '멜로',
@@ -48,9 +51,17 @@ const InputGenre = () => {
           ))}
         </View>
       </View>
-      <BoxButton onPress={() => {}} disabled={!selectedGenres.length}>
+      <BoxButton
+        onPress={() => {
+          bottomDrawerRef?.current?.open();
+        }}
+        disabled={!selectedGenres.length}>
         다음
       </BoxButton>
+      <AgreeBottomSheet
+        bottomDrawerRef={bottomDrawerRef}
+        selectedGenres={selectedGenres}
+      />
     </>
   );
 };
