@@ -13,7 +13,7 @@ function StackNavigator() {
       {/*로그인 페이지*/}
       {/*<Stack.Screen name={stackScreens.LoginScreen} component={LoginScreen} />*/}
 
-      {/*bottomTab 3개 페이지*/}
+      {/*BottomTab 3개 페이지*/}
       <Stack.Screen
         name={stackScreens.BottomTabScreens}
         component={BottomTabNavigator}

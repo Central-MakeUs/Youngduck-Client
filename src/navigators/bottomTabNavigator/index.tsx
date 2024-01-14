@@ -37,7 +37,7 @@ function BottomTabNavigator() {
         component={ScreeningStackNavigator}
         options={{
           tabBarLabel: bottomTabBarLabel.ScreeningScreen,
-          header: () => <TitleTopBar text="스크리닝" />,
+          headerShown: false,
         }}
       />
       <BottomTab.Screen
