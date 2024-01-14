@@ -1,3 +1,4 @@
+import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
 export const cancelStyles = StyleSheet.create({
@@ -7,6 +8,9 @@ export const cancelStyles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 16,
     paddingHorizontal: 16,
+    width: '100%',
+    borderBottomWidth: 1,
+    borderBottomColor: palette.Fill.Normal,
   },
   content: {
     flex: 1,

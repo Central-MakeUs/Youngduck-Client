@@ -14,10 +14,15 @@ function StackNavigator() {
       {/*<Stack.Screen name={stackScreens.LoginScreen} component={LoginScreen} />*/}
       {/*마이 페이지*/}
       {/*<Stack.Screen name={stackScreens.MyPageScreen} component={MyPageScreen} />*/}
+      {/*<Stack.Screen name={stackScreens.LoginScreen} component={LoginScreen} />*/}
+
+      {/*BottomTab 3개 페이지*/}
       <Stack.Screen
         name={stackScreens.BottomTabScreens}
         component={BottomTabNavigator}
       />
+      {/*마이 페이지*/}
+      <Stack.Screen name={stackScreens.MyPageScreen} component={MyPageScreen} />
     </Stack.Navigator>
   );
 }

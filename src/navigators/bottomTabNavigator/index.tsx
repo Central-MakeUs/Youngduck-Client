@@ -4,12 +4,12 @@ import bottomTabScreens, {
 } from '@/constants/bottomTabScreens';
 import HomeScreen from '@/screens/home/HomeScreen';
 import PopcornPartyScreen from '@/screens/popCornParty/PopcornPartyScreen';
-import ScreeningScreen from '@/screens/screening/ScreeningScreen';
 import palette from '@/styles/theme/color';
 import {BottomTabParamList} from '@/types/navigator';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {bottomTabScreenOptions} from './BottomTabNavigator.style';
 import TitleTopBar from '@/components/topBar/titleTopBar';
+import ScreeningStackNavigator from '../ScreeningStackNavigator';
 
 export const getTabBarIcon = (routeName: string, focused: boolean) => {
   const iconColor = focused ? palette.Primary.Normal : palette.Text.Disable;
@@ -34,10 +34,10 @@ function BottomTabNavigator() {
     <BottomTab.Navigator screenOptions={bottomTabScreenOptions}>
       <BottomTab.Screen
         name={bottomTabScreens.ScreeningScreen}
-        component={ScreeningScreen}
+        component={ScreeningStackNavigator}
         options={{
           tabBarLabel: bottomTabBarLabel.ScreeningScreen,
-          header: () => <TitleTopBar text="스크리닝" />,
+          headerShown: false,
         }}
       />
       <BottomTab.Screen
