@@ -4,6 +4,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 export type StackScreenName = keyof RootStackParamList;
 export type BottomTabScreenName = keyof BottomTabParamList;
 
+// 전체 페이지 stack param 타입
 export type RootStackParamList = {
   BottomTabScreens: undefined;
   LoginScreen: undefined;
@@ -11,10 +12,20 @@ export type RootStackParamList = {
   //TODO: 추후에 필요한 페이지 타입 주가
 };
 
+// bottomTab 컴포넌트 param 타입
 export type BottomTabParamList = {
   ScreeningScreen: undefined;
   HomeScreen: undefined;
   PopcornPartyScreen: undefined;
+};
+
+// 스크리닝 페이지 stack param 타입
+export type ScreeningStackParamList = {
+  HomeScreen: undefined;
+  WritingScreen: undefined;
+  DetailScreen: {id: number};
+  ReviewWritingScreen: undefined;
+  ScreeningListScreen: undefined;
 };
 
 // bottomTab route 타입 지정

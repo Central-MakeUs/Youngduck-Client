@@ -1,16 +1,21 @@
 import SubTitleTopBar from '@/components/topBar/subTitleTopBar';
 import {FlatList, View} from 'react-native';
-import WeeklyScreening from './components/weeklyScreening';
+
 import Divider from '@/components/divider';
-import RecentScreening from './components/recentScreening';
+
 import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
 import DefaultContainer from '@/components/container/defaultContainer';
-import {screeningStyle} from './ScreeningScreen.style';
-import ReviewScreening from './components/reviewScreening';
+
 import BoxButton from '@/components/buttons/boxButton';
 import Banner from '@/components/banner';
+import {screeningHomeStyle} from './HomeScreen.style';
+import ReviewScreening from './components/reviewScreening';
+import RecentScreening from './components/recentScreening';
+import WeeklyScreening from './components/weeklyScreening';
+import useNavigator from '@/hooks/useNavigator';
 
-function ScreeningScreen() {
+function HomeScreen() {
+  const {screeningStackNavigation} = useNavigator();
   // 이번주 스크리닝 더미 데이터
   const data = [
     {
@@ -44,7 +49,9 @@ function ScreeningScreen() {
   ];
   const renderItem = () => <WeeklyScreening />;
 
-  const handleGoWriting = () => {};
+  const handleGoWriting = () => {
+    screeningStackNavigation.navigate('WritingScreen');
+  };
 
   return (
     <DefaultScrollContainer>
@@ -76,9 +83,9 @@ function ScreeningScreen() {
           더보기
         </BoxButton>
       </DefaultContainer>
-      <View style={screeningStyle.bottom} />
+      <View style={screeningHomeStyle.bottom} />
     </DefaultScrollContainer>
   );
 }
 
-export default ScreeningScreen;
+export default HomeScreen;

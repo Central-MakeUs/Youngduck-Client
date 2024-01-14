@@ -12,12 +12,14 @@ function StackNavigator() {
     <Stack.Navigator screenOptions={{headerShown: false}}>
       {/*로그인 페이지*/}
       {/*<Stack.Screen name={stackScreens.LoginScreen} component={LoginScreen} />*/}
-      {/*마이 페이지*/}
-      {/*<Stack.Screen name={stackScreens.MyPageScreen} component={MyPageScreen} />*/}
+
+      {/*bottomTab 3개 페이지*/}
       <Stack.Screen
         name={stackScreens.BottomTabScreens}
         component={BottomTabNavigator}
       />
+      {/*마이 페이지*/}
+      <Stack.Screen name={stackScreens.MyPageScreen} component={MyPageScreen} />
     </Stack.Navigator>
   );
 }
