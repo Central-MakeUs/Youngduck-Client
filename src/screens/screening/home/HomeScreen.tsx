@@ -53,6 +53,10 @@ function HomeScreen() {
     screeningStackNavigation.navigate('WritingScreen');
   };
 
+  const handleGoScreeningList = () => {
+    screeningStackNavigation.navigate('ScreeningListScreen');
+  };
+
   return (
     <DefaultScrollContainer>
       {/*이미지 자리*/}
@@ -78,8 +82,7 @@ function HomeScreen() {
         <RecentScreening />
         <RecentScreening />
         <RecentScreening />
-        {/*TODO: 목록 페이지로 이동*/}
-        <BoxButton variant="default" onPress={() => {}}>
+        <BoxButton variant="default" onPress={handleGoScreeningList}>
           더보기
         </BoxButton>
       </DefaultContainer>
