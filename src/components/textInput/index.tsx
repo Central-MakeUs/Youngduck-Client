@@ -41,21 +41,48 @@ const TextInput = ({
       <Typography style="Label2" color={inputTypes[type].titleColor} mb={4}>
         {title}
       </Typography>
-      <Input
-        style={[
-          textInputStyles.input,
-          {borderColor: inputTypes[type].borderColor},
-        ]}
-        placeholder={placeholder}
-        onChangeText={onChangeInput}
-        value={value}
-        onFocus={() => onFocus()}
-        onBlur={() => onBlur(value)}
-        importantForAutofill="yes"
-        blurOnSubmit={false}
-        clearButtonMode="while-editing"
-        placeholderTextColor={palette.Text.Assistive}
-      />
+      <View style={{justifyContent: 'center'}}>
+        <Input
+          style={[
+            textInputStyles.input,
+            {
+              borderColor: textInputTypes[type].borderColor,
+              color: isDuplicated
+                ? palette.Text.Normal
+                : palette.Text.Alternative,
+            },
+          ]}
+          placeholder={placeholder}
+          onChangeText={onChangeInput}
+          value={value}
+          onFocus={onFocus}
+          onBlur={() => onBlur(value)}
+          importantForAutofill="yes"
+          blurOnSubmit={false}
+          placeholderTextColor={palette.Text.Assistive}
+          clearButtonMode={mode !== 'input' ? 'never' : 'while-editing'}
+          editable={isDuplicated}
+        />
+        {mode === 'check' && (
+          <Pressable
+            style={
+              value.length >= 2 && isDuplicated
+                ? textInputStyles.activated
+                : textInputStyles.deActivated
+            }
+            onPress={checkDuplicate}>
+            <Typography
+              style="Chips2"
+              color={
+                value.length >= 2 && isDuplicated
+                  ? palette.Primary.Deep
+                  : palette.Text.Alternative
+              }>
+              중복확인
+            </Typography>
+          </Pressable>
+        )}
+      </View>
       {(() => {
         if (type === 'caution') {
           return (
