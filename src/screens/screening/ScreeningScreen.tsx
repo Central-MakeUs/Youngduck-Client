@@ -50,9 +50,7 @@ function ScreeningScreen() {
     <DefaultScrollContainer>
       {/*이미지 자리*/}
       <Banner type="screening" onPress={handleGoWriting} />
-
       <SubTitle text="이번주 스크리닝" mt={12} mb={8} />
-
       <FlatList
         horizontal
         data={data}
@@ -60,12 +58,9 @@ function ScreeningScreen() {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{paddingHorizontal: 16}}
       />
-
       <SubTitle text="관객 리뷰" mt={24} mb={8} />
       <ReviewScreening />
-
       <Divider />
-
       <SubTitle text="실시간 새 소식" mt={16} mb={8} />
       <DefaultContainer>
         <RecentScreening />

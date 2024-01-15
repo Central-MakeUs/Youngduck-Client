@@ -4,6 +4,7 @@ import * as Kakao from '@react-native-seoul/kakao-login';
 
 import LoginContainer from '@/components/container/loginContainer';
 import KakaoLogin from '@/components/buttons/kakaoLogin';
+
 import {Image, Pressable, Text, View} from 'react-native';
 import loginScreenStyles from '@/screens/login/LoginScreen.style';
 import {defaultImages} from '@/assets';
