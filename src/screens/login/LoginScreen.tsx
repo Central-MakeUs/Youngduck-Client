@@ -4,10 +4,12 @@ import * as Kakao from '@react-native-seoul/kakao-login';
 
 import LoginContainer from '@/components/container/loginContainer';
 import KakaoLogin from '@/components/buttons/kakaoLogin';
-import {Image, Text, View} from 'react-native';
+
+import {Image, Pressable, Text, View} from 'react-native';
 import loginScreenStyles from '@/screens/login/LoginScreen.style';
 import {defaultImages} from '@/assets';
 import useNavigator from '@/hooks/useNavigator';
+import stackScreens from '@/constants/stackScreens';
 
 function LoginScreen() {
   const {stackNavigation} = useNavigator();
@@ -43,6 +45,10 @@ function LoginScreen() {
         <KakaoLogin onPress={handleSignInKakao} />
         <KakaoLogin onPress={() => {}} />
       </View>
+      <Pressable
+        onPress={() => stackNavigation.navigate(stackScreens.SignupScreen)}>
+        <Text>SignupScreen</Text>
+      </Pressable>
     </LoginContainer>
   );
 }

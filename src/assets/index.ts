@@ -6,6 +6,8 @@ export interface Assets {
 
 export const defaultImages: Assets = {
   loginPopcorn: require('@/assets/images/Bg-login.png'),
+  completeSignupPopcorn: require('@/assets/images/Bg-fin.png'),
+  pacong: require('@/assets/images/pacong.png'),
   popCornMate: require('@/assets/images/popcornmate.png'),
   writePopcorn: require('@/assets/images/bg-writeImage.png'),
   popCornParty: require('@/assets/images/bg-popcornParty.png'),

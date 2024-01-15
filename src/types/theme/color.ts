@@ -3,14 +3,6 @@ import palette from '@/styles/theme/color';
 // 팔레트 키 값 추출 (Another | Background | Fill | Line | Primary | State | Text)
 type PaletteKey = keyof typeof palette;
 
-// 팔레트 키값에 대응되는 색 객체 타입 지정
-// ColorType<'Text'> = {
-//  Strong: '',
-//  Normal: '',
-//  Alternative: '',
-//  Assistive: '',
-//  Disable: '',
-//};
 type ColorType<T extends PaletteKey> = {
   [Key in keyof (typeof palette)[T]]: (typeof palette)[T][Key];
 };
