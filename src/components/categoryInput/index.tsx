@@ -1,4 +1,5 @@
 import {Pressable, View} from 'react-native';
+import {getHours, getMinutes} from 'date-fns';
 import Typography from '../typography';
 import palette from '@/styles/theme/color';
 import {categoryInputStyles, categoryInputTypes} from './CategoryInput.style';
@@ -24,6 +25,13 @@ const CategoryInput = ({
   title,
 }: CategoryInput) => {
   const {type, onFocus, onBlur} = useFocus();
+
+  const timeString = value
+    ? `${getHours(value)}시 ${getMinutes(value)}분`
+    : null;
+
+  console.log(timeString, typeof timeString);
+
   return (
     <View>
       <Typography
@@ -40,9 +48,19 @@ const CategoryInput = ({
         onPress={onPress}
         onPressIn={() => onFocus()}
         onPressOut={() => onBlur(value)}>
-        <Typography style="Body1" color={palette.Text.Assistive}>
-          {placeholder}
-        </Typography>
+        {(() => {
+          if (timeString) {
+            <Typography style="Body1" color={palette.Text.Normal}>
+              {timeString}
+            </Typography>;
+          } else {
+            return (
+              <Typography style="Body1" color={palette.Text.Assistive}>
+                {placeholder}
+              </Typography>
+            );
+          }
+        })()}
         <View>
           {category === 'date' && <Calendar />}
           {category === 'location' && <Location />}
