@@ -1,9 +1,9 @@
-import {GenreTypes} from '@/types/genre';
+import {TGenre} from '@/types/signup/genre';
 
 interface ISelectGenreProps {
-  selectedGenres: GenreTypes[];
-  setSelectedGenres: React.Dispatch<React.SetStateAction<GenreTypes[]>>;
-  genre: GenreTypes;
+  selectedGenres: TGenre[];
+  setSelectedGenres: React.Dispatch<React.SetStateAction<TGenre[]>>;
+  genre: TGenre;
 }
 
 const selectGenre = ({
@@ -15,7 +15,7 @@ const selectGenre = ({
     setSelectedGenres([...selectedGenres, genre]);
   } else {
     const newDatas = selectedGenres.filter(
-      (selectedGenre: GenreTypes) => selectedGenre !== genre,
+      (selectedGenre: TGenre) => selectedGenre !== genre,
     );
     setSelectedGenres([...newDatas]);
   }

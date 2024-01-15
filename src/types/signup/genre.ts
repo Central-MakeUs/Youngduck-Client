@@ -1,4 +1,4 @@
-export type GenreTypes =
+export type TGenre =
   | '멜로'
   | '코미디'
   | '로맨틱코미디'

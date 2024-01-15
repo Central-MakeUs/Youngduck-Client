@@ -1,19 +1,19 @@
 import BoxButton from '@/components/buttons/boxButton';
 import SelectButton from '@/components/buttons/selectButton';
 import SubTitleDescription from '@/components/title/subTitleDescription';
-import {GenreTypes} from '@/types/genre';
+import {TGenre} from '@/types/signup/genre';
 import selectGenre from '@/utils/selectGenre';
 import {useRef, useState} from 'react';
 import {View} from 'react-native';
 import inputGenreStyles from './InputGenre.style';
-import AgreeBottomSheet from './AgreeBottomSheet';
 import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
+import AgreeBottomSheet from '../agreementBottomSheet';
 
 const InputGenre = () => {
-  const [selectedGenres, setSelectedGenres] = useState<GenreTypes[]>([]);
+  const [selectedGenres, setSelectedGenres] = useState<TGenre[]>([]);
   const bottomDrawerRef = useRef<BottomDrawerMethods>(null);
 
-  const genres: GenreTypes[] = [
+  const genres: TGenre[] = [
     '멜로',
     '코미디',
     '로맨틱코미디',
@@ -39,7 +39,7 @@ const InputGenre = () => {
           mb={24}
         />
         <View style={inputGenreStyles.container}>
-          {genres.map((genre: GenreTypes) => (
+          {genres.map((genre: TGenre) => (
             <SelectButton
               onPress={() =>
                 selectGenre({selectedGenres, setSelectedGenres, genre})
