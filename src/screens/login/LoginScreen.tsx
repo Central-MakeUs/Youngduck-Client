@@ -8,6 +8,7 @@ import {Image, Pressable, Text, View} from 'react-native';
 import loginScreenStyles from '@/screens/login/LoginScreen.style';
 import {defaultImages} from '@/assets';
 import useNavigator from '@/hooks/useNavigator';
+import stackScreens from '@/constants/stackScreens';
 
 function LoginScreen() {
   const {stackNavigation} = useNavigator();
@@ -43,7 +44,8 @@ function LoginScreen() {
         <KakaoLogin onPress={handleSignInKakao} />
         <KakaoLogin onPress={() => {}} />
       </View>
-      <Pressable onPress={() => stackNavigation.navigate('SignupScreen')}>
+      <Pressable
+        onPress={() => stackNavigation.navigate(stackScreens.SignupScreen)}>
         <Text>SignupScreen</Text>
       </Pressable>
     </LoginContainer>

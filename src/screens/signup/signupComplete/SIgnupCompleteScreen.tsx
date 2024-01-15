@@ -18,7 +18,7 @@ const SignupCompleteScreen = () => {
     height,
   });
   const {stackNavigation} = useNavigator();
-  console.log(stackNavigation);
+
   return (
     <View style={style.container}>
       <View style={style.pacongWrap}>

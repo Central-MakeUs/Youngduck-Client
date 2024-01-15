@@ -4,7 +4,7 @@ const inputGenreStyles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    flexWrap: 1,
+    flexWrap: 'wrap',
   },
   textButtonContainer: {
     flexDirection: 'row',
