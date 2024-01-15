@@ -77,22 +77,16 @@ const TextInput = ({
           importantForAutofill="yes"
           blurOnSubmit={false}
           placeholderTextColor={palette.Text.Assistive}
+          clearButtonMode={isDuplicated ? 'never' : 'while-editing'}
           editable={isDuplicated}
         />
         {mode === 'check' && (
           <Pressable
-            style={{
-              position: 'absolute',
-              alignSelf: 'flex-end',
-              paddingVertical: 2,
-              paddingHorizontal: 4,
-              right: 16,
-              borderRadius: 4,
-              backgroundColor:
-                value.length >= 2 && isDuplicated
-                  ? palette.Primary.Assistive
-                  : palette.Fill.Normal,
-            }}
+            style={
+              value.length >= 2 && isDuplicated
+                ? textInputStyles.activated
+                : textInputStyles.deActivated
+            }
             onPress={checkDuplicate}>
             <Typography
               style="Chips2"
