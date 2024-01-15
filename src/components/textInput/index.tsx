@@ -77,7 +77,7 @@ const TextInput = ({
           importantForAutofill="yes"
           blurOnSubmit={false}
           placeholderTextColor={palette.Text.Assistive}
-          clearButtonMode={isDuplicated ? 'never' : 'while-editing'}
+          clearButtonMode={mode !== 'input' ? 'never' : 'while-editing'}
           editable={isDuplicated}
         />
         {mode === 'check' && (
