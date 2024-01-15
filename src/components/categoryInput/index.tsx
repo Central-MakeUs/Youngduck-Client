@@ -44,7 +44,10 @@ const CategoryInput = ({
           {placeholder}
         </Typography>
         <View>
-          <Calendar />
+          {category === 'date' && <Calendar />}
+          {category === 'location' && <Location />}
+          {category === 'select' && <DownArrow />}
+          {category === 'time' && <Time />}
         </View>
       </Pressable>
     </View>
