@@ -25,7 +25,7 @@ function SignupScreen() {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={signupScreenStyles.container}>
       <BackTopBar
         onPress={() =>
           currentScreen ? handleMoveScreen() : stackNavigation.goBack()
