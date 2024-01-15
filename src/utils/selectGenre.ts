@@ -14,11 +14,9 @@ const selectGenre = ({
   if (!selectedGenres.includes(genre)) {
     setSelectedGenres([...selectedGenres, genre]);
   } else {
-    const indexOfGenre = selectedGenres.indexOf(genre);
-    const newDatas = [
-      ...selectedGenres.slice(0, indexOfGenre),
-      ...selectedGenres.slice(indexOfGenre + 1),
-    ];
+    const newDatas = selectedGenres.filter(
+      (selectedGenre: GenreTypes) => selectedGenre !== genre,
+    );
     setSelectedGenres([...newDatas]);
   }
 };
