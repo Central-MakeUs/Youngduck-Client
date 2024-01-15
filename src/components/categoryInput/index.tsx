@@ -13,6 +13,7 @@ interface CategoryInput {
   category: 'select' | 'time' | 'date' | 'location';
   onPress: () => void;
   value: any;
+  title: string;
 }
 
 const CategoryInput = ({
@@ -20,23 +21,33 @@ const CategoryInput = ({
   category,
   onPress,
   value,
+  title,
 }: CategoryInput) => {
   const {type, onFocus, onBlur} = useFocus();
   return (
-    <Pressable
-      style={[
-        categoryInputStyles.container,
-        {borderColor: categoryInputTypes[type].borderColor},
-      ]}
-      onPressIn={() => onFocus()}
-      onPressOut={() => onBlur(value)}>
-      <Typography style="Body1" color={palette.Text.Assistive}>
-        {placeholder}
+    <View>
+      <Typography
+        style="Label2"
+        mb={4}
+        color={categoryInputTypes[type].titleColor}>
+        {title}
       </Typography>
-      <View>
-        <Calendar />
-      </View>
-    </Pressable>
+      <Pressable
+        style={[
+          categoryInputStyles.container,
+          {borderColor: categoryInputTypes[type].borderColor},
+        ]}
+        onPress={onPress}
+        onPressIn={() => onFocus()}
+        onPressOut={() => onBlur(value)}>
+        <Typography style="Body1" color={palette.Text.Assistive}>
+          {placeholder}
+        </Typography>
+        <View>
+          <Calendar />
+        </View>
+      </Pressable>
+    </View>
   );
 };
 export default CategoryInput;
