@@ -6,7 +6,7 @@ interface TimePickerModalProps {
   visible: boolean;
   onConfirm: (date: Date) => void; // 시간 선택 함수
   onCancel: () => void; // 모달 닫기 취소
-  date: Date;
+  date: Date | undefined;
 }
 const TimePickerModal = ({
   visible,

@@ -2,6 +2,7 @@ import CategoryInput from '@/components/categoryInput';
 import TimePickerModal from '@/components/modals/timePickerModal';
 import {useState} from 'react';
 import {View} from 'react-native';
+import {getHours, getMinutes} from 'date-fns';
 
 interface ScreeningTimeProps {
   time: undefined | Date;
@@ -9,6 +10,8 @@ interface ScreeningTimeProps {
 }
 const ScreeningTime = ({time, setTime}: ScreeningTimeProps) => {
   const [timeModal, setTimeModal] = useState<boolean>(false);
+
+  const timeString = time ? `${getHours(time)}시 ${getMinutes(time)}분` : null;
 
   const closeTimePicker = () => {
     setTimeModal(false);
@@ -31,7 +34,7 @@ const ScreeningTime = ({time, setTime}: ScreeningTimeProps) => {
         title="시간"
         placeholder="시간 선택하기"
         category="time"
-        value={time}
+        value={timeString}
         onPress={handleTimePickerClick}
       />
       <TimePickerModal
