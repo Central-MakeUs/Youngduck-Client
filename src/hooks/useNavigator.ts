@@ -1,20 +1,13 @@
-import {
-  BottomTabParamList,
-  RootStackParamList,
-  ScreeningStackParamList,
-} from '@/types/navigator';
+import {BottomTabParamList, StackParamList} from '@/types/navigator';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 const useNavigator = () => {
   const stackNavigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    useNavigation<NativeStackNavigationProp<StackParamList>>();
   const tabNavigation = useNavigation<NavigationProp<BottomTabParamList>>();
 
-  const screeningStackNavigation =
-    useNavigation<NavigationProp<ScreeningStackParamList>>();
-
-  return {stackNavigation, tabNavigation, screeningStackNavigation};
+  return {stackNavigation, tabNavigation};
 };
 
 export default useNavigator;

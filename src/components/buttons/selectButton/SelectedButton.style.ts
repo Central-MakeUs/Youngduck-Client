@@ -1,13 +1,14 @@
 import palette from '@/styles/theme/color';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, ViewStyle} from 'react-native';
 
-const commonStyles = {
-  paddigVertical: 8,
+const commonStyles: ViewStyle = {
+  height: 40,
   paddingHorizontal: 16,
   borderRadius: 100,
   borderWidth: 1,
   marginBottom: 12,
   marginRight: 8,
+  justifyContent: 'center',
 };
 
 export const selectedButtonStyles = StyleSheet.create({
