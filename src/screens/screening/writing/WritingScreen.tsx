@@ -50,6 +50,46 @@ const WritingScreen = () => {
         />
 
         {/*주최명*/}
+        <TextInput
+          value={inputValues.screening}
+          title="주최명"
+          placeholder="주최명을 입력해주세요"
+          onChangeInput={value => onChangeInput('screening', value)}
+          content=""
+          maxLength={9}
+        />
+
+        {/*분류 => select 컴포넌트*/}
+
+        {/*날짜 => dateRangePicker 컴포넌트*/}
+
+        {/*시간 => timePicker 컴포넌트*/}
+
+        {/*장소 => kakao 장소 검색*/}
+
+        {/*추가 설명 => textArea 컴포넌트*/}
+
+        {/*관람신청 URL*/}
+        <TextInput
+          value={inputValues.url}
+          title="관람 신청 URL"
+          placeholder="관람 신청 URL을 입력해주세요"
+          content=""
+          onChangeInput={value => onChangeInput('url', value)}
+          maxLength={100}
+          keyBoardType="url"
+        />
+
+        {/*주최 연락처*/}
+        <TextInput
+          value={inputValues.phone}
+          title="주최 연락처"
+          placeholder="주최 연락처를 입력해주세요"
+          content=""
+          onChangeInput={value => onChangeInput('phone', value)}
+          maxLength={100}
+          keyBoardType="phone"
+        />
       </ScrollView>
     </DefaultContainer>
   );
