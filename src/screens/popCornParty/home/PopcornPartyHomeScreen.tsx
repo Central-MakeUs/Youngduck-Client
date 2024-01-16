@@ -4,6 +4,7 @@ import SubTitle from '@/components/title/subTitle';
 import {IPopcornTrendingCardDatas} from '@/types/popcornParty';
 import {FlatList} from 'react-native';
 import renderPopcornTrendingCard from './utils/renderPopcornTrendingCard';
+import Divider from '@/components/divider';
 
 function PopcornPartyHomeScreen() {
   const {withoutRankingItem, withRankingItem} = renderPopcornTrendingCard();
@@ -51,6 +52,7 @@ function PopcornPartyHomeScreen() {
         renderItem={withRankingItem}
         showsHorizontalScrollIndicator={false}
       />
+      <Divider height={8} mt={24} mb={16} />
     </DefaultScrollContainer>
   );
 }
