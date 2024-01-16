@@ -26,12 +26,6 @@ const CategoryInput = ({
 }: CategoryInput) => {
   const {type, onFocus, onBlur} = useFocus();
 
-  const timeString = value
-    ? `${getHours(value)}시 ${getMinutes(value)}분`
-    : null;
-
-  console.log(timeString, typeof timeString);
-
   return (
     <View>
       <Typography
@@ -48,19 +42,18 @@ const CategoryInput = ({
         onPress={onPress}
         onPressIn={() => onFocus()}
         onPressOut={() => onBlur(value)}>
-        {(() => {
-          if (timeString) {
-            <Typography style="Body1" color={palette.Text.Normal}>
-              {timeString}
-            </Typography>;
-          } else {
-            return (
-              <Typography style="Body1" color={palette.Text.Assistive}>
-                {placeholder}
-              </Typography>
-            );
-          }
-        })()}
+        {!value && (
+          <Typography style="Label2" color={palette.Text.Assistive}>
+            {placeholder}
+          </Typography>
+        )}
+
+        {value && (
+          <Typography style="Label2" color={palette.Text.Normal}>
+            {value}
+          </Typography>
+        )}
+
         <View>
           {category === 'date' && <Calendar />}
           {category === 'location' && <Location />}
