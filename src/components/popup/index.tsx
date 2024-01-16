@@ -22,7 +22,7 @@ const Popup = ({title, content, isVisible, onClose, onPress}: ModalProps) => {
         <Typography style="Subtitle2" color={palette.Text.Strong}>
           {title}
         </Typography>
-        <Typography style="Body1" color={palette.Text.Normal} mt={8} mb={16}>
+        <Typography style="Body1" mt={8} mb={16}>
           {content}
         </Typography>
         <View style={popupStyles.container}>
