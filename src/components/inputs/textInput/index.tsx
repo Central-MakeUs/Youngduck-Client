@@ -5,7 +5,8 @@ import useFocus from '@/hooks/useFocus';
 import {useEffect} from 'react';
 
 import palette from '@/styles/theme/color';
-import {textInputStyles, textInputTypes} from './TextInput.style';
+import {textInputStyles} from './TextInput.style';
+import {inputTypes} from '@/styles/Input.style';
 
 interface TextInputProps {
   value: string;
@@ -55,9 +56,10 @@ const TextInput = ({
 
   return (
     <View>
-      <Typography style="Label2" color={textInputTypes[type].titleColor} mb={4}>
+      <Typography style="Label2" color={inputTypes[type].titleColor} mb={4}>
         {title}
       </Typography>
+<<<<<<< develop:src/components/inputs/textInput/index.tsx
       <View style={{justifyContent: 'center'}}>
         <Input
           style={[
@@ -100,12 +102,29 @@ const TextInput = ({
           </Pressable>
         )}
       </View>
+=======
+      <Input
+        style={[
+          textInputStyles.input,
+          {borderColor: inputTypes[type].borderColor},
+        ]}
+        placeholder={placeholder}
+        onChangeText={onChangeInput}
+        value={value}
+        onFocus={() => onFocus()}
+        onBlur={() => onBlur(value)}
+        importantForAutofill="yes"
+        blurOnSubmit={false}
+        clearButtonMode="while-editing"
+        placeholderTextColor={palette.Text.Assistive}
+      />
+>>>>>>> refactor: 공통 textInput 스타일 파일 생성:src/components/textInput/index.tsx
       {(() => {
         if (type === 'caution') {
           return (
             <Typography
               style="Chips1"
-              color={textInputTypes[type].contentColor}
+              color={inputTypes[type].contentColor}
               mt={4}>
               {errorMessage}
             </Typography>
@@ -114,7 +133,7 @@ const TextInput = ({
           return (
             <Typography
               style="Chips1"
-              color={textInputTypes[type].contentColor}
+              color={inputTypes[type].contentColor}
               mt={4}>
               {content}
             </Typography>
