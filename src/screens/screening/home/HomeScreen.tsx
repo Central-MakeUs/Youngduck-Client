@@ -14,6 +14,7 @@ import WeeklyScreening from './components/weeklyScreening';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import SubTitle from '@/components/title/subTitle';
+import ScreeningStackScreen from '@/constants/screeningStackScreen';
 
 function HomeScreen() {
   const {stackNavigation} = useNavigator();
@@ -56,7 +57,7 @@ function HomeScreen() {
   };
 
   const handleGoScreeningList = () => {
-    stackNavigation.navigate('ScreeningListScreen');
+    stackNavigation.navigate(ScreeningStackScreen.ScreeningListScreen);
   };
 
   return (

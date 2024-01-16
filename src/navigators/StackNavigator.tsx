@@ -11,6 +11,7 @@ import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
 import useNavigator from '@/hooks/useNavigator';
 import ReviewWritingScreen from '@/screens/screening/reviewWriting/ReviewWritingScreen';
 import CancelTopBar from '@/components/topBar/cancelTopBar';
+import WritingScreen from '@/screens/screening/writing/WritingScreen';
 
 function StackNavigator() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -39,6 +40,16 @@ function StackNavigator() {
       <Stack.Screen name={stackScreens.MyPageScreen} component={MyPageScreen} />
 
       {/*스크리닝 페이지*/}
+      {/*작성 페이지*/}
+      <Stack.Screen
+        name={stackScreens.WritingScreen}
+        component={WritingScreen}
+        options={{
+          header: () => (
+            <CancelTopBar text="상영회 등록하기" onPress={handleGoBack} />
+          ),
+        }}
+      />
       {/*상세 페이지*/}
       <Stack.Screen
         name={stackScreens.DetailScreen}
