@@ -1,5 +1,5 @@
 import {TextInput as Input, Pressable, View} from 'react-native';
-import Typography from '../typography';
+import Typography from '../../typography';
 
 import useFocus from '@/hooks/useFocus';
 import {useEffect} from 'react';

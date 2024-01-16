@@ -2,7 +2,7 @@ import BackTopBar from '@/components/topBar/backTopBar';
 import useNavigator from '@/hooks/useNavigator';
 import {useRef, useState} from 'react';
 import {Animated, SafeAreaView, ScrollView, View} from 'react-native';
-import ProgressBar from './components/progressBar';
+import ProgressBar from '../../components/progressBar';
 import moveScreen from '@/utils/moveScreen';
 import signupScreenStyles from './SignupScreen.style';
 import InputNickname from './components/inputNickname';

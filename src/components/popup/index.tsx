@@ -4,7 +4,7 @@ import Typography from '../typography';
 import ModalContainer from 'react-native-modal';
 
 import palette from '@/styles/theme/color';
-import {modalStyles} from './Modal.style';
+import {popupStyles} from './Modal.style';
 import BoxButton from '../buttons/boxButton';
 
 interface ModalProps {
@@ -15,17 +15,17 @@ interface ModalProps {
   onPress: () => void;
 }
 
-const Modal = ({title, content, isVisible, onClose, onPress}: ModalProps) => {
+const Popup = ({title, content, isVisible, onClose, onPress}: ModalProps) => {
   return (
     <ModalContainer isVisible={isVisible} onBackdropPress={onClose}>
-      <View style={modalStyles.modal}>
+      <View style={popupStyles.modal}>
         <Typography style="Subtitle2" color={palette.Text.Strong}>
           {title}
         </Typography>
         <Typography style="Body1" color={palette.Text.Normal} mt={8} mb={16}>
           {content}
         </Typography>
-        <View style={modalStyles.container}>
+        <View style={popupStyles.container}>
           <BoxButton variant="default" onPress={onClose} width="50%">
             아니오
           </BoxButton>
@@ -38,4 +38,4 @@ const Modal = ({title, content, isVisible, onClose, onPress}: ModalProps) => {
   );
 };
 
-export default Modal;
+export default Popup;

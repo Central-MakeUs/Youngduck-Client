@@ -1,7 +1,7 @@
 import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
-export const modalStyles = StyleSheet.create({
+export const popupStyles = StyleSheet.create({
   modal: {
     backgroundColor: palette.Another.White,
     borderRadius: 16,
