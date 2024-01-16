@@ -7,19 +7,11 @@ import DefaultContainer from '@/components/container/defaultContainer';
 import useNavigator from '@/hooks/useNavigator';
 
 const ReviewItem = () => {
-<<<<<<< HEAD
   const {stackNavigation} = useNavigator();
   const reviews = ['재밌어요', '멋있어요'];
   const handleGoDetail = () => {
     // TODO: 상세 페이지 id param 넣어주기
     stackNavigation.navigate('DetailScreen', {id: 1});
-=======
-  const {screeningStackNavigation} = useNavigator();
-  const reviews = ['재밌어요', '멋있어요'];
-  const handleGoDetail = () => {
-    // TODO: 상세 페이지 id param 넣어주기
-    screeningStackNavigation.navigate('DetailScreen', {id: 1});
->>>>>>> a601cc6e5033206e676542eed864d731e0581af8
   };
   return (
     <DefaultContainer>

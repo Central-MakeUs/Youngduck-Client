@@ -2,7 +2,6 @@ import DefaultContainer from '@/components/container/defaultContainer';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import ScreeningGallery from './components/screeningGallery';
-import TextInput from '@/components/textInput';
 import {useCallback, useState} from 'react';
 
 const WritingScreen = () => {
@@ -25,24 +24,8 @@ const WritingScreen = () => {
       <ScreeningGallery />
 
       {/*타이틀*/}
-      <TextInput
-        value={title}
-        placeholder="입력해주세용"
-        onChangeInput={onChangeTitle}
-        maxLength={10}
-        title="타이틀"
-        content="타이틀을 입력해주세요"
-      />
 
       {/*주최명*/}
-      <TextInput
-        value={group}
-        placeholder="입력해주세용"
-        onChangeInput={onChangeGroup}
-        maxLength={10}
-        title="주최명"
-        content="주최명을 입력해주세요"
-      />
     </DefaultContainer>
   );
 };
