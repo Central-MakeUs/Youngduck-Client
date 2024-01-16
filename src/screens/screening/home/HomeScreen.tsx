@@ -48,6 +48,7 @@ function HomeScreen() {
       remain: 'D-2',
     },
   ];
+
   const renderItem = () => <WeeklyScreening />;
 
   const handleGoWriting = () => {

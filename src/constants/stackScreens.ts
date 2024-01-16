@@ -4,6 +4,8 @@ const enum stackScreens {
   SignupCompleteScreen = 'SignupCompleteScreen',
   BottomTabScreens = 'BottomTabScreens',
   MyPageScreen = 'MyPageScreen',
+
+  //스크리닝 페이지
   HomeScreen = 'HomeScreen',
   WritingScreen = 'WritingScreen',
   DetailScreen = 'DetailScreen',
