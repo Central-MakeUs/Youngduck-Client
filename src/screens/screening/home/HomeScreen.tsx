@@ -13,9 +13,10 @@ import ReviewScreening from './components/reviewScreening';
 import RecentScreening from './components/recentScreening';
 import WeeklyScreening from './components/weeklyScreening';
 import useNavigator from '@/hooks/useNavigator';
+import stackScreens from '@/constants/stackScreens';
 
 function HomeScreen() {
-  const {screeningStackNavigation} = useNavigator();
+  const {stackNavigation} = useNavigator();
   // 이번주 스크리닝 더미 데이터
   const data = [
     {
@@ -50,11 +51,11 @@ function HomeScreen() {
   const renderItem = () => <WeeklyScreening />;
 
   const handleGoWriting = () => {
-    screeningStackNavigation.navigate('WritingScreen');
+    stackNavigation.navigate(stackScreens.WritingScreen);
   };
 
   const handleGoScreeningList = () => {
-    screeningStackNavigation.navigate('ScreeningListScreen');
+    stackNavigation.navigate('ScreeningListScreen');
   };
 
   return (
@@ -73,7 +74,7 @@ function HomeScreen() {
       </DefaultContainer>
       <ReviewScreening />
 
-      <Divider />
+      <Divider height={8} />
 
       <DefaultContainer>
         <SubTitle text="실시간 새 소식" mt={16} mb={8} />

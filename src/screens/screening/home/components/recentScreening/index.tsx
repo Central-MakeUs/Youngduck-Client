@@ -5,10 +5,10 @@ import {recentStyles} from './RecentScreening.style';
 import useNavigator from '@/hooks/useNavigator';
 
 const RecentScreening = () => {
-  const {screeningStackNavigation} = useNavigator();
+  const {stackNavigation} = useNavigator();
   const handleGoDetail = () => {
     // TODO: 상세 페이지 id param 넣어주기
-    screeningStackNavigation.navigate('DetailScreen', {id: 1});
+    stackNavigation.navigate('DetailScreen', {id: 1});
   };
   return (
     <TouchableOpacity

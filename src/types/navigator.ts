@@ -4,7 +4,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 export type StackScreenName = keyof RootStackParamList;
 export type BottomTabScreenName = keyof BottomTabParamList;
 
-export type StackParamList = RootStackParamList | ScreeningStackParamList;
+export type StackParamList = RootStackParamList & ScreeningStackParamList;
 
 // 전체 페이지 stack param 타입
 export type RootStackParamList = {

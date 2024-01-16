@@ -36,8 +36,7 @@ function LoginScreen() {
     <LoginContainer>
       <View style={loginScreenStyles.wrapper}>
         <Text style={loginScreenStyles.description}>
-          {`영잘알들의
-영화교류 플랫폼`}
+          {`영잘알들의\n영화교류 플랫폼`}
         </Text>
         <Image source={defaultImages.popCornMate} />
       </View>
