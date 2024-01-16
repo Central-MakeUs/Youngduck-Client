@@ -23,7 +23,7 @@ function StackNavigator() {
     stackNavigation.goBack();
   };
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator>
       {/*로그인 페이지*/}
       {/* <Stack.Screen name={stackScreens.LoginScreen} component={LoginScreen} />
       <Stack.Screen name={stackScreens.SignupScreen} component={SignupScreen} />
@@ -35,6 +35,9 @@ function StackNavigator() {
       <Stack.Screen
         name={stackScreens.BottomTabScreens}
         component={BottomTabNavigator}
+        options={{
+          headerShown: false,
+        }}
       />
       {/*마이 페이지*/}
       <Stack.Screen name={stackScreens.MyPageScreen} component={MyPageScreen} />
