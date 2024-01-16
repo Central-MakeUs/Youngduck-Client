@@ -53,3 +53,7 @@ export interface CommonMarginProps extends CommonMarginVerticalProps {
   mx?: number;
   my?: number;
 }
+
+export interface CommonTopProp {
+  top: number;
+}

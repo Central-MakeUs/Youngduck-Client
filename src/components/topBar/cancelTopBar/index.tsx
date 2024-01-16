@@ -5,7 +5,7 @@ import palette from '@/styles/theme/color';
 import {CommonMarginVerticalProps} from '@/types/ui';
 import {View} from 'react-native';
 import {cancelStyles} from './CancelTopBar.style';
-import TopBarContainer from '@/components/container/topBarContainer';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface CancelTopBarProps extends CommonMarginVerticalProps {
   onPress: () => void;
@@ -13,22 +13,22 @@ interface CancelTopBarProps extends CommonMarginVerticalProps {
 }
 
 const CancelTopBar = ({text, onPress, mb, mt}: CancelTopBarProps) => {
+  const {top} = useSafeAreaInsets();
+  const style = cancelStyles({top});
   return (
-    <TopBarContainer>
-      <View
-        style={{
-          ...cancelStyles.container,
-          marginTop: mt ? mt : undefined,
-          marginBottom: mb ? mb : undefined,
-        }}>
-        <View style={cancelStyles.content}>
-          <Typography style="Label1" color={palette.Another.Black}>
-            {text}
-          </Typography>
-        </View>
-        <SvgIcons.CancelIcon onPress={onPress} />
+    <View
+      style={{
+        ...style.container,
+        marginTop: mt ? mt : undefined,
+        marginBottom: mb ? mb : undefined,
+      }}>
+      <View style={style.content}>
+        <Typography style="Label1" color={palette.Another.Black}>
+          {text}
+        </Typography>
       </View>
-    </TopBarContainer>
+      <SvgIcons.CancelIcon onPress={onPress} />
+    </View>
   );
 };
 export default CancelTopBar;
