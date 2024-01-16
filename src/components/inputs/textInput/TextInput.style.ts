@@ -1,4 +1,3 @@
-<<<<<<< develop:src/components/inputs/textInput/TextInput.style.ts
 import palette from '@/styles/theme/color';
 import {ITextInput, TextInputStyle} from '@/types/ui';
 import {StyleSheet, ViewStyle} from 'react-native';
@@ -40,10 +39,6 @@ const commonStyles: ViewStyle = {
   borderRadius: 4,
 };
 
-=======
-import {StyleSheet} from 'react-native';
-
->>>>>>> refactor: 공통 textInput 스타일 파일 생성:src/components/textInput/TextInput.style.ts
 export const textInputStyles = StyleSheet.create({
   input: {
     width: '100%',

@@ -5,7 +5,7 @@ import useFocus from '@/hooks/useFocus';
 import {useEffect} from 'react';
 
 import palette from '@/styles/theme/color';
-import {textInputStyles} from './TextInput.style';
+import {textInputStyles, textInputTypes} from './TextInput.style';
 import {inputTypes} from '@/styles/Input.style';
 
 interface TextInputProps {
@@ -15,7 +15,7 @@ interface TextInputProps {
   title: string;
   content: string;
   maxLength: number;
-  mode: 'input' | 'check';
+  mode?: 'input' | 'check';
   isDuplicated?: boolean;
   setIsDuplicated?: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -27,7 +27,7 @@ const TextInput = ({
   title,
   content,
   maxLength,
-  mode,
+  mode = 'input',
   isDuplicated,
   setIsDuplicated,
 }: TextInputProps) => {
@@ -59,7 +59,6 @@ const TextInput = ({
       <Typography style="Label2" color={inputTypes[type].titleColor} mb={4}>
         {title}
       </Typography>
-<<<<<<< develop:src/components/inputs/textInput/index.tsx
       <View style={{justifyContent: 'center'}}>
         <Input
           style={[
@@ -102,23 +101,6 @@ const TextInput = ({
           </Pressable>
         )}
       </View>
-=======
-      <Input
-        style={[
-          textInputStyles.input,
-          {borderColor: inputTypes[type].borderColor},
-        ]}
-        placeholder={placeholder}
-        onChangeText={onChangeInput}
-        value={value}
-        onFocus={() => onFocus()}
-        onBlur={() => onBlur(value)}
-        importantForAutofill="yes"
-        blurOnSubmit={false}
-        clearButtonMode="while-editing"
-        placeholderTextColor={palette.Text.Assistive}
-      />
->>>>>>> refactor: 공통 textInput 스타일 파일 생성:src/components/textInput/index.tsx
       {(() => {
         if (type === 'caution') {
           return (
