@@ -7,6 +7,7 @@ import TextInput from '@/components/inputs/textInput';
 import {ScrollView, View} from 'react-native';
 import {writingStyles} from './WritingScreen.style';
 import CheckBox from '@/components/checkBox';
+import ButtonInput from '@/components/inputs/buttonInput';
 
 const WritingScreen = () => {
   const [inputValues, setInputValues] = useState({
@@ -16,7 +17,7 @@ const WritingScreen = () => {
     group: '',
     startDate: '',
     endDate: '',
-    time: '',
+    time: undefined,
     location: '',
     description: '',
     url: '',
@@ -74,6 +75,13 @@ const WritingScreen = () => {
         {/*날짜 => dateRangePicker 컴포넌트*/}
 
         {/*시간 => timePicker 컴포넌트*/}
+        <ButtonInput
+          value={inputValues.time}
+          placeholder="시간을 선택해주세요"
+          title="시간"
+          category="time"
+          setValue={value => onChangeInput('time', value)}
+        />
 
         {/*장소 => kakao 장소 검색*/}
 

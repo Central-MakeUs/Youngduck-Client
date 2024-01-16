@@ -12,6 +12,7 @@ import Location from '@/assets/icons/location.svg';
 import {useState} from 'react';
 import Typography from '@/components/typography';
 import {buttonInputStyle} from './ButtonInput.style';
+import TimePickerModal from '@/components/modals/timePickerModal';
 
 interface TypeInputProps {
   value: any;
@@ -29,7 +30,9 @@ const ButtonInput = ({
   setValue,
 }: TypeInputProps) => {
   const {type, onFocus, onBlur} = useFocus();
-  const timeString = 'xvc';
+  const timeString = '';
+
+  console.log(value);
 
   const [timeModal, setTimeModal] = useState(false);
 
@@ -38,6 +41,16 @@ const ButtonInput = ({
     setTimeModal(true);
     console.log('클릭');
   };
+
+  // category time 값 update
+  const onConfirmTime = (date: Date) => {
+    setValue(date);
+  };
+
+  const onCancelTime = () => {
+    setTimeModal(false);
+  };
+
   return (
     <View>
       <Typography style="Label2" mb={4} color={inputTypes[type].titleColor}>
@@ -66,6 +79,13 @@ const ButtonInput = ({
           {category === 'time' && <Time />}
         </View>
       </Pressable>
+      {/*시간 모달*/}
+      <TimePickerModal
+        visible={timeModal}
+        onConfirm={onConfirmTime}
+        onCancel={onCancelTime}
+        date={value}
+      />
     </View>
   );
 };
