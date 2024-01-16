@@ -2,6 +2,7 @@ import {
   BottomTabParamList,
   RootStackParamList,
   ScreeningStackParamList,
+  StackParamList,
 } from '@/types/navigator';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
