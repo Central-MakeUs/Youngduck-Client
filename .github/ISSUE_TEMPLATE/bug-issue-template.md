@@ -2,7 +2,7 @@
 name: BUG issue template
 about: BUG 수정
 title: "[BUG]"
-labels: Bug
+labels: Bug, UI
 assignees: ''
 
 ---
