@@ -1,5 +1,4 @@
 import {Pressable, View} from 'react-native';
-import {getHours, getMinutes} from 'date-fns';
 import Typography from '../typography';
 import palette from '@/styles/theme/color';
 import {categoryInputStyles, categoryInputTypes} from './CategoryInput.style';
