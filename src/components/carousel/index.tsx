@@ -1,4 +1,4 @@
-import ReviewItem from '@/screens/screening/components/reviewItem';
+import ReviewItem from '@/screens/screening/home/components/reviewItem';
 import {getScreenSize} from '@/utils/getScreenSize';
 import {useState} from 'react';
 import {Animated, FlatList, View} from 'react-native';

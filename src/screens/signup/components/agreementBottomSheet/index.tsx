@@ -1,5 +1,4 @@
 import BottomSheet from '@/components/bottomSheet';
-import DefaultContainer from '@/components/container/defaultContainer';
 import SubTitleDescription from '@/components/title/subTitleDescription';
 import SubTitle from '@/components/title/subTitle';
 import CheckBox from '@/components/checkBox';
@@ -15,6 +14,8 @@ import {IAgreementProps} from '@/types/signup/agreement';
 import Agreement from './Agreement';
 import TextButtonContainer from '../inputGenre/TextButtonContainer';
 import stackScreens from '@/constants/stackScreens';
+import {View} from 'react-native';
+import {agreeBottomSheetStyles} from './AgreeBottomSheet.style';
 
 interface IAgreementBottomSheetProps {
   bottomDrawerRef: React.RefObject<BottomDrawerMethods>;
@@ -53,7 +54,7 @@ const AgreeBottomSheet = ({bottomDrawerRef}: IAgreementBottomSheetProps) => {
 
   return (
     <BottomSheet drawerRef={bottomDrawerRef} height={(screenHeight * 2) / 3}>
-      <DefaultContainer>
+      <View style={agreeBottomSheetStyles.container}>
         <SubTitleDescription
           text={`팝콘메이트를 이용하기 위해선\n약관동의가 필요합니다`}
           subTitle="필수는 반드시 체크하셔야 돼요"
@@ -65,12 +66,12 @@ const AgreeBottomSheet = ({bottomDrawerRef}: IAgreementBottomSheetProps) => {
             onPress={toggleAllAgreement}
           />
         </TextButtonContainer>
-        <Divider mb={16} />
+        <Divider mb={16} height={1} />
         <Agreement agreements={agreements} setAgreements={setAgreements} />
         <BoxButton onPress={finishSignup} disabled={!canFinishSignup}>
           동의하기
         </BoxButton>
-      </DefaultContainer>
+      </View>
     </BottomSheet>
   );
 };

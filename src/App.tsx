@@ -3,6 +3,7 @@ import Navigator from './navigators/Navigator';
 import SplashScreen from 'react-native-splash-screen';
 import {useEffect} from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import 'react-native-svg';
 
 function App() {
   const queryClient = new QueryClient();

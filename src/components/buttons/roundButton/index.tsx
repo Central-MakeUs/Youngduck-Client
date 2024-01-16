@@ -5,15 +5,17 @@ import palette from '@/styles/theme/color';
 
 export type BoxButtonProps = {
   onPress: () => void;
-  children: string;
+  children: string | React.ReactNode;
   disabled?: boolean;
   width?: string;
+  bg?: string;
 } & TouchableOpacityProps;
 
 const RoundButton = ({
   children,
   disabled,
   onPress,
+  bg = palette.Primary.Normal,
   ...props
 }: BoxButtonProps) => {
   return (
@@ -22,15 +24,25 @@ const RoundButton = ({
       style={[
         roundButtonStyles.button,
         disabled && roundButtonStyles.buttonDisabled,
+        {backgroundColor: bg ? bg : undefined},
       ]}
       onPress={onPress}
       activeOpacity={0.8}
       disabled={disabled}>
-      <Typography
-        style="Label1"
-        color={disabled ? palette.Another.White : palette.Text.Normal}>
-        {children}
-      </Typography>
+      {(() => {
+        if (typeof children === 'string') {
+          return (
+            <Typography
+              style="Label1"
+              color={disabled ? palette.Another.White : palette.Text.Normal}>
+              {children}
+            </Typography>
+          );
+        }
+        {
+          return children;
+        }
+      })()}
     </TouchableOpacity>
   );
 };
