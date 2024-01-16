@@ -3,7 +3,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import {storiesOf} from '@storybook/react-native';
 import Modal from '.';
 
-const ModalTest = () => {
+const PopupTest = () => {
   const [modal, setModal] = useState<boolean>(false);
 
   const handleOpenModal = useCallback(() => {
@@ -38,4 +38,4 @@ const ModalTest = () => {
   );
 };
 
-storiesOf('components/Modal', module).add('with Button', () => <ModalTest />);
+storiesOf('components/Modal', module).add('with Button', () => <PopupTest />);

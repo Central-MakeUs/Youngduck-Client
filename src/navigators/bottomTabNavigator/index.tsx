@@ -31,7 +31,9 @@ function BottomTabNavigator() {
   const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
   return (
-    <BottomTab.Navigator screenOptions={bottomTabScreenOptions}>
+    <BottomTab.Navigator
+      screenOptions={bottomTabScreenOptions}
+      initialRouteName={bottomTabScreens.ScreeningScreen}>
       <BottomTab.Screen
         name={bottomTabScreens.ScreeningScreen}
         component={ScreeningStackNavigator}

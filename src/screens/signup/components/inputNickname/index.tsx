@@ -1,5 +1,5 @@
 import BoxButton from '@/components/buttons/boxButton';
-import TextInput from '@/components/textInput';
+import TextInput from '@/components/inputs/textInput';
 import SubTitleDescription from '@/components/title/subTitleDescription';
 import {useState} from 'react';
 import {View} from 'react-native';
