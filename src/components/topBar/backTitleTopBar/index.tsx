@@ -6,6 +6,7 @@ import {CommonMarginVerticalProps} from '@/types/ui';
 import {View} from 'react-native';
 import {backTitleStyles} from './BackTitleTopBar.style';
 import Profile from '@/components/profile';
+import TopBarContainer from '@/components/container/topBarContainer';
 
 interface BackTitleTopBarProps extends CommonMarginVerticalProps {
   goBack: () => void;
@@ -13,20 +14,22 @@ interface BackTitleTopBarProps extends CommonMarginVerticalProps {
 }
 const BackTitleTopBar = ({text, goBack, mb, mt}: BackTitleTopBarProps) => {
   return (
-    <View
-      style={{
-        ...backTitleStyles.container,
-        marginTop: mt ? mt : undefined,
-        marginBottom: mb ? mb : undefined,
-      }}>
-      <View style={backTitleStyles.content}>
-        <SvgIcons.BackArrowIcon onPress={goBack} />
-        <Typography style="Subtitle2" color={palette.Another.Black} ml={8}>
-          {text}
-        </Typography>
+    <TopBarContainer>
+      <View
+        style={{
+          ...backTitleStyles.container,
+          marginTop: mt ? mt : undefined,
+          marginBottom: mb ? mb : undefined,
+        }}>
+        <View style={backTitleStyles.content}>
+          <SvgIcons.BackArrowIcon onPress={goBack} />
+          <Typography style="Subtitle2" color={palette.Another.Black} ml={8}>
+            {text}
+          </Typography>
+        </View>
+        <Profile />
       </View>
-      <Profile />
-    </View>
+    </TopBarContainer>
   );
 };
 export default BackTitleTopBar;

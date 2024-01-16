@@ -10,6 +10,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {bottomTabScreenOptions} from './BottomTabNavigator.style';
 import TitleTopBar from '@/components/topBar/titleTopBar';
 import ScreeningStackNavigator from '../ScreeningStackNavigator';
+import {SafeAreaView} from 'react-native';
 
 export const getTabBarIcon = (routeName: string, focused: boolean) => {
   const iconColor = focused ? palette.Primary.Normal : palette.Text.Disable;
