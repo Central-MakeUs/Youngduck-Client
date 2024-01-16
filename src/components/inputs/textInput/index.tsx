@@ -18,6 +18,7 @@ interface TextInputProps {
   mode?: 'input' | 'check';
   isDuplicated?: boolean;
   setIsDuplicated?: React.Dispatch<React.SetStateAction<boolean>>;
+  keyBoardType?: 'email' | 'text' | 'phone' | 'url';
 }
 
 const TextInput = ({
@@ -30,6 +31,7 @@ const TextInput = ({
   mode = 'input',
   isDuplicated,
   setIsDuplicated,
+  keyBoardType,
 }: TextInputProps) => {
   const {type, onFocus, onBlur, onError, onWarning} = useFocus();
 
@@ -80,6 +82,15 @@ const TextInput = ({
           placeholderTextColor={palette.Text.Assistive}
           clearButtonMode={mode !== 'input' ? 'never' : 'while-editing'}
           editable={isDuplicated}
+          keyboardType={
+            keyBoardType === 'email'
+              ? 'email-address'
+              : keyBoardType === 'phone'
+              ? 'phone-pad'
+              : keyBoardType === 'url'
+              ? 'url'
+              : 'default'
+          }
         />
         {mode === 'check' && (
           <Pressable
