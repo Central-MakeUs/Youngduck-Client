@@ -6,6 +6,7 @@ import {useState} from 'react';
 import TextInput from '@/components/inputs/textInput';
 import {ScrollView, View} from 'react-native';
 import {writingStyles} from './WritingScreen.style';
+import CheckBox from '@/components/checkBox';
 
 const WritingScreen = () => {
   const [inputValues, setInputValues] = useState({
@@ -22,6 +23,8 @@ const WritingScreen = () => {
     phone: '',
     email: '',
   });
+
+  const [agree, setAgree] = useState<boolean>(false);
 
   const onChangeInput = (inputName: string, value: string) => {
     setInputValues({...inputValues, [inputName]: value});
@@ -114,6 +117,24 @@ const WritingScreen = () => {
             keyBoardType="email"
           />
         </View>
+
+        <View style={writingStyles.content}>
+          <Typography style="Label1" color={palette.Text.Normal}>
+            게시글 정책을 확인했어요.
+          </Typography>
+          <CheckBox
+            state={agree ? 'on' : 'off'}
+            onPress={() => {
+              setAgree(!agree);
+            }}
+          />
+        </View>
+        <Typography style="Body2" color={palette.Text.Alternative} mt={4}>
+          상영회는 등록 후 삭제할 수 없어요.
+        </Typography>
+        <Typography style="Body2" color={palette.Text.Alternative} mb={34}>
+          수정이나 비공개 처리는 가능해요.
+        </Typography>
       </ScrollView>
     </DefaultContainer>
   );
