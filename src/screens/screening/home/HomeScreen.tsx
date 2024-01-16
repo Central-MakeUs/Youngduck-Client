@@ -13,10 +13,16 @@ import ReviewScreening from './components/reviewScreening';
 import RecentScreening from './components/recentScreening';
 import WeeklyScreening from './components/weeklyScreening';
 import useNavigator from '@/hooks/useNavigator';
+<<<<<<< HEAD
 import stackScreens from '@/constants/stackScreens';
 
 function HomeScreen() {
   const {stackNavigation} = useNavigator();
+=======
+
+function HomeScreen() {
+  const {screeningStackNavigation} = useNavigator();
+>>>>>>> a601cc6e5033206e676542eed864d731e0581af8
   // 이번주 스크리닝 더미 데이터
   const data = [
     {
@@ -51,11 +57,19 @@ function HomeScreen() {
   const renderItem = () => <WeeklyScreening />;
 
   const handleGoWriting = () => {
+<<<<<<< HEAD
     stackNavigation.navigate(stackScreens.WritingScreen);
   };
 
   const handleGoScreeningList = () => {
     stackNavigation.navigate('ScreeningListScreen');
+=======
+    screeningStackNavigation.navigate('WritingScreen');
+  };
+
+  const handleGoScreeningList = () => {
+    screeningStackNavigation.navigate('ScreeningListScreen');
+>>>>>>> a601cc6e5033206e676542eed864d731e0581af8
   };
 
   return (

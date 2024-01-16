@@ -4,8 +4,11 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 export type StackScreenName = keyof RootStackParamList;
 export type BottomTabScreenName = keyof BottomTabParamList;
 
+<<<<<<< HEAD
 export type StackParamList = RootStackParamList & ScreeningStackParamList;
 
+=======
+>>>>>>> a601cc6e5033206e676542eed864d731e0581af8
 // 전체 페이지 stack param 타입
 export type RootStackParamList = {
   LoginScreen: undefined;

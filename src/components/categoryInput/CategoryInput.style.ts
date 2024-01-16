@@ -1,7 +1,6 @@
-import palette from '@/styles/theme/color';
-import {ITextInput, TextInputStyle} from '@/types/ui';
 import {StyleSheet} from 'react-native';
 
+<<<<<<<< HEAD:src/components/categoryInput/CategoryInput.style.ts
 export const categoryInputTypes: Record<ITextInput, TextInputStyle> = {
   default: {
     borderColor: palette.Line.Normal,
@@ -26,6 +25,10 @@ export const categoryInputTypes: Record<ITextInput, TextInputStyle> = {
 };
 export const categoryInputStyles = StyleSheet.create({
   container: {
+========
+export const textInputStyles = StyleSheet.create({
+  input: {
+>>>>>>>> a601cc6e5033206e676542eed864d731e0581af8:src/components/textInput/TextInput.style.ts
     width: '100%',
     borderWidth: 1,
     borderRadius: 8,
