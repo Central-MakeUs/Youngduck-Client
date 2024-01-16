@@ -3,14 +3,13 @@ import bottomTabScreens, {
   bottomTabBarLabel,
 } from '@/constants/bottomTabScreens';
 import HomeScreen from '@/screens/home/HomeScreen';
-import PopcornPartyScreen from '@/screens/popCornParty/PopcornPartyScreen';
 import palette from '@/styles/theme/color';
 import {BottomTabParamList} from '@/types/navigator';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {bottomTabScreenOptions} from './BottomTabNavigator.style';
 import TitleTopBar from '@/components/topBar/titleTopBar';
 import ScreeningStackNavigator from '../ScreeningStackNavigator';
-import {SafeAreaView} from 'react-native';
+import PopcornPartyHomeScreen from '@/screens/popCornParty/home/PopcornPartyHomeScreen';
 
 export const getTabBarIcon = (routeName: string, focused: boolean) => {
   const iconColor = focused ? palette.Primary.Normal : palette.Text.Disable;
@@ -21,7 +20,7 @@ export const getTabBarIcon = (routeName: string, focused: boolean) => {
         <SvgIcons.ScreeningIcon fill={iconColor} />
       )}
       {routeName === 'HomeScreen' && <SvgIcons.PopCornIcon fill={iconColor} />}
-      {routeName === 'PopcornPartyScreen' && (
+      {routeName === 'PopcornPartyHomeScreen' && (
         <SvgIcons.PopCornParty fill={iconColor} />
       )}
     </>
@@ -52,10 +51,10 @@ function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name={bottomTabScreens.PopcornPartyScreen}
-        component={PopcornPartyScreen}
+        name={bottomTabScreens.PopcornPartyHomeScreen}
+        component={PopcornPartyHomeScreen}
         options={{
-          tabBarLabel: bottomTabBarLabel.PopcornPartyScreen,
+          tabBarLabel: bottomTabBarLabel.PopcornPartyHomeScreen,
           header: () => <TitleTopBar text="팝콘 파티" />,
         }}
       />
