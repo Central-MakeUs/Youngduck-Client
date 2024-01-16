@@ -25,7 +25,7 @@ const ScreeningGallery = () => {
         <Typography style="Body2" color={palette.Text.Alternative}>
           이미지를 추가로 업로드하려면?
         </Typography>
-        {/*<RoundButton onPress={() => {}} bg={palette.Fill.Normal}>
+        <RoundButton onPress={() => {}} bg={palette.Fill.Normal} px={8} py={4}>
           <View style={galleryStyles.button}>
             <Typography
               style="Chips1"
@@ -35,7 +35,7 @@ const ScreeningGallery = () => {
             </Typography>
             <SvgIcons.ProArrow />
           </View>
-        </RoundButton>*/}
+        </RoundButton>
       </View>
     </View>
   );

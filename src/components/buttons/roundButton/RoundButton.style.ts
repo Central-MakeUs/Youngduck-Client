@@ -3,8 +3,6 @@ import {StyleSheet} from 'react-native';
 
 export const roundButtonStyles = StyleSheet.create({
   button: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
     borderRadius: 99,
     alignItems: 'center',
     alignSelf: 'flex-start',
