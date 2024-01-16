@@ -3,3 +3,8 @@ export interface IPopcornTrendingCardDatas {
   title: string;
   imageURL: string;
 }
+
+export interface IRenderItemProps {
+  item: IPopcornTrendingCardDatas;
+  index: number;
+}
