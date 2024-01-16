@@ -25,6 +25,9 @@ export type IChip = 'primary' | 'default';
 // textInput 타입 지정
 export type ITextInput = 'default' | 'writed' | 'caution' | 'active';
 
+// DateRangePickerModal 타입 지정
+export type DateParsable = any; // react-native-calendar-picker 패키지에 내장된 타입이 없음
+
 export type TextInputStyle = {
   borderColor: string;
   titleColor?: string;
