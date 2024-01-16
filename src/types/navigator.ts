@@ -36,7 +36,7 @@ export type ScreeningStackParamList = {
 
 type PopcornPartyStackParamList = {
   PopcornPartyHomeScreen: undefined;
-  PopcornPartyDetailScreen: undefined;
+  PopcornPartyDetailScreen: {id: number};
   RecommandListScreen: undefined;
   WriteRecommandScreen: undefined;
   WriteReviewScreen: undefined;
