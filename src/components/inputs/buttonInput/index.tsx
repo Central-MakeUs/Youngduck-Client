@@ -14,6 +14,8 @@ import Typography from '@/components/typography';
 import {buttonInputStyle} from './ButtonInput.style';
 import TimePickerModal from '@/components/modals/timePickerModal';
 
+import {getHours, getMinutes, getSeconds} from 'date-fns';
+
 interface TypeInputProps {
   value: any;
   placeholder: string;
@@ -30,9 +32,9 @@ const ButtonInput = ({
   setValue,
 }: TypeInputProps) => {
   const {type, onFocus, onBlur} = useFocus();
-  const timeString = '';
+  const timeString = value ? `${getHours(value)} : ${getMinutes(value)}` : null; // ui에 보여질 데이터 값
 
-  console.log(value);
+  //console.log(getHours(value), getMinutes(value));
 
   const [timeModal, setTimeModal] = useState(false);
 
@@ -65,6 +67,7 @@ const ButtonInput = ({
           style={[
             buttonInputStyle.input,
             {borderColor: inputTypes[type].borderColor},
+            {color: palette.Text.Normal},
           ]}
           placeholder={placeholder}
           value={timeString}
