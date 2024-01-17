@@ -22,9 +22,7 @@ const RecentScreening = () => {
         style={recentStyles.image}
       />
       <View style={recentStyles.content}>
-        <Typography style="Label1" color={palette.Text.Normal}>
-          건국대학교 영화동아리 Filmmate
-        </Typography>
+        <Typography style="Label1">건국대학교 영화동아리 Filmmate</Typography>
         <Typography style="Chips1" color={palette.Text.Alternative} mt={4}>
           2024년 1월 5일 - 2024년 1월 6일
         </Typography>

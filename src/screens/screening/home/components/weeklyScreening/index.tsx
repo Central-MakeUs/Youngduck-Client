@@ -29,9 +29,7 @@ const WeeklyScreening = () => {
       <Typography style="Label3" color={palette.Text.Alternative} mt={8}>
         상영전
       </Typography>
-      <Typography style="Label1" color={palette.Text.Normal}>
-        Dromapic 상영회
-      </Typography>
+      <Typography style="Label1">Dromapic 상영회</Typography>
       <Typography style="Chips2">2024.01.05</Typography>
     </TouchableOpacity>
   );

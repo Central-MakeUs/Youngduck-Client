@@ -5,15 +5,18 @@ import {CommonMarginVerticalProps} from '@/types/ui';
 import {View} from 'react-native';
 import {titleStyles} from './TitleTopBar.style';
 import Profile from '@/components/profile';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface TitleTopBarProps extends CommonMarginVerticalProps {
   text: string;
 }
 const TitleTopBar = ({text, mb, mt}: TitleTopBarProps) => {
+  const {top} = useSafeAreaInsets();
+  const style = titleStyles({top});
   return (
     <View
       style={{
-        ...titleStyles.container,
+        ...style.container,
         marginTop: mt ? mt : undefined,
         marginBottom: mb ? mb : undefined,
       }}>

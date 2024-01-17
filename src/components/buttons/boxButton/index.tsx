@@ -1,7 +1,7 @@
 import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
 
 import Typography from '../../typography';
-import {IVariant} from '@/types/ui';
+import {CommonMarginVerticalProps, IVariant} from '@/types/ui';
 import palette from '@/styles/theme/color';
 import {buttonStyles, styleButton} from './BoxButton.style';
 
@@ -10,8 +10,9 @@ export type BoxButtonProps = {
   children: React.ReactNode | string;
   variant?: IVariant;
   disabled?: boolean;
-  width?: string;
-} & TouchableOpacityProps;
+  width?: string | number;
+} & TouchableOpacityProps &
+  CommonMarginVerticalProps;
 
 const BoxButton = ({
   children,
@@ -19,13 +20,19 @@ const BoxButton = ({
   disabled = false,
   variant = 'primary',
   width = '100%',
+  mt,
+  mb,
   ...props
 }: BoxButtonProps) => {
   return (
     <TouchableOpacity
       {...props}
       style={[
-        {width: width},
+        {
+          width,
+          marginTop: mt ? mt : undefined,
+          marginBottom: mb ? mb : undefined,
+        },
         buttonStyles.button,
         styleButton[variant],
         disabled && buttonStyles.disabled,
