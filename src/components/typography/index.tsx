@@ -1,3 +1,4 @@
+import palette from '@/styles/theme/color';
 import text from '@/styles/theme/typography';
 import {ITypography} from '@/types/theme/typography';
 import {Text} from 'react-native';
@@ -5,7 +6,7 @@ import {Text} from 'react-native';
 function Typography({
   style,
   children,
-  color,
+  color = palette.Text.Normal,
   m,
   mt,
   mr,

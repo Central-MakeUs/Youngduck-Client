@@ -6,12 +6,19 @@ import BottomTabNavigator from './bottomTabNavigator';
 import SignupCompleteScreen from '@/screens/signupComplete/SIgnupCompleteScreen';
 import {RootStackParamList} from '@/types/navigator';
 import MyPageScreen from '@/screens/myPage/MyPageScreen';
+
 import DetailScreen from '@/screens/screening/detail/DetailScreen';
 import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
 import useNavigator from '@/hooks/useNavigator';
 import ReviewWritingScreen from '@/screens/screening/reviewWriting/ReviewWritingScreen';
 import CancelTopBar from '@/components/topBar/cancelTopBar';
 import WritingScreen from '@/screens/screening/writing/WritingScreen';
+
+import PopcornPartyDetailScreen from '@/screens/popcornParty/detail/PopcornPartyDetailScreen';
+import RecommandListScreen from '@/screens/popcornParty/recommandList/RecommandListScreen';
+import WriteRecommandScreen from '@/screens/popcornParty/writeRecommand/WriteRecommandScreen';
+import WriteReviewScreen from '@/screens/popcornParty/writeReview/WriteReviewScreen';
+
 
 function StackNavigator() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -81,6 +88,22 @@ function StackNavigator() {
             <CancelTopBar text="리뷰 작성하기" onPress={handleGoBack} />
           ),
         }}
+      {/* 팝콘파티 스크린 */}
+      <Stack.Screen
+        name={stackScreens.PopcornPartyDetailScreen}
+        component={PopcornPartyDetailScreen}
+      />
+      <Stack.Screen
+        name={stackScreens.RecommandListScreen}
+        component={RecommandListScreen}
+      />
+      <Stack.Screen
+        name={stackScreens.WriteRecommandScreen}
+        component={WriteRecommandScreen}
+      />
+      <Stack.Screen
+        name={stackScreens.WriteReviewScreen}
+        component={WriteReviewScreen}
       />
     </Stack.Navigator>
   );

@@ -1,7 +1,6 @@
 import {Image, TouchableOpacity, View} from 'react-native';
 import {reviewItemStyles} from './ReviewItem.style';
 import Typography from '@/components/typography';
-import palette from '@/styles/theme/color';
 import Chip from '@/components/chip';
 import DefaultContainer from '@/components/container/defaultContainer';
 import useNavigator from '@/hooks/useNavigator';
@@ -26,10 +25,8 @@ const ReviewItem = () => {
           style={reviewItemStyles.image}
         />
         <View>
-          <Typography style="Label2" color={palette.Text.Normal}>
-            영화제
-          </Typography>
-          <Typography style="Body1" color={palette.Text.Normal} mb={8}>
+          <Typography style="Label2">영화제</Typography>
+          <Typography style="Body1" mb={8}>
             부산영화제
           </Typography>
           <View style={reviewItemStyles.content}>

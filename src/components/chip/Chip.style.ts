@@ -5,7 +5,7 @@ import {StyleSheet} from 'react-native';
 export const chipStyle: Record<IChip, DetailStyle> = {
   primary: {
     backgroundColor: palette.Primary.Assistive,
-    textColor: palette.Primary.Dark,
+    textColor: palette.Primary.Deep,
   },
   default: {
     backgroundColor: palette.Fill.Normal,
