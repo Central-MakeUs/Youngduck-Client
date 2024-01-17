@@ -82,13 +82,12 @@ const Select = ({
             {options.map(option => (
               <TouchableOpacity
                 style={selectStyles.option}
+                key={option}
                 onPress={() => {
                   setValue(option);
                   setOptionVisible(false);
                 }}>
-                <Typography style="Body1" key={option}>
-                  {option}
-                </Typography>
+                <Typography style="Body1">{option}</Typography>
               </TouchableOpacity>
             ))}
           </View>
