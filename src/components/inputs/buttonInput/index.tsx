@@ -14,7 +14,7 @@ import Typography from '@/components/typography';
 import {buttonInputStyle} from './ButtonInput.style';
 import TimePickerModal from '@/components/modals/timePickerModal';
 
-import {getHours, getMinutes} from 'date-fns';
+import {format, getHours, getMinutes} from 'date-fns';
 import DateRangePickerModal from '@/components/modals/dateRangePickerModal';
 import {DateParsable} from 'react-native-calendar-picker';
 
@@ -45,15 +45,20 @@ const ButtonInput = ({
     DateParsable | undefined
   >(undefined);
 
+  // ui에 보여질 시간, 날짜 문자열
   let timeString;
   if (category === 'time') {
     timeString = value ? `${getHours(value)} : ${getMinutes(value)}` : '';
   }
   if (category === 'date') {
     console.log('날짜 확인하쟈', selectedEndDate, selectedStartDate);
-    timeString = selectedStartDate
-      ? `시작일: ${selectedStartDate}, 종료일: ${selectedEndDate}`
-      : '';
+    timeString =
+      selectedStartDate && selectedEndDate
+        ? `시작일: ${format(selectedStartDate, 'yyyy-MM-dd')}, 종료일: ${format(
+            selectedEndDate,
+            'yyyy-MM-dd',
+          )}`
+        : '';
   }
 
   useEffect(() => {
