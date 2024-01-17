@@ -161,6 +161,7 @@ const WritingScreen = () => {
             inputRef={urlRef}
             returnKeyType="next"
             onSubmitEditing={() => phoneRef.current?.focus()}
+            textContentType="URL"
           />
         </View>
 
@@ -177,6 +178,7 @@ const WritingScreen = () => {
             inputRef={phoneRef}
             returnKeyType="next"
             onSubmitEditing={() => emailRef.current?.focus()}
+            textContentType="telephoneNumber"
           />
         </View>
 
@@ -190,6 +192,8 @@ const WritingScreen = () => {
             keyBoardType="email"
             errorContent="이메일 형식을 맞춰주세요"
             inputRef={emailRef}
+            autoComplete="email"
+            textContentType="emailAddress"
           />
         </View>
         <View style={writingStyles.content}>
