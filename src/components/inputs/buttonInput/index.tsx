@@ -8,7 +8,7 @@ import Calendar from '@/assets/icons/calendar.svg';
 import Time from '@/assets/icons/time.svg';
 import Location from '@/assets/icons/location.svg';
 
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import Typography from '@/components/typography';
 import {buttonInputStyle} from './ButtonInput.style';
 import TimePickerModal from '@/components/modals/timePickerModal';
@@ -16,6 +16,8 @@ import TimePickerModal from '@/components/modals/timePickerModal';
 import {format, getHours, getMinutes} from 'date-fns';
 import DateRangePickerModal from '@/components/modals/dateRangePickerModal';
 import {DateParsable} from 'react-native-calendar-picker';
+import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
+import BottomSheet from '@/components/bottomSheet';
 
 interface TypeInputProps {
   value: any; // TODO: 백엔드 통신에 따른 타입 추가 예정
@@ -35,7 +37,6 @@ const ButtonInput = ({
   const {type, onFocus, onBlur} = useFocus();
 
   const [timeModal, setTimeModal] = useState(false);
-  const [dateModal, setDateModal] = useState(false);
 
   const [selectedStartDate, setSelectedStartDate] = useState<
     DateParsable | undefined
@@ -61,8 +62,8 @@ const ButtonInput = ({
   }
 
   useEffect(() => {
-    if (selectedEndDate) {
-      setDateModal(false);
+    if (selectedEndDate && bottomDrawerRef) {
+      bottomDrawerRef.current?.close();
     }
   }, [selectedEndDate]);
 
@@ -70,12 +71,13 @@ const ButtonInput = ({
   const showModal = () => {
     if (category === 'time') {
       setTimeModal(true);
-      console.log('카테고리 시간 클릭');
     }
-    if (category === 'date') {
-      setDateModal(true);
+    if (category === 'date' && bottomDrawerRef) {
+      bottomDrawerRef.current?.open();
     }
   };
+
+  const bottomDrawerRef = useRef<BottomDrawerMethods>(null);
 
   // category time 값 update
   const onConfirmTime = (date: Date) => {
@@ -119,7 +121,7 @@ const ButtonInput = ({
       </Pressable>
       {category === 'time' && (
         <>
-          {/*시간 모달*/}
+          {/*시간 모달 컴포넌트*/}
           <TimePickerModal
             visible={timeModal}
             onConfirm={onConfirmTime}
@@ -128,17 +130,17 @@ const ButtonInput = ({
           />
         </>
       )}
-      {category === 'date' && dateModal && (
-        <>
-          {/*캘린더 모달*/}
+      {/*달력 Bottom Sheet 컴포넌트*/}
+      <BottomSheet drawerRef={bottomDrawerRef} height={400}>
+        <View>
           <DateRangePickerModal
             startDate={selectedStartDate}
             endDate={selectedEndDate}
             setStartDate={setSelectedStartDate}
             setEndDate={setSelectedEndDate}
           />
-        </>
-      )}
+        </View>
+      </BottomSheet>
     </View>
   );
 };
