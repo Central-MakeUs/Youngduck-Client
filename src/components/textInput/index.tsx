@@ -11,6 +11,7 @@ interface ITextInputProps {
   title: string;
   placeholder: string;
   onChangeInput: (value: string) => void;
+  content?: string;
 }
 const TextInput = ({
   value,
@@ -18,13 +19,16 @@ const TextInput = ({
   title,
   placeholder,
   onChangeInput,
+  content,
 }: ITextInputProps) => {
   const {type, onFocus, onBlur, onError, onWarning} = useFocus();
 
   console.log(type);
 
+  const errorMessage = `${maxLength}자 이하의 ${title}을 입력해주세요`;
+
   useEffect(() => {
-    //onBlur(value);
+    onBlur(value);
     if (maxLength && value.length > maxLength) {
       onError();
     }
@@ -58,6 +62,16 @@ const TextInput = ({
           placeholderTextColor={palette.Text.Assistive}
         />
       </View>
+      {content && type === 'active' && (
+        <Typography style="Chips1" color={inputTypes[type].contentColor} mt={4}>
+          {content}
+        </Typography>
+      )}
+      {maxLength && type === 'caution' && (
+        <Typography style="Chips1" color={inputTypes[type].contentColor} mt={4}>
+          {errorMessage}
+        </Typography>
+      )}
     </View>
   );
 };
