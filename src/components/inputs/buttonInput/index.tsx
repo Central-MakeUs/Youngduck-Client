@@ -82,6 +82,7 @@ const ButtonInput = ({
   // category time 값 update
   const onConfirmTime = (date: Date) => {
     setValue(date);
+    setTimeModal(false);
   };
 
   const onCancelTime = () => {
@@ -132,14 +133,12 @@ const ButtonInput = ({
       )}
       {/*달력 Bottom Sheet 컴포넌트*/}
       <BottomSheet drawerRef={bottomDrawerRef} height={350}>
-        <View>
-          <DateRangePickerModal
-            startDate={selectedStartDate}
-            endDate={selectedEndDate}
-            setStartDate={setSelectedStartDate}
-            setEndDate={setSelectedEndDate}
-          />
-        </View>
+        <DateRangePickerModal
+          startDate={selectedStartDate}
+          endDate={selectedEndDate}
+          setStartDate={setSelectedStartDate}
+          setEndDate={setSelectedEndDate}
+        />
       </BottomSheet>
     </View>
   );
