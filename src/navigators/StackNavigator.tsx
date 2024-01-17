@@ -10,6 +10,7 @@ import PopcornPartyDetailScreen from '@/screens/popcornParty/detail/PopcornParty
 import RecommandListScreen from '@/screens/popcornParty/recommandList/RecommandListScreen';
 import WriteRecommandScreen from '@/screens/popcornParty/writeRecommand/WriteRecommandScreen';
 import WriteReviewScreen from '@/screens/popcornParty/writeReview/WriteReviewScreen';
+import TitleTopBar from '@/components/topBar/titleTopBar';
 
 function StackNavigator() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -37,6 +38,10 @@ function StackNavigator() {
       <Stack.Screen
         name={stackScreens.RecommandListScreen}
         component={RecommandListScreen}
+        options={{
+          headerShown: true,
+          header: () => <TitleTopBar text="팝콘 파티" />,
+        }}
       />
       <Stack.Screen
         name={stackScreens.WriteRecommandScreen}
