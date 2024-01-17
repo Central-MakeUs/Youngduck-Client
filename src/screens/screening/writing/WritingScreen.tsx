@@ -36,7 +36,7 @@ const WritingScreen = () => {
     setInputValues({...inputValues, [inputName]: value});
   };
 
-  const canGoNext = false;
+  const canGoNext = false; // 작성 완료 버튼 활성화 여부
 
   return (
     <DefaultContainer>
@@ -75,7 +75,7 @@ const WritingScreen = () => {
           />
         </View>
 
-        {/*분류 => select 컴포넌트*/}
+        {/*분류*/}
         <View style={writingStyles.container}>
           <Select
             options={['상영회', '영화제', '시사회']}
@@ -86,7 +86,7 @@ const WritingScreen = () => {
           />
         </View>
 
-        {/*날짜 => dateRangePicker 컴포넌트*/}
+        {/*날짜*/}
         <View style={writingStyles.container}>
           <ButtonInput
             value={inputValues}
@@ -97,7 +97,7 @@ const WritingScreen = () => {
           />
         </View>
 
-        {/*시간 => timePicker 컴포넌트*/}
+        {/*시간*/}
         <View style={writingStyles.container}>
           <ButtonInput
             value={inputValues.time}
@@ -119,7 +119,7 @@ const WritingScreen = () => {
           />
         </View>
 
-        {/*추가 설명 => textArea 컴포넌트*/}
+        {/*추가 설명*/}
         <View style={writingStyles.container}>
           <TextArea
             value={inputValues.description}

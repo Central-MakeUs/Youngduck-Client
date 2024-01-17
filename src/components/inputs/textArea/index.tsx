@@ -22,9 +22,7 @@ const TextArea = ({
   placeholder,
   height,
 }: ITextAreaProps) => {
-  const {type, onFocus, onBlur, onError, onWarning} = useFocus();
-
-  const errorMessage = `${maxLength}자 이하의 ${title}을 입력해주세요`;
+  const {type, onFocus, onBlur, onError} = useFocus();
 
   const lengthNotice = `/ ${maxLength}`;
 
@@ -66,6 +64,7 @@ const TextArea = ({
         multiline={true}
         placeholderTextColor={palette.Text.Assistive}
       />
+      {/*textArea 아래 value 길이 notice*/}
       <View style={textAreaStyles.length}>
         <Typography
           style="Label3"

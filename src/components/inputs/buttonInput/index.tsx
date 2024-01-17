@@ -1,6 +1,6 @@
 import {View, TextInput as Input, Pressable} from 'react-native';
 
-import {inputTypes} from '@/styles/Input.style';
+import {inputStyles, inputTypes} from '@/styles/Input.style';
 import useFocus from '@/hooks/useFocus';
 import palette from '@/styles/theme/color';
 
@@ -51,7 +51,7 @@ const ButtonInput = ({
     timeString = value ? `${getHours(value)} : ${getMinutes(value)}` : '';
   }
   if (category === 'date') {
-    console.log('날짜 확인하쟈', selectedEndDate, selectedStartDate);
+    //console.log('날짜 확인하쟈', selectedEndDate, selectedStartDate);
     timeString =
       selectedStartDate && selectedEndDate
         ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
@@ -104,7 +104,7 @@ const ButtonInput = ({
         onPressOut={() => onBlur(value)}>
         <Input
           style={[
-            buttonInputStyle.input,
+            inputStyles.input,
             {borderColor: inputTypes[type].borderColor},
             {color: palette.Text.Normal},
           ]}
@@ -114,7 +114,7 @@ const ButtonInput = ({
           placeholderTextColor={palette.Text.Assistive}
         />
 
-        <View style={buttonInputStyle.logo}>
+        <View style={inputStyles.logo}>
           {category === 'date' && <Calendar />}
           {category === 'location' && <Location />}
           {category === 'time' && <Time />}
