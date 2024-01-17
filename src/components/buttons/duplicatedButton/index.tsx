@@ -9,22 +9,24 @@ interface IDuplicatedProps {
   onPress: () => void;
 }
 const DuplicatedButton = ({value, isDuplicated, onPress}: IDuplicatedProps) => {
-  <Pressable
-    style={
-      value.length >= 2 && isDuplicated
-        ? duplicatedStyles.activated
-        : duplicatedStyles.deActivated
-    }
-    onPress={onPress}>
-    <Typography
-      style="Chips2"
-      color={
+  return (
+    <Pressable
+      style={
         value.length >= 2 && isDuplicated
-          ? palette.Primary.Deep
-          : palette.Text.Alternative
-      }>
-      중복확인
-    </Typography>
-  </Pressable>;
+          ? duplicatedStyles.activated
+          : duplicatedStyles.deActivated
+      }
+      onPress={onPress}>
+      <Typography
+        style="Chips2"
+        color={
+          value.length >= 2 && isDuplicated
+            ? palette.Primary.Deep
+            : palette.Text.Alternative
+        }>
+        중복확인
+      </Typography>
+    </Pressable>
+  );
 };
 export default DuplicatedButton;

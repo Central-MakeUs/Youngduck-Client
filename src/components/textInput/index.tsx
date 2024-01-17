@@ -4,6 +4,7 @@ import {useEffect} from 'react';
 import {View, TextInput as Input} from 'react-native';
 import Typography from '../typography';
 import palette from '@/styles/theme/color';
+import DuplicatedButton from '../buttons/duplicatedButton';
 
 interface ITextInputProps {
   value: string;
@@ -12,6 +13,11 @@ interface ITextInputProps {
   placeholder: string;
   onChangeInput: (value: string) => void;
   content?: string;
+
+  // 아이디 중복 체크 필요한 prop
+  mode?: 'input' | 'check';
+  isDuplicated?: boolean;
+  setIsDuplicated?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const TextInput = ({
   value,
@@ -20,6 +26,9 @@ const TextInput = ({
   placeholder,
   onChangeInput,
   content,
+  mode = 'input',
+  isDuplicated = false,
+  setIsDuplicated,
 }: ITextInputProps) => {
   const {type, onFocus, onBlur, onError, onWarning} = useFocus();
 
@@ -34,6 +43,19 @@ const TextInput = ({
     }
   }, [value]);
 
+  // 중복 확인 함수
+  const checkDuplicate = () => {
+    // if (isDuplicated) {
+    // API 요청했을 때 닉네임이 중복된다면
+    // 중복된 닉네임 관련 오류 띄워주기
+    //   onWarning();
+    // } else {
+    // 중복된 닉네임이 아니라면 해당 닉네임을 사용하고
+    // isDuplicated를 false로 바꾸기
+    setIsDuplicated && setIsDuplicated(false);
+    // }
+  };
+
   return (
     <View>
       <Typography style="Label2" color={inputTypes[type].titleColor} mb={4}>
@@ -46,6 +68,9 @@ const TextInput = ({
             {
               borderColor: inputTypes[type].borderColor,
               color: palette.Text.Normal,
+              //color: isDuplicated
+              //  ? palette.Text.Normal
+              //  : palette.Text.Alternative,
             },
           ]}
           placeholder={placeholder}
@@ -53,6 +78,7 @@ const TextInput = ({
           value={value}
           onFocus={onFocus}
           onBlur={() => {
+            //focus out 일 때도 warnnig 확인
             if (maxLength && value.length > maxLength) {
               onError();
             } else {
@@ -60,8 +86,21 @@ const TextInput = ({
             }
           }}
           placeholderTextColor={palette.Text.Assistive}
+          importantForAutofill="yes"
+          blurOnSubmit={false}
+          clearButtonMode={mode !== 'input' ? 'never' : 'while-editing'}
+          editable={isDuplicated}
         />
+
+        {mode === 'check' && (
+          <DuplicatedButton
+            value={value}
+            isDuplicated={isDuplicated}
+            onPress={checkDuplicate}
+          />
+        )}
       </View>
+
       {content && type === 'active' && (
         <Typography style="Chips1" color={inputTypes[type].contentColor} mt={4}>
           {content}
@@ -70,6 +109,12 @@ const TextInput = ({
       {maxLength && type === 'caution' && (
         <Typography style="Chips1" color={inputTypes[type].contentColor} mt={4}>
           {errorMessage}
+        </Typography>
+      )}
+
+      {type === 'warning' && (
+        <Typography style="Chips1" color={inputTypes[type].contentColor} mt={4}>
+          중복된 닉네임은 안돼요
         </Typography>
       )}
     </View>
