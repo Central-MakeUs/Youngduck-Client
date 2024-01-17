@@ -9,4 +9,12 @@ export const buttonInputStyle = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
   },
+  button: {
+    position: 'relative',
+    justifyContent: 'center',
+  },
+  logo: {
+    position: 'absolute',
+    right: 16,
+  },
 });

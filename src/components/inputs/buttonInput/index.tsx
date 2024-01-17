@@ -93,7 +93,10 @@ const ButtonInput = ({
         {title}
       </Typography>
       <Pressable
-        style={[{borderColor: inputTypes[type].borderColor}]}
+        style={[
+          {borderColor: inputTypes[type].borderColor},
+          buttonInputStyle.button,
+        ]}
         onPress={showModal}
         onPressIn={() => onFocus()}
         onPressOut={() => onBlur(value)}>
@@ -109,7 +112,7 @@ const ButtonInput = ({
           placeholderTextColor={palette.Text.Assistive}
         />
 
-        <View>
+        <View style={buttonInputStyle.logo}>
           {category === 'date' && <Calendar />}
           {category === 'location' && <Location />}
           {category === 'select' && <DownArrow />}
