@@ -73,15 +73,26 @@ const WritingScreen = () => {
         {/*분류 => select 컴포넌트*/}
 
         {/*날짜 => dateRangePicker 컴포넌트*/}
+        <View style={writingStyles.container}>
+          <ButtonInput
+            value={inputValues}
+            placeholder="시작일과 종료일을 선택해주세요"
+            title="날짜"
+            category="date"
+            setValue={setInputValues}
+          />
+        </View>
 
         {/*시간 => timePicker 컴포넌트*/}
-        <ButtonInput
-          value={inputValues.time}
-          placeholder="시간을 선택해주세요"
-          title="시간"
-          category="time"
-          setValue={value => onChangeInput('time', value)}
-        />
+        <View style={writingStyles.container}>
+          <ButtonInput
+            value={inputValues.time}
+            placeholder="시간을 선택해주세요"
+            title="시간"
+            category="time"
+            setValue={value => onChangeInput('time', value)}
+          />
+        </View>
 
         {/*장소 => kakao 장소 검색*/}
 
