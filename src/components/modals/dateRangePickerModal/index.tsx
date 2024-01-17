@@ -1,14 +1,12 @@
 import {View} from 'react-native';
-import CalendarPicker from 'react-native-calendar-picker';
+import CalendarPicker, {DateParsable} from 'react-native-calendar-picker';
 import {dateRangleStyles} from './DateRangePickerModal.style';
 
-type DateParsable = any; // react-native-calendar-picker 패키지에 내장된 타입이 없음
-
 interface DateRangePickerProps {
-  startDate: DateParsable | null;
-  endDate: DateParsable | null;
-  setStartDate: (date: DateParsable | null) => void;
-  setEndDate: (date: DateParsable | null) => void;
+  startDate: DateParsable | undefined;
+  endDate: DateParsable | undefined;
+  setStartDate: (date: DateParsable | undefined) => void;
+  setEndDate: (date: DateParsable | undefined) => void;
 }
 
 const DateRangePickerModal = ({
@@ -22,7 +20,7 @@ const DateRangePickerModal = ({
       setEndDate(date);
     } else {
       setStartDate(date);
-      setEndDate(null);
+      setEndDate(undefined);
     }
   };
 
