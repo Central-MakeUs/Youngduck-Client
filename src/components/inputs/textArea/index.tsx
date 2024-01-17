@@ -1,36 +1,75 @@
 import {View, TextInput} from 'react-native';
 import Typography from '../../typography';
 import palette from '@/styles/theme/color';
+import useFocus from '@/hooks/useFocus';
+import {useEffect} from 'react';
+import {inputStyles, inputTypes} from '@/styles/Input.style';
+import {textAreaStyles} from './TextArea.style';
 
 interface ITextAreaProps {
   value: string;
-  onChange: (value: string) => void;
+  onChangeInput: (value: string) => void;
   title: string;
-  maxLength: number;
+  maxLength?: number;
   placeholder: string;
   height: number;
 }
 const TextArea = ({
   value,
-  onChange,
+  onChangeInput,
   title,
   maxLength,
   placeholder,
   height,
 }: ITextAreaProps) => {
+  const {type, onFocus, onBlur, onError, onWarning} = useFocus();
+
+  const errorMessage = `${maxLength}자 이하의 ${title}을 입력해주세요`;
+
+  useEffect(() => {
+    onBlur(value);
+    if (maxLength && value.length > maxLength) {
+      onError();
+    }
+  }, [value]);
+
   return (
     <View>
-      <Typography color={palette.Text.Strong} style="Label2">
+      <Typography style="Label2" color={inputTypes[type].titleColor} mb={4}>
         {title}
       </Typography>
       <TextInput
-        style={{height: height}}
+        style={[
+          inputStyles.input,
+          textAreaStyles.textArea,
+          {
+            height: height,
+            borderColor: inputTypes[type].borderColor,
+            color: palette.Text.Normal,
+          },
+        ]}
         value={value}
-        placeholder="이름을 입력해주세요."
+        placeholder={placeholder}
+        onChangeText={onChangeInput}
+        onFocus={onFocus}
+        blurOnSubmit={false}
+        onBlur={() => {
+          //focus out 일 때도 warnnig 확인
+          if (maxLength && value.length > maxLength) {
+            onError();
+          } else {
+            onBlur(value);
+          }
+        }}
         multiline={true}
         placeholderTextColor={palette.Text.Assistive}
       />
-      {/*textAlignVertical="top" */}
+
+      {maxLength && type === 'caution' && (
+        <Typography style="Chips1" color={inputTypes[type].contentColor} mt={4}>
+          {errorMessage}
+        </Typography>
+      )}
     </View>
   );
 };

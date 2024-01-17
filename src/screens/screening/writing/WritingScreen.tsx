@@ -123,9 +123,9 @@ const WritingScreen = () => {
         <View style={writingStyles.container}>
           <TextArea
             value={inputValues.description}
-            onChange={value => onChangeInput('description', value)}
+            onChangeInput={value => onChangeInput('description', value)}
             maxLength={1000}
-            placeholder={'추가 설명을 입력해주세요'}
+            placeholder={'추가로 안내할 내용이 있다면 적어주세요.'}
             height={144}
             title="추가 설명"
           />
