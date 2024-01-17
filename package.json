@@ -33,6 +33,7 @@
     "react-native-calendar-picker": "^8.0.0",
     "react-native-calendars": "^1.1303.0",
     "react-native-config": "^1.5.1",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-modal": "^13.0.1",
     "react-native-modal-datetime-picker": "^17.1.0",
