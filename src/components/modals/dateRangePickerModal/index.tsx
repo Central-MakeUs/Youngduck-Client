@@ -30,7 +30,6 @@ const DateRangePickerModal = ({
   return (
     <View style={dateRangleStyles.container}>
       <CalendarPicker
-        startFromMonday={true}
         allowRangeSelection={true}
         selectedStartDate={startDate}
         selectedEndDate={endDate}
