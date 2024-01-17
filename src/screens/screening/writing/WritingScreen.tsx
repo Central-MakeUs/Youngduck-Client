@@ -35,8 +35,6 @@ const WritingScreen = () => {
     setInputValues({...inputValues, [inputName]: value});
   };
 
-  console.log('inputValues', inputValues);
-
   return (
     <DefaultContainer>
       <DismissKeyboardView>
