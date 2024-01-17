@@ -28,7 +28,9 @@ const TextArea = ({
         value={value}
         placeholder="이름을 입력해주세요."
         multiline={true}
+        placeholderTextColor={palette.Text.Assistive}
       />
+      {/*textAlignVertical="top" */}
     </View>
   );
 };

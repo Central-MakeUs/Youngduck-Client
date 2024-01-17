@@ -54,7 +54,7 @@ const ButtonInput = ({
     console.log('날짜 확인하쟈', selectedEndDate, selectedStartDate);
     timeString =
       selectedStartDate && selectedEndDate
-        ? `시작일: ${format(selectedStartDate, 'yyyy-MM-dd')}, 종료일: ${format(
+        ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
             selectedEndDate,
             'yyyy-MM-dd',
           )}`
@@ -131,7 +131,7 @@ const ButtonInput = ({
         </>
       )}
       {/*달력 Bottom Sheet 컴포넌트*/}
-      <BottomSheet drawerRef={bottomDrawerRef} height={400}>
+      <BottomSheet drawerRef={bottomDrawerRef} height={350}>
         <View>
           <DateRangePickerModal
             startDate={selectedStartDate}

@@ -1,6 +1,7 @@
 import {View} from 'react-native';
 import CalendarPicker, {DateParsable} from 'react-native-calendar-picker';
 import {dateRangleStyles} from './DateRangePickerModal.style';
+import {getScreenSize} from '@/utils/getScreenSize';
 
 interface DateRangePickerProps {
   startDate: DateParsable | undefined;
@@ -24,6 +25,8 @@ const DateRangePickerModal = ({
     }
   };
 
+  const {screenWidth} = getScreenSize();
+
   return (
     <View style={dateRangleStyles.container}>
       <CalendarPicker
@@ -32,7 +35,7 @@ const DateRangePickerModal = ({
         selectedStartDate={startDate}
         selectedEndDate={endDate}
         onDateChange={onDateChange}
-        height={400}
+        height={screenWidth - 16}
         textStyle={dateRangleStyles.text}
         selectedRangeStartStyle={dateRangleStyles.selected}
         selectedRangeEndStyle={dateRangleStyles.selected}
