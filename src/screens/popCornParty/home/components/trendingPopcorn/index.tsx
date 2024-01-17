@@ -34,7 +34,10 @@ const TrendingPopcorn = () => {
     },
   ];
 
-  const withoutRankingItem = ({item, index}: IRenderItemProps) => (
+  const withoutRankingItem = ({
+    item,
+    index,
+  }: IRenderItemProps<IPopcornTrendingCardDatas>) => (
     <PopcornTrendingCard
       id={item.id}
       title={item.title}
