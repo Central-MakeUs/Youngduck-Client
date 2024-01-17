@@ -1,14 +1,21 @@
+import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
 export const selectStyles = StyleSheet.create({
   container: {
     borderWidth: 1,
   },
-  select: {
-    position: 'relative',
+  modal: {
+    width: '100%',
+    alignItems: 'center',
+    backgroundColor: palette.Another.White,
   },
-  options: {
-    position: 'absolute',
-    top: 0,
+  content: {
+    width: '100%',
+    paddingVertical: 20,
+  },
+  option: {
+    width: '100%',
+    alignItems: 'center',
   },
 });

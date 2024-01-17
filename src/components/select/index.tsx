@@ -11,9 +11,13 @@ import Typography from '../typography';
 import {inputStyles, inputTypes} from '@/styles/Input.style';
 import palette from '@/styles/theme/color';
 import {useState} from 'react';
+import {selectStyles} from './Select.style';
+
+import ModalContainer from 'react-native-modal';
+import {popupStyles} from '../popup/Modal.style';
 
 interface ISelectProps {
-  options: string[] | string;
+  options: string[];
   value: string;
   setValue: (value: string) => void;
   placeholder: string;
@@ -71,7 +75,26 @@ const Select = ({
         </Pressable>
       </View>
       {/*select 컴포넌트 options 리스트*/}
-      <View></View>
+      <ModalContainer
+        isVisible={optionVisible}
+        onBackdropPress={() => setOptionVisible(false)}>
+        <View style={selectStyles.modal}>
+          <View style={selectStyles.content}>
+            {options.map(option => (
+              <TouchableOpacity
+                style={selectStyles.option}
+                onPress={() => {
+                  setValue(option);
+                  setOptionVisible(false);
+                }}>
+                <Typography style="Body1" key={option}>
+                  {option}
+                </Typography>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      </ModalContainer>
     </View>
   );
 };
