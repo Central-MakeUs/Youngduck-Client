@@ -4,16 +4,7 @@ import Typography from '../../typography';
 import Vote from '../../vote';
 import popcornItemStyles from './PopcornItem.style';
 import {useState} from 'react';
-
-interface IPopcornItemProps {
-  id: number;
-  imageURL: string;
-  title: string;
-  count: number;
-  nickname: string;
-  content: string;
-  isVoted: boolean;
-}
+import {IPopcornItemProps} from '@/types/popcornParty';
 
 const PopcornItem = ({
   id,
