@@ -25,12 +25,21 @@ function StackNavigator() {
   return (
     <Stack.Navigator>
       {/*로그인 페이지*/}
-      {/* <Stack.Screen name={stackScreens.LoginScreen} component={LoginScreen} />
-      <Stack.Screen name={stackScreens.SignupScreen} component={SignupScreen} />
+      {/*<Stack.Screen
+        name={stackScreens.LoginScreen}
+        component={LoginScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name={stackScreens.SignupScreen}
+        component={SignupScreen}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name={stackScreens.SignupCompleteScreen}
         component={SignupCompleteScreen}
-      /> */}
+        options={{headerShown: false}}
+      />*/}
       {/*BottomTab 3개 페이지*/}
       <Stack.Screen
         name={stackScreens.BottomTabScreens}
