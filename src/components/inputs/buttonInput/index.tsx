@@ -5,7 +5,6 @@ import useFocus from '@/hooks/useFocus';
 import palette from '@/styles/theme/color';
 
 import Calendar from '@/assets/icons/calendar.svg';
-import DownArrow from '@/assets/icons/down-arrow.svg';
 import Time from '@/assets/icons/time.svg';
 import Location from '@/assets/icons/location.svg';
 
@@ -22,7 +21,7 @@ interface TypeInputProps {
   value: any; // TODO: 백엔드 통신에 따른 타입 추가 예정
   placeholder: string;
   title: string;
-  category: 'select' | 'time' | 'date' | 'location';
+  category: 'time' | 'date' | 'location';
   setValue: (value: any) => void; // TODO: 백엔드 통신에 따른 타입 추가 예정
 }
 
@@ -115,7 +114,6 @@ const ButtonInput = ({
         <View style={buttonInputStyle.logo}>
           {category === 'date' && <Calendar />}
           {category === 'location' && <Location />}
-          {category === 'select' && <DownArrow />}
           {category === 'time' && <Time />}
         </View>
       </Pressable>
