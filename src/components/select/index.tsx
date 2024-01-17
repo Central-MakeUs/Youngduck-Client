@@ -14,7 +14,6 @@ import {useState} from 'react';
 import {selectStyles} from './Select.style';
 
 import ModalContainer from 'react-native-modal';
-import {popupStyles} from '../popup/Modal.style';
 
 interface ISelectProps {
   options: string[];
