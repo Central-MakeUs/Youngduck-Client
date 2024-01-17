@@ -1,9 +1,16 @@
-import {Pressable, View, TextInput as Input} from 'react-native';
+import {
+  Pressable,
+  View,
+  TextInput as Input,
+  TouchableOpacity,
+} from 'react-native';
 import DownArrow from '@/assets/icons/down-arrow.svg';
+import TopArrow from '@/assets/icons/top-arrow.svg';
 import useFocus from '@/hooks/useFocus';
 import Typography from '../typography';
 import {inputStyles, inputTypes} from '@/styles/Input.style';
 import palette from '@/styles/theme/color';
+import {useState} from 'react';
 
 interface ISelectProps {
   options: string[] | string;
@@ -20,35 +27,51 @@ const Select = ({
   title,
 }: ISelectProps) => {
   const {type, onFocus, onBlur} = useFocus();
+
+  const [optionVisible, setOptionVisible] = useState(false);
+
+  const showOptions = () => {
+    setOptionVisible(prev => !prev);
+  };
   return (
     <View>
       <Typography style="Label2" mb={4} color={inputTypes[type].titleColor}>
         {title}
       </Typography>
-      <Pressable
-        style={[
-          {borderColor: inputTypes[type].borderColor},
-          inputStyles.button,
-        ]}
-        //onPress={showModal}
-        onPressIn={() => onFocus()}
-        onPressOut={() => onBlur(value)}>
-        <Input
+      <View>
+        <Pressable
           style={[
-            inputStyles.input,
             {borderColor: inputTypes[type].borderColor},
-            {color: palette.Text.Normal},
+            inputStyles.button,
           ]}
-          placeholder={placeholder}
-          value={value}
-          editable={false}
-          placeholderTextColor={palette.Text.Assistive}
-        />
-
-        <View style={inputStyles.logo}>
-          <DownArrow />
-        </View>
-      </Pressable>
+          onPress={showOptions}
+          onPressIn={() => onFocus()}
+          onPressOut={() => onBlur(value)}>
+          <Input
+            style={[
+              inputStyles.input,
+              {borderColor: inputTypes[type].borderColor},
+              {color: palette.Text.Normal},
+            ]}
+            placeholder={placeholder}
+            value={value}
+            editable={false}
+            placeholderTextColor={palette.Text.Assistive}
+          />
+          {optionVisible && (
+            <View style={inputStyles.logo}>
+              <TopArrow />
+            </View>
+          )}
+          {!optionVisible && (
+            <View style={inputStyles.logo}>
+              <DownArrow />
+            </View>
+          )}
+        </Pressable>
+      </View>
+      {/*select 컴포넌트 options 리스트*/}
+      <View></View>
     </View>
   );
 };
