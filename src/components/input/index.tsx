@@ -1,7 +1,7 @@
 import useFocus from '@/hooks/useFocus';
 import {inputStyles, inputTypes} from '@/styles/Input.style';
 import {useEffect} from 'react';
-import {View, TextInput as Input} from 'react-native';
+import {View, TextInput} from 'react-native';
 import Typography from '../typography';
 import palette from '@/styles/theme/color';
 import DuplicatedButton from '../buttons/duplicatedButton';
@@ -21,8 +21,10 @@ interface ITextInputProps {
   keyBoardType?: 'email' | 'text' | 'phone' | 'url';
 
   errorContent?: string;
+  inputRef?: any;
+  next?: () => void;
 }
-const TextInput = ({
+const Input = ({
   value,
   maxLength,
   title,
@@ -34,6 +36,8 @@ const TextInput = ({
   setIsDuplicated,
   keyBoardType,
   errorContent,
+  inputRef,
+  next,
 }: ITextInputProps) => {
   const {type, onFocus, onBlur, onError, onWarning} = useFocus();
 
@@ -67,7 +71,7 @@ const TextInput = ({
         {title}
       </Typography>
       <View style={{justifyContent: 'center'}}>
-        <Input
+        <TextInput
           style={[
             inputStyles.input,
             {
@@ -81,6 +85,7 @@ const TextInput = ({
           placeholder={placeholder}
           onChangeText={onChangeInput}
           value={value}
+          ref={inputRef ? inputRef : null}
           onFocus={onFocus}
           onBlur={() => {
             //focus out 일 때도 warnnig 확인
@@ -95,6 +100,9 @@ const TextInput = ({
           blurOnSubmit={false}
           clearButtonMode={mode !== 'input' ? 'never' : 'while-editing'}
           editable={isDuplicated}
+          textContentType="emailAddress"
+          onSubmitEditing={next}
+          returnKeyType="next"
           keyboardType={
             keyBoardType === 'email'
               ? 'email-address'
@@ -134,4 +142,5 @@ const TextInput = ({
     </View>
   );
 };
-export default TextInput;
+
+export default Input;

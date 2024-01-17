@@ -1,4 +1,4 @@
-import {View, TextInput as Input, Pressable} from 'react-native';
+import {View, TextInput, Pressable} from 'react-native';
 
 import {inputStyles, inputTypes} from '@/styles/Input.style';
 import useFocus from '@/hooks/useFocus';
@@ -102,7 +102,7 @@ const ButtonInput = ({
         onPress={showModal}
         onPressIn={() => onFocus()}
         onPressOut={() => onBlur(value)}>
-        <Input
+        <TextInput
           style={[
             inputStyles.input,
             {borderColor: inputTypes[type].borderColor},
