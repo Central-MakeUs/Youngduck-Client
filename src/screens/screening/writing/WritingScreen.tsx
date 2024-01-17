@@ -10,13 +10,14 @@ import CheckBox from '@/components/checkBox';
 import ButtonInput from '@/components/inputs/buttonInput';
 
 const WritingScreen = () => {
+  // TODO: 작성하기 api body 타입 추가
   const [inputValues, setInputValues] = useState({
     image: '',
     title: '',
     screening: '',
     group: '',
-    startDate: '',
-    endDate: '',
+    startDate: undefined, // type: DateParsable | undefined
+    endDate: undefined, // type: DateParsable | undefined
     time: undefined,
     location: '',
     description: '',
