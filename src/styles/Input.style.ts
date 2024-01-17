@@ -1,9 +1,9 @@
-import {ITextInput, TextInputStyle} from '@/types/ui';
+import {TextInputStyle, TextInputType} from '@/types/ui';
 import palette from './theme/color';
 import {StyleSheet} from 'react-native';
 
 // 공통 input styles
-export const inputTypes: Record<ITextInput, TextInputStyle> = {
+export const inputTypes: Record<TextInputType, TextInputStyle> = {
   default: {
     borderColor: palette.Line.Normal,
     titleColor: palette.Text.Alternative,

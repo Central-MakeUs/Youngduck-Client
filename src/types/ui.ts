@@ -23,7 +23,7 @@ export type ICheckBox = 'on' | 'off' | 'indeterminate';
 export type IChip = 'primary' | 'default';
 
 // textInput 타입 지정
-export type ITextInput =
+export type TextInputType =
   | 'default'
   | 'writed'
   | 'caution'
