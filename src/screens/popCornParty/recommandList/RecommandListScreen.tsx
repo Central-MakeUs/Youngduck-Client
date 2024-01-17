@@ -5,9 +5,12 @@ import {IPopcornItemProps, IRenderItemProps} from '@/types/popcornParty';
 import {useEffect, useState} from 'react';
 import {ActivityIndicator, FlatList} from 'react-native';
 import {defaultDatas, moreDats} from './dummy';
+import {endOfWeek, format, startOfWeek} from 'date-fns';
 
 function RecommandListScreen() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
   const [popcornDatas, setPopcornDatas] =
     useState<IPopcornItemProps[]>(defaultDatas);
 
@@ -34,12 +37,15 @@ function RecommandListScreen() {
 
   useEffect(() => {
     setIsLoading(false);
+    setStartDate(format(startOfWeek(new Date()), 'M월 dd일'));
+    setEndDate(format(endOfWeek(new Date()), 'M월 dd일'));
   }, []);
+
   return (
     <DefaultContainer>
       <SubTitleDescription
         text="다음 주 팝콘작 투표"
-        subTitle={`1월 7일 ~ 1월 13일의 팝콘작을 선정해 주세요.\n상위 3편의 영화가 다음 주 오픈됩니다.`}
+        subTitle={`${startDate} ~ ${endDate}의 팝콘작을 선정해 주세요.\n상위 3편의 영화가 다음 주 오픈됩니다.`}
         mb={8}
       />
       <FlatList
