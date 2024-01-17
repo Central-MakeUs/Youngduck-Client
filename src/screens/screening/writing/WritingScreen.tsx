@@ -9,6 +9,7 @@ import {writingStyles} from './WritingScreen.style';
 import CheckBox from '@/components/checkBox';
 import ButtonInput from '@/components/inputs/buttonInput';
 import Select from '@/components/select';
+import TextArea from '@/components/textArea';
 
 const WritingScreen = () => {
   // TODO: 작성하기 api body 타입 추가
@@ -117,6 +118,16 @@ const WritingScreen = () => {
         </View>
 
         {/*추가 설명 => textArea 컴포넌트*/}
+        <View style={writingStyles.container}>
+          <TextArea
+            value={inputValues.description}
+            onChange={value => onChangeInput('description', value)}
+            maxLength={1000}
+            placeholder={'추가 설명을 입력해주세요'}
+            height={144}
+            title="추가 설명"
+          />
+        </View>
 
         {/*관람신청 URL*/}
         <View style={writingStyles.container}>
