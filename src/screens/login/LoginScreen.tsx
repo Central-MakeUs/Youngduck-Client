@@ -10,6 +10,7 @@ import loginScreenStyles from '@/screens/login/LoginScreen.style';
 import {defaultImages} from '@/assets';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
+import AppleLogin from '@/components/auth/AppleLogin';
 
 function LoginScreen() {
   const {stackNavigation} = useNavigator();
@@ -42,7 +43,7 @@ function LoginScreen() {
       </View>
       <View style={loginScreenStyles.wrapper}>
         <KakaoLogin onPress={handleSignInKakao} />
-        <KakaoLogin onPress={() => {}} />
+        <AppleLogin />
       </View>
       <Pressable
         onPress={() => stackNavigation.navigate(stackScreens.SignupScreen)}>

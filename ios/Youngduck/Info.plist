@@ -28,6 +28,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>$(KAKAO_NATIVE_APP_KEY_WITH_KAKAO)</string>
+				<string>com.popcornmate</string>
 			</array>
 		</dict>
 	</array>
