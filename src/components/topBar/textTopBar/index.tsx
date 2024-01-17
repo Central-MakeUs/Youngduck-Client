@@ -4,16 +4,19 @@ import palette from '@/styles/theme/color';
 import {CommonMarginVerticalProps} from '@/types/ui';
 import {View} from 'react-native';
 import {textStyles} from './TextTopBar.style';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface TextTopBarProps extends CommonMarginVerticalProps {
   subTitle: string;
   text: string;
 }
 const TextTopBar = ({text, subTitle, mb, mt}: TextTopBarProps) => {
+  const {top} = useSafeAreaInsets();
+  const style = textStyles({top});
   return (
     <View
       style={{
-        ...textStyles.container,
+        ...style.container,
         marginTop: mt ? mt : undefined,
         marginBottom: mb ? mb : undefined,
       }}>

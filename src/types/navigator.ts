@@ -4,7 +4,9 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 export type StackScreenName = keyof RootStackParamList;
 export type BottomTabScreenName = keyof BottomTabParamList;
 
-export type StackParamList = RootStackParamList & ScreeningStackParamList;
+export type StackParamList = RootStackParamList &
+  ScreeningStackParamList &
+  PopcornPartyStackParamList;
 
 // 전체 페이지 stack param 타입
 export type RootStackParamList = {
@@ -14,13 +16,13 @@ export type RootStackParamList = {
   BottomTabScreens: undefined;
   MyPageScreen: undefined;
   //TODO: 추후에 필요한 페이지 타입 주가
-};
+} & PopcornPartyStackParamList;
 
 // bottomTab 컴포넌트 param 타입
 export type BottomTabParamList = {
   ScreeningScreen: undefined;
   HomeScreen: undefined;
-  PopcornPartyScreen: undefined;
+  PopcornPartyHomeScreen: undefined;
 };
 
 // 스크리닝 페이지 stack param 타입
@@ -30,6 +32,14 @@ export type ScreeningStackParamList = {
   DetailScreen: {id: number};
   ReviewWritingScreen: undefined;
   ScreeningListScreen: undefined;
+};
+
+type PopcornPartyStackParamList = {
+  PopcornPartyHomeScreen: undefined;
+  PopcornPartyDetailScreen: {id: number};
+  RecommandListScreen: undefined;
+  WriteRecommandScreen: undefined;
+  WriteReviewScreen: undefined;
 };
 
 // bottomTab route 타입 지정

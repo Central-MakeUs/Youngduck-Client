@@ -6,6 +6,10 @@ import BottomTabNavigator from './bottomTabNavigator';
 import SignupCompleteScreen from '@/screens/signupComplete/SIgnupCompleteScreen';
 import {RootStackParamList} from '@/types/navigator';
 import MyPageScreen from '@/screens/myPage/MyPageScreen';
+import PopcornPartyDetailScreen from '@/screens/popcornParty/detail/PopcornPartyDetailScreen';
+import RecommandListScreen from '@/screens/popcornParty/recommandList/RecommandListScreen';
+import WriteRecommandScreen from '@/screens/popcornParty/writeRecommand/WriteRecommandScreen';
+import WriteReviewScreen from '@/screens/popcornParty/writeReview/WriteReviewScreen';
 
 function StackNavigator() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -25,6 +29,23 @@ function StackNavigator() {
       />
       {/*마이 페이지*/}
       <Stack.Screen name={stackScreens.MyPageScreen} component={MyPageScreen} />
+      {/* 팝콘파티 스크린 */}
+      <Stack.Screen
+        name={stackScreens.PopcornPartyDetailScreen}
+        component={PopcornPartyDetailScreen}
+      />
+      <Stack.Screen
+        name={stackScreens.RecommandListScreen}
+        component={RecommandListScreen}
+      />
+      <Stack.Screen
+        name={stackScreens.WriteRecommandScreen}
+        component={WriteRecommandScreen}
+      />
+      <Stack.Screen
+        name={stackScreens.WriteReviewScreen}
+        component={WriteReviewScreen}
+      />
     </Stack.Navigator>
   );
 }
