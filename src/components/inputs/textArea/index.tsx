@@ -1,5 +1,5 @@
 import {View, TextInput} from 'react-native';
-import Typography from '../typography';
+import Typography from '../../typography';
 import palette from '@/styles/theme/color';
 
 interface ITextAreaProps {

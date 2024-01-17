@@ -4,12 +4,13 @@ import palette from '@/styles/theme/color';
 import ScreeningGallery from './components/screeningGallery';
 import {useState} from 'react';
 import TextInput from '@/components/inputs/textInput';
-import {ScrollView, View} from 'react-native';
+import {View} from 'react-native';
 import {writingStyles} from './WritingScreen.style';
 import CheckBox from '@/components/checkBox';
 import ButtonInput from '@/components/inputs/buttonInput';
 import Select from '@/components/select';
-import TextArea from '@/components/textArea';
+import TextArea from '@/components/inputs/textArea';
+import DismissKeyboardView from '@/components/dismissKeyboardView';
 
 const WritingScreen = () => {
   // TODO: 작성하기 api body 타입 추가
@@ -38,7 +39,7 @@ const WritingScreen = () => {
 
   return (
     <DefaultContainer>
-      <ScrollView>
+      <DismissKeyboardView>
         <Typography
           mt={40}
           mb={20}
@@ -185,7 +186,7 @@ const WritingScreen = () => {
         <Typography style="Body2" color={palette.Text.Alternative} mb={34}>
           수정이나 비공개 처리는 가능해요.
         </Typography>
-      </ScrollView>
+      </DismissKeyboardView>
     </DefaultContainer>
   );
 };
