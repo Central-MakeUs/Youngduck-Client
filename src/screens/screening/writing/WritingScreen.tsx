@@ -8,6 +8,7 @@ import {ScrollView, View} from 'react-native';
 import {writingStyles} from './WritingScreen.style';
 import CheckBox from '@/components/checkBox';
 import ButtonInput from '@/components/inputs/buttonInput';
+import Select from '@/components/select';
 
 const WritingScreen = () => {
   // TODO: 작성하기 api body 타입 추가
@@ -72,6 +73,15 @@ const WritingScreen = () => {
         </View>
 
         {/*분류 => select 컴포넌트*/}
+        <View style={writingStyles.container}>
+          <Select
+            options={['상영회', '영화제', '시사회']}
+            title="분류"
+            value={inputValues.group}
+            setValue={value => onChangeInput('group', value)}
+            placeholder="선택하기"
+          />
+        </View>
 
         {/*날짜 => dateRangePicker 컴포넌트*/}
         <View style={writingStyles.container}>
