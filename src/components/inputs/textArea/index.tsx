@@ -26,6 +26,8 @@ const TextArea = ({
 
   const errorMessage = `${maxLength}자 이하의 ${title}을 입력해주세요`;
 
+  const lengthNotice = `/ ${maxLength}`;
+
   useEffect(() => {
     onBlur(value);
     if (maxLength && value.length > maxLength) {
@@ -64,12 +66,22 @@ const TextArea = ({
         multiline={true}
         placeholderTextColor={palette.Text.Assistive}
       />
-
-      {maxLength && type === 'caution' && (
-        <Typography style="Chips1" color={inputTypes[type].contentColor} mt={4}>
-          {errorMessage}
+      <View style={textAreaStyles.length}>
+        <Typography
+          style="Label3"
+          color={
+            type === 'caution' ? palette.State.Point : palette.Primary.Deep
+          }>
+          {value.length.toString()}
         </Typography>
-      )}
+        <Typography
+          style="Label3"
+          color={
+            type === 'caution' ? palette.State.Point : palette.Text.Normal
+          }>
+          {lengthNotice}
+        </Typography>
+      </View>
     </View>
   );
 };
