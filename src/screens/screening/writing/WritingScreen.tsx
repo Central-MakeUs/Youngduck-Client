@@ -3,7 +3,7 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import ScreeningGallery from './components/screeningGallery';
 import {useState} from 'react';
-import TextInput from '@/components/inputs/textInput';
+
 import {View} from 'react-native';
 import {writingStyles} from './WritingScreen.style';
 import CheckBox from '@/components/checkBox';
@@ -11,6 +11,7 @@ import ButtonInput from '@/components/inputs/buttonInput';
 import Select from '@/components/select';
 import TextArea from '@/components/inputs/textArea';
 import DismissKeyboardView from '@/components/dismissKeyboardView';
+import TextInput from '@/components/textInput';
 
 const WritingScreen = () => {
   // TODO: 작성하기 api body 타입 추가
@@ -35,7 +36,7 @@ const WritingScreen = () => {
     setInputValues({...inputValues, [inputName]: value});
   };
 
-  console.log('inputValues', inputValues);
+  const canGoNext = false;
 
   return (
     <DefaultContainer>
@@ -55,10 +56,10 @@ const WritingScreen = () => {
           <TextInput
             value={inputValues.title}
             title="타이틀"
-            placeholder="타이틀을 입력해주세요"
+            placeholder="상영회 제목을 입력하세요"
             onChangeInput={value => onChangeInput('title', value)}
-            content=""
-            maxLength={9}
+            maxLength={15}
+            content="15자 이내로 상영회 제목을 입력해주세요"
           />
         </View>
 
@@ -67,10 +68,10 @@ const WritingScreen = () => {
           <TextInput
             value={inputValues.screening}
             title="주최명"
-            placeholder="주최명을 입력해주세요"
+            placeholder="학과명, 동아리명 등 주최를 적어주세요."
             onChangeInput={value => onChangeInput('screening', value)}
-            content=""
-            maxLength={9}
+            maxLength={15}
+            content="15자 이내로 주최명을 입력해주세요"
           />
         </View>
 
@@ -136,9 +137,7 @@ const WritingScreen = () => {
             value={inputValues.url}
             title="관람 신청 URL"
             placeholder="관람 신청 URL을 입력해주세요"
-            content=""
             onChangeInput={value => onChangeInput('url', value)}
-            maxLength={100}
             keyBoardType="url"
           />
         </View>
@@ -149,10 +148,10 @@ const WritingScreen = () => {
             value={inputValues.phone}
             title="주최 연락처"
             placeholder="주최 연락처를 입력해주세요"
-            content=""
             onChangeInput={value => onChangeInput('phone', value)}
-            maxLength={100}
             keyBoardType="phone"
+            maxLength={13}
+            errorContent="전화번호 형식을 맞춰주세요"
           />
         </View>
 
@@ -162,10 +161,9 @@ const WritingScreen = () => {
             value={inputValues.email}
             title="주최 이메일"
             placeholder="주최 이메일을 입력해주세요"
-            content=""
             onChangeInput={value => onChangeInput('email', value)}
-            maxLength={100}
             keyBoardType="email"
+            errorContent="이메일 형식을 맞춰주세요"
           />
         </View>
 

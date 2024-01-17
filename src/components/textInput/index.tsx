@@ -18,6 +18,9 @@ interface ITextInputProps {
   mode?: 'input' | 'check';
   isDuplicated?: boolean;
   setIsDuplicated?: React.Dispatch<React.SetStateAction<boolean>>;
+  keyBoardType?: 'email' | 'text' | 'phone' | 'url';
+
+  errorContent?: string;
 }
 const TextInput = ({
   value,
@@ -27,14 +30,16 @@ const TextInput = ({
   onChangeInput,
   content,
   mode = 'input',
-  isDuplicated = false,
+  isDuplicated = true,
   setIsDuplicated,
+  keyBoardType,
+  errorContent,
 }: ITextInputProps) => {
   const {type, onFocus, onBlur, onError, onWarning} = useFocus();
 
-  console.log(type);
-
-  const errorMessage = `${maxLength}자 이하의 ${title}을 입력해주세요`;
+  const errorMessage = errorContent
+    ? errorContent
+    : `${maxLength}자 이하의 ${title}을 입력해주세요`;
 
   useEffect(() => {
     onBlur(value);
@@ -90,8 +95,17 @@ const TextInput = ({
           blurOnSubmit={false}
           clearButtonMode={mode !== 'input' ? 'never' : 'while-editing'}
           editable={isDuplicated}
+          keyboardType={
+            keyBoardType === 'email'
+              ? 'email-address'
+              : keyBoardType === 'phone'
+              ? 'phone-pad'
+              : keyBoardType === 'url'
+              ? 'url'
+              : 'default'
+          }
         />
-
+        {/*중복 확인 버튼*/}
         {mode === 'check' && (
           <DuplicatedButton
             value={value}
