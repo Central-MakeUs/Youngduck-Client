@@ -8,8 +8,10 @@ import {BottomTabParamList} from '@/types/navigator';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {bottomTabScreenOptions} from './BottomTabNavigator.style';
 import TitleTopBar from '@/components/topBar/titleTopBar';
-import ScreeningStackNavigator from '../ScreeningStackNavigator';
-import PopcornPartyHomeScreen from '@/screens/popcornParty/home/PopcornPartyHomeScreen';
+
+import ScreeningStackNavigator from '../stackNavigator/ScreeningStackNavigator';
+
+import PopcornPartyHomeScreen from '@/screens/popCornParty/home/PopcornPartyHomeScreen';
 
 export const getTabBarIcon = (routeName: string, focused: boolean) => {
   const iconColor = focused ? palette.Primary.Normal : palette.Text.Disable;

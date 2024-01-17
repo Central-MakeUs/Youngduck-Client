@@ -6,6 +6,7 @@ import {useEffect} from 'react';
 
 import palette from '@/styles/theme/color';
 import {textInputStyles, textInputTypes} from './TextInput.style';
+import {inputTypes} from '@/styles/Input.style';
 
 interface TextInputProps {
   value: string;
@@ -14,9 +15,10 @@ interface TextInputProps {
   title: string;
   content: string;
   maxLength: number;
-  mode: 'input' | 'check';
+  mode?: 'input' | 'check';
   isDuplicated?: boolean;
   setIsDuplicated?: React.Dispatch<React.SetStateAction<boolean>>;
+  keyBoardType?: 'email' | 'text' | 'phone' | 'url';
 }
 
 const TextInput = ({
@@ -26,9 +28,10 @@ const TextInput = ({
   title,
   content,
   maxLength,
-  mode,
+  mode = 'input',
   isDuplicated,
   setIsDuplicated,
+  keyBoardType,
 }: TextInputProps) => {
   const {type, onFocus, onBlur, onError, onWarning} = useFocus();
 
@@ -55,7 +58,7 @@ const TextInput = ({
 
   return (
     <View>
-      <Typography style="Label2" color={textInputTypes[type].titleColor} mb={4}>
+      <Typography style="Label2" color={inputTypes[type].titleColor} mb={4}>
         {title}
       </Typography>
       <View style={{justifyContent: 'center'}}>
@@ -79,6 +82,15 @@ const TextInput = ({
           placeholderTextColor={palette.Text.Assistive}
           clearButtonMode={mode !== 'input' ? 'never' : 'while-editing'}
           editable={isDuplicated}
+          keyboardType={
+            keyBoardType === 'email'
+              ? 'email-address'
+              : keyBoardType === 'phone'
+              ? 'phone-pad'
+              : keyBoardType === 'url'
+              ? 'url'
+              : 'default'
+          }
         />
         {mode === 'check' && (
           <Pressable
@@ -105,7 +117,7 @@ const TextInput = ({
           return (
             <Typography
               style="Chips1"
-              color={textInputTypes[type].contentColor}
+              color={inputTypes[type].contentColor}
               mt={4}>
               {errorMessage}
             </Typography>
@@ -114,7 +126,7 @@ const TextInput = ({
           return (
             <Typography
               style="Chips1"
-              color={textInputTypes[type].contentColor}
+              color={inputTypes[type].contentColor}
               mt={4}>
               {content}
             </Typography>
