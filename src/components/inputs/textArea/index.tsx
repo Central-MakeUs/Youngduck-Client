@@ -1,19 +1,22 @@
-import {View, TextInput} from 'react-native';
+import {View, TextInput, TextInputProps} from 'react-native';
 import Typography from '../../typography';
 import palette from '@/styles/theme/color';
 import useFocus from '@/hooks/useFocus';
-import {useEffect} from 'react';
+import {LegacyRef, useEffect} from 'react';
 import {inputStyles, inputTypes} from '@/styles/Input.style';
 import {textAreaStyles} from './TextArea.style';
 
-interface ITextAreaProps {
+interface ITextAreaProps extends TextInputProps {
   value: string;
   onChangeInput: (value: string) => void;
   title: string;
   maxLength?: number;
   placeholder: string;
   height: number;
+
+  inputRef?: LegacyRef<TextInput> | undefined;
 }
+
 const TextArea = ({
   value,
   onChangeInput,
@@ -21,6 +24,8 @@ const TextArea = ({
   maxLength,
   placeholder,
   height,
+  inputRef,
+  ...props
 }: ITextAreaProps) => {
   const {type, onFocus, onBlur, onError} = useFocus();
 
@@ -39,6 +44,7 @@ const TextArea = ({
         {title}
       </Typography>
       <TextInput
+        {...props}
         style={[
           inputStyles.input,
           textAreaStyles.textArea,
@@ -53,6 +59,7 @@ const TextArea = ({
         onChangeText={onChangeInput}
         onFocus={onFocus}
         blurOnSubmit={false}
+        ref={inputRef}
         onBlur={() => {
           //focus out 일 때도 warnnig 확인
           if (maxLength && value.length > maxLength) {
