@@ -33,7 +33,7 @@ const ScreeningGallery = () => {
               mr={5.14}>
               Pro 사용하기
             </Typography>
-            <SvgIcons.ProArrow />
+            <SvgIcons.RightArrowIcon />
           </View>
         </RoundButton>
       </View>
