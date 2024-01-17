@@ -12,6 +12,6 @@ export const titleStyles = ({top}: CommonTopProp) =>
       justifyContent: 'space-between',
       alignItems: 'center',
       backgroundColor: palette.Another.White,
-      paddingTop: top,
+      paddingTop: top + 16,
     },
   });

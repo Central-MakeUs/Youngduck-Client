@@ -11,6 +11,6 @@ export const subMenuStyles = ({top}: CommonTopProp) =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingTop: top,
+      paddingTop: top + 16,
     },
   });

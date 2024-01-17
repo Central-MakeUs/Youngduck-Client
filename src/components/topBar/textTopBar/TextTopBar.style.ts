@@ -8,6 +8,6 @@ export const textStyles = ({top}: CommonTopProp) =>
       alignItems: 'flex-start',
       paddingVertical: 16,
       paddingLeft: 16,
-      paddingTop: top,
+      paddingTop: top + 16,
     },
   });

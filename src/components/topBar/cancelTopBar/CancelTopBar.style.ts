@@ -13,7 +13,7 @@ export const cancelStyles = ({top}: CommonTopProp) =>
       width: '100%',
       borderBottomWidth: 1,
       borderBottomColor: palette.Fill.Normal,
-      paddingTop: top,
+      paddingTop: top + 16,
     },
     content: {
       flex: 1,
