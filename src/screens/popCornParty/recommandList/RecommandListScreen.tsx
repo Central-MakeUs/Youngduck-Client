@@ -14,7 +14,7 @@ function RecommandListScreen() {
   const [popcornDatas, setPopcornDatas] =
     useState<IPopcornItemProps[]>(defaultDatas);
 
-  const renderItem = ({item}: IRenderItemProps<IPopcornItemProps>) => (
+  const popcornItem = ({item}: IRenderItemProps<IPopcornItemProps>) => (
     <PopcornItem
       key={item.title}
       id={item.id}
@@ -29,6 +29,8 @@ function RecommandListScreen() {
 
   const renderMoreItems = () => {
     setIsLoading(true);
+    // 데이터 받아오는 것처럼 하기 위해 setTimeout 추가
+    // 추후 setTimeout 삭제 예정
     setTimeout(() => {
       setPopcornDatas([...popcornDatas, ...moreDats]);
       setIsLoading(false);
@@ -50,9 +52,10 @@ function RecommandListScreen() {
       />
       <FlatList
         data={popcornDatas}
-        renderItem={renderItem}
+        renderItem={popcornItem}
         keyExtractor={(item: IPopcornItemProps) => item.id.toString()}
         onEndReached={renderMoreItems}
+        onEndReachedThreshold={0.6}
       />
       {isLoading && <ActivityIndicator style={{marginBottom: 10}} />}
     </DefaultContainer>
