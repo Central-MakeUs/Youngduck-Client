@@ -16,7 +16,14 @@ export type RootStackParamList = {
   BottomTabScreens: undefined;
   MyPageScreen: undefined;
   //TODO: 추후에 필요한 페이지 타입 주가
+
+
+  // 스크리닝 페이지
+  WritingScreen: undefined;
+  DetailScreen: {id: number};
+  ReviewWritingScreen: undefined;
 } & PopcornPartyStackParamList;
+
 
 // bottomTab 컴포넌트 param 타입
 export type BottomTabParamList = {
@@ -28,10 +35,13 @@ export type BottomTabParamList = {
 // 스크리닝 페이지 stack param 타입
 export type ScreeningStackParamList = {
   HomeScreen: undefined;
+  ScreeningListScreen: undefined;
+};
+
+export type ScreeningStackScreensParamList = {
   WritingScreen: undefined;
   DetailScreen: {id: number};
   ReviewWritingScreen: undefined;
-  ScreeningListScreen: undefined;
 };
 
 type PopcornPartyStackParamList = {

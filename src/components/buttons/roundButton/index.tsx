@@ -9,6 +9,8 @@ export type BoxButtonProps = {
   disabled?: boolean;
   width?: string;
   bg?: string;
+  py?: number;
+  px?: number;
 } & TouchableOpacityProps;
 
 const RoundButton = ({
@@ -16,6 +18,8 @@ const RoundButton = ({
   disabled,
   onPress,
   bg = palette.Primary.Normal,
+  py = 8,
+  px = 16,
   ...props
 }: BoxButtonProps) => {
   return (
@@ -25,6 +29,8 @@ const RoundButton = ({
         roundButtonStyles.button,
         disabled && roundButtonStyles.buttonDisabled,
         {backgroundColor: bg ? bg : undefined},
+        {paddingVertical: py ? py : undefined},
+        {paddingHorizontal: px ? px : undefined},
       ]}
       onPress={onPress}
       activeOpacity={0.8}
