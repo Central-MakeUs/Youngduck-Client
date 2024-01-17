@@ -51,6 +51,7 @@ const ButtonInput = ({
     timeString = value ? `${getHours(value)} : ${getMinutes(value)}` : '';
   }
   if (category === 'date') {
+    console.log('날짜 확인하쟈', selectedEndDate, selectedStartDate);
     timeString =
       selectedStartDate && selectedEndDate
         ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
@@ -131,12 +132,14 @@ const ButtonInput = ({
       )}
       {/*달력 Bottom Sheet 컴포넌트*/}
       <BottomSheet drawerRef={bottomDrawerRef} height={350}>
-        <DateRangePickerModal
-          startDate={selectedStartDate}
-          endDate={selectedEndDate}
-          setStartDate={setSelectedStartDate}
-          setEndDate={setSelectedEndDate}
-        />
+        <View>
+          <DateRangePickerModal
+            startDate={selectedStartDate}
+            endDate={selectedEndDate}
+            setStartDate={setSelectedStartDate}
+            setEndDate={setSelectedEndDate}
+          />
+        </View>
       </BottomSheet>
     </View>
   );
