@@ -41,6 +41,7 @@ const ButtonInput = ({
   const {type, onFocus, onBlur} = useFocus();
 
   const [timeModal, setTimeModal] = useState(false);
+  const [timeString, setTimeString] = useState<number | string | null>(null);
 
   const [selectedStartDate, setSelectedStartDate] = useState<
     DateParsable | undefined
@@ -50,25 +51,25 @@ const ButtonInput = ({
   >(undefined);
 
   // ui에 보여질 시간, 날짜 문자열
-  let timeString;
-  if (category === 'time') {
-    timeString = value ? `${getHours(value)} : ${getMinutes(value)}` : '';
-  }
-  if (category === 'date') {
-    //console.log('날짜 확인하쟈', selectedEndDate, selectedStartDate);
-    timeString =
-      selectedStartDate && selectedEndDate
-        ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
-            selectedEndDate,
-            'yyyy-MM-dd',
-          )}`
-        : '';
-  }
+  useEffect(() => {
+    if (category === 'time') {
+      setTimeString(value ? `${getHours(value)} : ${getMinutes(value)}` : '');
+    }
+  }, [value]);
 
   useEffect(() => {
     if (selectedEndDate && bottomDrawerRef) {
       bottomDrawerRef.current?.close();
     }
+    //console.log('날짜 확인하쟈', selectedEndDate, selectedStartDate);
+    setTimeString(
+      selectedStartDate && selectedEndDate
+        ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
+            selectedEndDate,
+            'yyyy-MM-dd',
+          )}`
+        : '',
+    );
   }, [selectedEndDate]);
 
   // 필요한 모달 열기
@@ -120,7 +121,9 @@ const ButtonInput = ({
             {color: palette.Text.Normal},
           ]}
           placeholder={placeholder}
-          value={timeString}
+          value={
+            category === 'date' || category === 'time' ? timeString : value
+          }
           editable={false}
           placeholderTextColor={palette.Text.Assistive}
         />
@@ -156,7 +159,10 @@ const ButtonInput = ({
       )}
       {/* 추천 영화 Bottom Sheet 컴포넌트 */}
       {category === 'search' && (
-        <SearchBottomSheet bottomDrawerRef={bottomDrawerRef} />
+        <SearchBottomSheet
+          setValue={setValue}
+          bottomDrawerRef={bottomDrawerRef}
+        />
       )}
     </View>
   );
