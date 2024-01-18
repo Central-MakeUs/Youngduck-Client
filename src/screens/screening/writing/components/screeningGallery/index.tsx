@@ -7,11 +7,28 @@ import RoundButton from '@/components/buttons/roundButton';
 import SvgIcons from '@/assets/svgIcons';
 import permissionUtil from '@/utils/permissionUtil';
 import {APP_PERMISSION_CODE} from '@/constants/permissionCodes';
+import ImageCropPicker from 'react-native-image-crop-picker';
 
 const ScreeningGallery = () => {
-  const handlePermissionGallery = () => {
-    console.log('권한 설정');
+  const handlePermissionGallery = async () => {
     permissionUtil.cmmReqPermis([...APP_PERMISSION_CODE.picture]);
+
+    try {
+      const image = await ImageCropPicker.openPicker({
+        mediaType: 'photo',
+        includeBase64: true,
+        width: 120,
+        height: 120,
+      });
+
+      if (image?.path) {
+        console.log('이미지 경로', image.path);
+
+        // TODO: 백엔드 api 통신
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
   return (
     <View>

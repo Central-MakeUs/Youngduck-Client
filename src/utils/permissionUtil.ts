@@ -62,8 +62,6 @@ class PermissionUtil {
    * @returns
    */
   cmmReqPermis = async (permsArr: Permission[]): Promise<void> => {
-    console.log('[+] 함수 실행완료');
-
     // [CASE1] 모든 권한에 대해 디바이스 플랫폼을 체크합니다. (해당 되지 않는 경우 종료합니다.)
     if (!this.cmmAccessDevicePlatformCheck()) return;
 
