@@ -92,6 +92,11 @@ function StackNavigator() {
       <Stack.Screen
         name={stackScreens.KakaoSearchScreen}
         component={KakaoSearchScreen}
+        options={{
+          header: () => (
+            <CancelTopBar text="상영회 장소 검색" onPress={handleGoBack} />
+          ),
+        }}
       />
       {/* 팝콘파티 스크린 */}
       <Stack.Screen
