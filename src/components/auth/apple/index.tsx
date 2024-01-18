@@ -23,7 +23,8 @@ function AppleLogin() {
   return (
     <TouchableOpacity
       style={appleLoginStyle.button}
-      onPress={handleSignInApple}>
+      onPress={handleSignInApple}
+      activeOpacity={0.8}>
       <AppleLogo />
       <Typography style="Body1" ml={16} color="#ffffff">
         Apple계정으로 시작하기
