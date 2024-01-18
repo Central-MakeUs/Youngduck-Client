@@ -1,12 +1,18 @@
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import Gallery from '@/assets/icons/gallery.svg';
-import {Image, View} from 'react-native';
+import {Image, TouchableOpacity, View} from 'react-native';
 import {galleryStyles} from './ScreeningGallery.style';
 import RoundButton from '@/components/buttons/roundButton';
 import SvgIcons from '@/assets/svgIcons';
+import permissionUtil from '@/utils/permissionUtil';
+import {APP_PERMISSION_CODE} from '@/constants/permissionCodes';
 
 const ScreeningGallery = () => {
+  const handlePermissionGallery = () => {
+    console.log('권한 설정');
+    permissionUtil.cmmReqPermis([...APP_PERMISSION_CODE.picture]);
+  };
   return (
     <View>
       <Typography style="Label2" color={palette.Text.Strong} mb={4}>
@@ -19,7 +25,9 @@ const ScreeningGallery = () => {
           }}
           style={galleryStyles.image}
         />
-        <Gallery />
+        <TouchableOpacity onPress={handlePermissionGallery} activeOpacity={0.8}>
+          <Gallery />
+        </TouchableOpacity>
       </View>
       <View style={galleryStyles.proContainer}>
         <Typography style="Body2" color={palette.Text.Alternative}>
