@@ -10,7 +10,7 @@ import loginScreenStyles from '@/screens/login/LoginScreen.style';
 import {defaultImages} from '@/assets';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
-import AppleLogin from '@/components/auth/AppleLogin';
+import AppleLogin from '@/components/auth/apple';
 
 function LoginScreen() {
   const {stackNavigation} = useNavigator();
