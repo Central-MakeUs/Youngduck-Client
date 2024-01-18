@@ -39,7 +39,7 @@ const Input = ({
   inputRef,
   ...props
 }: InputProps) => {
-  const {type, onFocus, onBlur, onError, onWarning} = useFocus();
+  const {type, onFocus, onBlur, onFocusout, onWarning} = useFocus();
 
   const errorMessage = errorContent
     ? errorContent
@@ -47,8 +47,8 @@ const Input = ({
 
   useEffect(() => {
     onBlur(value);
-    if (maxLength && value.length > maxLength) {
-      onError();
+    if (maxLength) {
+      onFocusout(value, maxLength);
     }
   }, [value]);
 
@@ -90,11 +90,7 @@ const Input = ({
           onFocus={onFocus}
           onBlur={() => {
             //focus out 일 때도 warnnig 확인
-            if (maxLength && value.length > maxLength) {
-              onError();
-            } else {
-              onBlur(value);
-            }
+            if (maxLength) onFocusout(value, maxLength);
           }}
           placeholderTextColor={palette.Text.Assistive}
           importantForAutofill="yes"

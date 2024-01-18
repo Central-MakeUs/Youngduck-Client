@@ -34,7 +34,18 @@ const useFocus = () => {
     setType(text ? 'writed' : 'default');
   };
 
-  return {type, onFocus, onBlur, onError, onWarning};
+  /**
+   * Focus out 처리합니다.
+   */
+
+  const onFocusout = (value: string, maxLength: number) => {
+    onBlur(value);
+    if (maxLength && value.length > maxLength) {
+      onError();
+    }
+  };
+
+  return {type, onFocus, onBlur, onError, onWarning, onFocusout};
 };
 
 export default useFocus;

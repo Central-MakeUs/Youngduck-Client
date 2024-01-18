@@ -27,14 +27,14 @@ const TextArea = ({
   inputRef,
   ...props
 }: ITextAreaProps) => {
-  const {type, onFocus, onBlur, onError} = useFocus();
+  const {type, onFocus, onBlur, onFocusout} = useFocus();
 
   const lengthNotice = `/ ${maxLength}`;
 
   useEffect(() => {
     onBlur(value);
-    if (maxLength && value.length > maxLength) {
-      onError();
+    if (maxLength) {
+      onFocusout(value, maxLength);
     }
   }, [value]);
 
@@ -62,11 +62,7 @@ const TextArea = ({
         ref={inputRef}
         onBlur={() => {
           //focus out 일 때도 warnnig 확인
-          if (maxLength && value.length > maxLength) {
-            onError();
-          } else {
-            onBlur(value);
-          }
+          if (maxLength) onFocusout(value, maxLength);
         }}
         multiline={true}
         placeholderTextColor={palette.Text.Assistive}
