@@ -17,13 +17,12 @@ export type RootStackParamList = {
   MyPageScreen: undefined;
   //TODO: 추후에 필요한 페이지 타입 주가
 
-
   // 스크리닝 페이지
   WritingScreen: undefined;
   DetailScreen: {id: number};
   ReviewWritingScreen: undefined;
+  KakaoSearchScreen: undefined;
 } & PopcornPartyStackParamList;
-
 
 // bottomTab 컴포넌트 param 타입
 export type BottomTabParamList = {

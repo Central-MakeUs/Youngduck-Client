@@ -18,6 +18,7 @@ import DateRangePickerModal from '@/components/modals/dateRangePickerModal';
 import {DateParsable} from 'react-native-calendar-picker';
 import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
 import BottomSheet from '@/components/bottomSheet';
+import useNavigator from '@/hooks/useNavigator';
 
 interface TypeInputProps {
   value: any; // TODO: 백엔드 통신에 따른 타입 추가 예정
@@ -34,6 +35,7 @@ const ButtonInput = ({
   category,
   setValue,
 }: TypeInputProps) => {
+  const {stackNavigation} = useNavigator();
   const {type, onFocus, onBlur} = useFocus();
 
   const [timeModal, setTimeModal] = useState(false);
@@ -74,6 +76,9 @@ const ButtonInput = ({
     }
     if (category === 'date' && bottomDrawerRef) {
       bottomDrawerRef.current?.open();
+    }
+    if (category === 'location') {
+      stackNavigation.navigate('KakaoSearchScreen');
     }
   };
 

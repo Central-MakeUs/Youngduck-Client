@@ -18,6 +18,7 @@ import RecommandListScreen from '@/screens/popCornParty/recommandList/RecommandL
 import WriteRecommandScreen from '@/screens/popCornParty/writeRecommand/WriteRecommandScreen';
 import WriteReviewScreen from '@/screens/popCornParty/writeReview/WriteReviewScreen';
 import TitleTopBar from '@/components/topBar/titleTopBar';
+import KakaoSearchScreen from '@/screens/screening/kakaoSearch/KakaoSearchScreen';
 
 function StackNavigator() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -86,6 +87,11 @@ function StackNavigator() {
             <CancelTopBar text="리뷰 작성하기" onPress={handleGoBack} />
           ),
         }}
+      />
+      {/*카카오 장소 검색 페이지*/}
+      <Stack.Screen
+        name={stackScreens.KakaoSearchScreen}
+        component={KakaoSearchScreen}
       />
       {/* 팝콘파티 스크린 */}
       <Stack.Screen
