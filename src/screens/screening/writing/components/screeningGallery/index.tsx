@@ -11,6 +11,7 @@ import ImageCropPicker from 'react-native-image-crop-picker';
 
 const ScreeningGallery = () => {
   const handlePermissionGallery = async () => {
+    // 갤러리 이미지 접근 권한 허용
     permissionUtil.cmmReqPermis([...APP_PERMISSION_CODE.picture]);
 
     try {
@@ -39,6 +40,7 @@ const ScreeningGallery = () => {
         <Image
           source={{
             uri: 'https://cdn.pixabay.com/photo/2017/07/13/23/11/cinema-2502213_1280.jpg',
+            // TODO: 백엔드 api 응답 uri 넣기
           }}
           style={galleryStyles.image}
         />
