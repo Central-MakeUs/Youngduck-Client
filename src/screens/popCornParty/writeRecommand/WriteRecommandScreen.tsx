@@ -16,12 +16,12 @@ function WriteRecommandScreen() {
   const [reason, setReason] = useState<string>('');
   const [isAgree, setIsAgree] = useState<boolean>(false);
   const {bottom} = useSafeAreaInsets();
+  const styles = writeRecommandScreenStyles({bottom});
+  const canRegister = !!selectedMovie.length && reason.length >= 10 && isAgree;
 
   const inputReason = (e: string) => setReason(e);
 
   const toggleIsAgreeState = () => setIsAgree(!isAgree);
-
-  const canRegister = !!selectedMovie.length && reason.length >= 10 && isAgree;
 
   return (
     <DefaultContainer>
@@ -31,7 +31,7 @@ function WriteRecommandScreen() {
         mt={24}
         mb={32}
       />
-      <View style={writeRecommandScreenStyles.buttonMargin}>
+      <View style={styles.buttonMargin}>
         <ButtonInput
           value={selectedMovie}
           placeholder="클릭하면 영화를 검색할 수 있어요"
@@ -50,24 +50,19 @@ function WriteRecommandScreen() {
         title="추천하는 이유"
         essential
       />
-      <View style={writeRecommandScreenStyles.agreementWrap}>
+      <View style={styles.agreementWrap}>
         <SubTitleDescription
           text="게시글 정책을 확인했어요."
           subTitle="팝콘작 추천하기는 수정이나 삭제를 할 수 없어요."
         />
-        <View style={writeRecommandScreenStyles.paddingCheckBox}>
+        <View style={styles.paddingCheckBox}>
           <CheckBox
             state={isAgree ? 'on' : 'off'}
             onPress={toggleIsAgreeState}
           />
         </View>
       </View>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'flex-end',
-          paddingBottom: bottom + 16,
-        }}>
+      <View style={styles.registerButton}>
         <BoxButton disabled={!canRegister} onPress={() => {}}>
           등록하기
         </BoxButton>

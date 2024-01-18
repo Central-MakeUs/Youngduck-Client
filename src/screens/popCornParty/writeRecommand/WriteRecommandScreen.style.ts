@@ -1,14 +1,26 @@
 import {StyleSheet} from 'react-native';
 
-const writeRecommandScreenStyles = StyleSheet.create({
-  buttonMargin: {
-    marginBottom: 24,
-  },
-  agreementWrap: {
-    flexDirection: 'row',
-    paddingRight: 24,
-  },
-  paddingCheckBox: {paddingTop: 16},
-});
+interface IWriteRecommandScreenStylesProp {
+  bottom: number;
+}
+
+const writeRecommandScreenStyles = ({
+  bottom,
+}: IWriteRecommandScreenStylesProp) =>
+  StyleSheet.create({
+    buttonMargin: {
+      marginBottom: 24,
+    },
+    agreementWrap: {
+      flexDirection: 'row',
+      paddingRight: 24,
+    },
+    paddingCheckBox: {paddingTop: 16},
+    registerButton: {
+      flex: 1,
+      justifyContent: 'flex-end',
+      paddingBottom: bottom + 16,
+    },
+  });
 
 export default writeRecommandScreenStyles;
