@@ -5,12 +5,11 @@ import {IPopcornItemProps, IRenderItemProps} from '@/types/popcornParty';
 import {useEffect, useState} from 'react';
 import {ActivityIndicator, FlatList} from 'react-native';
 import {defaultDatas, moreDats} from './dummy';
-import {endOfWeek, format, startOfWeek} from 'date-fns';
+import useGetVoteDateRange from '@/hooks/useGetVoteDateRange';
 
 function RecommandListScreen() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [startDate, setStartDate] = useState<string>('');
-  const [endDate, setEndDate] = useState<string>('');
+  const {startDate, endDate} = useGetVoteDateRange();
   const [popcornDatas, setPopcornDatas] =
     useState<IPopcornItemProps[]>(defaultDatas);
 
@@ -39,8 +38,8 @@ function RecommandListScreen() {
 
   useEffect(() => {
     setIsLoading(false);
-    setStartDate(format(startOfWeek(new Date()), 'M월 dd일'));
-    setEndDate(format(endOfWeek(new Date()), 'M월 dd일'));
+    // setStartDate(format(startOfWeek(new Date()), 'M월 dd일'));
+    // setEndDate(format(endOfWeek(new Date()), 'M월 dd일'));
   }, []);
 
   return (
