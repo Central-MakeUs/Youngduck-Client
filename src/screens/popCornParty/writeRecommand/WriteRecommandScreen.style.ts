@@ -8,6 +8,7 @@ const writeRecommandScreenStyles = ({
   bottom,
 }: IWriteRecommandScreenStylesProp) =>
   StyleSheet.create({
+    container: {flex: 1},
     buttonMargin: {
       marginBottom: 24,
     },
