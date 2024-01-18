@@ -85,7 +85,7 @@ const Input = ({
           ]}
           placeholder={placeholder}
           onChangeText={onChangeInput}
-          value={value}
+          value={maxLength ? value.slice(0, maxLength) : value}
           ref={inputRef ? inputRef : null}
           onFocus={onFocus}
           onBlur={() => {

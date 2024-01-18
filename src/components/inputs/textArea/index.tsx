@@ -54,7 +54,7 @@ const TextArea = ({
             color: palette.Text.Normal,
           },
         ]}
-        value={value}
+        value={maxLength ? value.slice(0, maxLength) : value}
         placeholder={placeholder}
         onChangeText={onChangeInput}
         onFocus={onFocus}
