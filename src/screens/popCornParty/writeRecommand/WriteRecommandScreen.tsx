@@ -7,15 +7,21 @@ import useGetVoteDateRange from '@/hooks/useGetVoteDateRange';
 import {useState} from 'react';
 import {View} from 'react-native';
 import writeRecommandScreenStyles from './WriteRecommandScreen.style';
+import BoxButton from '@/components/buttons/boxButton';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 function WriteRecommandScreen() {
   const {startDate, endDate} = useGetVoteDateRange();
+  const [selectedMovie, setSelectedMovie] = useState<string>('');
   const [reason, setReason] = useState<string>('');
   const [isAgree, setIsAgree] = useState<boolean>(false);
+  const {bottom} = useSafeAreaInsets();
 
   const inputReason = (e: string) => setReason(e);
 
   const toggleIsAgreeState = () => setIsAgree(!isAgree);
+
+  const canRegister = !!selectedMovie.length && reason.length >= 10 && isAgree;
 
   return (
     <DefaultContainer>
@@ -27,11 +33,11 @@ function WriteRecommandScreen() {
       />
       <View style={writeRecommandScreenStyles.buttonMargin}>
         <ButtonInput
-          value={''}
+          value={selectedMovie}
           placeholder="클릭하면 영화를 검색할 수 있어요"
           title="추천 영화"
           category="search"
-          setValue={() => {}}
+          setValue={setSelectedMovie}
           essential
         />
       </View>
@@ -55,6 +61,16 @@ function WriteRecommandScreen() {
             onPress={toggleIsAgreeState}
           />
         </View>
+      </View>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'flex-end',
+          paddingBottom: bottom + 16,
+        }}>
+        <BoxButton disabled={!canRegister} onPress={() => {}}>
+          등록하기
+        </BoxButton>
       </View>
     </DefaultContainer>
   );
