@@ -7,6 +7,7 @@ import palette from '@/styles/theme/color';
 import Calendar from '@/assets/icons/calendar.svg';
 import Time from '@/assets/icons/time.svg';
 import Location from '@/assets/icons/location.svg';
+import Search from '@/assets/icons/search.svg';
 
 import {useEffect, useRef, useState} from 'react';
 import Typography from '@/components/typography';
@@ -23,7 +24,8 @@ interface TypeInputProps {
   value: any; // TODO: 백엔드 통신에 따른 타입 추가 예정
   placeholder: string;
   title: string;
-  category: 'time' | 'date' | 'location';
+  essential?: boolean;
+  category: 'time' | 'date' | 'location' | 'search';
   setValue: (value: any) => void; // TODO: 백엔드 통신에 따른 타입 추가 예정
 }
 
@@ -31,6 +33,7 @@ const ButtonInput = ({
   value, // 통신할  시간 value 값
   placeholder,
   title,
+  essential,
   category,
   setValue,
 }: TypeInputProps) => {
@@ -91,7 +94,11 @@ const ButtonInput = ({
 
   return (
     <View>
-      <Typography style="Label2" mb={4} color={inputTypes[type].titleColor}>
+      <Typography
+        essential={essential}
+        style="Label2"
+        mb={4}
+        color={inputTypes[type].titleColor}>
         {title}
       </Typography>
       <Pressable
@@ -118,6 +125,7 @@ const ButtonInput = ({
           {category === 'date' && <Calendar />}
           {category === 'location' && <Location />}
           {category === 'time' && <Time />}
+          {category === 'search' && <Search />}
         </View>
       </Pressable>
       {category === 'time' && (
