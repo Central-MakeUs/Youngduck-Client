@@ -1,11 +1,11 @@
-import {ITextInput} from '@/types/ui';
+import {TextInputType} from '@/types/ui';
 import {useState} from 'react';
 
 /**
  * focus에 따른 색상 여부 전달
  */
 const useFocus = () => {
-  const [type, setType] = useState<ITextInput>('default');
+  const [type, setType] = useState<TextInputType>('default');
   /**
    * Focus 처리합니다.
    */
@@ -34,7 +34,18 @@ const useFocus = () => {
     setType(text ? 'writed' : 'default');
   };
 
-  return {type, onFocus, onBlur, onError, onWarning};
+  /**
+   * Focus out 처리합니다.
+   */
+
+  const onFocusout = (value: string, maxLength: number) => {
+    onBlur(value);
+    if (maxLength && value.length > maxLength) {
+      onError();
+    }
+  };
+
+  return {type, onFocus, onBlur, onError, onWarning, onFocusout};
 };
 
 export default useFocus;

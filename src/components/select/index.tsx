@@ -1,9 +1,4 @@
-import {
-  Pressable,
-  View,
-  TextInput as Input,
-  TouchableOpacity,
-} from 'react-native';
+import {Pressable, View, TextInput, TouchableOpacity} from 'react-native';
 import DownArrow from '@/assets/icons/down-arrow.svg';
 import TopArrow from '@/assets/icons/top-arrow.svg';
 import useFocus from '@/hooks/useFocus';
@@ -50,7 +45,7 @@ const Select = ({
           onPress={showOptions}
           onPressIn={() => onFocus()}
           onPressOut={() => onBlur(value)}>
-          <Input
+          <TextInput
             style={[
               inputStyles.input,
               {borderColor: inputTypes[type].borderColor},

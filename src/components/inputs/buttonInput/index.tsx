@@ -1,6 +1,6 @@
-import {View, TextInput as Input, Pressable} from 'react-native';
+import {View, TextInput, Pressable} from 'react-native';
 
-import {inputTypes} from '@/styles/Input.style';
+import {inputStyles, inputTypes} from '@/styles/Input.style';
 import useFocus from '@/hooks/useFocus';
 import palette from '@/styles/theme/color';
 
@@ -51,7 +51,7 @@ const ButtonInput = ({
     timeString = value ? `${getHours(value)} : ${getMinutes(value)}` : '';
   }
   if (category === 'date') {
-    console.log('날짜 확인하쟈', selectedEndDate, selectedStartDate);
+    //console.log('날짜 확인하쟈', selectedEndDate, selectedStartDate);
     timeString =
       selectedStartDate && selectedEndDate
         ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
@@ -82,6 +82,7 @@ const ButtonInput = ({
   // category time 값 update
   const onConfirmTime = (date: Date) => {
     setValue(date);
+    setTimeModal(false);
   };
 
   const onCancelTime = () => {
@@ -101,9 +102,9 @@ const ButtonInput = ({
         onPress={showModal}
         onPressIn={() => onFocus()}
         onPressOut={() => onBlur(value)}>
-        <Input
+        <TextInput
           style={[
-            buttonInputStyle.input,
+            inputStyles.input,
             {borderColor: inputTypes[type].borderColor},
             {color: palette.Text.Normal},
           ]}
@@ -113,7 +114,7 @@ const ButtonInput = ({
           placeholderTextColor={palette.Text.Assistive}
         />
 
-        <View style={buttonInputStyle.logo}>
+        <View style={inputStyles.logo}>
           {category === 'date' && <Calendar />}
           {category === 'location' && <Location />}
           {category === 'time' && <Time />}
@@ -132,14 +133,12 @@ const ButtonInput = ({
       )}
       {/*달력 Bottom Sheet 컴포넌트*/}
       <BottomSheet drawerRef={bottomDrawerRef} height={350}>
-        <View>
-          <DateRangePickerModal
-            startDate={selectedStartDate}
-            endDate={selectedEndDate}
-            setStartDate={setSelectedStartDate}
-            setEndDate={setSelectedEndDate}
-          />
-        </View>
+        <DateRangePickerModal
+          startDate={selectedStartDate}
+          endDate={selectedEndDate}
+          setStartDate={setSelectedStartDate}
+          setEndDate={setSelectedEndDate}
+        />
       </BottomSheet>
     </View>
   );

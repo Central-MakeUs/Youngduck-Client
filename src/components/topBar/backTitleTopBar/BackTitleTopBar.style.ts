@@ -11,7 +11,7 @@ export const backTitleStyles = ({top}: CommonTopProp) =>
       paddingHorizontal: 16,
       paddingVertical: 16,
       width: '100%',
-      paddingTop: top,
+      paddingTop: top + 16,
     },
     content: {
       display: 'flex',

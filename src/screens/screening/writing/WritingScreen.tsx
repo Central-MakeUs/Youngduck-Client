@@ -2,15 +2,16 @@ import DefaultContainer from '@/components/container/defaultContainer';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import ScreeningGallery from './components/screeningGallery';
-import {useState} from 'react';
-import TextInput from '@/components/inputs/textInput';
-import {View} from 'react-native';
+import {useRef, useState} from 'react';
+
+import {TextInput, View} from 'react-native';
 import {writingStyles} from './WritingScreen.style';
 import CheckBox from '@/components/checkBox';
 import ButtonInput from '@/components/inputs/buttonInput';
 import Select from '@/components/select';
 import TextArea from '@/components/inputs/textArea';
 import DismissKeyboardView from '@/components/dismissKeyboardView';
+import Input from '@/components/input';
 
 const WritingScreen = () => {
   // TODO: 작성하기 api body 타입 추가
@@ -35,7 +36,19 @@ const WritingScreen = () => {
     setInputValues({...inputValues, [inputName]: value});
   };
 
-  console.log('inputValues', inputValues);
+  const canGoNext = false; // 작성 완료 버튼 활성화 여부
+
+  const titleRef = useRef<TextInput | null>(null);
+  const screeningRef = useRef<TextInput | null>(null);
+
+  const descriptionRef = useRef<TextInput | null>(null);
+  const urlRef = useRef<TextInput | null>(null);
+  const phoneRef = useRef<TextInput | null>(null);
+  const emailRef = useRef<TextInput | null>(null);
+
+  const handleScreeningMake = () => {
+    // 상영회 등록하기 api 호출
+  };
 
   return (
     <DefaultContainer>
@@ -52,29 +65,34 @@ const WritingScreen = () => {
 
         {/*타이틀*/}
         <View style={writingStyles.container}>
-          <TextInput
+          <Input
             value={inputValues.title}
             title="타이틀"
-            placeholder="타이틀을 입력해주세요"
+            placeholder="상영회 제목을 입력하세요"
             onChangeInput={value => onChangeInput('title', value)}
-            content=""
-            maxLength={9}
+            maxLength={15}
+            content="15자 이내로 상영회 제목을 입력해주세요"
+            inputRef={titleRef}
+            returnKeyType="next"
+            onSubmitEditing={() => screeningRef.current?.focus()}
           />
         </View>
 
         {/*주최명*/}
         <View style={writingStyles.container}>
-          <TextInput
+          <Input
             value={inputValues.screening}
             title="주최명"
-            placeholder="주최명을 입력해주세요"
-            onChangeInput={value => onChangeInput('screening', value)}
-            content=""
-            maxLength={9}
+            placeholder="학과명, 동아리명 등 주최를 적어주세요."
+            onChangeInput={(value: string) => onChangeInput('screening', value)}
+            maxLength={15}
+            content="15자 이내로 주최명을 입력해주세요"
+            inputRef={screeningRef}
+            returnKeyType="next"
           />
         </View>
 
-        {/*분류 => select 컴포넌트*/}
+        {/*분류*/}
         <View style={writingStyles.container}>
           <Select
             options={['상영회', '영화제', '시사회']}
@@ -85,7 +103,7 @@ const WritingScreen = () => {
           />
         </View>
 
-        {/*날짜 => dateRangePicker 컴포넌트*/}
+        {/*날짜*/}
         <View style={writingStyles.container}>
           <ButtonInput
             value={inputValues}
@@ -96,7 +114,7 @@ const WritingScreen = () => {
           />
         </View>
 
-        {/*시간 => timePicker 컴포넌트*/}
+        {/*시간*/}
         <View style={writingStyles.container}>
           <ButtonInput
             value={inputValues.time}
@@ -118,57 +136,66 @@ const WritingScreen = () => {
           />
         </View>
 
-        {/*추가 설명 => textArea 컴포넌트*/}
+        {/*추가 설명*/}
         <View style={writingStyles.container}>
           <TextArea
             value={inputValues.description}
-            onChange={value => onChangeInput('description', value)}
+            onChangeInput={value => onChangeInput('description', value)}
             maxLength={1000}
-            placeholder={'추가 설명을 입력해주세요'}
+            placeholder={'추가로 안내할 내용이 있다면 적어주세요.'}
             height={144}
             title="추가 설명"
+            inputRef={descriptionRef}
+            onSubmitEditing={() => urlRef.current?.focus()}
           />
         </View>
 
         {/*관람신청 URL*/}
         <View style={writingStyles.container}>
-          <TextInput
+          <Input
             value={inputValues.url}
             title="관람 신청 URL"
             placeholder="관람 신청 URL을 입력해주세요"
-            content=""
             onChangeInput={value => onChangeInput('url', value)}
-            maxLength={100}
             keyBoardType="url"
+            inputRef={urlRef}
+            returnKeyType="next"
+            onSubmitEditing={() => phoneRef.current?.focus()}
+            textContentType="URL"
           />
         </View>
 
         {/*주최 연락처*/}
         <View style={writingStyles.container}>
-          <TextInput
+          <Input
             value={inputValues.phone}
             title="주최 연락처"
             placeholder="주최 연락처를 입력해주세요"
-            content=""
             onChangeInput={value => onChangeInput('phone', value)}
-            maxLength={100}
             keyBoardType="phone"
+            maxLength={13}
+            errorContent="전화번호 형식을 맞춰주세요"
+            inputRef={phoneRef}
+            returnKeyType="next"
+            onSubmitEditing={() => emailRef.current?.focus()}
+            textContentType="telephoneNumber"
           />
         </View>
 
         {/*주최 이메일*/}
         <View style={writingStyles.container}>
-          <TextInput
+          <Input
             value={inputValues.email}
             title="주최 이메일"
             placeholder="주최 이메일을 입력해주세요"
-            content=""
             onChangeInput={value => onChangeInput('email', value)}
-            maxLength={100}
             keyBoardType="email"
+            errorContent="이메일 형식을 맞춰주세요"
+            inputRef={emailRef}
+            autoComplete="email"
+            textContentType="emailAddress"
           />
         </View>
-
         <View style={writingStyles.content}>
           <Typography style="Label1" color={palette.Text.Normal}>
             게시글 정책을 확인했어요.
