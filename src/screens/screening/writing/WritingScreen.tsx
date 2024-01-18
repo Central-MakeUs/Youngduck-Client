@@ -128,11 +128,11 @@ const WritingScreen = () => {
         {/*장소 => kakao 장소 검색*/}
         <View style={writingStyles.container}>
           <ButtonInput
-            value={inputValues}
+            value={inputValues.location}
             placeholder="장소 검색 해보세요"
             title="장소"
             category="location"
-            setValue={setInputValues}
+            setValue={value => onChangeInput('location', value)}
           />
         </View>
 

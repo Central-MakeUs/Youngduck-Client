@@ -19,6 +19,7 @@ import {DateParsable} from 'react-native-calendar-picker';
 import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
 import BottomSheet from '@/components/bottomSheet';
 import useNavigator from '@/hooks/useNavigator';
+import useLocationStore from '@/stores/location';
 
 interface TypeInputProps {
   value: any; // TODO: 백엔드 통신에 따른 타입 추가 예정
@@ -37,6 +38,7 @@ const ButtonInput = ({
 }: TypeInputProps) => {
   const {stackNavigation} = useNavigator();
   const {type, onFocus, onBlur} = useFocus();
+  const {location} = useLocationStore();
 
   const [timeModal, setTimeModal] = useState(false);
 
@@ -53,7 +55,6 @@ const ButtonInput = ({
     timeString = value ? `${getHours(value)} : ${getMinutes(value)}` : '';
   }
   if (category === 'date') {
-    //console.log('날짜 확인하쟈', selectedEndDate, selectedStartDate);
     timeString =
       selectedStartDate && selectedEndDate
         ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
@@ -67,6 +68,7 @@ const ButtonInput = ({
     if (selectedEndDate && bottomDrawerRef) {
       bottomDrawerRef.current?.close();
     }
+    setValue(location);
   }, [selectedEndDate]);
 
   // 필요한 모달 열기
@@ -78,6 +80,7 @@ const ButtonInput = ({
       bottomDrawerRef.current?.open();
     }
     if (category === 'location') {
+      // 카카오 웹뷰로 이동
       stackNavigation.navigate('KakaoSearchScreen');
     }
   };
@@ -114,7 +117,7 @@ const ButtonInput = ({
             {color: palette.Text.Normal},
           ]}
           placeholder={placeholder}
-          value={timeString}
+          value={category === 'location' ? location : timeString}
           editable={false}
           placeholderTextColor={palette.Text.Assistive}
         />
