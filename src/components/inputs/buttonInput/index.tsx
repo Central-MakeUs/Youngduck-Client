@@ -19,6 +19,7 @@ import DateRangePickerModal from '@/components/modals/dateRangePickerModal';
 import {DateParsable} from 'react-native-calendar-picker';
 import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
 import BottomSheet from '@/components/bottomSheet';
+import SearchBottomSheet from '@/screens/popCornParty/writeRecommand/components/searchBottomSheet';
 
 interface TypeInputProps {
   value: any; // TODO: 백엔드 통신에 따른 타입 추가 예정
@@ -75,7 +76,10 @@ const ButtonInput = ({
     if (category === 'time') {
       setTimeModal(true);
     }
-    if (category === 'date' && bottomDrawerRef) {
+    if (
+      (category === 'date' && bottomDrawerRef) ||
+      (category === 'search' && bottomDrawerRef)
+    ) {
       bottomDrawerRef.current?.open();
     }
   };
@@ -140,14 +144,20 @@ const ButtonInput = ({
         </>
       )}
       {/*달력 Bottom Sheet 컴포넌트*/}
-      <BottomSheet drawerRef={bottomDrawerRef} height={350}>
-        <DateRangePickerModal
-          startDate={selectedStartDate}
-          endDate={selectedEndDate}
-          setStartDate={setSelectedStartDate}
-          setEndDate={setSelectedEndDate}
-        />
-      </BottomSheet>
+      {category === 'date' && (
+        <BottomSheet drawerRef={bottomDrawerRef} height={350}>
+          <DateRangePickerModal
+            startDate={selectedStartDate}
+            endDate={selectedEndDate}
+            setStartDate={setSelectedStartDate}
+            setEndDate={setSelectedEndDate}
+          />
+        </BottomSheet>
+      )}
+      {/* 추천 영화 Bottom Sheet 컴포넌트 */}
+      {category === 'search' && (
+        <SearchBottomSheet bottomDrawerRef={bottomDrawerRef} />
+      )}
     </View>
   );
 };
