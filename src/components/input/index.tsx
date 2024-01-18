@@ -1,10 +1,13 @@
 import useFocus from '@/hooks/useFocus';
 import {inputStyles, inputTypes} from '@/styles/Input.style';
 import {LegacyRef, useEffect} from 'react';
-import {View, TextInput, TextInputProps} from 'react-native';
+import {View, TextInput, TextInputProps, Keyboard} from 'react-native';
 import Typography from '../typography';
 import palette from '@/styles/theme/color';
 import DuplicatedButton from '../buttons/duplicatedButton';
+import SearchButton from '../buttons/searchButton';
+import {searchDatas} from '@/screens/popCornParty/writeRecommand/components/searchBottomSheet/dummy';
+import {useSearchStore} from '@/stores/search';
 
 interface InputProps extends TextInputProps {
   value: string;
@@ -15,7 +18,7 @@ interface InputProps extends TextInputProps {
   content?: string;
 
   // 아이디 중복 체크 필요한 prop
-  mode?: 'input' | 'check';
+  mode?: 'input' | 'check' | 'search';
   isDuplicated?: boolean;
   setIsDuplicated?: React.Dispatch<React.SetStateAction<boolean>>;
   keyBoardType?: 'email' | 'text' | 'phone' | 'url';
@@ -40,6 +43,7 @@ const Input = ({
   ...props
 }: InputProps) => {
   const {type, onFocus, onBlur, onFocusout, onWarning} = useFocus();
+  const {setSearchResults} = useSearchStore();
 
   const errorMessage = errorContent
     ? errorContent
@@ -63,6 +67,15 @@ const Input = ({
     // isDuplicated를 false로 바꾸기
     setIsDuplicated && setIsDuplicated(false);
     // }
+  };
+
+  // 팝콘작 추천하기 -> 영화 검색
+  const searchMovies = () => {
+    const filteredResults = searchDatas.filter(searchData =>
+      searchData.includes(value),
+    );
+    Keyboard.dismiss();
+    setSearchResults(filteredResults);
   };
 
   return (
@@ -115,6 +128,9 @@ const Input = ({
             onPress={checkDuplicate}
           />
         )}
+
+        {/* 팝콘작 추천하기 -> 영화 검색 버튼 */}
+        {mode === 'search' && <SearchButton onPress={searchMovies} />}
       </View>
 
       {content && type === 'active' && (
