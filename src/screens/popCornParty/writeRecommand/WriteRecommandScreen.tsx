@@ -9,19 +9,31 @@ import {Keyboard, Pressable, View} from 'react-native';
 import writeRecommandScreenStyles from './WriteRecommandScreen.style';
 import BoxButton from '@/components/buttons/boxButton';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import useNavigator from '@/hooks/useNavigator';
+import Popup from '@/components/popup';
 
 function WriteRecommandScreen() {
-  const {startDate, endDate} = getVoteDateRange();
   const [selectedMovie, setSelectedMovie] = useState<string>('');
   const [reason, setReason] = useState<string>('');
   const [isAgree, setIsAgree] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+
   const {bottom} = useSafeAreaInsets();
+  const {startDate, endDate} = getVoteDateRange();
+  const {stackNavigation} = useNavigator();
+
   const styles = writeRecommandScreenStyles({bottom});
   const canRegister = !!selectedMovie.length && reason.length >= 10 && isAgree;
 
   const inputReason = (e: string) => setReason(e);
 
   const toggleIsAgreeState = () => setIsAgree(!isAgree);
+  const toggleIsVisibleState = () => setIsVisible(!isVisible);
+
+  const goToRecommandListScreen = () => {
+    // 추후 API 요청 로직 추가
+    stackNavigation.popToTop();
+  };
 
   return (
     <DefaultContainer>
@@ -64,11 +76,18 @@ function WriteRecommandScreen() {
           </View>
         </View>
         <View style={styles.registerButton}>
-          <BoxButton disabled={!canRegister} onPress={() => {}}>
+          <BoxButton disabled={!canRegister} onPress={toggleIsVisibleState}>
             등록하기
           </BoxButton>
         </View>
       </Pressable>
+      <Popup
+        title="등록하시겠습니까?"
+        content="등록 후에는 수정할 수 없어요"
+        isVisible={isVisible}
+        onClose={toggleIsVisibleState}
+        onPress={goToRecommandListScreen}
+      />
     </DefaultContainer>
   );
 }
