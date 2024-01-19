@@ -1,5 +1,5 @@
 import {View} from 'react-native';
-import BoxButton from '../boxButton';
+import BoxButton from '../../buttons/boxButton';
 import {bottomButtonStyles} from './BottomButton.style';
 
 interface IBottomButtonProps {
