@@ -3,7 +3,7 @@ import Postcode from '@actbase/react-daum-postcode';
 import {OnCompleteParams} from '@actbase/react-daum-postcode/lib/types';
 import {searchScreenStyles} from './KakaoSearchScreen.style';
 import useNavigator from '@/hooks/useNavigator';
-import useLocationStore from '@/stores/location';
+import {useLocationStore} from '@/stores/location';
 
 const KakaoSearchScreen = () => {
   const {stackNavigation} = useNavigator();

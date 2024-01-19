@@ -1,13 +1,15 @@
-import create from 'zustand';
+import {create} from 'zustand';
 
-interface ILocation {
+interface ILocationStoreState {
   location: string;
-  setLocation: (loc: string) => void;
+}
+interface ILocationStoreActions {
+  setLocation: (state: string) => void;
 }
 
-const useLocationStore = create<ILocation>(set => ({
+export const useLocationStore = create<
+  ILocationStoreState & ILocationStoreActions
+>(set => ({
   location: '',
-  setLocation: (loc: string) => set({location: loc}),
+  setLocation: (state: string) => set({location: state}),
 }));
-
-export default useLocationStore;

@@ -19,7 +19,7 @@ import WriteRecommandScreen from '@/screens/popCornParty/writeRecommand/WriteRec
 import WriteReviewScreen from '@/screens/popCornParty/writeReview/WriteReviewScreen';
 import TitleTopBar from '@/components/topBar/titleTopBar';
 import KakaoSearchScreen from '@/screens/screening/kakaoSearch/KakaoSearchScreen';
-import useLocationStore from '@/stores/location';
+import {useLocationStore} from '@/stores/location';
 
 function StackNavigator() {
   const Stack = createNativeStackNavigator<RootStackParamList>();

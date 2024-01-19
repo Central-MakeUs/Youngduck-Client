@@ -19,7 +19,7 @@ import {DateParsable} from 'react-native-calendar-picker';
 import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
 import BottomSheet from '@/components/bottomSheet';
 import useNavigator from '@/hooks/useNavigator';
-import useLocationStore from '@/stores/location';
+import {useLocationStore} from '@/stores/location';
 
 interface TypeInputProps {
   value?: any; // TODO: 백엔드 통신에 따른 타입 추가 예정
