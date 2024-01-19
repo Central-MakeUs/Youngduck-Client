@@ -5,11 +5,11 @@ import {IPopcornItemProps, IRenderItemProps} from '@/types/popcornParty';
 import {useEffect, useState} from 'react';
 import {ActivityIndicator, FlatList} from 'react-native';
 import {defaultDatas, moreDats} from './dummy';
-import useGetVoteDateRange from '@/hooks/useGetVoteDateRange';
+import getVoteDateRange from '@/utils/getVoteDateRange';
 
 function RecommandListScreen() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const {startDate, endDate} = useGetVoteDateRange();
+  const {startDate, endDate} = getVoteDateRange();
   const [popcornDatas, setPopcornDatas] =
     useState<IPopcornItemProps[]>(defaultDatas);
 

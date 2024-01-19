@@ -3,7 +3,7 @@ import DefaultContainer from '@/components/container/defaultContainer';
 import ButtonInput from '@/components/inputs/buttonInput';
 import TextArea from '@/components/inputs/textArea';
 import SubTitleDescription from '@/components/title/subTitleDescription';
-import useGetVoteDateRange from '@/hooks/useGetVoteDateRange';
+import getVoteDateRange from '@/utils/getVoteDateRange';
 import {useState} from 'react';
 import {Keyboard, Pressable, View} from 'react-native';
 import writeRecommandScreenStyles from './WriteRecommandScreen.style';
@@ -11,7 +11,7 @@ import BoxButton from '@/components/buttons/boxButton';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 function WriteRecommandScreen() {
-  const {startDate, endDate} = useGetVoteDateRange();
+  const {startDate, endDate} = getVoteDateRange();
   const [selectedMovie, setSelectedMovie] = useState<string>('');
   const [reason, setReason] = useState<string>('');
   const [isAgree, setIsAgree] = useState<boolean>(false);
