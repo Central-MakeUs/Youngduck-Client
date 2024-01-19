@@ -12,27 +12,45 @@ import Select from '@/components/select';
 import TextArea from '@/components/inputs/textArea';
 import DismissKeyboardView from '@/components/dismissKeyboardView';
 import Input from '@/components/input';
+import {DateParsable} from 'react-native-calendar-picker';
 
 const WritingScreen = () => {
+  type TWriteValue = {
+    image: string;
+    title: string;
+    screening: string;
+    group: string;
+    time: undefined | Date;
+    location: string;
+    description: string;
+    url: string;
+    phone: string;
+    email: string;
+    startDate: undefined | DateParsable;
+    endDate: undefined | DateParsable;
+  };
   // TODO: 작성하기 api body 타입 추가
-  const [inputValues, setInputValues] = useState({
+  const [inputValues, setInputValues] = useState<TWriteValue>({
     image: '',
     title: '',
     screening: '',
     group: '',
-    startDate: undefined, // type: DateParsable | undefined
-    endDate: undefined, // type: DateParsable | undefined
     time: undefined,
     location: '',
     description: '',
     url: '',
     phone: '',
     email: '',
+    startDate: undefined,
+    endDate: undefined,
   });
 
   const [agree, setAgree] = useState<boolean>(false);
 
-  const onChangeInput = (inputName: string, value: string) => {
+  const onChangeInput = (
+    inputName: string,
+    value: string | DateParsable | undefined,
+  ) => {
     setInputValues({...inputValues, [inputName]: value});
   };
 
@@ -46,10 +64,6 @@ const WritingScreen = () => {
   const emailRef = useRef<TextInput | null>(null);
 
   console.log('작성하기 value값', inputValues);
-
-  const handleScreeningMake = () => {
-    // 상영회 등록하기 api 호출
-  };
 
   return (
     <DefaultContainer>
@@ -106,13 +120,13 @@ const WritingScreen = () => {
 
         {/*날짜*/}
         <View style={writingStyles.container}>
-          {/*<ButtonInput
+          <ButtonInput
             value={inputValues}
-            placeholder="시작일과 종료일을 선택해주세요"
             title="날짜"
+            placeholder="시작일과 종료일을 선택해주세요"
             category="date"
             setValue={setInputValues}
-          />*/}
+          />
         </View>
 
         {/*시간*/}

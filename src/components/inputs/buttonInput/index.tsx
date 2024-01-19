@@ -22,7 +22,7 @@ import useNavigator from '@/hooks/useNavigator';
 import useLocationStore from '@/stores/location';
 
 interface TypeInputProps {
-  value: any; // TODO: 백엔드 통신에 따른 타입 추가 예정
+  value?: any; // TODO: 백엔드 통신에 따른 타입 추가 예정
   placeholder: string;
   title: string;
   category: 'time' | 'date' | 'location';
@@ -50,28 +50,29 @@ const ButtonInput = ({
   >(undefined);
 
   // ui에 보여질 시간, 날짜 문자열
-  let timeString;
+  let timeString = '';
   if (category === 'time') {
     timeString = value ? `${getHours(value)} : ${getMinutes(value)}` : '';
   }
-  if (category === 'date') {
-    timeString =
-      selectedStartDate && selectedEndDate
-        ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
-            selectedEndDate,
-            'yyyy-MM-dd',
-          )}`
-        : '';
+  if (category === 'date' && selectedStartDate && selectedEndDate) {
+    timeString = `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
+      selectedEndDate,
+      'yyyy-MM-dd',
+    )}`;
   }
 
   useEffect(() => {
-    if (selectedEndDate && bottomDrawerRef) {
-      bottomDrawerRef.current?.close();
-    }
     if (category === 'location' && location) {
       setValue(location);
     }
-  }, [selectedEndDate, category, location]);
+    if (selectedStartDate) {
+      setValue({...value, startDate: selectedStartDate});
+    }
+    if (selectedEndDate && bottomDrawerRef) {
+      bottomDrawerRef.current?.close();
+      setValue({...value, endDate: selectedEndDate});
+    }
+  }, [category, location, selectedEndDate, selectedStartDate]);
 
   // 필요한 모달 열기
   const showModal = () => {
@@ -142,16 +143,16 @@ const ButtonInput = ({
         </>
       )}
       {/*달력 Bottom Sheet 컴포넌트*/}
-      {/*{category === 'date' && (
+      {category === 'date' && (
         <BottomSheet drawerRef={bottomDrawerRef} height={350}>
           <DateRangePickerModal
-            startDate={value.startDate}
-            endDate={value.endDate}
-            setStartDate={value => setValue('', value)}
+            startDate={selectedStartDate}
+            endDate={selectedEndDate}
+            setStartDate={setSelectedStartDate}
             setEndDate={setSelectedEndDate}
           />
         </BottomSheet>
-      )}*/}
+      )}
     </View>
   );
 };
