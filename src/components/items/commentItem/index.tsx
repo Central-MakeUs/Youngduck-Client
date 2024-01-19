@@ -7,7 +7,7 @@ import {commentItemStyles} from './CommentItem.style';
 
 const CommentItem = () => {
   return (
-    <View>
+    <View style={commentItemStyles.container}>
       <View style={commentItemStyles.name}>
         <Profile size="large" />
         <View style={commentItemStyles.label}>
@@ -15,7 +15,7 @@ const CommentItem = () => {
             <Typography style="Label1" color={palette.Text.Strong}>
               팝코니
             </Typography>
-            <Typography style="Label3" color={palette.Primary.Deep}>
+            <Typography style="Label3" color={palette.Primary.Deep} ml={4}>
               Lv.5
             </Typography>
           </View>
