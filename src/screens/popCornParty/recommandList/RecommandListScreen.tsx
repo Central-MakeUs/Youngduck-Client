@@ -38,8 +38,6 @@ function RecommandListScreen() {
 
   useEffect(() => {
     setIsLoading(false);
-    // setStartDate(format(startOfWeek(new Date()), 'M월 dd일'));
-    // setEndDate(format(endOfWeek(new Date()), 'M월 dd일'));
   }, []);
 
   return (

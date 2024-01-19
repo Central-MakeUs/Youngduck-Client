@@ -10,10 +10,10 @@ import {useState} from 'react';
 import DefaultContainer from '@/components/container/defaultContainer';
 import palette from '@/styles/theme/color';
 import Divider from '@/components/divider';
-import {useSearchStore} from '@/stores/search';
 import MovieItem from '@/components/items/movieItem';
 import BoxButton from '@/components/buttons/boxButton';
 import {getScreenSize} from '@/utils/getScreenSize';
+import {searchDatas} from './dummy';
 
 interface ISearchBottomSheetProp {
   bottomDrawerRef: React.RefObject<BottomDrawerMethods>;
@@ -26,7 +26,8 @@ const SearchBottomSheet = ({
 }: ISearchBottomSheetProp) => {
   const {bottom} = useSafeAreaInsets();
   const [movie, setMovie] = useState<string>('');
-  const {searchResults, setSearchResults} = useSearchStore();
+  // const [searchDatas, setSearchDatas] = useState<string[]>([]);
+  const [searchResults, setSearchResults] = useState<string[]>([]);
   const [selected, setSelected] = useState<string>('');
   const styles = searchBottomSheetStyles({bottom});
   const {screenHeight} = getScreenSize();
@@ -70,6 +71,15 @@ const SearchBottomSheet = ({
     setSearchResults([]);
     closeModal();
   };
+
+  // 팝콘작 추천하기 -> 영화 검색
+  const searchMovies = () => {
+    const filteredResults = searchDatas.filter(searchData =>
+      searchData.includes(movie),
+    );
+    Keyboard.dismiss();
+    setSearchResults(filteredResults);
+  };
   return (
     <BottomSheet drawerRef={bottomDrawerRef} height={(screenHeight * 2) / 3}>
       <View style={styles.container}>
@@ -87,11 +97,12 @@ const SearchBottomSheet = ({
             mode="search"
             returnKeyType="done"
             onSubmitEditing={Keyboard.dismiss}
+            onSearchPress={searchMovies}
           />
           <View style={styles.totalResultWrap}>
             <Typography style="Label3">영화 검색결과 총 </Typography>
             <Typography style="Label3" color={palette.Primary.Deep}>
-              {`${searchResults.length.toString()}건`}
+              {`${searchResults.length}건`}
             </Typography>
           </View>
           <Divider height={1} mb={8} mt={8} />
