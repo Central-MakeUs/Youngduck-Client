@@ -19,15 +19,24 @@ import WriteRecommandScreen from '@/screens/popCornParty/writeRecommand/WriteRec
 import WriteReviewScreen from '@/screens/popCornParty/writeReview/WriteReviewScreen';
 import TitleTopBar from '@/components/topBar/titleTopBar';
 import KakaoSearchScreen from '@/screens/screening/kakaoSearch/KakaoSearchScreen';
+import useLocationStore from '@/stores/location';
 
 function StackNavigator() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
 
   const {stackNavigation} = useNavigator();
 
+  const {setLocation} = useLocationStore();
+
   // 스크리닝 화면 뒤로 가기
   const handleGoBack = () => {
     stackNavigation.goBack();
+  };
+
+  // 카카오 검색 초기화
+  const handleSearchGoBack = () => {
+    handleGoBack();
+    setLocation('');
   };
   return (
     <Stack.Navigator>
@@ -64,7 +73,7 @@ function StackNavigator() {
         component={WritingScreen}
         options={{
           header: () => (
-            <CancelTopBar text="상영회 등록하기" onPress={handleGoBack} />
+            <CancelTopBar text="상영회 등록하기" onPress={handleSearchGoBack} />
           ),
         }}
       />
