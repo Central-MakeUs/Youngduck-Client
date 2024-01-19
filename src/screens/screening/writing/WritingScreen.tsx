@@ -40,11 +40,12 @@ const WritingScreen = () => {
 
   const titleRef = useRef<TextInput | null>(null);
   const screeningRef = useRef<TextInput | null>(null);
-
   const descriptionRef = useRef<TextInput | null>(null);
   const urlRef = useRef<TextInput | null>(null);
   const phoneRef = useRef<TextInput | null>(null);
   const emailRef = useRef<TextInput | null>(null);
+
+  console.log('작성하기 value값', inputValues);
 
   const handleScreeningMake = () => {
     // 상영회 등록하기 api 호출
@@ -105,13 +106,13 @@ const WritingScreen = () => {
 
         {/*날짜*/}
         <View style={writingStyles.container}>
-          <ButtonInput
+          {/*<ButtonInput
             value={inputValues}
             placeholder="시작일과 종료일을 선택해주세요"
             title="날짜"
             category="date"
             setValue={setInputValues}
-          />
+          />*/}
         </View>
 
         {/*시간*/}
@@ -157,11 +158,9 @@ const WritingScreen = () => {
             title="관람 신청 URL"
             placeholder="관람 신청 URL을 입력해주세요"
             onChangeInput={value => onChangeInput('url', value)}
-            keyBoardType="url"
             inputRef={urlRef}
             returnKeyType="next"
             onSubmitEditing={() => phoneRef.current?.focus()}
-            textContentType="URL"
           />
         </View>
 

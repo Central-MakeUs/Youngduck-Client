@@ -36,9 +36,9 @@ const ButtonInput = ({
   category,
   setValue,
 }: TypeInputProps) => {
+  const {location} = useLocationStore();
   const {stackNavigation} = useNavigator();
   const {type, onFocus, onBlur} = useFocus();
-  const {location} = useLocationStore();
 
   const [timeModal, setTimeModal] = useState(false);
 
@@ -68,8 +68,10 @@ const ButtonInput = ({
     if (selectedEndDate && bottomDrawerRef) {
       bottomDrawerRef.current?.close();
     }
-    setValue(location);
-  }, [selectedEndDate]);
+    if (category === 'location' && location) {
+      setValue(location);
+    }
+  }, [selectedEndDate, category, location]);
 
   // 필요한 모달 열기
   const showModal = () => {
@@ -117,7 +119,7 @@ const ButtonInput = ({
             {color: palette.Text.Normal},
           ]}
           placeholder={placeholder}
-          value={category === 'location' ? location : timeString}
+          value={category === 'location' ? value : timeString}
           editable={false}
           placeholderTextColor={palette.Text.Assistive}
         />
@@ -140,14 +142,16 @@ const ButtonInput = ({
         </>
       )}
       {/*달력 Bottom Sheet 컴포넌트*/}
-      <BottomSheet drawerRef={bottomDrawerRef} height={350}>
-        <DateRangePickerModal
-          startDate={selectedStartDate}
-          endDate={selectedEndDate}
-          setStartDate={setSelectedStartDate}
-          setEndDate={setSelectedEndDate}
-        />
-      </BottomSheet>
+      {/*{category === 'date' && (
+        <BottomSheet drawerRef={bottomDrawerRef} height={350}>
+          <DateRangePickerModal
+            startDate={value.startDate}
+            endDate={value.endDate}
+            setStartDate={value => setValue('', value)}
+            setEndDate={setSelectedEndDate}
+          />
+        </BottomSheet>
+      )}*/}
     </View>
   );
 };
