@@ -14,7 +14,7 @@ const Profile = ({size = 'small'}: ProfileProps) => {
   };
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={handleGoMyPage}>
-      <Image source={defaultImages.profile1} style={profileStyles.image} />
+      <Image source={defaultImages.profile1} style={profileStyles[size]} />
     </TouchableOpacity>
   );
 };
