@@ -6,4 +6,10 @@ export const detailInfoStyles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 4,
   },
+  bottomContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 4,
+    marginBottom: 31,
+  },
 });

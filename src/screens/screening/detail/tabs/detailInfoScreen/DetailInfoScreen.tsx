@@ -52,7 +52,7 @@ const DetailInfoScreen = () => {
             010-0000-0000
           </Typography>
         </View>
-        <View style={detailInfoStyles.content}>
+        <View style={detailInfoStyles.bottomContent}>
           <Mail />
           <Typography style="Body2" color={palette.Text.Normal} ml={8}>
             010-0000-0000
