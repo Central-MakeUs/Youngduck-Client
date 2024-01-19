@@ -1,14 +1,14 @@
 import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
-type heartType = 'selected' | 'nonSelected';
-type heartStyle = {
+type optionType = 'selected' | 'nonSelected';
+type optionStyle = {
   backgroundColor?: string;
   borderWidth?: number;
   borderColor?: string;
 };
 
-export const heartTypeStyles: Record<heartType, heartStyle> = {
+export const optionTypeStyles: Record<optionType, optionStyle> = {
   nonSelected: {
     borderWidth: 1,
     borderColor: palette.Fill.Strong,
@@ -17,7 +17,7 @@ export const heartTypeStyles: Record<heartType, heartStyle> = {
     backgroundColor: palette.Primary.Alternative,
   },
 };
-export const heartStyles = StyleSheet.create({
+export const optionStyles = StyleSheet.create({
   container: {
     borderRadius: 8,
     paddingHorizontal: 16,
