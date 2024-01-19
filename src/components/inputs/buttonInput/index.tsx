@@ -7,6 +7,7 @@ import palette from '@/styles/theme/color';
 import Calendar from '@/assets/icons/calendar.svg';
 import Time from '@/assets/icons/time.svg';
 import Location from '@/assets/icons/location.svg';
+import Search from '@/assets/icons/search.svg';
 
 import {useEffect, useRef, useState} from 'react';
 import Typography from '@/components/typography';
@@ -18,12 +19,14 @@ import DateRangePickerModal from '@/components/modals/dateRangePickerModal';
 import {DateParsable} from 'react-native-calendar-picker';
 import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
 import BottomSheet from '@/components/bottomSheet';
+import SearchBottomSheet from '@/screens/popCornParty/writeRecommand/components/searchBottomSheet';
 
 interface TypeInputProps {
   value: any; // TODO: 백엔드 통신에 따른 타입 추가 예정
   placeholder: string;
   title: string;
-  category: 'time' | 'date' | 'location';
+  essential?: boolean;
+  category: 'time' | 'date' | 'location' | 'search';
   setValue: (value: any) => void; // TODO: 백엔드 통신에 따른 타입 추가 예정
 }
 
@@ -31,12 +34,14 @@ const ButtonInput = ({
   value, // 통신할  시간 value 값
   placeholder,
   title,
+  essential,
   category,
   setValue,
 }: TypeInputProps) => {
   const {type, onFocus, onBlur} = useFocus();
 
   const [timeModal, setTimeModal] = useState(false);
+  const [timeString, setTimeString] = useState<number | string | null>(null);
 
   const [selectedStartDate, setSelectedStartDate] = useState<
     DateParsable | undefined
@@ -46,25 +51,25 @@ const ButtonInput = ({
   >(undefined);
 
   // ui에 보여질 시간, 날짜 문자열
-  let timeString;
-  if (category === 'time') {
-    timeString = value ? `${getHours(value)} : ${getMinutes(value)}` : '';
-  }
-  if (category === 'date') {
-    //console.log('날짜 확인하쟈', selectedEndDate, selectedStartDate);
-    timeString =
-      selectedStartDate && selectedEndDate
-        ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
-            selectedEndDate,
-            'yyyy-MM-dd',
-          )}`
-        : '';
-  }
+  useEffect(() => {
+    if (category === 'time') {
+      setTimeString(value ? `${getHours(value)} : ${getMinutes(value)}` : '');
+    }
+  }, [value]);
 
   useEffect(() => {
     if (selectedEndDate && bottomDrawerRef) {
       bottomDrawerRef.current?.close();
     }
+    //console.log('날짜 확인하쟈', selectedEndDate, selectedStartDate);
+    setTimeString(
+      selectedStartDate && selectedEndDate
+        ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
+            selectedEndDate,
+            'yyyy-MM-dd',
+          )}`
+        : '',
+    );
   }, [selectedEndDate]);
 
   // 필요한 모달 열기
@@ -72,7 +77,10 @@ const ButtonInput = ({
     if (category === 'time') {
       setTimeModal(true);
     }
-    if (category === 'date' && bottomDrawerRef) {
+    if (
+      (category === 'date' && bottomDrawerRef) ||
+      (category === 'search' && bottomDrawerRef)
+    ) {
       bottomDrawerRef.current?.open();
     }
   };
@@ -91,7 +99,11 @@ const ButtonInput = ({
 
   return (
     <View>
-      <Typography style="Label2" mb={4} color={inputTypes[type].titleColor}>
+      <Typography
+        essential={essential}
+        style="Label2"
+        mb={4}
+        color={inputTypes[type].titleColor}>
         {title}
       </Typography>
       <Pressable
@@ -109,7 +121,9 @@ const ButtonInput = ({
             {color: palette.Text.Normal},
           ]}
           placeholder={placeholder}
-          value={timeString}
+          value={
+            category === 'date' || category === 'time' ? timeString : value
+          }
           editable={false}
           placeholderTextColor={palette.Text.Assistive}
         />
@@ -118,6 +132,7 @@ const ButtonInput = ({
           {category === 'date' && <Calendar />}
           {category === 'location' && <Location />}
           {category === 'time' && <Time />}
+          {category === 'search' && <Search />}
         </View>
       </Pressable>
       {category === 'time' && (
@@ -132,14 +147,23 @@ const ButtonInput = ({
         </>
       )}
       {/*달력 Bottom Sheet 컴포넌트*/}
-      <BottomSheet drawerRef={bottomDrawerRef} height={350}>
-        <DateRangePickerModal
-          startDate={selectedStartDate}
-          endDate={selectedEndDate}
-          setStartDate={setSelectedStartDate}
-          setEndDate={setSelectedEndDate}
+      {category === 'date' && (
+        <BottomSheet drawerRef={bottomDrawerRef} height={350}>
+          <DateRangePickerModal
+            startDate={selectedStartDate}
+            endDate={selectedEndDate}
+            setStartDate={setSelectedStartDate}
+            setEndDate={setSelectedEndDate}
+          />
+        </BottomSheet>
+      )}
+      {/* 추천 영화 Bottom Sheet 컴포넌트 */}
+      {category === 'search' && (
+        <SearchBottomSheet
+          setValue={setValue}
+          bottomDrawerRef={bottomDrawerRef}
         />
-      </BottomSheet>
+      )}
     </View>
   );
 };

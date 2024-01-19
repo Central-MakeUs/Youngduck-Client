@@ -5,11 +5,19 @@ import VoteNextPopcorn from './components/voteNextPopcorn';
 import TrendingMovie from './components/trendingMovie';
 import TrendingPopcorn from './components/trendingPopcorn';
 import OtherPopcorns from './components/otherPopcorns';
+import useNavigator from '@/hooks/useNavigator';
+import stackScreens from '@/constants/stackScreens';
 
 function PopcornPartyHomeScreen() {
+  const {stackNavigation} = useNavigator();
   return (
     <DefaultScrollContainer>
-      <Banner type="popcornParty" onPress={() => {}} />
+      <Banner
+        type="popcornParty"
+        onPress={() =>
+          stackNavigation.navigate(stackScreens.WriteRecommandScreen)
+        }
+      />
       <TrendingPopcorn />
       <TrendingMovie />
       <Divider height={8} mt={24} mb={16} />

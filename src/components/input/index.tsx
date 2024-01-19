@@ -5,6 +5,7 @@ import {View, TextInput, TextInputProps} from 'react-native';
 import Typography from '../typography';
 import palette from '@/styles/theme/color';
 import DuplicatedButton from '../buttons/duplicatedButton';
+import SearchButton from '../buttons/searchButton';
 
 interface InputProps extends TextInputProps {
   value: string;
@@ -15,10 +16,13 @@ interface InputProps extends TextInputProps {
   content?: string;
 
   // 아이디 중복 체크 필요한 prop
-  mode?: 'input' | 'check';
+  mode?: 'input' | 'check' | 'search';
   isDuplicated?: boolean;
   setIsDuplicated?: React.Dispatch<React.SetStateAction<boolean>>;
   keyBoardType?: 'email' | 'text' | 'phone' | 'url';
+
+  // 검색 눌렀을 때 실행되는 함수
+  onSearchPress?: () => void;
 
   errorContent?: string;
   inputRef?: LegacyRef<TextInput> | undefined;
@@ -37,6 +41,7 @@ const Input = ({
   keyBoardType,
   errorContent,
   inputRef,
+  onSearchPress,
   ...props
 }: InputProps) => {
   const {type, onFocus, onBlur, onFocusout, onWarning} = useFocus();
@@ -115,6 +120,9 @@ const Input = ({
             onPress={checkDuplicate}
           />
         )}
+
+        {/* 팝콘작 추천하기 -> 영화 검색 버튼 */}
+        {mode === 'search' && <SearchButton onPress={onSearchPress!} />}
       </View>
 
       {content && type === 'active' && (
