@@ -1,10 +1,15 @@
-import {Text, View} from 'react-native';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import DetailInfoScreen from './tabs/DetailInfoScreen';
+import DetailReviewScreen from './tabs/DetailReviewScreen';
+
+const Tab = createMaterialTopTabNavigator();
 
 const DetailScreen = () => {
   return (
-    <View>
-      <Text>스크리닝 상세 페이지</Text>
-    </View>
+    <Tab.Navigator>
+      <Tab.Screen name="First" component={DetailInfoScreen} />
+      <Tab.Screen name="Second" component={DetailReviewScreen} />
+    </Tab.Navigator>
   );
 };
 export default DetailScreen;
