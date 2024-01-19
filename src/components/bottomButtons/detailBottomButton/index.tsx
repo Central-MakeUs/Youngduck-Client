@@ -4,8 +4,7 @@ import BoxButton from '../../buttons/boxButton';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import BlackTicket from '@/assets/icons/black-ticket.svg';
-import HeartButton from '@/components/buttons/heartButton';
-import SvgIcons from '@/assets/svgIcons';
+import OptionButton from '@/components/buttons/optionButton';
 
 interface IDetailBottomButtonProps {
   onPress: () => void;
@@ -25,7 +24,7 @@ const DetailBottomButton = ({onPress}: IDetailBottomButtonProps) => {
         </BoxButton>
       </View>
       <View style={detailBottomButtonStyles.right}>
-        <HeartButton isSelected={false} disabled={true} onPress={() => {}} />
+        <OptionButton type="heart" />
       </View>
     </View>
   );
