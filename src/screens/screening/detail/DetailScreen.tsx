@@ -1,11 +1,12 @@
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import DetailInfoScreen from './tabs/DetailInfoScreen';
-import DetailReviewScreen from './tabs/DetailReviewScreen';
+import DetailInfoScreen from './tabs/detailInfoScreen/DetailInfoScreen';
+import DetailReviewScreen from './tabs/detailReviewScreen/DetailReviewScreen';
 import palette from '@/styles/theme/color';
 import {tabBarLabel} from '@/constants/tabScreens';
 import {View} from 'react-native';
 import {ScreenRouteProp} from '@/types/navigator';
 import DetailBottomButton from '@/components/bottomButtons/detailBottomButton';
+import DetailTitle from './components/detailTitle';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -17,6 +18,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
   const {id} = route.params;
   return (
     <View style={{flex: 1}}>
+      <DetailTitle />
       <Tab.Navigator
         screenOptions={{
           tabBarActiveTintColor: palette.Text.Normal,
