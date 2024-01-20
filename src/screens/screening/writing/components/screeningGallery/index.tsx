@@ -9,6 +9,7 @@ import ImageCropPicker from 'react-native-image-crop-picker';
 import {checkPermission} from '@/utils/checkPermission';
 
 const ScreeningGallery = () => {
+  // 갤러리 접근해 이미지 가져오기
   const handleImageUpload = async () => {
     try {
       const image = await ImageCropPicker.openPicker({
@@ -28,15 +29,11 @@ const ScreeningGallery = () => {
 
   const handleClickGallery = async () => {
     // 갤러리 이미지 접근 권한 허용
-    try {
-      const granted = await checkPermission();
-      if (granted) {
-        handleImageUpload();
-      } else {
-        console.log('권한이 거부되었습니다.');
-      }
-    } catch (err) {
-      console.error(err);
+    const res = await checkPermission(() => {
+      handleImageUpload();
+    });
+    if (res) {
+      handleImageUpload();
     }
   };
   return (
