@@ -111,6 +111,11 @@ function StackNavigator() {
       <Stack.Screen
         name={stackScreens.PopcornPartyDetailScreen}
         component={PopcornPartyDetailScreen}
+        options={{
+          header: () => (
+            <BackTitleTopBar goBack={handleGoBack} text="1월 첫째주 팝콘작" />
+          ),
+        }}
       />
       <Stack.Screen
         name={stackScreens.RecommandListScreen}
