@@ -15,12 +15,14 @@ function SignupScreen() {
 
   const animatedValue = useRef(new Animated.Value(0)).current;
 
-  const handleMoveScreen = () => {
+  const handleMoveScreen = ({status}: {status: 'next' | 'previous'}) => {
     moveScreen({
       scrollViewRef,
       animatedValue,
       currentScreen,
       setCurrentScreen,
+      status,
+      totalScreens: 2,
     });
   };
 
@@ -28,7 +30,9 @@ function SignupScreen() {
     <SafeAreaView style={signupScreenStyles.container}>
       <BackTopBar
         onPress={() =>
-          currentScreen ? handleMoveScreen() : stackNavigation.goBack()
+          currentScreen
+            ? handleMoveScreen({status: 'previous'})
+            : stackNavigation.goBack()
         }
       />
       <ScrollView
@@ -37,9 +41,11 @@ function SignupScreen() {
         scrollEnabled={false}
         showsHorizontalScrollIndicator={false}
         ref={scrollViewRef}>
-        <ProgressBar animatedValue={animatedValue} />
+        <ProgressBar totalScreens={2} animatedValue={animatedValue} />
         <View style={signupScreenStyles.commonContainer}>
-          <InputNickname handleMoveScreen={handleMoveScreen} />
+          <InputNickname
+            handleMoveScreen={() => handleMoveScreen({status: 'next'})}
+          />
         </View>
         <View style={signupScreenStyles.commonContainer}>
           <InputGenre />
