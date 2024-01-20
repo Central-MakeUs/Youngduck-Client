@@ -5,7 +5,6 @@ import CheckBox from '@/components/checkBox';
 import Divider from '@/components/divider';
 import BoxButton from '@/components/buttons/boxButton';
 import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
-import {getScreenSize} from '@/utils/getScreenSize';
 import {TGenre} from '@/types/signup/genre';
 import useNavigator from '@/hooks/useNavigator';
 import {useState} from 'react';
@@ -16,6 +15,7 @@ import TextButtonContainer from '../inputGenre/TextButtonContainer';
 import stackScreens from '@/constants/stackScreens';
 import {View} from 'react-native';
 import {agreeBottomSheetStyles} from './AgreeBottomSheet.style';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface IAgreementBottomSheetProps {
   bottomDrawerRef: React.RefObject<BottomDrawerMethods>;
@@ -23,7 +23,7 @@ interface IAgreementBottomSheetProps {
 }
 
 const AgreeBottomSheet = ({bottomDrawerRef}: IAgreementBottomSheetProps) => {
-  const {screenHeight} = getScreenSize();
+  const {bottom} = useSafeAreaInsets();
   const [allAgreement, setAllAgreement] = useState<boolean>(false);
   const {stackNavigation} = useNavigator();
   const [agreements, setAgreements] = useState<IAgreementProps[]>([
@@ -53,24 +53,30 @@ const AgreeBottomSheet = ({bottomDrawerRef}: IAgreementBottomSheetProps) => {
   };
 
   return (
-    <BottomSheet drawerRef={bottomDrawerRef} height={(screenHeight * 2) / 3}>
+    <BottomSheet drawerRef={bottomDrawerRef} height={420 + bottom}>
       <View style={agreeBottomSheetStyles.container}>
-        <SubTitleDescription
-          text={`팝콘메이트를 이용하기 위해선\n약관동의가 필요합니다`}
-          subTitle="필수는 반드시 체크하셔야 돼요"
-        />
-        <TextButtonContainer mb={8}>
-          <SubTitle text="약관 전체동의" />
-          <CheckBox
-            state={isAllSelected ? 'indeterminate' : 'off'}
-            onPress={toggleAllAgreement}
+        <View style={agreeBottomSheetStyles.wrap}>
+          <SubTitleDescription
+            text={`팝콘메이트를 이용하기 위해선\n약관동의가 필요합니다`}
+            subTitle="필수는 반드시 체크하셔야 돼요"
           />
-        </TextButtonContainer>
-        <Divider mb={16} height={1} />
-        <Agreement agreements={agreements} setAgreements={setAgreements} />
-        <BoxButton onPress={finishSignup} disabled={!canFinishSignup}>
-          동의하기
-        </BoxButton>
+        </View>
+        <View style={agreeBottomSheetStyles.allAgreeWrap}>
+          <TextButtonContainer mb={8}>
+            <SubTitle text="약관 전체동의" />
+            <CheckBox
+              state={isAllSelected ? 'indeterminate' : 'off'}
+              onPress={toggleAllAgreement}
+            />
+          </TextButtonContainer>
+        </View>
+        <View style={agreeBottomSheetStyles.wrap}>
+          <Divider mb={16} height={1} />
+          <Agreement agreements={agreements} setAgreements={setAgreements} />
+          <BoxButton onPress={finishSignup} disabled={!canFinishSignup}>
+            동의하기
+          </BoxButton>
+        </View>
       </View>
     </BottomSheet>
   );
