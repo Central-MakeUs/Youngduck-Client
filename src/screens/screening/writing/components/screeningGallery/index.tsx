@@ -28,7 +28,6 @@ const ScreeningGallery = () => {
 
   const handleClickGallery = async () => {
     // 갤러리 이미지 접근 권한 허용
-
     try {
       const granted = await checkPermission();
       if (granted) {
