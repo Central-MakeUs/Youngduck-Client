@@ -11,6 +11,7 @@ const enum stackScreens {
   DetailScreen = 'DetailScreen',
   ReviewWritingScreen = 'ReviewWritingScreen',
   ScreeningListScreen = 'ScreeningListScreen',
+  KakaoSearchScreen = 'KakaoSearchScreen',
 
   // 팝콘파티 스크린
   PopcornPartyHomeScreen = 'PopcornPartyHomeScreen',

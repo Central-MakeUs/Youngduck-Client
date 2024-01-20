@@ -19,10 +19,12 @@ import DateRangePickerModal from '@/components/modals/dateRangePickerModal';
 import {DateParsable} from 'react-native-calendar-picker';
 import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
 import BottomSheet from '@/components/bottomSheet';
+import useNavigator from '@/hooks/useNavigator';
+import {useLocationStore} from '@/stores/location';
 import SearchBottomSheet from '@/screens/popCornParty/writeRecommand/components/searchBottomSheet';
 
 interface TypeInputProps {
-  value: any; // TODO: 백엔드 통신에 따른 타입 추가 예정
+  value?: any; // TODO: 백엔드 통신에 따른 타입 추가 예정
   placeholder: string;
   title: string;
   essential?: boolean;
@@ -38,6 +40,8 @@ const ButtonInput = ({
   category,
   setValue,
 }: TypeInputProps) => {
+  const {location} = useLocationStore();
+  const {stackNavigation} = useNavigator();
   const {type, onFocus, onBlur} = useFocus();
 
   const [timeModal, setTimeModal] = useState(false);
@@ -50,19 +54,21 @@ const ButtonInput = ({
     DateParsable | undefined
   >(undefined);
 
-  // ui에 보여질 시간, 날짜 문자열
   useEffect(() => {
-    if (category === 'time') {
-      setTimeString(value ? `${getHours(value)} : ${getMinutes(value)}` : '');
+    // 장소 value 상태 저장
+    if (category === 'location' && location) {
+      setValue(location);
     }
-  }, [value]);
-
-  useEffect(() => {
+    // 달력 시작일 상태 저장
+    if (selectedStartDate) {
+      setValue({...value, startDate: selectedStartDate});
+    }
+    // 달력 종료일 상태 저장 및 bottomSheet 닫기
     if (selectedEndDate && bottomDrawerRef) {
       bottomDrawerRef.current?.close();
-    }
-    //console.log('날짜 확인하쟈', selectedEndDate, selectedStartDate);
-    setTimeString(
+      setValue({...value, endDate: selectedEndDate});
+      
+      setTimeString(
       selectedStartDate && selectedEndDate
         ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
             selectedEndDate,
@@ -70,7 +76,29 @@ const ButtonInput = ({
           )}`
         : '',
     );
-  }, [selectedEndDate]);
+    }
+  }, [category, location, selectedEndDate, selectedStartDate]);
+
+  useEffect(() => {
+    // 시간 상태 저장
+    if (category === 'time') {
+      setTimeString(value ? `${getHours(value)} : ${getMinutes(value)}` : '');
+    }
+  }, [value]);
+
+//   useEffect(() => {
+//     if (selectedEndDate && bottomDrawerRef) {
+//       bottomDrawerRef.current?.close();
+//     }
+//     setTimeString(
+//       selectedStartDate && selectedEndDate
+//         ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
+//             selectedEndDate,
+//             'yyyy-MM-dd',
+//           )}`
+//         : '',
+//     );
+//   }, [selectedEndDate]);
 
   // 필요한 모달 열기
   const showModal = () => {
@@ -82,6 +110,10 @@ const ButtonInput = ({
       (category === 'search' && bottomDrawerRef)
     ) {
       bottomDrawerRef.current?.open();
+    }
+    if (category === 'location') {
+      // 카카오 웹뷰로 이동
+      stackNavigation.navigate('KakaoSearchScreen');
     }
   };
 
