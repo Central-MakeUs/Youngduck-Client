@@ -7,7 +7,6 @@ import SignupCompleteScreen from '@/screens/signupComplete/SIgnupCompleteScreen'
 import {RootStackParamList} from '@/types/navigator';
 import MyPageScreen from '@/screens/myPage/MyPageScreen';
 import DetailScreen from '@/screens/screening/detail/DetailScreen';
-import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
 import useNavigator from '@/hooks/useNavigator';
 import ReviewWritingScreen from '@/screens/screening/reviewWriting/ReviewWritingScreen';
 import CancelTopBar from '@/components/topBar/cancelTopBar';
@@ -72,9 +71,7 @@ function StackNavigator() {
         name={stackScreens.DetailScreen}
         component={DetailScreen}
         options={{
-          header: () => (
-            <BackTitleTopBar text="Dynamic 상영회" goBack={handleGoBack} />
-          ),
+          headerShown: false,
         }}
       />
       {/*리뷰 작성 페이지*/}

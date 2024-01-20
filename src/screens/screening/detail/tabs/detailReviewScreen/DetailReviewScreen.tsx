@@ -6,14 +6,8 @@ import DefaultContainer from '@/components/container/defaultContainer';
 import CommentItem from '@/components/items/commentItem';
 import Divider from '@/components/divider';
 import BoxButton from '@/components/buttons/boxButton';
-import useNavigator from '@/hooks/useNavigator';
-import ScreeningStackScreen from '@/constants/screeningStackScreen';
 
 const DetailReviewScreen = () => {
-  const {stackNavigation} = useNavigator();
-  const handleGoScreeningList = () => {
-    stackNavigation.navigate(ScreeningStackScreen.ScreeningListScreen);
-  };
   return (
     <ScrollView>
       <DefaultContainer>
@@ -31,7 +25,7 @@ const DetailReviewScreen = () => {
         <Divider height={1} />
         <CommentItem />
         <View style={reviewScreenStyles.bottom}>
-          <BoxButton onPress={handleGoScreeningList} variant="default">
+          <BoxButton onPress={() => {}} variant="default">
             더보기
           </BoxButton>
         </View>
