@@ -6,11 +6,10 @@ import {galleryStyles} from './ScreeningGallery.style';
 import RoundButton from '@/components/buttons/roundButton';
 import SvgIcons from '@/assets/svgIcons';
 import ImageCropPicker from 'react-native-image-crop-picker';
+import {checkPermission} from '@/utils/checkPermission';
 
 const ScreeningGallery = () => {
-  const handlePermissionGallery = async () => {
-    // 갤러리 이미지 접근 권한 허용
-
+  const handleImageUpload = async () => {
     try {
       const image = await ImageCropPicker.openPicker({
         mediaType: 'photo',
@@ -18,11 +17,24 @@ const ScreeningGallery = () => {
         width: 120,
         height: 120,
       });
-
       if (image?.path) {
         console.log('이미지 경로', image.path);
-
         // TODO: 백엔드 api 통신
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleClickGallery = async () => {
+    // 갤러리 이미지 접근 권한 허용
+
+    try {
+      const granted = await checkPermission();
+      if (granted) {
+        handleImageUpload();
+      } else {
+        console.log('권한이 거부되었습니다.');
       }
     } catch (err) {
       console.error(err);
@@ -41,7 +53,7 @@ const ScreeningGallery = () => {
           }}
           style={galleryStyles.image}
         />
-        <TouchableOpacity onPress={handlePermissionGallery} activeOpacity={0.8}>
+        <TouchableOpacity onPress={handleClickGallery} activeOpacity={0.8}>
           <Gallery />
         </TouchableOpacity>
       </View>
