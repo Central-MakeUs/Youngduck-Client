@@ -13,6 +13,7 @@ interface ITextAreaProps extends TextInputProps {
   maxLength?: number;
   placeholder: string;
   height: number;
+  essential?: boolean;
 
   inputRef?: LegacyRef<TextInput> | undefined;
 }
@@ -24,6 +25,7 @@ const TextArea = ({
   maxLength,
   placeholder,
   height,
+  essential,
   inputRef,
   ...props
 }: ITextAreaProps) => {
@@ -40,7 +42,11 @@ const TextArea = ({
 
   return (
     <View>
-      <Typography style="Label2" color={inputTypes[type].titleColor} mb={4}>
+      <Typography
+        essential={essential}
+        style="Label2"
+        color={inputTypes[type].titleColor}
+        mb={4}>
         {title}
       </Typography>
       <TextInput

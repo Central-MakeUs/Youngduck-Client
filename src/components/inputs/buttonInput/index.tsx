@@ -7,6 +7,7 @@ import palette from '@/styles/theme/color';
 import Calendar from '@/assets/icons/calendar.svg';
 import Time from '@/assets/icons/time.svg';
 import Location from '@/assets/icons/location.svg';
+import Search from '@/assets/icons/search.svg';
 
 import {useEffect, useRef, useState} from 'react';
 import Typography from '@/components/typography';
@@ -20,12 +21,14 @@ import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
 import BottomSheet from '@/components/bottomSheet';
 import useNavigator from '@/hooks/useNavigator';
 import {useLocationStore} from '@/stores/location';
+import SearchBottomSheet from '@/screens/popCornParty/writeRecommand/components/searchBottomSheet';
 
 interface TypeInputProps {
   value?: any; // TODO: 백엔드 통신에 따른 타입 추가 예정
   placeholder: string;
   title: string;
-  category: 'time' | 'date' | 'location';
+  essential?: boolean;
+  category: 'time' | 'date' | 'location' | 'search';
   setValue: (value: any) => void; // TODO: 백엔드 통신에 따른 타입 추가 예정
 }
 
@@ -33,6 +36,7 @@ const ButtonInput = ({
   value, // 통신할  시간 value 값
   placeholder,
   title,
+  essential,
   category,
   setValue,
 }: TypeInputProps) => {
@@ -41,6 +45,7 @@ const ButtonInput = ({
   const {type, onFocus, onBlur} = useFocus();
 
   const [timeModal, setTimeModal] = useState(false);
+  const [timeString, setTimeString] = useState<number | string | null>(null);
 
   const [selectedStartDate, setSelectedStartDate] = useState<
     DateParsable | undefined
@@ -49,37 +54,61 @@ const ButtonInput = ({
     DateParsable | undefined
   >(undefined);
 
-  // ui에 보여질 시간, 날짜 문자열
-  let timeString = '';
-  if (category === 'time') {
-    timeString = value ? `${getHours(value)} : ${getMinutes(value)}` : '';
-  }
-  if (category === 'date' && selectedStartDate && selectedEndDate) {
-    timeString = `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
-      selectedEndDate,
-      'yyyy-MM-dd',
-    )}`;
-  }
-
   useEffect(() => {
+    // 장소 value 상태 저장
     if (category === 'location' && location) {
       setValue(location);
     }
+    // 달력 시작일 상태 저장
     if (selectedStartDate) {
       setValue({...value, startDate: selectedStartDate});
     }
+    // 달력 종료일 상태 저장 및 bottomSheet 닫기
     if (selectedEndDate && bottomDrawerRef) {
       bottomDrawerRef.current?.close();
       setValue({...value, endDate: selectedEndDate});
+      
+      setTimeString(
+      selectedStartDate && selectedEndDate
+        ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
+            selectedEndDate,
+            'yyyy-MM-dd',
+          )}`
+        : '',
+    );
     }
   }, [category, location, selectedEndDate, selectedStartDate]);
+
+  useEffect(() => {
+    // 시간 상태 저장
+    if (category === 'time') {
+      setTimeString(value ? `${getHours(value)} : ${getMinutes(value)}` : '');
+    }
+  }, [value]);
+
+//   useEffect(() => {
+//     if (selectedEndDate && bottomDrawerRef) {
+//       bottomDrawerRef.current?.close();
+//     }
+//     setTimeString(
+//       selectedStartDate && selectedEndDate
+//         ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
+//             selectedEndDate,
+//             'yyyy-MM-dd',
+//           )}`
+//         : '',
+//     );
+//   }, [selectedEndDate]);
 
   // 필요한 모달 열기
   const showModal = () => {
     if (category === 'time') {
       setTimeModal(true);
     }
-    if (category === 'date' && bottomDrawerRef) {
+    if (
+      (category === 'date' && bottomDrawerRef) ||
+      (category === 'search' && bottomDrawerRef)
+    ) {
       bottomDrawerRef.current?.open();
     }
     if (category === 'location') {
@@ -102,7 +131,11 @@ const ButtonInput = ({
 
   return (
     <View>
-      <Typography style="Label2" mb={4} color={inputTypes[type].titleColor}>
+      <Typography
+        essential={essential}
+        style="Label2"
+        mb={4}
+        color={inputTypes[type].titleColor}>
         {title}
       </Typography>
       <Pressable
@@ -120,7 +153,9 @@ const ButtonInput = ({
             {color: palette.Text.Normal},
           ]}
           placeholder={placeholder}
-          value={category === 'location' ? value : timeString}
+          value={
+            category === 'date' || category === 'time' ? timeString : value
+          }
           editable={false}
           placeholderTextColor={palette.Text.Assistive}
         />
@@ -129,6 +164,7 @@ const ButtonInput = ({
           {category === 'date' && <Calendar />}
           {category === 'location' && <Location />}
           {category === 'time' && <Time />}
+          {category === 'search' && <Search />}
         </View>
       </Pressable>
       {category === 'time' && (
@@ -152,6 +188,13 @@ const ButtonInput = ({
             setEndDate={setSelectedEndDate}
           />
         </BottomSheet>
+      )}
+      {/* 추천 영화 Bottom Sheet 컴포넌트 */}
+      {category === 'search' && (
+        <SearchBottomSheet
+          setValue={setValue}
+          bottomDrawerRef={bottomDrawerRef}
+        />
       )}
     </View>
   );

@@ -123,6 +123,11 @@ function StackNavigator() {
       <Stack.Screen
         name={stackScreens.WriteRecommandScreen}
         component={WriteRecommandScreen}
+        options={{
+          header: () => (
+            <CancelTopBar text="팝콘작 추천하기" onPress={handleGoBack} />
+          ),
+        }}
       />
       <Stack.Screen
         name={stackScreens.WriteReviewScreen}

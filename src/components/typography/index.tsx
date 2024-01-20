@@ -7,6 +7,7 @@ function Typography({
   style,
   children,
   color = palette.Text.Normal,
+  essential,
   m,
   mt,
   mr,
@@ -30,6 +31,7 @@ function Typography({
         ...text[style],
       }}>
       {children}
+      {essential && <Text style={{color: palette.State.Point}}>*</Text>}
     </Text>
   );
 }
