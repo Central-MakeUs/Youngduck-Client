@@ -81,11 +81,7 @@ function StackNavigator() {
       <Stack.Screen
         name={stackScreens.DetailScreen}
         component={DetailScreen}
-        options={{
-          header: () => (
-            <BackTitleTopBar text="Dynamic 상영회" goBack={handleGoBack} />
-          ),
-        }}
+        options={{headerShown: false}}
       />
       {/*리뷰 작성 페이지*/}
       <Stack.Screen
@@ -111,11 +107,7 @@ function StackNavigator() {
       <Stack.Screen
         name={stackScreens.PopcornPartyDetailScreen}
         component={PopcornPartyDetailScreen}
-        options={{
-          header: () => (
-            <BackTitleTopBar goBack={handleGoBack} text="1월 첫째주 팝콘작" />
-          ),
-        }}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name={stackScreens.RecommandListScreen}
