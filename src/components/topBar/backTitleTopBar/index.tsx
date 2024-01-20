@@ -1,20 +1,27 @@
 import SvgIcons from '@/assets/svgIcons';
-import Typography from '@/components/typography';
-import palette from '@/styles/theme/color';
-
 import {CommonMarginVerticalProps} from '@/types/ui';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 import {backTitleStyles} from './BackTitleTopBar.style';
 import Profile from '@/components/profile';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import typography from '@/styles/theme/typography';
 
 interface BackTitleTopBarProps extends CommonMarginVerticalProps {
   goBack: () => void;
   text: string;
+  opacity: number;
 }
-const BackTitleTopBar = ({text, goBack, mb, mt}: BackTitleTopBarProps) => {
+const BackTitleTopBar = ({
+  text,
+  goBack,
+  opacity,
+  mb,
+  mt,
+}: BackTitleTopBarProps) => {
   const {top} = useSafeAreaInsets();
-  const style = backTitleStyles({top});
+  const style = backTitleStyles({top, opacity});
+  const textOpacity = Math.floor(opacity * 255);
+  const fontColor = `rgba(${textOpacity},${textOpacity},${textOpacity},1)`;
   return (
     <View
       style={{
@@ -23,10 +30,15 @@ const BackTitleTopBar = ({text, goBack, mb, mt}: BackTitleTopBarProps) => {
         marginBottom: mb ? mb : undefined,
       }}>
       <View style={style.content}>
-        <SvgIcons.BackArrowIcon onPress={goBack} />
-        <Typography style="Subtitle2" color={palette.Another.Black} ml={8}>
+        <SvgIcons.BackArrowIcon onPress={goBack} fill={fontColor} />
+        <Text
+          style={{
+            color: fontColor,
+            marginLeft: 8,
+            ...typography.Subtitle2,
+          }}>
           {text}
-        </Typography>
+        </Text>
       </View>
       <Profile />
     </View>
