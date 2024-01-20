@@ -5,14 +5,11 @@ import {Image, TouchableOpacity, View} from 'react-native';
 import {galleryStyles} from './ScreeningGallery.style';
 import RoundButton from '@/components/buttons/roundButton';
 import SvgIcons from '@/assets/svgIcons';
-import permissionUtil from '@/utils/permissionUtil';
-import {APP_PERMISSION_CODE} from '@/constants/permissionCodes';
 import ImageCropPicker from 'react-native-image-crop-picker';
 
 const ScreeningGallery = () => {
   const handlePermissionGallery = async () => {
     // 갤러리 이미지 접근 권한 허용
-    permissionUtil.cmmReqPermis([...APP_PERMISSION_CODE.picture]);
 
     try {
       const image = await ImageCropPicker.openPicker({
