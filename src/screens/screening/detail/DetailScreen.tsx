@@ -3,10 +3,11 @@ import DetailInfoScreen from './tabs/detailInfoScreen/DetailInfoScreen';
 import DetailReviewScreen from './tabs/detailReviewScreen/DetailReviewScreen';
 import palette from '@/styles/theme/color';
 import {tabBarLabel} from '@/constants/tabScreens';
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {ScreenRouteProp} from '@/types/navigator';
 import DetailBottomButton from '@/components/bottomButtons/detailBottomButton';
 import DetailTitle from './components/detailTitle';
+import DetailImage from './components/detailImage';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -18,6 +19,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
   const {id} = route.params;
   return (
     <View style={{flex: 1}}>
+      <DetailImage />
       <DetailTitle />
       <Tab.Navigator
         screenOptions={{
