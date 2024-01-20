@@ -29,7 +29,8 @@ function Typography({
         margin: m ? m : undefined,
         fontFamily: 'Pretendard Variable',
         ...text[style],
-      }}>
+      }}
+      numberOfLines={3}>
       {children}
       {essential && <Text style={{color: palette.State.Point}}>*</Text>}
     </Text>
