@@ -2,13 +2,12 @@ import {useEffect} from 'react';
 import {Animated, View} from 'react-native';
 import {progressBarStyles} from './ProgressBar.style';
 
-const ProgressBar = ({
-  animatedValue,
-  totalScreens,
-}: {
+interface IProgressBarProps {
   animatedValue: Animated.Value;
   totalScreens: number;
-}) => {
+}
+
+const ProgressBar = ({animatedValue, totalScreens}: IProgressBarProps) => {
   useEffect(() => {
     Animated.timing(animatedValue, {
       toValue: 100 * (1 / Math.pow(totalScreens, 2)),
