@@ -17,6 +17,7 @@ const popcornPartyDetailScreenStyles = StyleSheet.create({
     height: screenWidth,
     position: 'absolute',
   },
+  introduceWrap: {paddingTop: 16, paddingBottom: 24},
 });
 
 export default popcornPartyDetailScreenStyles;
