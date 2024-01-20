@@ -1,9 +1,4 @@
-import {
-  Animated,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  ScrollView,
-} from 'react-native';
+import {Animated, ScrollView} from 'react-native';
 import {getScreenSize} from './getScreenSize';
 import {RefObject} from 'react';
 
@@ -12,8 +7,9 @@ interface IMoveScreenProps {
   animatedValue: Animated.Value;
   currentScreen: number;
   setCurrentScreen: React.Dispatch<React.SetStateAction<number>>;
-
+  // 총 몇 개의 화면이 보여지는지 표시
   totalScreens: number;
+  // 다음으로 넘어가는 상태인지 이전으로 넘어가는 상태인지 표시
   status?: 'next' | 'previous';
 }
 
@@ -28,27 +24,25 @@ const moveScreen = ({
   const {screenWidth} = getScreenSize();
 
   const isPrevious = status === 'previous';
+  const nextScreen = isPrevious ? currentScreen - 1 : currentScreen + 1;
+  const moveValue =
+    100 *
+    ((1 +
+      (totalScreens + 1) *
+        (isPrevious ? currentScreen - 1 : currentScreen + 1)) /
+      Math.pow(totalScreens, 2));
 
-  currentScreen === totalScreens - 2 && !isPrevious
-    ? scrollViewRef?.current?.scrollToEnd({animated: true})
-    : scrollViewRef?.current?.scrollTo({
-        x: isPrevious ? -screenWidth : screenWidth,
-        animated: true,
-      });
-  console.log(totalScreens, currentScreen);
+  // status에 따라 scroll
+  scrollViewRef?.current?.scrollTo({
+    x: nextScreen * screenWidth,
+    animated: true,
+  });
+
   setCurrentScreen(isPrevious ? currentScreen - 1 : currentScreen + 1);
 
-  // 2 -> 3으로 이동 안되는 현상 수정하기
   Animated.timing(animatedValue, {
-    toValue:
-      100 *
-      ((1 +
-        (totalScreens + 1) *
-          (isPrevious ? currentScreen - 1 : currentScreen + 1)) /
-        Math.pow(totalScreens, 2)),
-    duration: isPrevious
-      ? (currentScreen + 1) * 500
-      : (currentScreen + 3) * 500,
+    toValue: moveValue,
+    duration: 1500,
     useNativeDriver: false,
   }).start();
 };
