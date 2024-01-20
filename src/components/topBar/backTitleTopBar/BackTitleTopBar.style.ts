@@ -12,6 +12,7 @@ export const backTitleStyles = ({top}: CommonTopProp) =>
       paddingVertical: 16,
       width: '100%',
       paddingTop: top + 16,
+      backgroundColor: 'rgba(0,0,0,0)',
     },
     content: {
       display: 'flex',
