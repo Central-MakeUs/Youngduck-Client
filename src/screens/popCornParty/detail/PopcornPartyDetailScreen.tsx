@@ -23,7 +23,7 @@ import PopcornKeyword from './popcornKeyword';
 function PopcornPartyDetailScreen() {
   const {stackNavigation} = useNavigator();
   const {screenWidth} = getScreenSize();
-  const {top} = useSafeAreaInsets();
+  const {top, bottom} = useSafeAreaInsets();
   const [isLeft, setIsLeft] = useState<boolean>(true);
 
   const [opacity, setOpacity] = useState<number>(1);
@@ -40,7 +40,11 @@ function PopcornPartyDetailScreen() {
   };
 
   return (
-    <View style={popcornPartyDetailScreenStyles.container}>
+    <View
+      style={[
+        popcornPartyDetailScreenStyles.container,
+        {paddingBottom: bottom},
+      ]}>
       <BackTitleTopBar
         opacity={opacity}
         goBack={handleGoBack}
@@ -96,6 +100,7 @@ function PopcornPartyDetailScreen() {
           <DefaultContainer>
             <ScreeningIndex mt={24} mb={40} />
             <PopcornKeyword />
+            <Divider height={8} mt={32} mb={16} />
           </DefaultContainer>
         </ScrollView>
       </ScrollView>
