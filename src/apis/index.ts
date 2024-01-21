@@ -1,11 +1,8 @@
 import axios, {AxiosError, AxiosResponse} from 'axios';
 import Config from 'react-native-config';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import {ResponseErrorAPI} from '@/models/common/responseDTO';
 import {postAccessToken} from './auth/auth';
-import LocalStorageKey from '@/services/localStorage/localStorageKey';
 import {getAccessToken} from '@/services/localStorage/localStorage';
 
 const baseURL = Config.BASE_URL;

@@ -1,10 +1,10 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import EncryptedStorage from 'react-native-encrypted-storage';
 import LocalStorageKey from './localStorageKey';
 
 // 스토리지에 아이템을 저장
 const setItem = async <T>(key: LocalStorageKey, items: T) => {
   try {
-    await AsyncStorage.setItem(key, JSON.stringify(items));
+    await EncryptedStorage.setItem(key, JSON.stringify(items));
   } catch (error) {
     console.log('localstorage error: ', error);
     return null;
@@ -14,7 +14,7 @@ const setItem = async <T>(key: LocalStorageKey, items: T) => {
 // 스토리지에서 아이템을 가져옴
 const getItemOrNull = async <T>(key: LocalStorageKey): Promise<T | null> => {
   try {
-    const data = await AsyncStorage.getItem(key);
+    const data = await EncryptedStorage.getItem(key);
     return data ? (JSON.parse(data) as T) : null;
   } catch (error) {
     console.log('localstorage error: ', error);
