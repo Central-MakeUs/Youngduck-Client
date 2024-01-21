@@ -3,7 +3,7 @@ import Config from 'react-native-config';
 
 const baseURL = Config.BASE_URL;
 
-const axiosInstance = axios.create({
+export const apiWithoutToken = axios.create({
   baseURL,
   timeout: 10 * 1000,
   headers: {
@@ -11,5 +11,3 @@ const axiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
 });
-
-export default axiosInstance;
