@@ -29,9 +29,9 @@ export const getTabBarIcon = (routeName: string, focused: boolean) => {
   );
 };
 
-function BottomTabNavigator() {
-  const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
+function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       screenOptions={bottomTabScreenOptions}

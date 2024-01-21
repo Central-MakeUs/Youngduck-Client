@@ -20,13 +20,47 @@ import WriteReviewScreen from '@/screens/popCornParty/writeReview/WriteReviewScr
 import TitleTopBar from '@/components/topBar/titleTopBar';
 import KakaoSearchScreen from '@/screens/screening/kakaoSearch/KakaoSearchScreen';
 import {useLocationStore} from '@/stores/location';
+import {useEffect, useState} from 'react';
+import {getIsInstalled} from '@/services/localStorage/localStorage';
+import SplashScreen from 'react-native-splash-screen';
+import {postAccessToken} from '@/apis/auth/auth';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function StackNavigator() {
-  const Stack = createNativeStackNavigator<RootStackParamList>();
-
   const {stackNavigation} = useNavigator();
-
   const {setLocation} = useLocationStore();
+
+  const [isSignIn, setIsSignIn] = useState(false);
+  const [isInstalled, setIsInstalled] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      SplashScreen.hide();
+    }, 1000); //스플래시 활성화 시간
+
+    getIsInstalled().then((res: boolean) => {
+      console.log('루트 stack에서 isInstalled', res);
+      setIsInstalled(res);
+
+      if (res) {
+        postAccessToken().then(res => {
+          console.log('재발급 후 true, false 값', res);
+          setIsSignIn(res);
+          setIsLoading(false);
+        });
+      } else {
+        setIsLoading(false);
+      }
+    });
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    stackNavigation.navigate('BottomTabScreens');
+  }, [isSignIn]);
 
   // 스크리닝 화면 뒤로 가기
   const handleGoBack = () => {
@@ -39,7 +73,8 @@ function StackNavigator() {
     setLocation('');
   };
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      initialRouteName={isSignIn ? 'BottomTabScreens' : 'LoginScreen'}>
       {/*로그인 페이지*/}
       <Stack.Screen
         name={stackScreens.LoginScreen}

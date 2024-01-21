@@ -6,6 +6,7 @@ import useNavigator from '@/hooks/useNavigator';
 import {getKakaoIdToken, getKakaoProfile} from '@/apis/auth/social';
 import {postLoginUser} from '@/apis/auth/auth';
 import {useUserStore} from '@/stores/user';
+import {setIsInstalled} from '@/services/localStorage/localStorage';
 
 function KakaoLogin() {
   const {stackNavigation} = useNavigator();
@@ -15,8 +16,9 @@ function KakaoLogin() {
   // 카카오 로그인 함수
   const handleSignInKakao = async (): Promise<void> => {
     const res = await getKakaoIdToken();
-    const login = await postLoginUser('KAKAO', res.idToken);
     const profile = await getKakaoProfile();
+
+    const login = await postLoginUser('KAKAO', res.idToken);
     if (profile) {
       setUser({
         ...user,
@@ -26,16 +28,16 @@ function KakaoLogin() {
         type: 'KAKAO',
       });
     }
-
-    console.log('로그인 데이터', login);
-
-    // 최초 유저 회원가입으로 이동
-    if (!login.data.canLogin) {
-      stackNavigation.navigate('SignupScreen');
-    } else {
-      stackNavigation.navigate('BottomTabScreens');
+    if (login) {
+      if (!login.data.canLogin) {
+        stackNavigation.navigate('SignupScreen');
+      } else {
+        setIsInstalled(true);
+        stackNavigation.navigate('BottomTabScreens');
+      }
     }
   };
+
   return (
     <TouchableOpacity
       onPress={handleSignInKakao}

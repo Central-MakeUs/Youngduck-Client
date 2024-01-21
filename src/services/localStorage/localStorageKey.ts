@@ -1,6 +1,6 @@
 const enum LocalStorageKey {
-  RefreshToken = 'refreshToken',
-  AccessToken = 'accessToken',
-  IsInstalled = 'isInstalled',
+  RefreshToken = 'RefreshToken',
+  AccessToken = 'AccessToken',
+  IsInstalled = 'IsInstalled',
 }
 export default LocalStorageKey;
