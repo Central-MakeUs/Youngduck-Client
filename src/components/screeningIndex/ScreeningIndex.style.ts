@@ -3,13 +3,9 @@ import {StyleSheet} from 'react-native';
 
 interface IScreeningStylesProps {
   tooltipHeight: number;
-  screeningIndexLocation: number;
 }
 
-const screeningIndexStyles = ({
-  tooltipHeight,
-  screeningIndexLocation,
-}: IScreeningStylesProps) =>
+const screeningIndexStyles = ({tooltipHeight}: IScreeningStylesProps) =>
   StyleSheet.create({
     container: {
       paddingVertical: 12,
@@ -31,7 +27,6 @@ const screeningIndexStyles = ({
       position: 'absolute',
       flexDirection: 'column',
       alignItems: 'center',
-      marginLeft: screeningIndexLocation,
     },
     screeningIndex: {
       width: 8,
