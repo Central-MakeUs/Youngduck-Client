@@ -21,9 +21,9 @@ import TitleTopBar from '@/components/topBar/titleTopBar';
 import KakaoSearchScreen from '@/screens/screening/kakaoSearch/KakaoSearchScreen';
 import {useLocationStore} from '@/stores/location';
 import {useEffect, useState} from 'react';
-import {getIsInstalled} from '@/services/localStorage/localStorage';
 import SplashScreen from 'react-native-splash-screen';
 import {postAccessToken} from '@/apis/auth/auth';
+import {getIsInstalled} from '@/services/localStorage/localStorage';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -33,7 +33,7 @@ function StackNavigator() {
 
   const [isSignIn, setIsSignIn] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  //const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -41,17 +41,15 @@ function StackNavigator() {
     }, 1000); //스플래시 활성화 시간
 
     getIsInstalled().then((res: boolean) => {
-      console.log('루트 stack에서 isInstalled', res);
       setIsInstalled(res);
 
       if (res) {
         postAccessToken().then(res => {
-          console.log('재발급 후 true, false 값', res);
           setIsSignIn(res);
-          setIsLoading(false);
+          //setIsLoading(false);
         });
       } else {
-        setIsLoading(false);
+        //setIsLoading(false);
       }
     });
 
@@ -59,7 +57,9 @@ function StackNavigator() {
   }, []);
 
   useEffect(() => {
-    stackNavigation.navigate('BottomTabScreens');
+    if (isSignIn) {
+      stackNavigation.navigate('BottomTabScreens');
+    }
   }, [isSignIn]);
 
   // 스크리닝 화면 뒤로 가기
@@ -73,8 +73,7 @@ function StackNavigator() {
     setLocation('');
   };
   return (
-    <Stack.Navigator
-      initialRouteName={isSignIn ? 'BottomTabScreens' : 'LoginScreen'}>
+    <Stack.Navigator>
       {/*로그인 페이지*/}
       <Stack.Screen
         name={stackScreens.LoginScreen}

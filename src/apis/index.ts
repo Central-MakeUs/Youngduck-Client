@@ -1,8 +1,12 @@
-import {ResponseErrorAPI} from '@/models/common/responseDTO';
-import {getAccessToken} from '@react-native-seoul/kakao-login';
 import axios, {AxiosError, AxiosResponse} from 'axios';
 import Config from 'react-native-config';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import {ResponseErrorAPI} from '@/models/common/responseDTO';
 import {postAccessToken} from './auth/auth';
+import LocalStorageKey from '@/services/localStorage/localStorageKey';
+import {getAccessToken} from '@/services/localStorage/localStorage';
 
 const baseURL = Config.BASE_URL;
 
@@ -51,14 +55,13 @@ let lock = false;
 const onRejected = async (error: AxiosError) => {
   const originalConfig = error.config;
   const data = error.response?.data as ResponseErrorAPI;
-  console.log('reject 함수 실행한다!');
   if (
     originalConfig &&
     error.response?.status === 401 &&
     data?.code == 'AUTH_403_1' &&
     !lock
   ) {
-    console.log('토큰 재발급 이제 실행할거야');
+    console.log('토큰 재발급 실행');
     lock = true;
     try {
       await postAccessToken();
