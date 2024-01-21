@@ -19,6 +19,7 @@ import BoxButton from '@/components/buttons/boxButton';
 import ScreeningIndex from '@/components/screeningIndex';
 import TabBar from '@/components/tabBar';
 import PopcornKeyword from './popcornKeyword';
+import VoteNextPopcorn from '../home/components/voteNextPopcorn';
 
 function PopcornPartyDetailScreen() {
   const {stackNavigation} = useNavigator();
@@ -102,6 +103,7 @@ function PopcornPartyDetailScreen() {
             <PopcornKeyword />
             <Divider height={8} mt={32} mb={16} />
           </DefaultContainer>
+          <VoteNextPopcorn title="팝콘 튀기고 싶은 다른 영화가 있다면?" />
         </ScrollView>
       </ScrollView>
     </View>

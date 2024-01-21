@@ -4,10 +4,14 @@ import SubTitle from '@/components/title/subTitle';
 import {popcornDatas} from '../../dummy';
 import {IPopcornItemProps} from '@/types/popcornParty';
 
-const VoteNextPopcorn = () => {
+interface IVoteNextPopcornProp {
+  title: string;
+}
+
+const VoteNextPopcorn = ({title}: IVoteNextPopcornProp) => {
   return (
     <>
-      <SubTitle text="다음 주 팝콘작 투표하기" mb={8} />
+      <SubTitle text={title} mb={8} />
       <DefaultContainer>
         {popcornDatas.map((popcornData: IPopcornItemProps) => (
           <PopcornItem
