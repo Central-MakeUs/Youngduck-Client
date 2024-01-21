@@ -11,7 +11,6 @@ export const backTitleStyles = ({top, opacity}: IBackTitleStyles) =>
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'space-between',
       paddingHorizontal: 16,
       paddingVertical: 16,
       width: '100%',
@@ -19,11 +18,5 @@ export const backTitleStyles = ({top, opacity}: IBackTitleStyles) =>
       backgroundColor: `rgba(255,255,255,${1 - opacity})`,
       position: 'absolute',
       zIndex: 1,
-    },
-    content: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
     },
   });
