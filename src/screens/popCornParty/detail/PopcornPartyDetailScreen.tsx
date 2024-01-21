@@ -2,6 +2,7 @@ import {
   Image,
   NativeScrollEvent,
   NativeSyntheticEvent,
+  Pressable,
   ScrollView,
   View,
 } from 'react-native';
@@ -16,15 +17,22 @@ import DefaultContainer from '@/components/container/defaultContainer';
 import Typography from '@/components/typography';
 import Divider from '@/components/divider';
 import BoxButton from '@/components/buttons/boxButton';
+import palette from '@/styles/theme/color';
+import ScreeningIndex from '@/components/screeningIndex';
+import TabBar from '@/components/tabBar';
 
 function PopcornPartyDetailScreen() {
   const {stackNavigation} = useNavigator();
   const {screenWidth} = getScreenSize();
   const {top} = useSafeAreaInsets();
+  const [isLeft, setIsLeft] = useState<boolean>(true);
 
   const [opacity, setOpacity] = useState<number>(1);
 
   const handleGoBack = () => stackNavigation.goBack();
+
+  const handleTopBarState = (pressedTab: 'left' | 'right') =>
+    setIsLeft(pressedTab === 'left' ? true : false);
 
   const calculateOpacity = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const value =
@@ -79,6 +87,15 @@ function PopcornPartyDetailScreen() {
                 설명 더 보기
               </BoxButton>
             </View>
+          </DefaultContainer>
+          <TabBar
+            leftTabBarName="팝콘 지수"
+            rightTabBarName="팝콘들의 리뷰"
+            isLeft={isLeft}
+            handleTopBarState={handleTopBarState}
+          />
+          <DefaultContainer>
+            <ScreeningIndex />
           </DefaultContainer>
         </ScrollView>
       </ScrollView>
