@@ -2,7 +2,6 @@ import SvgIcons from '@/assets/svgIcons';
 import {CommonMarginVerticalProps} from '@/types/ui';
 import {Text, View} from 'react-native';
 import {backTitleStyles} from './BackTitleTopBar.style';
-import Profile from '@/components/profile';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import typography from '@/styles/theme/typography';
 
@@ -29,18 +28,15 @@ const BackTitleTopBar = ({
         marginTop: mt ? mt : undefined,
         marginBottom: mb ? mb : undefined,
       }}>
-      <View style={style.content}>
-        <SvgIcons.BackArrowIcon onPress={goBack} fill={fontColor} />
-        <Text
-          style={{
-            color: fontColor,
-            marginLeft: 8,
-            ...typography.Subtitle2,
-          }}>
-          {text}
-        </Text>
-      </View>
-      <Profile />
+      <SvgIcons.BackArrowIcon onPress={goBack} fill={fontColor} />
+      <Text
+        style={{
+          color: fontColor,
+          marginLeft: 8,
+          ...typography.Subtitle2,
+        }}>
+        {text}
+      </Text>
     </View>
   );
 };
