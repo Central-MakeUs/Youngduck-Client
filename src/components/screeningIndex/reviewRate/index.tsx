@@ -12,17 +12,29 @@ const ReviewRate = () => {
   return (
     <>
       {reviewLists.map(reviewList => (
-        <View style={reviewRateStyles.container}>
-          <Typography style="Label3" color={palette.Text.Alternative} mb={4}>
+        <View
+          style={reviewRateStyles.container}
+          key={`${reviewList.category}-container`}>
+          <Typography
+            style="Label3"
+            color={palette.Text.Alternative}
+            mb={4}
+            key={`${reviewList.category}`}>
             {reviewList.category}
           </Typography>
-          <View style={reviewRateStyles.rateWrap}>
+          <View
+            style={reviewRateStyles.rateWrap}
+            key={`${reviewList.category}-rateWrap`}>
             <View
               style={[
                 reviewRateStyles.negativeWrap,
                 {flex: reviewList.negative},
-              ]}>
-              <Typography style="Label1" color={palette.Text.Alternative}>
+              ]}
+              key={`${reviewList.category}-negative-wrap`}>
+              <Typography
+                style="Label1"
+                color={palette.Text.Alternative}
+                key={`${reviewList.category}-negative`}>
                 {reviewList.negative.toString()}
               </Typography>
             </View>
@@ -30,8 +42,12 @@ const ReviewRate = () => {
               style={[
                 reviewRateStyles.positiveWrap,
                 {flex: reviewList.positive},
-              ]}>
-              <Typography style="Label1" color={palette.Primary.Deep}>
+              ]}
+              key={`${reviewList.category}-positive-wrap`}>
+              <Typography
+                style="Label1"
+                color={palette.Primary.Deep}
+                key={`${reviewList.category}-positive`}>
                 {reviewList.positive.toString()}
               </Typography>
             </View>
