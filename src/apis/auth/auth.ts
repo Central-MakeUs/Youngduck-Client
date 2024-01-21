@@ -1,17 +1,18 @@
 import {LoginType} from '@/models/auth/entity';
 import {apiWithoutToken} from '@/apis';
 import {IRegisterRequest} from '@/models/auth/request';
+import {ResponseDTO} from '@/models/common/responseDTO';
+import {ILoginResponse} from '@/models/auth/response';
 
 // 로그인 api 함수
-export const postLoginUser = async (type: LoginType, token: string) => {
-  try {
-    const res = await apiWithoutToken.post(
-      `/auth/oauth/login/${type}/idtoken?idToken=${token}`,
-    );
-    return res.data;
-  } catch (e) {
-    console.log('error in axios: ', e);
-  }
+export const postLoginUser = async (
+  type: LoginType,
+  token: string,
+): Promise<ResponseDTO<ILoginResponse>> => {
+  const res = await apiWithoutToken.post(
+    `/auth/oauth/login/${type}/idtoken?idToken=${token}`,
+  );
+  return res.data;
 };
 
 // 회원가입 api 함수

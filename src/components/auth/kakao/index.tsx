@@ -11,27 +11,14 @@ function KakaoLogin() {
 
   // 카카오 로그인 함수
   const handleSignInKakao = async (): Promise<void> => {
-    //Kakao.login()
-    //  .then(async result => {
-    //    const idToken = result.idToken;
-    //    const res = await postLoginUserTest('KAKAO', idToken);
-    //    console.log('로그인 응답', res);
-    //    //getKakaoProfile();
-    //  })
-    //  .catch(error => {
-    //    if (error.code === 'E_CANCELLED_OPERATION') {
-    //      console.log('Login Cancel', error.message);
-    //    } else {
-    //      console.log(`Login Fail(code:${error.code})`, error.message);
-    //    }
-    //  });
     const res = await getKakaoIdToken();
-    console.log('토큰', res.idToken);
     const login = await postLoginUser('KAKAO', res.idToken);
-    console.log('응답', login);
-
-    // 일단 로그인 후 홈으로 이동
-    stackNavigation.navigate('BottomTabScreens');
+    // 최초 유저 회원가입으로 이동
+    if (!login.data.canLogin) {
+      stackNavigation.navigate('SignupScreen');
+    } else {
+      stackNavigation.navigate('BottomTabScreens');
+    }
   };
   return (
     <TouchableOpacity
