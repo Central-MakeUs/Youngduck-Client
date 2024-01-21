@@ -6,10 +6,15 @@ import {View} from 'react-native';
 
 interface IInputNickname {
   handleMoveScreen: () => void;
+  nickname: string;
+  setNickname: (value: string) => void;
 }
 
-const InputNickname = ({handleMoveScreen}: IInputNickname) => {
-  const [nickname, setNickname] = useState<string>('');
+const InputNickname = ({
+  handleMoveScreen,
+  nickname,
+  setNickname,
+}: IInputNickname) => {
   const [isDuplicated, setIsDuplicated] = useState<boolean>(true);
   return (
     <>

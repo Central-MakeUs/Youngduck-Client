@@ -17,6 +17,7 @@ import {View} from 'react-native';
 import {agreeBottomSheetStyles} from './AgreeBottomSheet.style';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {postRegisterUser} from '@/apis/auth/auth';
+import {useUserStore} from '@/stores/user';
 
 interface IAgreementBottomSheetProps {
   bottomDrawerRef: React.RefObject<BottomDrawerMethods>;
@@ -34,6 +35,7 @@ const AgreeBottomSheet = ({bottomDrawerRef}: IAgreementBottomSheetProps) => {
   ]);
 
   const {updateAllAgreement} = useHandleAgreement();
+  const {user, setUser} = useUserStore();
 
   const isAllSelected =
     agreements[0].isAgree && agreements[1].isAgree && agreements[2].isAgree;
@@ -48,10 +50,12 @@ const AgreeBottomSheet = ({bottomDrawerRef}: IAgreementBottomSheetProps) => {
     });
   };
 
-  const finishSignup = () => {
+  const finishSignup = async () => {
     bottomDrawerRef.current?.close();
+    setUser({...user, lawAgreement: allAgreement});
+    const body = (({type, idToken, ...rest}) => rest)(user);
     // 회원가입 api 실행
-
+    await postRegisterUser(user.type, user.idToken, body);
     stackNavigation.navigate(stackScreens.SignupCompleteScreen);
   };
 

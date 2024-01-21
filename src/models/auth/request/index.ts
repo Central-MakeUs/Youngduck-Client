@@ -1,7 +1,9 @@
+import {TGenre} from '@/types/signup/genre';
+
 export interface IRegisterRequest {
   nickname: string;
   lawAgreement: boolean;
-  genres: string[];
+  genres: TGenre[];
   name: string;
   email: string;
 }
