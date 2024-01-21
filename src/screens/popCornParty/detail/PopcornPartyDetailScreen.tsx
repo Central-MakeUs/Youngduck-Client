@@ -2,7 +2,6 @@ import {
   Image,
   NativeScrollEvent,
   NativeSyntheticEvent,
-  Pressable,
   ScrollView,
   View,
 } from 'react-native';
@@ -17,7 +16,6 @@ import DefaultContainer from '@/components/container/defaultContainer';
 import Typography from '@/components/typography';
 import Divider from '@/components/divider';
 import BoxButton from '@/components/buttons/boxButton';
-import palette from '@/styles/theme/color';
 import ScreeningIndex from '@/components/screeningIndex';
 import TabBar from '@/components/tabBar';
 
