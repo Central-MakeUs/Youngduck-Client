@@ -34,6 +34,17 @@ const screeningIndexStyles = ({tooltipHeight}: IScreeningStylesProps) =>
       borderRadius: 100,
       backgroundColor: palette.Primary.Normal,
     },
+    reviewIconWrap: {
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginTop: 4,
+      paddingHorizontal: 10,
+      marginBottom: 24,
+    },
+    reviewIcon: {
+      alignItems: 'center',
+    },
   });
 
 export default screeningIndexStyles;

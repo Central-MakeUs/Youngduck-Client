@@ -5,6 +5,9 @@ import {useEffect, useRef, useState} from 'react';
 import Tooltip from './tooltip';
 import screeningIndexStyles from './ScreeningIndex.style';
 import {Easing} from 'react-native';
+import DisappointedSvg from '@/assets/icons/disappointed.svg';
+import SatisfiedSvg from '@/assets/icons/satisfied.svg';
+import ReviewRate from './reviewRate';
 
 const TOOLTIP_MAX_LENGTH = 47.333343505859375;
 
@@ -55,6 +58,21 @@ const ScreeningIndex = ({mt, mb}: CommonMarginVerticalProps) => {
           <View style={style.screeningIndex} />
         </Animated.View>
       </View>
+      <View style={style.reviewIconWrap}>
+        <View style={style.reviewIcon}>
+          <DisappointedSvg />
+          <Typography style="Label3" mt={4}>
+            아쉽..
+          </Typography>
+        </View>
+        <View style={style.reviewIcon}>
+          <SatisfiedSvg />
+          <Typography style="Label3" mt={4}>
+            만족!
+          </Typography>
+        </View>
+      </View>
+      <ReviewRate />
     </View>
   );
 };
