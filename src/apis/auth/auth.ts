@@ -3,7 +3,7 @@ import {apiWithoutToken} from '@/apis';
 import {IRegisterRequest} from '@/models/auth/request';
 import {ResponseDTO} from '@/models/common/responseDTO';
 import {ILoginResponse, IRegisterResponse} from '@/models/auth/response';
-import {setTokens} from '@/services/localStorage/localStorage';
+import {getRefreshToken, setTokens} from '@/services/localStorage/localStorage';
 
 // 로그인 api 함수
 export const postLoginUser = async (
@@ -30,10 +30,10 @@ export const postRegisterUser = async (
 };
 
 // refresh 토큰으로 access 토큰 재발급 api 함수
-export const postAccessToken = async (
-  refreshToken: string,
-): Promise<boolean> => {
+export const postAccessToken = async (): Promise<boolean> => {
   try {
+    // 로컬 스토리지에서 refresh 토큰 꺼내기
+    const refreshToken = await getRefreshToken();
     const res = await apiWithoutToken.post(
       `/auth/token/refresh?refreshToken=${refreshToken}`,
     );
