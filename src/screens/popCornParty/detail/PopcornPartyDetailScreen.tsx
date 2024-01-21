@@ -2,6 +2,7 @@ import {
   Image,
   NativeScrollEvent,
   NativeSyntheticEvent,
+  Pressable,
   ScrollView,
   View,
 } from 'react-native';
@@ -20,6 +21,8 @@ import ScreeningIndex from '@/components/screeningIndex';
 import TabBar from '@/components/tabBar';
 import PopcornKeyword from './popcornKeyword';
 import VoteNextPopcorn from '../home/components/voteNextPopcorn';
+import palette from '@/styles/theme/color';
+import stackScreens from '@/constants/stackScreens';
 
 function PopcornPartyDetailScreen() {
   const {stackNavigation} = useNavigator();
@@ -104,6 +107,17 @@ function PopcornPartyDetailScreen() {
             <Divider height={8} mt={32} mb={16} />
           </DefaultContainer>
           <VoteNextPopcorn title="팝콘 튀기고 싶은 다른 영화가 있다면?" />
+          <DefaultContainer>
+            <Pressable
+              onPress={() =>
+                stackNavigation.navigate(stackScreens.WriteRecommandScreen)
+              }
+              style={popcornPartyDetailScreenStyles.recommandOtherButton}>
+              <Typography style="Label1" color={palette.Primary.Dark}>
+                다른 작품 추천하기
+              </Typography>
+            </Pressable>
+          </DefaultContainer>
         </ScrollView>
       </ScrollView>
     </View>
