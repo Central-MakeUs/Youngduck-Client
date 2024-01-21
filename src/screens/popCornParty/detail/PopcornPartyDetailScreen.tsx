@@ -18,6 +18,7 @@ import Divider from '@/components/divider';
 import BoxButton from '@/components/buttons/boxButton';
 import ScreeningIndex from '@/components/screeningIndex';
 import TabBar from '@/components/tabBar';
+import PopcornKeyword from './popcornKeyword';
 
 function PopcornPartyDetailScreen() {
   const {stackNavigation} = useNavigator();
@@ -93,7 +94,8 @@ function PopcornPartyDetailScreen() {
             handleTopBarState={handleTopBarState}
           />
           <DefaultContainer>
-            <ScreeningIndex />
+            <ScreeningIndex mt={24} mb={40} />
+            <PopcornKeyword />
           </DefaultContainer>
         </ScrollView>
       </ScrollView>
