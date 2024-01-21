@@ -16,6 +16,7 @@ import stackScreens from '@/constants/stackScreens';
 import {View} from 'react-native';
 import {agreeBottomSheetStyles} from './AgreeBottomSheet.style';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {postRegisterUser} from '@/apis/auth/auth';
 
 interface IAgreementBottomSheetProps {
   bottomDrawerRef: React.RefObject<BottomDrawerMethods>;
@@ -49,6 +50,8 @@ const AgreeBottomSheet = ({bottomDrawerRef}: IAgreementBottomSheetProps) => {
 
   const finishSignup = () => {
     bottomDrawerRef.current?.close();
+    // 회원가입 api 실행
+
     stackNavigation.navigate(stackScreens.SignupCompleteScreen);
   };
 
