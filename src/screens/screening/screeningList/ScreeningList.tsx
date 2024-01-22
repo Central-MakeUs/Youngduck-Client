@@ -12,7 +12,13 @@ import {screeningListStyles} from './ScreeningList.style';
 const ScreeningListScreen = () => {
   const [searchInput, setSearchInput] = useState<string>('');
   const [category, setCategory] = useState<string>('');
-  const categoryOptions = ['전체', '졸업상영', '과제상영', '정기상영'];
+  const categoryOptions = [
+    {label: '전체', value: 'ALL'},
+    {label: '졸업상영', value: 'ASSIGNMENT'},
+    {label: '과제상영', value: 'CASUAL'},
+    {label: '정기상영', value: 'SPECIAL'},
+    {label: '기타', value: 'ETC'},
+  ];
   return (
     <DismissKeyboardView>
       <DefaultContainer>
@@ -32,7 +38,13 @@ const ScreeningListScreen = () => {
         showsHorizontalScrollIndicator={false}
         style={screeningListStyles.optionContainer}>
         {categoryOptions.map(option => (
-          <SelectButton type={option} onPress={() => {}} isSelected={false} />
+          <SelectButton
+            type={option.label}
+            onPress={() => {
+              setCategory(option.value);
+            }}
+            isSelected={option.value === category}
+          />
         ))}
       </ScrollView>
       <DefaultContainer>

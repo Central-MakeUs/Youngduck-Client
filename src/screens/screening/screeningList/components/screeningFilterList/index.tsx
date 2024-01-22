@@ -1,15 +1,18 @@
 import Divider from '@/components/divider';
 import ScreeningItem from '@/components/items/screeningItem';
-import {View} from 'react-native';
+import {ScrollView} from 'react-native';
 
 const ScreeningFilterList = () => {
   return (
-    <View>
+    <ScrollView>
       <ScreeningItem />
       <Divider height={2} mb={16} />
       <ScreeningItem />
+      <Divider height={2} mb={16} />
       <ScreeningItem />
-    </View>
+      <Divider height={2} mb={16} />
+      <ScreeningItem />
+    </ScrollView>
   );
 };
 export default ScreeningFilterList;
