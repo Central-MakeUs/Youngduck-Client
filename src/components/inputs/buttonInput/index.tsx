@@ -1,4 +1,5 @@
 import {View, TextInput, Pressable} from 'react-native';
+import {useEffect, useRef, useState} from 'react';
 
 import {inputStyles, inputTypes} from '@/styles/Input.style';
 import useFocus from '@/hooks/useFocus';
@@ -9,7 +10,6 @@ import Time from '@/assets/icons/time.svg';
 import Location from '@/assets/icons/location.svg';
 import Search from '@/assets/icons/search.svg';
 
-import {useEffect, useRef, useState} from 'react';
 import Typography from '@/components/typography';
 import {buttonInputStyle} from './ButtonInput.style';
 import TimePickerModal from '@/components/modals/timePickerModal';
@@ -43,7 +43,6 @@ const ButtonInput = ({
   const {location} = useLocationStore();
   const {stackNavigation} = useNavigator();
   const {type, onFocus, onBlur} = useFocus();
-
   const [timeModal, setTimeModal] = useState(false);
   const [timeString, setTimeString] = useState<number | string | null>(null);
 
@@ -81,10 +80,11 @@ const ButtonInput = ({
 
   useEffect(() => {
     // 시간 상태 저장
+    onBlur(category === 'date' || category === 'time' ? timeString : value);
     if (category === 'time') {
       setTimeString(value ? `${getHours(value)} : ${getMinutes(value)}` : '');
     }
-  }, [value]);
+  }, [value, timeString]);
 
   // 필요한 모달 열기
   const showModal = () => {

@@ -1,14 +1,15 @@
 import {Pressable, View, TextInput, TouchableOpacity} from 'react-native';
+import ModalContainer from 'react-native-modal';
+import {useEffect, useState} from 'react';
+
 import DownArrow from '@/assets/icons/down-arrow.svg';
 import TopArrow from '@/assets/icons/top-arrow.svg';
 import useFocus from '@/hooks/useFocus';
 import Typography from '../typography';
-import {inputStyles, inputTypes} from '@/styles/Input.style';
-import palette from '@/styles/theme/color';
-import {useState} from 'react';
-import {selectStyles} from './Select.style';
 
-import ModalContainer from 'react-native-modal';
+import palette from '@/styles/theme/color';
+import {inputStyles, inputTypes} from '@/styles/Input.style';
+import {selectStyles} from './Select.style';
 
 interface ISelectProps {
   options: string[];
@@ -34,6 +35,10 @@ const Select = ({
   const showOptions = () => {
     setOptionVisible(prev => !prev);
   };
+
+  useEffect(() => {
+    onBlur(value);
+  }, [value]);
   return (
     <View>
       <Typography
@@ -58,6 +63,7 @@ const Select = ({
               {borderColor: inputTypes[type].borderColor},
               {color: palette.Text.Normal},
             ]}
+            onFocus={onFocus}
             placeholder={placeholder}
             value={value}
             editable={false}
