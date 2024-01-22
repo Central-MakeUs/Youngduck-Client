@@ -9,6 +9,11 @@ const writeReviewScreenStyles = StyleSheet.create({
     width: screenWidth,
     padding: 16,
   },
+  agreementWrap: {
+    flexDirection: 'row',
+    paddingRight: 24,
+  },
+  paddingCheckBox: {paddingTop: 16},
 });
 
 export default writeReviewScreenStyles;
