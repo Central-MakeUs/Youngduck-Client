@@ -11,6 +11,7 @@ const reviewRateStyles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     borderColor: palette.Line.Normal,
+    overflow: 'hidden',
   },
   negativeWrap: {
     backgroundColor: palette.Fill.Assistive,
