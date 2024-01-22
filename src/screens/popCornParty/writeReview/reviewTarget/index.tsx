@@ -10,11 +10,7 @@ interface IReviewTargetProps {
   director: string;
 }
 
-const ReviewTarget = ({
-  imageURI = '',
-  title = '',
-  director = '',
-}: IReviewTargetProps) => {
+const ReviewTarget = ({imageURI, title, director}: IReviewTargetProps) => {
   return (
     <>
       <View style={reviewTargetStyls.container}>
@@ -30,7 +26,7 @@ const ReviewTarget = ({
           <Typography style="Body2">{director}</Typography>
         </View>
       </View>
-      <Divider height={1} mt={16} mb={16} />
+      <Divider height={1} mt={16} />
     </>
   );
 };

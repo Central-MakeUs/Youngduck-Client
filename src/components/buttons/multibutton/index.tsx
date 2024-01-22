@@ -7,6 +7,7 @@ interface IMultiButtonProps {
   rightButtonText: string;
   onLeftButtonPress: () => void;
   onRightButtonPress: () => void;
+  disabled?: boolean;
 }
 
 const MultiButton = ({
@@ -14,13 +15,17 @@ const MultiButton = ({
   rightButtonText,
   onLeftButtonPress,
   onRightButtonPress,
+  disabled,
 }: IMultiButtonProps) => {
   return (
     <View style={multiButtonStyles.container}>
       <BoxButton variant="default" width={'50%'} onPress={onLeftButtonPress}>
         {leftButtonText}
       </BoxButton>
-      <BoxButton width={'50%'} onPress={onRightButtonPress}>
+      <BoxButton
+        width={'50%'}
+        onPress={onRightButtonPress}
+        disabled={!disabled}>
         {rightButtonText}
       </BoxButton>
     </View>

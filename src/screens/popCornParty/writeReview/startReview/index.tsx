@@ -4,11 +4,11 @@ import {View} from 'react-native';
 import startReviewStyles from './StartReview.style';
 
 interface IStartReviewProps {
-  review: {[key: string]: string};
-  setReview: React.Dispatch<React.SetStateAction<{[key: string]: string}>>;
+  startReview: {[key: string]: string};
+  setStartReview: React.Dispatch<React.SetStateAction<{[key: string]: string}>>;
 }
 
-const StartReview = ({review, setReview}: IStartReviewProps) => {
+const StartReview = ({startReview, setStartReview}: IStartReviewProps) => {
   const questions = [
     {
       category: 'isWatched',
@@ -27,25 +27,27 @@ const StartReview = ({review, setReview}: IStartReviewProps) => {
     },
   ];
   return (
-    <View>
+    <View style={startReviewStyles.container}>
       {questions.map(question => (
-        <>
+        <View key={`${question.question}-container`}>
           <Typography style="Subtitle2" mb={8} key={question.question}>
             {question.question}
           </Typography>
-          <View style={startReviewStyles.answersWrap}>
+          <View
+            style={startReviewStyles.answersWrap}
+            key={`${question.question}-answer-wrap`}>
             {question.answers.map(answer => (
               <SelectButton
                 onPress={() =>
-                  setReview({...review, [question.category]: answer})
+                  setStartReview({...startReview, [question.category]: answer})
                 }
                 type={answer}
-                isSelected={review[question.category] === answer}
+                isSelected={startReview[question.category] === answer}
                 key={answer}
               />
             ))}
           </View>
-        </>
+        </View>
       ))}
     </View>
   );
