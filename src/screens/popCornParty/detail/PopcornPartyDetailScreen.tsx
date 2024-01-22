@@ -28,14 +28,17 @@ function PopcornPartyDetailScreen() {
   const {stackNavigation} = useNavigator();
   const {screenWidth} = getScreenSize();
   const {top, bottom} = useSafeAreaInsets();
-  const [isLeft, setIsLeft] = useState<boolean>(true);
+  const [currentTabBarNumber, setCurrentTabBarNumber] = useState<number>(0);
+
+  // tab bar에 필요한 제목들 선언
+  const tabBars = [
+    {title: '팝콘 지수', tabNumber: 0},
+    {title: '팝콘들의 리뷰', tabNumber: 1},
+  ];
 
   const [opacity, setOpacity] = useState<number>(1);
 
   const handleGoBack = () => stackNavigation.goBack();
-
-  const handleTopBarState = (pressedTab: 'left' | 'right') =>
-    setIsLeft(pressedTab === 'left' ? true : false);
 
   const calculateOpacity = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const value =
@@ -96,16 +99,19 @@ function PopcornPartyDetailScreen() {
             </View>
           </DefaultContainer>
           <TabBar
-            leftTabBarName="팝콘 지수"
-            rightTabBarName="팝콘들의 리뷰"
-            isLeft={isLeft}
-            handleTopBarState={handleTopBarState}
+            currentTabBarNumber={currentTabBarNumber}
+            setCurrentTabBarNumber={setCurrentTabBarNumber}
+            tabBars={tabBars}
           />
-          <DefaultContainer>
-            <ScreeningIndex mt={24} mb={40} />
-            <PopcornKeyword />
-            <Divider height={8} mt={32} mb={16} />
-          </DefaultContainer>
+          {/* 현재 tab bar에 맞는 컴포넌트 보여주기 */}
+          {currentTabBarNumber === 0 && (
+            <DefaultContainer>
+              <ScreeningIndex mt={24} mb={40} />
+              <PopcornKeyword />
+              <Divider height={8} mt={32} mb={16} />
+            </DefaultContainer>
+          )}
+          {currentTabBarNumber === 1 && <></>}
           <VoteNextPopcorn title="팝콘 튀기고 싶은 다른 영화가 있다면?" />
           <DefaultContainer>
             <Pressable
