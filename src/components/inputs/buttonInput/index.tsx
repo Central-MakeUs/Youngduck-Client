@@ -1,27 +1,25 @@
 import {View, TextInput, Pressable} from 'react-native';
 import {useEffect, useRef, useState} from 'react';
+import {DateParsable} from 'react-native-calendar-picker';
+import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
 
-import {inputStyles, inputTypes} from '@/styles/Input.style';
 import useFocus from '@/hooks/useFocus';
 import palette from '@/styles/theme/color';
-
 import Calendar from '@/assets/icons/calendar.svg';
 import Time from '@/assets/icons/time.svg';
 import Location from '@/assets/icons/location.svg';
 import Search from '@/assets/icons/search.svg';
-
 import Typography from '@/components/typography';
-import {buttonInputStyle} from './ButtonInput.style';
 import TimePickerModal from '@/components/modals/timePickerModal';
-
-import {format, getHours, getMinutes} from 'date-fns';
 import DateRangePickerModal from '@/components/modals/dateRangePickerModal';
-import {DateParsable} from 'react-native-calendar-picker';
-import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
 import BottomSheet from '@/components/bottomSheet';
 import useNavigator from '@/hooks/useNavigator';
 import {useLocationStore} from '@/stores/location';
 import SearchBottomSheet from '@/screens/popCornParty/writeRecommand/components/searchBottomSheet';
+import {getDateRange, getTime} from '@/utils/getDate';
+
+import {buttonInputStyle} from './ButtonInput.style';
+import {inputStyles, inputTypes} from '@/styles/Input.style';
 
 interface TypeInputProps {
   value?: any; // TODO: 백엔드 통신에 따른 타입 추가 예정
@@ -63,18 +61,10 @@ const ButtonInput = ({
       setValue({...value, screeningStartDate: selectedStartDate});
     }
     // 달력 종료일 상태 저장 및 bottomSheet 닫기
-    if (selectedEndDate && bottomDrawerRef) {
+    if (selectedEndDate && bottomDrawerRef && selectedStartDate) {
       bottomDrawerRef.current?.close();
       setValue({...value, screeningEndDate: selectedEndDate});
-
-      setTimeString(
-        selectedStartDate && selectedEndDate
-          ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
-              selectedEndDate,
-              'yyyy-MM-dd',
-            )}`
-          : '',
-      );
+      setTimeString(getDateRange(selectedStartDate, selectedEndDate));
     }
   }, [category, location, selectedEndDate, selectedStartDate]);
 
@@ -82,7 +72,7 @@ const ButtonInput = ({
     // 시간 상태 저장
     onBlur(category === 'date' || category === 'time' ? timeString : value);
     if (category === 'time') {
-      setTimeString(value ? `${getHours(value)} : ${getMinutes(value)}` : '');
+      setTimeString(getTime(value));
     }
   }, [value, timeString]);
 
