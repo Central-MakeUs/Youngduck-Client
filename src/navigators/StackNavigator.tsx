@@ -1,27 +1,29 @@
-import stackScreens from '@/constants/stackScreens';
+import {useEffect, useState} from 'react';
+import SplashScreen from 'react-native-splash-screen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+import stackScreens from '@/constants/stackScreens';
+
 import LoginScreen from '@/screens/login/LoginScreen';
 import SignupScreen from '@/screens/signup/SignupScreen';
 import BottomTabNavigator from './bottomTabNavigator';
 import SignupCompleteScreen from '@/screens/signupComplete/SIgnupCompleteScreen';
-import {RootStackParamList} from '@/types/navigator';
 import MyPageScreen from '@/screens/myPage/MyPageScreen';
 import DetailScreen from '@/screens/screening/detail/DetailScreen';
-import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
-import useNavigator from '@/hooks/useNavigator';
-import ReviewWritingScreen from '@/screens/screening/reviewWriting/ReviewWritingScreen';
-import CancelTopBar from '@/components/topBar/cancelTopBar';
 import WritingScreen from '@/screens/screening/writing/WritingScreen';
-
+import KakaoSearchScreen from '@/screens/screening/kakaoSearch/KakaoSearchScreen';
+import ReviewWritingScreen from '@/screens/screening/reviewWriting/ReviewWritingScreen';
 import PopcornPartyDetailScreen from '@/screens/popCornParty/detail/PopcornPartyDetailScreen';
 import RecommandListScreen from '@/screens/popCornParty/recommandList/RecommandListScreen';
 import WriteRecommandScreen from '@/screens/popCornParty/writeRecommand/WriteRecommandScreen';
 import WriteReviewScreen from '@/screens/popCornParty/writeReview/WriteReviewScreen';
+
+import {RootStackParamList} from '@/types/navigator';
 import TitleTopBar from '@/components/topBar/titleTopBar';
-import KakaoSearchScreen from '@/screens/screening/kakaoSearch/KakaoSearchScreen';
+import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
+import CancelTopBar from '@/components/topBar/cancelTopBar';
+import useNavigator from '@/hooks/useNavigator';
 import {useLocationStore} from '@/stores/location';
-import {useEffect, useState} from 'react';
-import SplashScreen from 'react-native-splash-screen';
 import {postAccessToken} from '@/apis/auth/auth';
 import {getIsInstalled} from '@/services/localStorage/localStorage';
 
@@ -58,7 +60,7 @@ function StackNavigator() {
 
   useEffect(() => {
     if (isSignIn) {
-      stackNavigation.navigate('BottomTabScreens');
+      stackNavigation.navigate(stackScreens.BottomTabScreens);
     }
   }, [isSignIn]);
 
