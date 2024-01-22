@@ -90,7 +90,7 @@ function PopcornPartyDetailScreen() {
                 이번 작품, 팝코니들은 어떻게 보셨나요? 이 주의 팝콘작,
                 괴물입니다.
               </Typography>
-              <BoxButton onPress={() => {}} disabled mt={16}>
+              <BoxButton onPress={() => {}} variant="default" mt={16}>
                 설명 더 보기
               </BoxButton>
             </View>
