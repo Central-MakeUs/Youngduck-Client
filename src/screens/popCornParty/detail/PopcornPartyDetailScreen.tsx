@@ -23,6 +23,7 @@ import PopcornKeyword from './popcornKeyword';
 import VoteNextPopcorn from '../home/components/voteNextPopcorn';
 import palette from '@/styles/theme/color';
 import stackScreens from '@/constants/stackScreens';
+import CommentItem from '@/components/items/commentItem';
 
 function PopcornPartyDetailScreen() {
   const {stackNavigation} = useNavigator();
@@ -34,6 +35,28 @@ function PopcornPartyDetailScreen() {
   const tabBars = [
     {title: '팝콘 지수', tabNumber: 0},
     {title: '팝콘들의 리뷰', tabNumber: 1},
+  ];
+
+  const comments = [
+    {
+      nickname: '팝코니',
+      isSatisfied: true,
+      review: '내가 쓴 리뷰는 리스트 최상단에 고정될꼬얌',
+      date: '2024. 01. 10',
+    },
+    {
+      nickname: '파파콘',
+      isSatisfied: false,
+      review:
+        '오늘은 홍익대학교 영화동아리 Dromapic의 상영회를 방문했다. 상영회를 방문했는데 뭐랄까... 되게 오묘하고 메타포가 심오해서 상영회가 끝나고 나서도 계속 생각했다.. 주인공이 만진 작은 상자의 의미는 희망이였을까..? 아니면 절망이였을까..?\n적어도 절망은 아닐거라고 생각한다. 주인공이 상자를 쥐고나서 일이 잘 풀려나갔고 결말에서도 희망적인 부분을 많이 보여줬다.',
+      date: '2024. 01. 10',
+    },
+    {
+      nickname: '파콩이',
+      isSatisfied: true,
+      review: '인상적인 작품과 쾌적한 상영관',
+      date: '2024. 01. 10',
+    },
   ];
 
   const [opacity, setOpacity] = useState<number>(1);
@@ -111,7 +134,21 @@ function PopcornPartyDetailScreen() {
               <Divider height={8} mt={32} mb={16} />
             </DefaultContainer>
           )}
-          {currentTabBarNumber === 1 && <></>}
+          {currentTabBarNumber === 1 && (
+            <DefaultContainer>
+              {comments.map((comment, idx) => (
+                <CommentItem
+                  totalComments={comments.length}
+                  nickname={comment.nickname}
+                  isSatisfied={comment.isSatisfied}
+                  review={comment.review}
+                  date={comment.date}
+                  idx={idx}
+                  key={comment.nickname}
+                />
+              ))}
+            </DefaultContainer>
+          )}
           <VoteNextPopcorn title="팝콘 튀기고 싶은 다른 영화가 있다면?" />
           <DefaultContainer>
             <Pressable
