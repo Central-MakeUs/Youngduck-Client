@@ -11,7 +11,7 @@ import SearchButton from '../buttons/searchButton';
 interface InputProps extends TextInputProps {
   value: string;
   maxLength?: number;
-  title: string;
+  title?: string;
   placeholder: string;
   onChangeInput: (value: string) => void;
   content?: string;
@@ -76,13 +76,16 @@ const Input = ({
 
   return (
     <View>
-      <Typography
-        style="Label2"
-        color={inputTypes[type].titleColor}
-        mb={4}
-        essential={essential}>
-        {title}
-      </Typography>
+      {title && (
+        <Typography
+          style="Label2"
+          color={inputTypes[type].titleColor}
+          mb={4}
+          essential={essential}>
+          {title}
+        </Typography>
+      )}
+
       <View style={{justifyContent: 'center'}}>
         <TextInput
           {...props}
@@ -91,9 +94,6 @@ const Input = ({
             {
               borderColor: inputTypes[type].borderColor,
               color: palette.Text.Normal,
-              //color: isDuplicated
-              //  ? palette.Text.Normal
-              //  : palette.Text.Alternative,
             },
           ]}
           placeholder={placeholder}
@@ -102,7 +102,6 @@ const Input = ({
           ref={inputRef ? inputRef : null}
           onFocus={onFocus}
           onBlur={() => {
-            //focus out 일 때도 warnnig 확인
             if (maxLength) onFocusout(value, maxLength);
           }}
           placeholderTextColor={palette.Text.Assistive}

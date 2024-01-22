@@ -6,7 +6,8 @@ import palette from '@/styles/theme/color';
 
 interface ISelectButtonProps {
   onPress: () => void;
-  type: TGenre;
+  //type: TGenre;
+  type: string;
   isSelected: boolean;
 }
 

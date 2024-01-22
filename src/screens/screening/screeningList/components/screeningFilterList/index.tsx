@@ -2,7 +2,7 @@ import Divider from '@/components/divider';
 import ScreeningItem from '@/components/items/screeningItem';
 import {View} from 'react-native';
 
-const ScreeningSearchList = () => {
+const ScreeningFilterList = () => {
   return (
     <View>
       <ScreeningItem />
@@ -12,4 +12,4 @@ const ScreeningSearchList = () => {
     </View>
   );
 };
-export default ScreeningSearchList;
+export default ScreeningFilterList;
