@@ -1,21 +1,22 @@
 import {View} from 'react-native';
-import {detailBottomButtonStyles} from './DetailBottomButton.style';
-import BoxButton from '../../buttons/boxButton';
+
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import BlackTicket from '@/assets/icons/black-ticket.svg';
 import OptionButton from '@/components/buttons/optionButton';
+import BoxButton from '@/components/buttons/boxButton';
+import {bottomButtonStyles} from './BottomDetailButton.style';
 
-interface IDetailBottomButtonProps {
+interface IBottomButtonProps {
   onPress: () => void;
 }
 
-const DetailBottomButton = ({onPress}: IDetailBottomButtonProps) => {
+const BottomDetailButton = ({onPress}: IBottomButtonProps) => {
   return (
-    <View style={detailBottomButtonStyles.container}>
-      <View style={detailBottomButtonStyles.left}>
+    <View style={bottomButtonStyles.container}>
+      <View style={bottomButtonStyles.left}>
         <BoxButton onPress={onPress}>
-          <View style={detailBottomButtonStyles.content}>
+          <View style={bottomButtonStyles.content}>
             <Typography style="Label1" color={palette.Text.Normal} mr={12}>
               신청 완료
             </Typography>
@@ -23,10 +24,10 @@ const DetailBottomButton = ({onPress}: IDetailBottomButtonProps) => {
           </View>
         </BoxButton>
       </View>
-      <View style={detailBottomButtonStyles.right}>
+      <View style={bottomButtonStyles.right}>
         <OptionButton type="heart" />
       </View>
     </View>
   );
 };
-export default DetailBottomButton;
+export default BottomDetailButton;

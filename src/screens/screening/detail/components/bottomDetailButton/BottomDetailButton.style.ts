@@ -1,7 +1,7 @@
 import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
-export const detailBottomButtonStyles = StyleSheet.create({
+export const bottomButtonStyles = StyleSheet.create({
   container: {
     width: '100%',
     height: 80,
