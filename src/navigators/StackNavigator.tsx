@@ -20,13 +20,47 @@ import WriteReviewScreen from '@/screens/popCornParty/writeReview/WriteReviewScr
 import TitleTopBar from '@/components/topBar/titleTopBar';
 import KakaoSearchScreen from '@/screens/screening/kakaoSearch/KakaoSearchScreen';
 import {useLocationStore} from '@/stores/location';
+import {useEffect, useState} from 'react';
+import SplashScreen from 'react-native-splash-screen';
+import {postAccessToken} from '@/apis/auth/auth';
+import {getIsInstalled} from '@/services/localStorage/localStorage';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function StackNavigator() {
-  const Stack = createNativeStackNavigator<RootStackParamList>();
-
   const {stackNavigation} = useNavigator();
-
   const {setLocation} = useLocationStore();
+
+  const [isSignIn, setIsSignIn] = useState(false);
+  const [isInstalled, setIsInstalled] = useState(false);
+  //const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      SplashScreen.hide();
+    }, 1000); //스플래시 활성화 시간
+
+    getIsInstalled().then((res: boolean) => {
+      setIsInstalled(res);
+
+      if (res) {
+        postAccessToken().then(res => {
+          setIsSignIn(res);
+          //setIsLoading(false);
+        });
+      } else {
+        //setIsLoading(false);
+      }
+    });
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (isSignIn) {
+      stackNavigation.navigate('BottomTabScreens');
+    }
+  }, [isSignIn]);
 
   // 스크리닝 화면 뒤로 가기
   const handleGoBack = () => {
@@ -41,7 +75,7 @@ function StackNavigator() {
   return (
     <Stack.Navigator>
       {/*로그인 페이지*/}
-      {/*<Stack.Screen
+      <Stack.Screen
         name={stackScreens.LoginScreen}
         component={LoginScreen}
         options={{headerShown: false}}
@@ -55,7 +89,7 @@ function StackNavigator() {
         name={stackScreens.SignupCompleteScreen}
         component={SignupCompleteScreen}
         options={{headerShown: false}}
-      />*/}
+      />
       {/*BottomTab 3개 페이지*/}
       <Stack.Screen
         name={stackScreens.BottomTabScreens}
