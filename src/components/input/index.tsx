@@ -1,7 +1,8 @@
-import useFocus from '@/hooks/useFocus';
-import {inputStyles, inputTypes} from '@/styles/Input.style';
 import {LegacyRef, useEffect} from 'react';
 import {View, TextInput, TextInputProps} from 'react-native';
+
+import useFocus from '@/hooks/useFocus';
+import {inputStyles, inputTypes} from '@/styles/Input.style';
 import Typography from '../typography';
 import palette from '@/styles/theme/color';
 import DuplicatedButton from '../buttons/duplicatedButton';

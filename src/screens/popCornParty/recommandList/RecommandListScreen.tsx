@@ -1,11 +1,12 @@
+import {useEffect, useState} from 'react';
+import {ActivityIndicator, FlatList} from 'react-native';
+
 import DefaultContainer from '@/components/container/defaultContainer';
 import PopcornItem from '@/components/items/popcornItem';
 import SubTitleDescription from '@/components/title/subTitleDescription';
 import {IPopcornItemProps, IRenderItemProps} from '@/types/popcornParty';
-import {useEffect, useState} from 'react';
-import {ActivityIndicator, FlatList} from 'react-native';
 import {defaultDatas, moreDats} from './dummy';
-import getVoteDateRange from '@/utils/getVoteDateRange';
+import {getVoteDateRange} from '@/utils/getDate';
 
 function RecommandListScreen() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
