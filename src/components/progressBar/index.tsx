@@ -10,15 +10,15 @@ interface IProgressBarProps {
 const ProgressBar = ({animatedValue, totalScreens}: IProgressBarProps) => {
   useEffect(() => {
     Animated.timing(animatedValue, {
-      toValue: 100 * (1 / Math.pow(totalScreens, 2)),
+      toValue: 100 / totalScreens,
       duration: 1000,
       useNativeDriver: false,
     }).start();
   }, []);
 
   const width = animatedValue.interpolate({
-    inputRange: [0, totalScreens * 100],
-    outputRange: ['0%', `${totalScreens * 100}%`],
+    inputRange: [0, 100],
+    outputRange: ['0%', '100%'],
     extrapolate: 'clamp',
   });
 
