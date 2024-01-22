@@ -1,6 +1,7 @@
+import {Pressable, View} from 'react-native';
+
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
-import {Pressable, View} from 'react-native';
 import {dateOptionStyles} from './DateOption.style';
 
 interface IDateOptionProps {
