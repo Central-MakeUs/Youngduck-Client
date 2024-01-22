@@ -1,16 +1,18 @@
+import {useState} from 'react';
+import {Keyboard, Pressable, View} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+
 import CheckBox from '@/components/checkBox';
 import DefaultContainer from '@/components/container/defaultContainer';
 import ButtonInput from '@/components/inputs/buttonInput';
 import TextArea from '@/components/inputs/textArea';
 import SubTitleDescription from '@/components/title/subTitleDescription';
-import getVoteDateRange from '@/utils/getVoteDateRange';
-import {useState} from 'react';
-import {Keyboard, Pressable, View} from 'react-native';
-import writeRecommandScreenStyles from './WriteRecommandScreen.style';
 import BoxButton from '@/components/buttons/boxButton';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import useNavigator from '@/hooks/useNavigator';
 import Popup from '@/components/popup';
+import useNavigator from '@/hooks/useNavigator';
+import {getVoteDateRange} from '@/utils/getDate';
+
+import writeRecommandScreenStyles from './WriteRecommandScreen.style';
 
 function WriteRecommandScreen() {
   const [selectedMovie, setSelectedMovie] = useState<string>('');

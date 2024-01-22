@@ -15,14 +15,8 @@ export type RootStackParamList = {
   SignupCompleteScreen: undefined;
   BottomTabScreens: undefined;
   MyPageScreen: undefined;
-  //TODO: 추후에 필요한 페이지 타입 주가
-
-  // 스크리닝 페이지
-  WritingScreen: undefined;
-  DetailScreen: {id: number};
-  ReviewWritingScreen: undefined;
-  KakaoSearchScreen: undefined;
-} & PopcornPartyStackParamList;
+} & PopcornPartyStackParamList &
+  ScreeningStackScreensParamList;
 
 // bottomTab 컴포넌트 param 타입
 export type BottomTabParamList = {
@@ -38,9 +32,10 @@ export type ScreeningStackParamList = {
 };
 
 export type ScreeningStackScreensParamList = {
-  WritingScreen: undefined;
+  WritingScreen: {type: 'modified' | 'post'; search: string}; // 수정할 경우 또는 등록하는 경우 타입 생성
   DetailScreen: {id: number};
   ReviewWritingScreen: undefined;
+  KakaoSearchScreen: {type: 'modified' | 'post'};
 };
 
 type PopcornPartyStackParamList = {

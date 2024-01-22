@@ -1,27 +1,23 @@
 import {View, TextInput, Pressable} from 'react-native';
+import {useEffect, useRef, useState} from 'react';
+import {DateParsable} from 'react-native-calendar-picker';
+import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
 
-import {inputStyles, inputTypes} from '@/styles/Input.style';
 import useFocus from '@/hooks/useFocus';
 import palette from '@/styles/theme/color';
-
 import Calendar from '@/assets/icons/calendar.svg';
 import Time from '@/assets/icons/time.svg';
 import Location from '@/assets/icons/location.svg';
 import Search from '@/assets/icons/search.svg';
-
-import {useEffect, useRef, useState} from 'react';
 import Typography from '@/components/typography';
-import {buttonInputStyle} from './ButtonInput.style';
 import TimePickerModal from '@/components/modals/timePickerModal';
-
-import {format, getHours, getMinutes} from 'date-fns';
 import DateRangePickerModal from '@/components/modals/dateRangePickerModal';
-import {DateParsable} from 'react-native-calendar-picker';
-import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
 import BottomSheet from '@/components/bottomSheet';
-import useNavigator from '@/hooks/useNavigator';
-import {useLocationStore} from '@/stores/location';
 import SearchBottomSheet from '@/screens/popCornParty/writeRecommand/components/searchBottomSheet';
+import {getDateRange, getTime} from '@/utils/getDate';
+
+import {buttonInputStyle} from './ButtonInput.style';
+import {inputStyles, inputTypes} from '@/styles/Input.style';
 
 interface TypeInputProps {
   value?: any; // TODO: 백엔드 통신에 따른 타입 추가 예정
@@ -30,6 +26,8 @@ interface TypeInputProps {
   essential?: boolean;
   category: 'time' | 'date' | 'location' | 'search';
   setValue: (value: any) => void; // TODO: 백엔드 통신에 따른 타입 추가 예정
+
+  onPress?: () => void;
 }
 
 const ButtonInput = ({
@@ -39,11 +37,9 @@ const ButtonInput = ({
   essential,
   category,
   setValue,
+  onPress,
 }: TypeInputProps) => {
-  const {location} = useLocationStore();
-  const {stackNavigation} = useNavigator();
   const {type, onFocus, onBlur} = useFocus();
-
   const [timeModal, setTimeModal] = useState(false);
   const [timeString, setTimeString] = useState<number | string | null>(null);
 
@@ -55,50 +51,25 @@ const ButtonInput = ({
   >(undefined);
 
   useEffect(() => {
-    // 장소 value 상태 저장
-    if (category === 'location' && location) {
-      setValue(location);
-    }
     // 달력 시작일 상태 저장
     if (selectedStartDate) {
-      setValue({...value, startDate: selectedStartDate});
+      setValue({...value, screeningStartDate: selectedStartDate});
     }
     // 달력 종료일 상태 저장 및 bottomSheet 닫기
-    if (selectedEndDate && bottomDrawerRef) {
+    if (selectedEndDate && bottomDrawerRef && selectedStartDate) {
       bottomDrawerRef.current?.close();
-      setValue({...value, endDate: selectedEndDate});
-      
-      setTimeString(
-      selectedStartDate && selectedEndDate
-        ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
-            selectedEndDate,
-            'yyyy-MM-dd',
-          )}`
-        : '',
-    );
+      setValue({...value, screeningEndDate: selectedEndDate});
+      setTimeString(getDateRange(selectedStartDate, selectedEndDate));
     }
-  }, [category, location, selectedEndDate, selectedStartDate]);
+  }, [category, selectedEndDate, selectedStartDate]);
 
   useEffect(() => {
     // 시간 상태 저장
+    onBlur(category === 'date' || category === 'time' ? timeString : value);
     if (category === 'time') {
-      setTimeString(value ? `${getHours(value)} : ${getMinutes(value)}` : '');
+      setTimeString(getTime(value));
     }
-  }, [value]);
-
-//   useEffect(() => {
-//     if (selectedEndDate && bottomDrawerRef) {
-//       bottomDrawerRef.current?.close();
-//     }
-//     setTimeString(
-//       selectedStartDate && selectedEndDate
-//         ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
-//             selectedEndDate,
-//             'yyyy-MM-dd',
-//           )}`
-//         : '',
-//     );
-//   }, [selectedEndDate]);
+  }, [value, timeString]);
 
   // 필요한 모달 열기
   const showModal = () => {
@@ -110,10 +81,6 @@ const ButtonInput = ({
       (category === 'search' && bottomDrawerRef)
     ) {
       bottomDrawerRef.current?.open();
-    }
-    if (category === 'location') {
-      // 카카오 웹뷰로 이동
-      stackNavigation.navigate('KakaoSearchScreen');
     }
   };
 
@@ -143,7 +110,7 @@ const ButtonInput = ({
           {borderColor: inputTypes[type].borderColor},
           buttonInputStyle.button,
         ]}
-        onPress={showModal}
+        onPress={onPress ? onPress : showModal}
         onPressIn={() => onFocus()}
         onPressOut={() => onBlur(value)}>
         <TextInput
@@ -167,6 +134,7 @@ const ButtonInput = ({
           {category === 'search' && <Search />}
         </View>
       </Pressable>
+
       {category === 'time' && (
         <>
           {/*시간 모달 컴포넌트*/}

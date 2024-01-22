@@ -1,7 +1,8 @@
-import useFocus from '@/hooks/useFocus';
-import {inputStyles, inputTypes} from '@/styles/Input.style';
 import {LegacyRef, useEffect} from 'react';
 import {View, TextInput, TextInputProps} from 'react-native';
+
+import useFocus from '@/hooks/useFocus';
+import {inputStyles, inputTypes} from '@/styles/Input.style';
 import Typography from '../typography';
 import palette from '@/styles/theme/color';
 import DuplicatedButton from '../buttons/duplicatedButton';
@@ -26,6 +27,8 @@ interface InputProps extends TextInputProps {
 
   errorContent?: string;
   inputRef?: LegacyRef<TextInput> | undefined;
+
+  essential?: boolean;
 }
 
 const Input = ({
@@ -42,6 +45,7 @@ const Input = ({
   errorContent,
   inputRef,
   onSearchPress,
+  essential,
   ...props
 }: InputProps) => {
   const {type, onFocus, onBlur, onFocusout, onWarning} = useFocus();
@@ -72,7 +76,11 @@ const Input = ({
 
   return (
     <View>
-      <Typography style="Label2" color={inputTypes[type].titleColor} mb={4}>
+      <Typography
+        style="Label2"
+        color={inputTypes[type].titleColor}
+        mb={4}
+        essential={essential}>
         {title}
       </Typography>
       <View style={{justifyContent: 'center'}}>

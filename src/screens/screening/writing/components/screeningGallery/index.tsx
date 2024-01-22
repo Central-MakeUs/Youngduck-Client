@@ -1,27 +1,33 @@
+import ImageCropPicker from 'react-native-image-crop-picker';
+import {Image, TouchableOpacity, View} from 'react-native';
+
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import Gallery from '@/assets/icons/gallery.svg';
-import {Image, TouchableOpacity, View} from 'react-native';
-import {galleryStyles} from './ScreeningGallery.style';
-import RoundButton from '@/components/buttons/roundButton';
-import SvgIcons from '@/assets/svgIcons';
-import ImageCropPicker from 'react-native-image-crop-picker';
 import {checkPermission} from '@/utils/checkPermission';
+import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
+import {IImageRequest} from '@/models/image/request';
 
-const ScreeningGallery = () => {
+import {galleryStyles} from './ScreeningGallery.style';
+
+interface ScreeningGaleeryProps {
+  image: string;
+  setImage: (image: string) => void;
+}
+const ScreeningGallery = ({image, setImage}: ScreeningGaleeryProps) => {
+  const {uploadImage} = useScreeningMutation();
+
   // 갤러리 접근해 이미지 가져오기
   const handleImageUpload = async () => {
     try {
-      const image = await ImageCropPicker.openPicker({
+      const image: IImageRequest = await ImageCropPicker.openPicker({
         mediaType: 'photo',
         includeBase64: true,
         width: 120,
         height: 120,
       });
-      if (image?.path) {
-        console.log('이미지 경로', image.path);
-        // TODO: 백엔드 api 통신
-      }
+      const responseData = await uploadImage.mutateAsync(image);
+      setImage(responseData.data);
     } catch (err) {
       console.error(err);
     }
@@ -42,32 +48,17 @@ const ScreeningGallery = () => {
         상영회 이미지
       </Typography>
       <View style={galleryStyles.imageContainer}>
-        <Image
-          source={{
-            uri: 'https://cdn.pixabay.com/photo/2017/07/13/23/11/cinema-2502213_1280.jpg',
-            // TODO: 백엔드 api 응답 uri 넣기
-          }}
-          style={galleryStyles.image}
-        />
+        {image && (
+          <Image
+            source={{
+              uri: image,
+            }}
+            style={galleryStyles.image}
+          />
+        )}
         <TouchableOpacity onPress={handleClickGallery} activeOpacity={0.8}>
           <Gallery />
         </TouchableOpacity>
-      </View>
-      <View style={galleryStyles.proContainer}>
-        <Typography style="Body2" color={palette.Text.Alternative}>
-          이미지를 추가로 업로드하려면?
-        </Typography>
-        <RoundButton onPress={() => {}} bg={palette.Fill.Normal} px={8} py={4}>
-          <View style={galleryStyles.button}>
-            <Typography
-              style="Chips1"
-              color={palette.Text.Alternative}
-              mr={5.14}>
-              Pro 사용하기
-            </Typography>
-            <SvgIcons.RightArrowIcon />
-          </View>
-        </RoundButton>
       </View>
     </View>
   );
