@@ -2,6 +2,7 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import {View} from 'react-native';
 import popcornKeywordStyles from './PopcornKeyword.style';
+import KeywordItem from '@/components/items/keywordItem';
 
 const PopcornKeyword = () => {
   const popcornKeywords = [
@@ -23,46 +24,12 @@ const PopcornKeyword = () => {
         </Typography>
       </View>
       {popcornKeywords.map(popcornKeyword => (
-        <View
-          style={popcornKeywordStyles.keywordWrap}
-          key={`${popcornKeyword.keyword}-wrap`}>
-          <View
-            style={[
-              popcornKeywordStyles.guageBar,
-              {
-                width: `${popcornKeyword.count}%`,
-                backgroundColor: popcornKeyword.isPositive
-                  ? palette.Primary.Assistive
-                  : palette.Fill.Assistive,
-              },
-            ]}
-            key={`${popcornKeyword.keyword}-guage-bar`}
-          />
-          <View
-            style={popcornKeywordStyles.typographyWrap}
-            key={`${popcornKeyword.keyword}-typography-wrap`}>
-            <Typography
-              style="Label1"
-              color={
-                popcornKeyword.isPositive
-                  ? palette.Primary.Deep
-                  : palette.Text.Alternative
-              }
-              key={`${popcornKeyword.keyword}`}>
-              {popcornKeyword.keyword}
-            </Typography>
-            <Typography
-              style="Label2"
-              color={
-                popcornKeyword.isPositive
-                  ? palette.Primary.Deep
-                  : palette.Text.Alternative
-              }
-              key={`${popcornKeyword.keyword}-${popcornKeyword.count}`}>
-              {popcornKeyword.count.toString()}
-            </Typography>
-          </View>
-        </View>
+        <KeywordItem
+          keyword={popcornKeyword.keyword}
+          isPositive={popcornKeyword.isPositive}
+          count={popcornKeyword.count}
+          key={popcornKeyword.keyword}
+        />
       ))}
     </>
   );
