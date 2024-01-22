@@ -13,6 +13,7 @@ import TextArea from '@/components/inputs/textArea';
 import DismissKeyboardView from '@/components/dismissKeyboardView';
 import Input from '@/components/input';
 import {DateParsable} from 'react-native-calendar-picker';
+import BoxButton from '@/components/buttons/boxButton';
 
 const WritingScreen = () => {
   type TWriteValue = {
@@ -65,6 +66,8 @@ const WritingScreen = () => {
 
   console.log('작성하기 value값', inputValues);
 
+  const handleWriteScreening = () => {};
+
   return (
     <DefaultContainer>
       <DismissKeyboardView>
@@ -76,7 +79,10 @@ const WritingScreen = () => {
           상영 정보를 입력해주세요!
         </Typography>
         {/*갤러리 선택*/}
-        <ScreeningGallery />
+        <ScreeningGallery
+          image={inputValues.image}
+          setImage={value => onChangeInput('image', value)}
+        />
 
         {/*타이틀*/}
         <View style={writingStyles.container}>
@@ -233,6 +239,9 @@ const WritingScreen = () => {
         <Typography style="Body2" color={palette.Text.Alternative} mb={34}>
           수정이나 비공개 처리는 가능해요.
         </Typography>
+        <BoxButton onPress={handleWriteScreening} mb={12}>
+          등록하기
+        </BoxButton>
       </DismissKeyboardView>
     </DefaultContainer>
   );
