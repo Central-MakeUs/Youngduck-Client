@@ -1,10 +1,15 @@
 import SvgIcons from '@/assets/svgIcons';
 import palette from '@/styles/theme/color';
 import {TouchableOpacity} from 'react-native';
-import {optionStyles, optionTypeStyles} from './OptionButton.style';
+import {
+  optionStyles,
+  optionTypDetailStyles,
+  optionTypeStyles,
+} from './OptionButton.style';
+import {OptionButtonType} from '@/types/ui';
 
 interface OptionButtonProps {
-  type: 'heart' | 'alram';
+  type: OptionButtonType;
   isSelected?: boolean;
   onPress?: () => void;
   disabled?: boolean;
@@ -22,20 +27,22 @@ const OptionButton = ({
       style={[
         optionStyles.container,
         optionTypeStyles[concept],
-        {
-          paddingHorizontal: type === 'heart' ? 16 : 12,
-          paddingVertical: type === 'heart' ? 17 : 10.5,
-        },
+        optionTypDetailStyles[type],
       ]}
       disabled={disabled}
       onPress={onPress}>
-      {type === 'alram' && (
+      {type === 'alarm' && (
         <SvgIcons.Alram
           fill={isSelected ? palette.Primary.Dark : palette.Fill.Strong}
         />
       )}
       {type === 'heart' && (
         <SvgIcons.Heart
+          fill={isSelected ? palette.Primary.Dark : palette.Fill.Strong}
+        />
+      )}
+      {type === 'write' && (
+        <SvgIcons.Pencil
           fill={isSelected ? palette.Primary.Dark : palette.Fill.Strong}
         />
       )}

@@ -1,4 +1,5 @@
 import palette from '@/styles/theme/color';
+import {OptionButtonType} from '@/types/ui';
 import {StyleSheet} from 'react-native';
 
 type optionType = 'selected' | 'nonSelected';
@@ -17,6 +18,22 @@ export const optionTypeStyles: Record<optionType, optionStyle> = {
     backgroundColor: palette.Primary.Alternative,
   },
 };
+
+export const optionTypDetailStyles: Record<OptionButtonType, any> = {
+  write: {
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+  },
+  alarm: {
+    paddingHorizontal: 12,
+    paddingVertical: 10.5,
+  },
+  heart: {
+    paddingHorizontal: 16,
+    paddingVertical: 17,
+  },
+};
+
 export const optionStyles = StyleSheet.create({
   container: {
     borderRadius: 8,

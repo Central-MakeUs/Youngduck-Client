@@ -18,14 +18,14 @@ const BottomDetailButton = ({onPress}: IBottomButtonProps) => {
         <BoxButton onPress={onPress}>
           <View style={bottomButtonStyles.content}>
             <Typography style="Label1" color={palette.Text.Normal} mr={12}>
-              신청 완료
+              관람 신청
             </Typography>
             <BlackTicket />
           </View>
         </BoxButton>
       </View>
       <View style={bottomButtonStyles.right}>
-        <OptionButton type="heart" />
+        <OptionButton type="write" />
       </View>
     </View>
   );

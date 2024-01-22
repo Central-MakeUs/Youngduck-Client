@@ -15,7 +15,7 @@ const DetailTitle = () => {
           Dromapic 상영회
         </Typography>
       </View>
-      <OptionButton type="alram" />
+      <OptionButton type="alarm" />
     </View>
   );
 };
