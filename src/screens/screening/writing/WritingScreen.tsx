@@ -1,4 +1,4 @@
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {TextInput, View} from 'react-native';
 import {DateParsable} from 'react-native-calendar-picker';
 
@@ -17,9 +17,22 @@ import {IScreeningBodyRequest} from '@/models/screening/request';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 
 import {writingStyles} from './WritingScreen.style';
+import {ScreenRouteProp} from '@/types/navigator';
+import useNavigator from '@/hooks/useNavigator';
+import stackScreens from '@/constants/stackScreens';
 
-const WritingScreen = () => {
+interface IWritingScreenProps {
+  route: ScreenRouteProp<'WritingScreen'>;
+}
+const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
+  const {type, search} = params;
+
+  useEffect(() => {
+    onChangeInput('location', search);
+  }, [search]);
+
   const {uploadScreening} = useScreeningMutation();
+  const {stackNavigation} = useNavigator();
   const [inputValues, setInputValues] = useState<IScreeningBodyRequest>({
     posterImgUrl: '',
     screeningTitle: '',
@@ -28,7 +41,7 @@ const WritingScreen = () => {
     screeningStartDate: undefined,
     screeningEndDate: undefined,
     screeningStartTime: undefined,
-    location: '',
+    location: search,
     information: '',
     formUrl: '',
     hostPoneNumber: '',
@@ -74,6 +87,10 @@ const WritingScreen = () => {
   const urlRef = useRef<TextInput | null>(null);
   const phoneRef = useRef<TextInput | null>(null);
   const emailRef = useRef<TextInput | null>(null);
+
+  const goToKakaoSearch = () => {
+    stackNavigation.navigate(stackScreens.KakaoSearchScreen, {type: type});
+  };
 
   const handleWriteScreening = async () => {
     //console.log('보내기', inputValues);
@@ -171,6 +188,7 @@ const WritingScreen = () => {
             title="장소"
             category="location"
             setValue={value => onChangeInput('location', value)}
+            onPress={goToKakaoSearch}
             essential
           />
         </View>

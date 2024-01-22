@@ -13,8 +13,6 @@ import Typography from '@/components/typography';
 import TimePickerModal from '@/components/modals/timePickerModal';
 import DateRangePickerModal from '@/components/modals/dateRangePickerModal';
 import BottomSheet from '@/components/bottomSheet';
-import useNavigator from '@/hooks/useNavigator';
-import {useLocationStore} from '@/stores/location';
 import SearchBottomSheet from '@/screens/popCornParty/writeRecommand/components/searchBottomSheet';
 import {getDateRange, getTime} from '@/utils/getDate';
 
@@ -28,6 +26,8 @@ interface TypeInputProps {
   essential?: boolean;
   category: 'time' | 'date' | 'location' | 'search';
   setValue: (value: any) => void; // TODO: 백엔드 통신에 따른 타입 추가 예정
+
+  onPress?: () => void;
 }
 
 const ButtonInput = ({
@@ -37,9 +37,8 @@ const ButtonInput = ({
   essential,
   category,
   setValue,
+  onPress,
 }: TypeInputProps) => {
-  const {location} = useLocationStore();
-  const {stackNavigation} = useNavigator();
   const {type, onFocus, onBlur} = useFocus();
   const [timeModal, setTimeModal] = useState(false);
   const [timeString, setTimeString] = useState<number | string | null>(null);
@@ -52,10 +51,6 @@ const ButtonInput = ({
   >(undefined);
 
   useEffect(() => {
-    // 장소 value 상태 저장
-    if (category === 'location' && location) {
-      setValue(location);
-    }
     // 달력 시작일 상태 저장
     if (selectedStartDate) {
       setValue({...value, screeningStartDate: selectedStartDate});
@@ -66,7 +61,7 @@ const ButtonInput = ({
       setValue({...value, screeningEndDate: selectedEndDate});
       setTimeString(getDateRange(selectedStartDate, selectedEndDate));
     }
-  }, [category, location, selectedEndDate, selectedStartDate]);
+  }, [category, selectedEndDate, selectedStartDate]);
 
   useEffect(() => {
     // 시간 상태 저장
@@ -86,10 +81,6 @@ const ButtonInput = ({
       (category === 'search' && bottomDrawerRef)
     ) {
       bottomDrawerRef.current?.open();
-    }
-    if (category === 'location') {
-      // 카카오 웹뷰로 이동
-      stackNavigation.navigate('KakaoSearchScreen');
     }
   };
 
@@ -119,7 +110,7 @@ const ButtonInput = ({
           {borderColor: inputTypes[type].borderColor},
           buttonInputStyle.button,
         ]}
-        onPress={showModal}
+        onPress={onPress ? onPress : showModal}
         onPressIn={() => onFocus()}
         onPressOut={() => onBlur(value)}>
         <TextInput
@@ -143,6 +134,7 @@ const ButtonInput = ({
           {category === 'search' && <Search />}
         </View>
       </Pressable>
+
       {category === 'time' && (
         <>
           {/*시간 모달 컴포넌트*/}

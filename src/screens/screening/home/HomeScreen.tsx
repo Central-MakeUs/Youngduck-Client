@@ -1,19 +1,17 @@
 import {FlatList, View} from 'react-native';
 
 import Divider from '@/components/divider';
-
 import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
 import DefaultContainer from '@/components/container/defaultContainer';
-
 import BoxButton from '@/components/buttons/boxButton';
 import Banner from '@/components/banner';
 import {screeningHomeStyle} from './HomeScreen.style';
 import ReviewScreening from './components/reviewScreening';
 import RecentScreening from './components/recentScreening';
 import WeeklyScreening from './components/weeklyScreening';
+import SubTitle from '@/components/title/subTitle';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
-import SubTitle from '@/components/title/subTitle';
 import ScreeningStackScreen from '@/constants/screeningStackScreen';
 
 function HomeScreen() {
@@ -52,8 +50,12 @@ function HomeScreen() {
 
   const renderItem = () => <WeeklyScreening />;
 
+  // 작성하기 페이지로 이동
   const handleGoWriting = () => {
-    stackNavigation.navigate(stackScreens.WritingScreen);
+    stackNavigation.navigate(stackScreens.WritingScreen, {
+      type: 'post',
+      search: '',
+    });
   };
 
   const handleGoScreeningList = () => {

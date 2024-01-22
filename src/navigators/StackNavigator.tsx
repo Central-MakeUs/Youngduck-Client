@@ -2,8 +2,6 @@ import {useEffect, useState} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import stackScreens from '@/constants/stackScreens';
-
 import LoginScreen from '@/screens/login/LoginScreen';
 import SignupScreen from '@/screens/signup/SignupScreen';
 import BottomTabNavigator from './bottomTabNavigator';
@@ -23,15 +21,14 @@ import TitleTopBar from '@/components/topBar/titleTopBar';
 import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
 import CancelTopBar from '@/components/topBar/cancelTopBar';
 import useNavigator from '@/hooks/useNavigator';
-import {useLocationStore} from '@/stores/location';
 import {postAccessToken} from '@/apis/auth/auth';
 import {getIsInstalled} from '@/services/localStorage/localStorage';
+import stackScreens from '@/constants/stackScreens';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function StackNavigator() {
   const {stackNavigation} = useNavigator();
-  const {setLocation} = useLocationStore();
 
   const [isSignIn, setIsSignIn] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
@@ -69,11 +66,6 @@ function StackNavigator() {
     stackNavigation.goBack();
   };
 
-  // 카카오 검색 초기화
-  const handleSearchGoBack = () => {
-    handleGoBack();
-    setLocation('');
-  };
   return (
     <Stack.Navigator>
       {/*로그인 페이지*/}
@@ -109,7 +101,7 @@ function StackNavigator() {
         component={WritingScreen}
         options={{
           header: () => (
-            <CancelTopBar text="상영회 등록하기" onPress={handleSearchGoBack} />
+            <CancelTopBar text="상영회 등록하기" onPress={handleGoBack} />
           ),
         }}
       />
