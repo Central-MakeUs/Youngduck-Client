@@ -1,47 +1,72 @@
+import {useRef, useState} from 'react';
+import {TextInput, View} from 'react-native';
+import {DateParsable} from 'react-native-calendar-picker';
+
 import DefaultContainer from '@/components/container/defaultContainer';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import ScreeningGallery from './components/screeningGallery';
-import {useRef, useState} from 'react';
-
-import {TextInput, View} from 'react-native';
-import {writingStyles} from './WritingScreen.style';
 import CheckBox from '@/components/checkBox';
 import ButtonInput from '@/components/inputs/buttonInput';
 import Select from '@/components/select';
 import TextArea from '@/components/inputs/textArea';
 import DismissKeyboardView from '@/components/dismissKeyboardView';
 import Input from '@/components/input';
-import {DateParsable} from 'react-native-calendar-picker';
 import BoxButton from '@/components/buttons/boxButton';
+import {IScreeningBodyRequest} from '@/models/screening/request';
+import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
+
+import {writingStyles} from './WritingScreen.style';
 
 const WritingScreen = () => {
-  // TODO: 작성하기 api body 타입 추가
-  const [inputValues, setInputValues] = useState({
-    image: '',
-    title: '',
-    screening: '',
-    group: '',
-    time: undefined,
+  const {uploadScreening} = useScreeningMutation();
+  const [inputValues, setInputValues] = useState<IScreeningBodyRequest>({
+    posterImgUrl: '',
+    screeningTitle: '',
+    hostName: '',
+    category: '',
+    screeningStartDate: undefined,
+    screeningEndDate: undefined,
+    screeningStartTime: undefined,
     location: '',
-    description: '',
-    url: '',
-    phone: '',
-    email: '',
-    startDate: undefined,
-    endDate: undefined,
+    information: '',
+    formUrl: '',
+    hostPoneNumber: '',
+    hostEmail: '',
+    hasAgreed: false,
   });
 
-  const [agree, setAgree] = useState<boolean>(false);
+  const {
+    screeningTitle,
+    hostName,
+    category,
+    screeningStartDate,
+    screeningEndDate,
+    screeningStartTime,
+    location,
+    formUrl,
+    hasAgreed,
+    posterImgUrl,
+  } = inputValues;
 
   const onChangeInput = (
     inputName: string,
-    value: string | DateParsable | undefined,
+    value: string | DateParsable | undefined | boolean | Date,
   ) => {
     setInputValues({...inputValues, [inputName]: value});
   };
 
-  const canGoNext = false; // 작성 완료 버튼 활성화 여부
+  const canGoNext =
+    posterImgUrl &&
+    hasAgreed &&
+    screeningTitle &&
+    hostName &&
+    category &&
+    screeningStartDate &&
+    screeningEndDate &&
+    screeningStartTime &&
+    location &&
+    formUrl;
 
   const titleRef = useRef<TextInput | null>(null);
   const screeningRef = useRef<TextInput | null>(null);
@@ -50,9 +75,10 @@ const WritingScreen = () => {
   const phoneRef = useRef<TextInput | null>(null);
   const emailRef = useRef<TextInput | null>(null);
 
-  console.log('작성하기 value값', inputValues);
-
-  const handleWriteScreening = () => {};
+  const handleWriteScreening = async () => {
+    //console.log('보내기', inputValues);
+    await uploadScreening.mutateAsync(inputValues);
+  };
 
   return (
     <DefaultContainer>
@@ -66,17 +92,17 @@ const WritingScreen = () => {
         </Typography>
         {/*갤러리 선택*/}
         <ScreeningGallery
-          image={inputValues.image}
-          setImage={value => onChangeInput('image', value)}
+          image={inputValues.posterImgUrl}
+          setImage={value => onChangeInput('posterImgUrl', value)}
         />
 
         {/*타이틀*/}
         <View style={writingStyles.container}>
           <Input
-            value={inputValues.title}
+            value={inputValues.screeningTitle}
             title="타이틀"
             placeholder="상영회 제목을 입력하세요"
-            onChangeInput={value => onChangeInput('title', value)}
+            onChangeInput={value => onChangeInput('screeningTitle', value)}
             maxLength={15}
             content="15자 이내로 상영회 제목을 입력해주세요"
             inputRef={titleRef}
@@ -89,10 +115,10 @@ const WritingScreen = () => {
         {/*주최명*/}
         <View style={writingStyles.container}>
           <Input
-            value={inputValues.screening}
+            value={inputValues.hostName}
             title="주최명"
             placeholder="학과명, 동아리명 등 주최를 적어주세요."
-            onChangeInput={(value: string) => onChangeInput('screening', value)}
+            onChangeInput={(value: string) => onChangeInput('hostName', value)}
             maxLength={15}
             content="15자 이내로 주최명을 입력해주세요"
             inputRef={screeningRef}
@@ -106,8 +132,8 @@ const WritingScreen = () => {
           <Select
             options={['상영회', '영화제', '시사회']}
             title="분류"
-            value={inputValues.group}
-            setValue={value => onChangeInput('group', value)}
+            value={inputValues.category}
+            setValue={value => onChangeInput('category', value)}
             placeholder="선택하기"
             essential
           />
@@ -128,11 +154,11 @@ const WritingScreen = () => {
         {/*시간*/}
         <View style={writingStyles.container}>
           <ButtonInput
-            value={inputValues.time}
+            value={inputValues.screeningStartTime}
             placeholder="시간을 선택해주세요"
             title="시간"
             category="time"
-            setValue={value => onChangeInput('time', value)}
+            setValue={value => onChangeInput('screeningStartTime', value)}
             essential
           />
         </View>
@@ -152,8 +178,8 @@ const WritingScreen = () => {
         {/*추가 설명*/}
         <View style={writingStyles.container}>
           <TextArea
-            value={inputValues.description}
-            onChangeInput={value => onChangeInput('description', value)}
+            value={inputValues.information}
+            onChangeInput={value => onChangeInput('information', value)}
             maxLength={1000}
             placeholder={'추가로 안내할 내용이 있다면 적어주세요.'}
             height={144}
@@ -166,10 +192,10 @@ const WritingScreen = () => {
         {/*관람신청 URL*/}
         <View style={writingStyles.container}>
           <Input
-            value={inputValues.url}
+            value={inputValues.formUrl}
             title="관람 신청 URL"
             placeholder="관람 신청 URL을 입력해주세요"
-            onChangeInput={value => onChangeInput('url', value)}
+            onChangeInput={value => onChangeInput('formUrl', value)}
             inputRef={urlRef}
             returnKeyType="next"
             onSubmitEditing={() => phoneRef.current?.focus()}
@@ -180,10 +206,10 @@ const WritingScreen = () => {
         {/*주최 연락처*/}
         <View style={writingStyles.container}>
           <Input
-            value={inputValues.phone}
+            value={inputValues.hostPoneNumber}
             title="주최 연락처"
             placeholder="주최 연락처를 입력해주세요"
-            onChangeInput={value => onChangeInput('phone', value)}
+            onChangeInput={value => onChangeInput('hostPoneNumber', value)}
             keyBoardType="phone"
             maxLength={13}
             errorContent="전화번호 형식을 맞춰주세요"
@@ -197,10 +223,10 @@ const WritingScreen = () => {
         {/*주최 이메일*/}
         <View style={writingStyles.container}>
           <Input
-            value={inputValues.email}
+            value={inputValues.hostEmail}
             title="주최 이메일"
             placeholder="주최 이메일을 입력해주세요"
-            onChangeInput={value => onChangeInput('email', value)}
+            onChangeInput={value => onChangeInput('hostEmail', value)}
             keyBoardType="email"
             errorContent="이메일 형식을 맞춰주세요"
             inputRef={emailRef}
@@ -213,9 +239,9 @@ const WritingScreen = () => {
             게시글 정책을 확인했어요.
           </Typography>
           <CheckBox
-            state={agree ? 'on' : 'off'}
+            state={inputValues.hasAgreed ? 'on' : 'off'}
             onPress={() => {
-              setAgree(!agree);
+              onChangeInput('hasAgreed', !inputValues.hasAgreed);
             }}
           />
         </View>
@@ -225,7 +251,7 @@ const WritingScreen = () => {
         <Typography style="Body2" color={palette.Text.Alternative} mb={34}>
           수정이나 비공개 처리는 가능해요.
         </Typography>
-        <BoxButton onPress={handleWriteScreening} mb={12}>
+        <BoxButton onPress={handleWriteScreening} mb={12} disabled={!canGoNext}>
           등록하기
         </BoxButton>
       </DismissKeyboardView>

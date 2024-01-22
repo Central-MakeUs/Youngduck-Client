@@ -8,11 +8,11 @@ export interface IScreeningBodyRequest {
   category: string;
   screeningStartDate: undefined | DateParsable;
   screeningEndDate: undefined | DateParsable;
-  screeningstartTime: undefined | Date;
+  screeningStartTime: undefined | Date;
   location: string;
-  information?: string;
+  information: string;
   formUrl: string;
-  hostPoneNumber?: string;
-  hostEmail?: string;
-  hasAgreed: true;
+  hostPoneNumber: string;
+  hostEmail: string;
+  hasAgreed: boolean;
 }

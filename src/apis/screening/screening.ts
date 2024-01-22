@@ -8,5 +8,5 @@ export const postScreening = async (
   body: IScreeningBodyRequest,
 ): Promise<ResponseDTO<IScreeningDetailResponse>> => {
   const res = await api.post('/screening/upload-screening', body);
-  return res.data.data;
+  return res.data;
 };

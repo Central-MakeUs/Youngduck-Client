@@ -61,21 +61,21 @@ const ButtonInput = ({
     }
     // 달력 시작일 상태 저장
     if (selectedStartDate) {
-      setValue({...value, startDate: selectedStartDate});
+      setValue({...value, screeningStartDate: selectedStartDate});
     }
     // 달력 종료일 상태 저장 및 bottomSheet 닫기
     if (selectedEndDate && bottomDrawerRef) {
       bottomDrawerRef.current?.close();
-      setValue({...value, endDate: selectedEndDate});
-      
+      setValue({...value, screeningEndDate: selectedEndDate});
+
       setTimeString(
-      selectedStartDate && selectedEndDate
-        ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
-            selectedEndDate,
-            'yyyy-MM-dd',
-          )}`
-        : '',
-    );
+        selectedStartDate && selectedEndDate
+          ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
+              selectedEndDate,
+              'yyyy-MM-dd',
+            )}`
+          : '',
+      );
     }
   }, [category, location, selectedEndDate, selectedStartDate]);
 
@@ -85,20 +85,6 @@ const ButtonInput = ({
       setTimeString(value ? `${getHours(value)} : ${getMinutes(value)}` : '');
     }
   }, [value]);
-
-//   useEffect(() => {
-//     if (selectedEndDate && bottomDrawerRef) {
-//       bottomDrawerRef.current?.close();
-//     }
-//     setTimeString(
-//       selectedStartDate && selectedEndDate
-//         ? `${format(selectedStartDate, 'yyyy-MM-dd')} ~ ${format(
-//             selectedEndDate,
-//             'yyyy-MM-dd',
-//           )}`
-//         : '',
-//     );
-//   }, [selectedEndDate]);
 
   // 필요한 모달 열기
   const showModal = () => {

@@ -48,23 +48,17 @@ const ScreeningGallery = ({image, setImage}: ScreeningGaleeryProps) => {
         상영회 이미지
       </Typography>
       <View style={galleryStyles.imageContainer}>
-        {(() => {
-          if (image) {
-            return (
-              <Image
-                source={{
-                  uri: image,
-                }}
-                style={galleryStyles.image}
-              />
-            );
-          }
-          return (
-            <TouchableOpacity onPress={handleClickGallery} activeOpacity={0.8}>
-              <Gallery />
-            </TouchableOpacity>
-          );
-        })()}
+        {image && (
+          <Image
+            source={{
+              uri: image,
+            }}
+            style={galleryStyles.image}
+          />
+        )}
+        <TouchableOpacity onPress={handleClickGallery} activeOpacity={0.8}>
+          <Gallery />
+        </TouchableOpacity>
       </View>
     </View>
   );
