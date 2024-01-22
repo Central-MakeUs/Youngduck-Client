@@ -26,6 +26,8 @@ interface InputProps extends TextInputProps {
 
   errorContent?: string;
   inputRef?: LegacyRef<TextInput> | undefined;
+
+  essential?: boolean;
 }
 
 const Input = ({
@@ -42,6 +44,7 @@ const Input = ({
   errorContent,
   inputRef,
   onSearchPress,
+  essential,
   ...props
 }: InputProps) => {
   const {type, onFocus, onBlur, onFocusout, onWarning} = useFocus();
@@ -72,7 +75,11 @@ const Input = ({
 
   return (
     <View>
-      <Typography style="Label2" color={inputTypes[type].titleColor} mb={4}>
+      <Typography
+        style="Label2"
+        color={inputTypes[type].titleColor}
+        mb={4}
+        essential={essential}>
         {title}
       </Typography>
       <View style={{justifyContent: 'center'}}>

@@ -11,18 +11,12 @@ export const galleryStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 16,
+    marginBottom: 24,
   },
   button: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  proContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 16,
-    justifyContent: 'space-between',
-    marginBottom: 24,
   },
 });

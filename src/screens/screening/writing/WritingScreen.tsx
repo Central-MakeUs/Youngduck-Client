@@ -90,6 +90,7 @@ const WritingScreen = () => {
             inputRef={titleRef}
             returnKeyType="next"
             onSubmitEditing={() => screeningRef.current?.focus()}
+            essential
           />
         </View>
 
@@ -104,6 +105,7 @@ const WritingScreen = () => {
             content="15자 이내로 주최명을 입력해주세요"
             inputRef={screeningRef}
             returnKeyType="next"
+            essential
           />
         </View>
 
@@ -115,6 +117,7 @@ const WritingScreen = () => {
             value={inputValues.group}
             setValue={value => onChangeInput('group', value)}
             placeholder="선택하기"
+            essential
           />
         </View>
 
@@ -126,6 +129,7 @@ const WritingScreen = () => {
             placeholder="시작일과 종료일을 선택해주세요"
             category="date"
             setValue={setInputValues}
+            essential
           />
         </View>
 
@@ -137,6 +141,7 @@ const WritingScreen = () => {
             title="시간"
             category="time"
             setValue={value => onChangeInput('time', value)}
+            essential
           />
         </View>
 
@@ -148,6 +153,7 @@ const WritingScreen = () => {
             title="장소"
             category="location"
             setValue={value => onChangeInput('location', value)}
+            essential
           />
         </View>
 
@@ -175,6 +181,7 @@ const WritingScreen = () => {
             inputRef={urlRef}
             returnKeyType="next"
             onSubmitEditing={() => phoneRef.current?.focus()}
+            essential
           />
         </View>
 

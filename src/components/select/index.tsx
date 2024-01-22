@@ -16,6 +16,8 @@ interface ISelectProps {
   setValue: (value: string) => void;
   placeholder: string;
   title: string;
+
+  essential?: boolean;
 }
 const Select = ({
   options,
@@ -23,6 +25,7 @@ const Select = ({
   value,
   placeholder,
   title,
+  essential,
 }: ISelectProps) => {
   const {type, onFocus, onBlur} = useFocus();
 
@@ -33,7 +36,11 @@ const Select = ({
   };
   return (
     <View>
-      <Typography style="Label2" mb={4} color={inputTypes[type].titleColor}>
+      <Typography
+        style="Label2"
+        mb={4}
+        color={inputTypes[type].titleColor}
+        essential={essential}>
         {title}
       </Typography>
       <View>
