@@ -1,17 +1,15 @@
 import {useState} from 'react';
-import {ScrollView} from 'react-native';
+import {ScrollView, View} from 'react-native';
 
 import SelectButton from '@/components/buttons/selectButton';
-import DefaultContainer from '@/components/container/defaultContainer';
-import DismissKeyboardView from '@/components/dismissKeyboardView';
 import Input from '@/components/input';
 import ScreeningFilterList from './components/screeningFilterList';
-
+import DateOption from './components/dateOption';
 import {screeningListStyles} from './ScreeningList.style';
 
 const ScreeningListScreen = () => {
   const [searchInput, setSearchInput] = useState<string>('');
-  const [category, setCategory] = useState<string>('');
+  const [category, setCategory] = useState<string>('ALL');
   const categoryOptions = [
     {label: '전체', value: 'ALL'},
     {label: '졸업상영', value: 'ASSIGNMENT'},
@@ -19,9 +17,10 @@ const ScreeningListScreen = () => {
     {label: '정기상영', value: 'SPECIAL'},
     {label: '기타', value: 'ETC'},
   ];
+  const [date, setDate] = useState<'createdAt' | 'startDate'>('createdAt');
   return (
-    <DismissKeyboardView>
-      <DefaultContainer>
+    <View style={screeningListStyles.wrapper}>
+      <View style={screeningListStyles.container}>
         <Input
           value={searchInput}
           placeholder="상영회 타이틀, 주최명으로 검색"
@@ -31,26 +30,37 @@ const ScreeningListScreen = () => {
             console.log('클릭');
           }}
         />
-      </DefaultContainer>
+      </View>
+      <View
+        style={
+          searchInput.length > 0 && {
+            paddingBottom: 12,
+          }
+        }>
+        <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          style={screeningListStyles.optionContainer}>
+          {categoryOptions.map(option => (
+            <SelectButton
+              key={option.label}
+              type={option.label}
+              onPress={() => {
+                setCategory(option.value);
+              }}
+              isSelected={option.value === category}
+            />
+          ))}
+        </ScrollView>
+      </View>
+      {searchInput.length === 0 && (
+        <View style={screeningListStyles.dateContainer}>
+          <DateOption value={date} setValue={setDate} />
+        </View>
+      )}
 
-      <ScrollView
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        style={screeningListStyles.optionContainer}>
-        {categoryOptions.map(option => (
-          <SelectButton
-            type={option.label}
-            onPress={() => {
-              setCategory(option.value);
-            }}
-            isSelected={option.value === category}
-          />
-        ))}
-      </ScrollView>
-      <DefaultContainer>
-        <ScreeningFilterList />
-      </DefaultContainer>
-    </DismissKeyboardView>
+      <ScreeningFilterList />
+    </View>
   );
 };
 export default ScreeningListScreen;
