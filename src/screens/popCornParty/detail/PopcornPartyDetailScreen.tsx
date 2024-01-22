@@ -117,6 +117,13 @@ function PopcornPartyDetailScreen() {
                 다른 작품 추천하기
               </Typography>
             </Pressable>
+            <BoxButton
+              onPress={() =>
+                stackNavigation.navigate(stackScreens.WriteReviewScreen)
+              }
+              mt={22}>
+              나도 리뷰쓰기
+            </BoxButton>
           </DefaultContainer>
         </ScrollView>
       </ScrollView>

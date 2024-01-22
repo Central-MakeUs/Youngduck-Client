@@ -129,6 +129,7 @@ function StackNavigator() {
       <Stack.Screen
         name={stackScreens.WriteReviewScreen}
         component={WriteReviewScreen}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
