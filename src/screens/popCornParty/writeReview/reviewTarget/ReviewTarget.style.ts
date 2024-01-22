@@ -5,6 +5,7 @@ const reviewTargetStyls = StyleSheet.create({
     flexDirection: 'row',
     gap: 16,
     marginTop: 16,
+    paddingHorizontal: 16,
   },
   image: {
     width: 68,
