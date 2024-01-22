@@ -16,22 +16,8 @@ import {DateParsable} from 'react-native-calendar-picker';
 import BoxButton from '@/components/buttons/boxButton';
 
 const WritingScreen = () => {
-  type TWriteValue = {
-    image: string;
-    title: string;
-    screening: string;
-    group: string;
-    time: undefined | Date;
-    location: string;
-    description: string;
-    url: string;
-    phone: string;
-    email: string;
-    startDate: undefined | DateParsable;
-    endDate: undefined | DateParsable;
-  };
   // TODO: 작성하기 api body 타입 추가
-  const [inputValues, setInputValues] = useState<TWriteValue>({
+  const [inputValues, setInputValues] = useState({
     image: '',
     title: '',
     screening: '',
