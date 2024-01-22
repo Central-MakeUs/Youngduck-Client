@@ -1,27 +1,29 @@
+import ImageCropPicker from 'react-native-image-crop-picker';
+import {Image, TouchableOpacity, View} from 'react-native';
+
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import Gallery from '@/assets/icons/gallery.svg';
-import {Image, TouchableOpacity, View} from 'react-native';
-import {galleryStyles} from './ScreeningGallery.style';
-import RoundButton from '@/components/buttons/roundButton';
-import SvgIcons from '@/assets/svgIcons';
-import ImageCropPicker from 'react-native-image-crop-picker';
 import {checkPermission} from '@/utils/checkPermission';
 
+import {galleryStyles} from './ScreeningGallery.style';
+import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
+import {IImageRequest} from '@/models/image/request';
+
 const ScreeningGallery = () => {
+  const {uploadImage} = useScreeningMutation();
+
   // 갤러리 접근해 이미지 가져오기
   const handleImageUpload = async () => {
     try {
-      const image = await ImageCropPicker.openPicker({
+      const image: IImageRequest = await ImageCropPicker.openPicker({
         mediaType: 'photo',
         includeBase64: true,
         width: 120,
         height: 120,
       });
-      if (image?.path) {
-        console.log('이미지 경로', image.path);
-        // TODO: 백엔드 api 통신
-      }
+      const responseData = await uploadImage.mutateAsync(image);
+      console.log(responseData);
     } catch (err) {
       console.error(err);
     }
