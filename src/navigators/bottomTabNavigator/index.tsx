@@ -21,10 +21,10 @@ export const getTabBarIcon = (routeName: string, focused: boolean) => {
       {routeName === 'ScreeningScreen' && (
         <SvgIcons.ScreeningIcon fill={iconColor} />
       )}
-      {routeName === 'HomeScreen' && <SvgIcons.PopCornIcon fill={iconColor} />}
       {routeName === 'PopcornPartyHomeScreen' && (
         <SvgIcons.PopCornParty fill={iconColor} />
       )}
+      {routeName === 'MyPageScreen' && <SvgIcons.MyPageIcon fill={iconColor} />}
     </>
   );
 };
@@ -45,16 +45,19 @@ function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name={bottomTabScreens.HomeScreen}
-        component={MyPageScreen}
-        options={{headerShown: false}}
-      />
-      <BottomTab.Screen
         name={bottomTabScreens.PopcornPartyHomeScreen}
         component={PopcornPartyHomeScreen}
         options={{
           tabBarLabel: bottomTabBarLabel.PopcornPartyHomeScreen,
           header: () => <TitleTopBar text="팝콘 파티" />,
+        }}
+      />
+      <BottomTab.Screen
+        name={bottomTabScreens.MyPageScreen}
+        component={MyPageScreen}
+        options={{
+          tabBarLabel: bottomTabBarLabel.MyPageScreen,
+          headerShown: false,
         }}
       />
     </BottomTab.Navigator>
