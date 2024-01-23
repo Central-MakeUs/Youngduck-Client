@@ -1,5 +1,4 @@
 import SvgIcons from '@/assets/svgIcons';
-import DefaultContainer from '@/components/container/defaultContainer';
 import GradientContainer from '@/components/container/gradientContainer';
 import Typography from '@/components/typography';
 import stackScreens from '@/constants/stackScreens';
@@ -10,6 +9,7 @@ import {View, Pressable, Image} from 'react-native';
 import myPageScreenStyles from './MyPageScreen.style';
 import {defaultImages} from '@/assets';
 import Management from './components/management';
+import Divider from '@/components/divider';
 
 const MyPageScreen = () => {
   const [nickname, setNickname] = useState<string>('LANY');
@@ -26,7 +26,7 @@ const MyPageScreen = () => {
         'rgb(255,255,255)',
       ]}
       end={{x: 0, y: 0.3}}>
-      <DefaultContainer>
+      <View style={myPageScreenStyles.paddingWrap}>
         <Typography style="Title1">마이페이지</Typography>
         <Pressable
           onPress={() =>
@@ -77,7 +77,14 @@ const MyPageScreen = () => {
             />
           ))}
         </View>
-      </DefaultContainer>
+      </View>
+      <Divider height={8} mt={32} mb={16} />
+      <View style={myPageScreenStyles.paddingWrap}>
+        <Pressable style={myPageScreenStyles.settingButton}>
+          <Typography style="Label1">설정</Typography>
+          <SvgIcons.RightArrowIcon />
+        </Pressable>
+      </View>
     </GradientContainer>
   );
 };

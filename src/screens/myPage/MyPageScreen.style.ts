@@ -2,6 +2,7 @@ import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
 const myPageScreenStyles = StyleSheet.create({
+  paddingWrap: {paddingHorizontal: 16},
   nicknameContainer: {
     alignItems: 'center',
     marginTop: 24,
@@ -40,6 +41,12 @@ const myPageScreenStyles = StyleSheet.create({
     borderColor: palette.Line.Normal,
     borderWidth: 1,
     marginTop: 16,
+  },
+  settingButton: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 8,
   },
 });
 
