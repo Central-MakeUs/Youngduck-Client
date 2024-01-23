@@ -2,7 +2,6 @@ import SvgIcons from '@/assets/svgIcons';
 import bottomTabScreens, {
   bottomTabBarLabel,
 } from '@/constants/bottomTabScreens';
-import HomeScreen from '@/screens/home/HomeScreen';
 import palette from '@/styles/theme/color';
 import {BottomTabParamList} from '@/types/navigator';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -12,6 +11,7 @@ import TitleTopBar from '@/components/topBar/titleTopBar';
 import ScreeningStackNavigator from '../stackNavigator/ScreeningStackNavigator';
 
 import PopcornPartyHomeScreen from '@/screens/popCornParty/home/PopcornPartyHomeScreen';
+import MyPageScreen from '@/screens/myPage/MyPageScreen';
 
 export const getTabBarIcon = (routeName: string, focused: boolean) => {
   const iconColor = focused ? palette.Primary.Normal : palette.Text.Disable;
@@ -46,11 +46,8 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name={bottomTabScreens.HomeScreen}
-        component={HomeScreen}
-        options={{
-          tabBarLabel: bottomTabBarLabel.HomeScreen,
-          header: () => <TitleTopBar text="파콩" />,
-        }}
+        component={MyPageScreen}
+        options={{headerShown: false}}
       />
       <BottomTab.Screen
         name={bottomTabScreens.PopcornPartyHomeScreen}
