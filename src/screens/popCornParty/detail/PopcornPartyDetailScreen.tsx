@@ -1,103 +1,29 @@
-import {
-  Image,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  Pressable,
-  ScrollView,
-  View,
-} from 'react-native';
+import {Pressable, View} from 'react-native';
 import popcornPartyDetailScreenStyles from './popcornPartyDetailScreen.style';
-import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
 import useNavigator from '@/hooks/useNavigator';
-import {getScreenSize} from '@/utils/getScreenSize';
 import {useState} from 'react';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import LinearGradient from 'react-native-linear-gradient';
 import DefaultContainer from '@/components/container/defaultContainer';
 import Typography from '@/components/typography';
 import Divider from '@/components/divider';
 import BoxButton from '@/components/buttons/boxButton';
-import ScreeningIndex from '@/components/screeningIndex';
+import ScreeningRate from '@/components/screeningRate';
 import TabBar from '@/components/tabBar';
 import PopcornKeyword from './popcornKeyword';
 import VoteNextPopcorn from '../home/components/voteNextPopcorn';
 import palette from '@/styles/theme/color';
 import stackScreens from '@/constants/stackScreens';
 import CommentItem from '@/components/items/commentItem';
+import ImageContentScrollContainer from '@/components/container/imageContentScrollContainer';
 
 function PopcornPartyDetailScreen() {
   const {stackNavigation} = useNavigator();
-  const {screenWidth} = getScreenSize();
-  const {top, bottom} = useSafeAreaInsets();
-  const [currentTabBarNumber, setCurrentTabBarNumber] = useState<number>(0);
+  const [isLeft, setIsLeft] = useState<boolean>(true);
 
-  // tab bar에 필요한 제목들 선언
-  const tabBars = [
-    {title: '팝콘 지수', tabNumber: 0},
-    {title: '팝콘들의 리뷰', tabNumber: 1},
-  ];
-
-  const comments = [
-    {
-      nickname: '팝코니',
-      isSatisfied: true,
-      review: '내가 쓴 리뷰는 리스트 최상단에 고정될꼬얌',
-      date: '2024. 01. 10',
-    },
-    {
-      nickname: '파파콘',
-      isSatisfied: false,
-      review:
-        '오늘은 홍익대학교 영화동아리 Dromapic의 상영회를 방문했다. 상영회를 방문했는데 뭐랄까... 되게 오묘하고 메타포가 심오해서 상영회가 끝나고 나서도 계속 생각했다.. 주인공이 만진 작은 상자의 의미는 희망이였을까..? 아니면 절망이였을까..?\n적어도 절망은 아닐거라고 생각한다. 주인공이 상자를 쥐고나서 일이 잘 풀려나갔고 결말에서도 희망적인 부분을 많이 보여줬다.',
-      date: '2024. 01. 10',
-    },
-    {
-      nickname: '파콩이',
-      isSatisfied: true,
-      review: '인상적인 작품과 쾌적한 상영관',
-      date: '2024. 01. 10',
-    },
-  ];
-
-  const [opacity, setOpacity] = useState<number>(1);
-
-  const handleGoBack = () => stackNavigation.goBack();
-
-  const calculateOpacity = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const value =
-      1 - e.nativeEvent.contentOffset.y / (screenWidth - (top + 60));
-    setOpacity(value < 0 ? 0 : value);
-  };
+  const handleTopBarState = (pressedTab: 'left' | 'right') =>
+    setIsLeft(pressedTab === 'left' ? true : false);
 
   return (
-    <View
-      style={[
-        popcornPartyDetailScreenStyles.container,
-        {paddingBottom: bottom},
-      ]}>
-      <BackTitleTopBar
-        opacity={opacity}
-        goBack={handleGoBack}
-        text="1월 첫째주 팝콘작"
-      />
-      <ScrollView
-        style={popcornPartyDetailScreenStyles.container}
-        scrollEventThrottle={16}
-        onScroll={calculateOpacity}
-        bounces={false}>
-        <View style={{opacity: opacity}}>
-          <Image
-            source={{
-              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR9C_se7NWEVh0Yigz0mxRBfSpQSxkcWZmAA&usqp=CAU',
-            }}
-            style={popcornPartyDetailScreenStyles.image}
-          />
-          <LinearGradient
-            colors={['rgba(0,0,0,0.7)', 'rgba(0,0,0,0)']}
-            style={popcornPartyDetailScreenStyles.imageBlur}
-          />
-        </View>
-        <ScrollView style={popcornPartyDetailScreenStyles.container}>
+    <ImageContentScrollContainer>
           <DefaultContainer>
             <View style={popcornPartyDetailScreenStyles.introduceWrap}>
               <Typography style="Label2">1월 첫째주 팝콘작</Typography>
@@ -161,9 +87,7 @@ function PopcornPartyDetailScreen() {
               </Typography>
             </Pressable>
           </DefaultContainer>
-        </ScrollView>
-      </ScrollView>
-    </View>
+    </ImageContentScrollContainer>
   );
 }
 

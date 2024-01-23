@@ -25,12 +25,7 @@ const moveScreen = ({
 
   const isPrevious = status === 'previous';
   const nextScreen = isPrevious ? currentScreen - 1 : currentScreen + 1;
-  const moveValue =
-    100 *
-    ((1 +
-      (totalScreens + 1) *
-        (isPrevious ? currentScreen - 1 : currentScreen + 1)) /
-      Math.pow(totalScreens, 2));
+  const moveValue = (100 * (nextScreen + 1)) / totalScreens;
 
   // status에 따라 scroll
   scrollViewRef?.current?.scrollTo({

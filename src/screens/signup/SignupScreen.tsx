@@ -40,13 +40,15 @@ function SignupScreen() {
             : stackNavigation.goBack()
         }
       />
+      <View>
+        <ProgressBar totalScreens={2} animatedValue={animatedValue} />
+      </View>
       <ScrollView
         horizontal
         pagingEnabled
         scrollEnabled={false}
         showsHorizontalScrollIndicator={false}
         ref={scrollViewRef}>
-        <ProgressBar totalScreens={2} animatedValue={animatedValue} />
         <View style={signupScreenStyles.commonContainer}>
           <InputNickname
             nickname={nickname}

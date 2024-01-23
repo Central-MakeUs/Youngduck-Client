@@ -1,6 +1,9 @@
 import palette from '@/styles/theme/color';
 import {StyleSheet, ViewStyle} from 'react-native';
 
+interface ITabBarStylesProp {
+  isLeft: boolean;
+}
 const commonTabBarStyles: ViewStyle = {
   width: 100,
   alignItems: 'center',

@@ -13,7 +13,7 @@ export const styleButton: Record<IVariant, DetailStyle> = {
   },
   default: {
     backgroundColor: palette.Fill.Strong,
-    textColor: palette.Text.Normal,
+    textColor: palette.Text.Alternative,
   },
 };
 
