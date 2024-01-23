@@ -22,7 +22,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [completeHeart, setCompleteHeart] = useState<boolean>(true);
   const [bottomType, setBottomType] =
-    useState<DetailBottomButtonType>('default');
+    useState<DetailBottomButtonType>('reviewStart');
 
   // tab bar에 필요한 제목들 선언
   const tabBars = [
@@ -46,7 +46,14 @@ const DetailScreen = ({route}: DetailScreenProps) => {
         </ImageContentScrollContainer>
       </View>
       <View style={detailScreenStyles.bottom}>
-        <BottomDetailButton onPress={() => {}} type={bottomType} />
+        <BottomDetailButton
+          onPress={() => {}}
+          type={bottomType}
+          heartState={completeHeart}
+          onOptionPress={() => {
+            setCompleteHeart(!completeHeart);
+          }}
+        />
       </View>
     </View>
   );

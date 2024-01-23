@@ -4,6 +4,8 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import BlackTicket from '@/assets/icons/black-ticket.svg';
 import WhiteTicket from '@/assets/icons/white-ticket.svg';
+import CloseEye from '@/assets/icons/close-eye.svg';
+import OpenEye from '@/assets/icons/open-eye.svg';
 import OptionButton from '@/components/buttons/optionButton';
 import BoxButton from '@/components/buttons/boxButton';
 import {
@@ -29,6 +31,8 @@ const getBottomButtonIcon = (type: DetailBottomButtonType) => {
       {type === 'reviewComplete' && (
         <SvgIcons.Pencil fill={palette.Another.White} />
       )}
+      {type === 'myOpen' && <OpenEye />}
+      {type === 'myClose' && <CloseEye />}
     </>
   );
 };
@@ -66,6 +70,7 @@ const BottomDetailButton = ({
             <View style={bottomButtonStyles.left}>
               <BoxButton
                 onPress={onPress}
+                variant={bottomDetailTypesStyles[type].boxButtonType}
                 disabled={bottomDetailTypesStyles[type].disabled}>
                 <View style={bottomButtonStyles.content}>
                   <Typography
@@ -80,14 +85,16 @@ const BottomDetailButton = ({
             </View>
             <View style={bottomButtonStyles.right}>
               <OptionButton
-                type="heart"
+                type={bottomDetailTypesStyles[type].option}
                 isSelected={
-                  bottomDetailTypesStyles[type].heartDisabled
+                  bottomDetailTypesStyles[type].optionDisabled
                     ? true
-                    : heartState
+                    : type === 'complete'
+                    ? heartState
+                    : false
                 }
                 onPress={onOptionPress!}
-                disabled={bottomDetailTypesStyles[type].heartDisabled}
+                disabled={bottomDetailTypesStyles[type].optionDisabled}
               />
             </View>
           </>

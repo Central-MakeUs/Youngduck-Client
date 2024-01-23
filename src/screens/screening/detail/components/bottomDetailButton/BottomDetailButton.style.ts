@@ -6,30 +6,54 @@ interface IBottomDetail {
   text: string;
   color: string;
   disabled: boolean;
-  heartDisabled: boolean;
+  option: 'heart' | 'write';
+  optionDisabled: boolean;
+  boxButtonType: 'primary' | 'default';
 }
 
 export const bottomDetailTypesStyles: Record<
-  'complete' | 'reviewStart' | 'reviewComplete',
+  'complete' | 'reviewStart' | 'reviewComplete' | 'myOpen' | 'myClose',
   IBottomDetail
 > = {
   complete: {
     text: '신청완료',
     color: palette.Another.White,
     disabled: true,
-    heartDisabled: false,
+    option: 'heart',
+    optionDisabled: false,
+    boxButtonType: 'default',
   },
   reviewStart: {
     text: '리뷰하기',
     color: palette.Text.Normal,
     disabled: false,
-    heartDisabled: true,
+    option: 'heart',
+    optionDisabled: true,
+    boxButtonType: 'primary',
   },
   reviewComplete: {
     text: '리뷰완료',
     color: palette.Another.White,
     disabled: true,
-    heartDisabled: true,
+    option: 'heart',
+    optionDisabled: true,
+    boxButtonType: 'default',
+  },
+  myClose: {
+    text: '비공개하기',
+    color: palette.Text.Normal,
+    disabled: false,
+    option: 'write',
+    optionDisabled: false,
+    boxButtonType: 'default',
+  },
+  myOpen: {
+    text: '공개하기',
+    color: palette.Text.Normal,
+    disabled: false,
+    option: 'write',
+    optionDisabled: false,
+    boxButtonType: 'primary',
   },
 };
 
