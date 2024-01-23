@@ -34,6 +34,13 @@ const myPageScreenStyles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: palette.Line.Assistive,
   },
+  managePostsContainer: {
+    paddingHorizontal: 24,
+    borderRadius: 16,
+    borderColor: palette.Line.Normal,
+    borderWidth: 1,
+    marginTop: 16,
+  },
 });
 
 export default myPageScreenStyles;

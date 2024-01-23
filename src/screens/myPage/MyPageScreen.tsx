@@ -6,12 +6,18 @@ import stackScreens from '@/constants/stackScreens';
 import useNavigator from '@/hooks/useNavigator';
 import palette from '@/styles/theme/color';
 import {useState} from 'react';
-import {View, Text, Pressable, Image} from 'react-native';
+import {View, Pressable, Image} from 'react-native';
 import myPageScreenStyles from './MyPageScreen.style';
 import {defaultImages} from '@/assets';
+import Management from './components/management';
 
 const MyPageScreen = () => {
   const [nickname, setNickname] = useState<string>('LANY');
+  const managePosts = [
+    {postName: '스크리닝 리뷰', count: 1},
+    {postName: '팝콘작 리뷰', count: 1},
+    {postName: '나의 스크리닝', count: 1},
+  ];
   const {stackNavigation} = useNavigator();
   return (
     <GradientContainer
@@ -58,6 +64,17 @@ const MyPageScreen = () => {
               관심 스크리닝
             </Typography>
           </Pressable>
+        </View>
+        <Typography style="Subtitle2">게시물 관리</Typography>
+        <View style={myPageScreenStyles.managePostsContainer}>
+          {managePosts.map((managePost, idx) => (
+            <Management
+              postName={managePost.postName}
+              count={managePost.count}
+              idx={idx}
+              key={managePost.postName}
+            />
+          ))}
         </View>
       </DefaultContainer>
     </GradientContainer>
