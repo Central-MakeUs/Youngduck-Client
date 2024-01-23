@@ -107,7 +107,7 @@ function WriteReviewScreen() {
             rightButtonText="다음"
             onLeftButtonPress={goBackOrPreviousScreen}
             onRightButtonPress={nextScreen}
-            disabled={reviewAllSelceted}
+            disabled={!reviewAllSelceted}
           />
         </View>
         <View style={writeReviewScreenStyles.commonContainer}>

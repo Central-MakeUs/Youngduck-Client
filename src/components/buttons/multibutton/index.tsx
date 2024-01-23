@@ -22,10 +22,7 @@ const MultiButton = ({
       <BoxButton variant="default" width={'50%'} onPress={onLeftButtonPress}>
         {leftButtonText}
       </BoxButton>
-      <BoxButton
-        width={'50%'}
-        onPress={onRightButtonPress}
-        disabled={!disabled}>
+      <BoxButton width={'50%'} onPress={onRightButtonPress} disabled={disabled}>
         {rightButtonText}
       </BoxButton>
     </View>
