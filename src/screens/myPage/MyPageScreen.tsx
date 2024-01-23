@@ -32,6 +32,7 @@ const MyPageScreen = () => {
           onPress={() =>
             stackNavigation.navigate(stackScreens.ChangeNicknameScreen, {
               nickname,
+              setNickname,
             })
           }
           style={myPageScreenStyles.nicknameContainer}>

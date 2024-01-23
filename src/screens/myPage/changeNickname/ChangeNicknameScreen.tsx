@@ -12,14 +12,15 @@ interface IChangeNicknameScreenProp {
   route: {
     params: {
       nickname: string;
+      setNickname: React.Dispatch<React.SetStateAction<string>>;
     };
   };
 }
 
 const ChangeNicknameScreen = ({route}: IChangeNicknameScreenProp) => {
-  const [nickname, setNickname] = useState<string>(route.params.nickname);
   const {stackNavigation} = useNavigator();
   const {top, bottom} = useSafeAreaInsets();
+  const {nickname, setNickname} = route.params;
   return (
     <>
       <View

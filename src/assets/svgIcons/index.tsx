@@ -89,11 +89,7 @@ const SvgIcons = {
     onPress,
   }: SvgIconProps) => (
     <TouchableOpacity style={svgIconStyles.arrow} onPress={onPress}>
-      <Svg
-        width={width}
-        height={height}
-        viewBox={`0 0 ${width} ${height}`}
-        fill="none">
+      <Svg width={width} height={height} viewBox="0 0 8 14" fill="none">
         <Path
           fill-rule="evenodd"
           clip-rule="evenodd"

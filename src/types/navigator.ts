@@ -15,7 +15,10 @@ export type RootStackParamList = {
   SignupCompleteScreen: undefined;
   BottomTabScreens: undefined;
   MyPageScreen: undefined;
-  ChangeNicknameScreen: {nickname: string};
+  ChangeNicknameScreen: {
+    nickname: string;
+    setNickname: React.Dispatch<React.SetStateAction<string>>;
+  };
 } & PopcornPartyStackParamList &
   ScreeningStackScreensParamList;
 
