@@ -1,35 +1,43 @@
-import {getKakaoProfile} from '@/apis/social';
-import {postLoginUser} from '@/apis/user';
-import * as Kakao from '@react-native-seoul/kakao-login';
-
 import {TouchableOpacity} from 'react-native';
 import kakaoLoginStyles from './KakaoLogin.style';
 import Typography from '@/components/typography';
 import KakaoLogo from '@/assets/icons/kakao-logo.svg';
 import useNavigator from '@/hooks/useNavigator';
+import {getKakaoIdToken, getKakaoProfile} from '@/apis/auth/social';
+import {postLoginUser} from '@/apis/auth/auth';
+import {useUserStore} from '@/stores/user';
+import {setIsInstalled} from '@/services/localStorage/localStorage';
 
 function KakaoLogin() {
   const {stackNavigation} = useNavigator();
 
+  const {setUser, user} = useUserStore();
+
   // 카카오 로그인 함수
   const handleSignInKakao = async (): Promise<void> => {
-    Kakao.login()
-      .then(async result => {
-        const idToken = result.idToken;
-        const res = postLoginUser('KAKAO', idToken);
-        console.log('로그인 응답', res);
-        getKakaoProfile();
-      })
-      .catch(error => {
-        if (error.code === 'E_CANCELLED_OPERATION') {
-          console.log('Login Cancel', error.message);
-        } else {
-          console.log(`Login Fail(code:${error.code})`, error.message);
-        }
+    const res = await getKakaoIdToken();
+    const profile = await getKakaoProfile();
+
+    const login = await postLoginUser('KAKAO', res.idToken);
+    if (profile) {
+      setUser({
+        ...user,
+        name: profile.nickname,
+        email: profile.email,
+        idToken: res.idToken,
+        type: 'KAKAO',
       });
-    // 일단 로그인 후 홈으로 이동
-    stackNavigation.navigate('BottomTabScreens');
+    }
+    if (login) {
+      if (!login.data.canLogin) {
+        stackNavigation.navigate('SignupScreen');
+      } else {
+        setIsInstalled(true);
+        stackNavigation.navigate('BottomTabScreens');
+      }
+    }
   };
+
   return (
     <TouchableOpacity
       onPress={handleSignInKakao}

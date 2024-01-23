@@ -1,47 +1,75 @@
-import stackScreens from '@/constants/stackScreens';
+import {useEffect, useState} from 'react';
+import SplashScreen from 'react-native-splash-screen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
 import LoginScreen from '@/screens/login/LoginScreen';
 import SignupScreen from '@/screens/signup/SignupScreen';
 import BottomTabNavigator from './bottomTabNavigator';
 import SignupCompleteScreen from '@/screens/signupComplete/SIgnupCompleteScreen';
-import {RootStackParamList} from '@/types/navigator';
 import MyPageScreen from '@/screens/myPage/MyPageScreen';
 import DetailScreen from '@/screens/screening/detail/DetailScreen';
-import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
-import useNavigator from '@/hooks/useNavigator';
-import ReviewWritingScreen from '@/screens/screening/reviewWriting/ReviewWritingScreen';
-import CancelTopBar from '@/components/topBar/cancelTopBar';
 import WritingScreen from '@/screens/screening/writing/WritingScreen';
-
+import KakaoSearchScreen from '@/screens/screening/kakaoSearch/KakaoSearchScreen';
+import ReviewWritingScreen from '@/screens/screening/reviewWriting/ReviewWritingScreen';
 import PopcornPartyDetailScreen from '@/screens/popCornParty/detail/PopcornPartyDetailScreen';
 import RecommandListScreen from '@/screens/popCornParty/recommandList/RecommandListScreen';
 import WriteRecommandScreen from '@/screens/popCornParty/writeRecommand/WriteRecommandScreen';
 import WriteReviewScreen from '@/screens/popCornParty/writeReview/WriteReviewScreen';
+
+import {RootStackParamList} from '@/types/navigator';
 import TitleTopBar from '@/components/topBar/titleTopBar';
-import KakaoSearchScreen from '@/screens/screening/kakaoSearch/KakaoSearchScreen';
-import {useLocationStore} from '@/stores/location';
+import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
+import CancelTopBar from '@/components/topBar/cancelTopBar';
+import useNavigator from '@/hooks/useNavigator';
+import {postAccessToken} from '@/apis/auth/auth';
+import {getIsInstalled} from '@/services/localStorage/localStorage';
+import stackScreens from '@/constants/stackScreens';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function StackNavigator() {
-  const Stack = createNativeStackNavigator<RootStackParamList>();
-
   const {stackNavigation} = useNavigator();
 
-  const {setLocation} = useLocationStore();
+  const [isSignIn, setIsSignIn] = useState(false);
+  const [isInstalled, setIsInstalled] = useState(false);
+  //const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      SplashScreen.hide();
+    }, 1000); //스플래시 활성화 시간
+
+    getIsInstalled().then((res: boolean) => {
+      setIsInstalled(res);
+
+      if (res) {
+        postAccessToken().then(res => {
+          setIsSignIn(res);
+          //setIsLoading(false);
+        });
+      } else {
+        //setIsLoading(false);
+      }
+    });
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (isSignIn) {
+      stackNavigation.navigate(stackScreens.BottomTabScreens);
+    }
+  }, [isSignIn]);
 
   // 스크리닝 화면 뒤로 가기
   const handleGoBack = () => {
     stackNavigation.goBack();
   };
 
-  // 카카오 검색 초기화
-  const handleSearchGoBack = () => {
-    handleGoBack();
-    setLocation('');
-  };
   return (
     <Stack.Navigator>
       {/*로그인 페이지*/}
-      {/*<Stack.Screen
+      <Stack.Screen
         name={stackScreens.LoginScreen}
         component={LoginScreen}
         options={{headerShown: false}}
@@ -55,7 +83,7 @@ function StackNavigator() {
         name={stackScreens.SignupCompleteScreen}
         component={SignupCompleteScreen}
         options={{headerShown: false}}
-      />*/}
+      />
       {/*BottomTab 3개 페이지*/}
       <Stack.Screen
         name={stackScreens.BottomTabScreens}
@@ -73,7 +101,7 @@ function StackNavigator() {
         component={WritingScreen}
         options={{
           header: () => (
-            <CancelTopBar text="상영회 등록하기" onPress={handleSearchGoBack} />
+            <CancelTopBar text="상영회 등록하기" onPress={handleGoBack} />
           ),
         }}
       />

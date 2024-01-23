@@ -3,15 +3,21 @@ import Postcode from '@actbase/react-daum-postcode';
 import {OnCompleteParams} from '@actbase/react-daum-postcode/lib/types';
 import {searchScreenStyles} from './KakaoSearchScreen.style';
 import useNavigator from '@/hooks/useNavigator';
-import {useLocationStore} from '@/stores/location';
+import stackScreens from '@/constants/stackScreens';
+import {ScreenRouteProp} from '@/types/navigator';
 
-const KakaoSearchScreen = () => {
+interface IKakaoSearchScreenProps {
+  route: ScreenRouteProp<'KakaoSearchScreen'>;
+}
+
+const KakaoSearchScreen = ({route: {params}}: IKakaoSearchScreenProps) => {
   const {stackNavigation} = useNavigator();
-  const {setLocation} = useLocationStore();
+
   const handleSelected = (data: OnCompleteParams) => {
-    //console.log('주소 데이터', data.address);
-    setLocation(data.address);
-    stackNavigation.goBack();
+    stackNavigation.navigate(stackScreens.WritingScreen, {
+      type: params.type,
+      search: data.address,
+    });
   };
 
   const handleError = (e: any) => {

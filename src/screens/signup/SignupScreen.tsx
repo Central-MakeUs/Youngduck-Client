@@ -7,11 +7,16 @@ import moveScreen from '@/utils/moveScreen';
 import signupScreenStyles from './SignupScreen.style';
 import InputNickname from './components/inputNickname';
 import InputGenre from './components/inputGenre';
+import {useUserStore} from '@/stores/user';
 
 function SignupScreen() {
   const [currentScreen, setCurrentScreen] = useState<number>(0);
   const scrollViewRef = useRef<ScrollView>(null);
   const {stackNavigation} = useNavigator();
+
+  const {user, setUser} = useUserStore();
+
+  const [nickname, setNickname] = useState<string>('');
 
   const animatedValue = useRef(new Animated.Value(0)).current;
 
@@ -46,7 +51,12 @@ function SignupScreen() {
         ref={scrollViewRef}>
         <View style={signupScreenStyles.commonContainer}>
           <InputNickname
-            handleMoveScreen={() => handleMoveScreen({status: 'next'})}
+            nickname={nickname}
+            setNickname={setNickname}
+            handleMoveScreen={() => {
+              handleMoveScreen({status: 'next'});
+              setUser({...user, nickname: nickname});
+            }}
           />
         </View>
         <View style={signupScreenStyles.commonContainer}>
