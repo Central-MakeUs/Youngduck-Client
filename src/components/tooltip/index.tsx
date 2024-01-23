@@ -1,6 +1,6 @@
 import palette from '@/styles/theme/color';
 import {Animated, View} from 'react-native';
-import Typography from '../../typography';
+import Typography from '../typography';
 import TooltipSvg from '@/assets/icons/tooltip.svg';
 import tooltipStyles from './Tooltip.style';
 import {useEffect, useRef} from 'react';
