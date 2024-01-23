@@ -3,6 +3,7 @@ import {StyleSheet} from 'react-native';
 
 export const bottomButtonStyles = StyleSheet.create({
   container: {
+    backgroundColor: palette.Another.White,
     width: '100%',
     height: 80,
     paddingTop: 12,

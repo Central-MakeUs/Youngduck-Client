@@ -7,6 +7,8 @@ import DetailInfoScreen from './tabs/detailInfoScreen/DetailInfoScreen';
 import ImageContentScrollContainer from '@/components/container/imageContentScrollContainer';
 import {useState} from 'react';
 import TabBar from '@/components/tabBar';
+import BottomDetailButton from './components/bottomDetailButton';
+import {detailScreenStyles} from './DetailScreen.style';
 
 type DetailScreenProps = {
   route: ScreenRouteProp<'DetailScreen'>;
@@ -23,20 +25,25 @@ const DetailScreen = ({route}: DetailScreenProps) => {
     {title: '리뷰', tabNumber: 1},
   ];
   return (
-    <ImageContentScrollContainer>
-      <View>
-        <DetailTitle />
+    <View style={detailScreenStyles.wrapper}>
+      <View style={detailScreenStyles.content}>
+        <ImageContentScrollContainer>
+          <DetailTitle />
 
-        <TabBar
-          currentTabBarNumber={currentTab}
-          setCurrentTabBarNumber={setCurrentTab}
-          tabBars={tabBars}
-        />
+          <TabBar
+            currentTabBarNumber={currentTab}
+            setCurrentTabBarNumber={setCurrentTab}
+            tabBars={tabBars}
+          />
 
-        {currentTab === 0 && <DetailInfoScreen />}
-        {currentTab === 1 && <DetailReviewScreen />}
+          {currentTab === 0 && <DetailInfoScreen />}
+          {currentTab === 1 && <DetailReviewScreen />}
+        </ImageContentScrollContainer>
       </View>
-    </ImageContentScrollContainer>
+      <View style={detailScreenStyles.bottom}>
+        <BottomDetailButton onPress={() => {}} />
+      </View>
+    </View>
   );
 };
 export default DetailScreen;

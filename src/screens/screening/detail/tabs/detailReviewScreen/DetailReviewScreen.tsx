@@ -1,11 +1,12 @@
-import Typography from '@/components/typography';
-import palette from '@/styles/theme/color';
 import {ScrollView, View} from 'react-native';
-import {reviewScreenStyles} from './DetailReviewScreen.style';
+
 import DefaultContainer from '@/components/container/defaultContainer';
 import CommentItem from '@/components/items/commentItem';
-import Divider from '@/components/divider';
 import BoxButton from '@/components/buttons/boxButton';
+import Typography from '@/components/typography';
+import palette from '@/styles/theme/color';
+
+import {reviewScreenStyles} from './DetailReviewScreen.style';
 
 const DetailReviewScreen = () => {
   return (
