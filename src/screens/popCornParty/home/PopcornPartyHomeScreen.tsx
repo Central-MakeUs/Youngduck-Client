@@ -21,7 +21,7 @@ function PopcornPartyHomeScreen() {
       <TrendingPopcorn />
       <TrendingMovie />
       <Divider height={8} mt={24} mb={16} />
-      <VoteNextPopcorn />
+      <VoteNextPopcorn title="다음 주 팝콘작 투표하기" />
       <OtherPopcorns />
     </DefaultScrollContainer>
   );
