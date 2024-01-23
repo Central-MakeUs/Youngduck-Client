@@ -1,13 +1,15 @@
-import {View} from 'react-native';
-import DetailReviewScreen from './tabs/detailReviewScreen/DetailReviewScreen';
-
-import {ScreenRouteProp} from '@/types/navigator';
-import DetailTitle from './components/detailTitle';
-import DetailInfoScreen from './tabs/detailInfoScreen/DetailInfoScreen';
-import ImageContentScrollContainer from '@/components/container/imageContentScrollContainer';
 import {useState} from 'react';
+import {View} from 'react-native';
+
+import DetailTitle from './components/detailTitle';
+import ImageContentScrollContainer from '@/components/container/imageContentScrollContainer';
 import TabBar from '@/components/tabBar';
 import BottomDetailButton from './components/bottomDetailButton';
+import DetailReviewScreen from './tabs/detailReviewScreen/DetailReviewScreen';
+import DetailInfoScreen from './tabs/detailInfoScreen/DetailInfoScreen';
+import {ScreenRouteProp} from '@/types/navigator';
+import {DetailBottomButtonType} from '@/types/ui';
+
 import {detailScreenStyles} from './DetailScreen.style';
 
 type DetailScreenProps = {
@@ -18,6 +20,9 @@ const DetailScreen = ({route}: DetailScreenProps) => {
   const {id} = route.params;
 
   const [currentTab, setCurrentTab] = useState<number>(0);
+  const [completeHeart, setCompleteHeart] = useState<boolean>(true);
+  const [bottomType, setBottomType] =
+    useState<DetailBottomButtonType>('default');
 
   // tab bar에 필요한 제목들 선언
   const tabBars = [
@@ -41,7 +46,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
         </ImageContentScrollContainer>
       </View>
       <View style={detailScreenStyles.bottom}>
-        <BottomDetailButton onPress={() => {}} />
+        <BottomDetailButton onPress={() => {}} type={bottomType} />
       </View>
     </View>
   );

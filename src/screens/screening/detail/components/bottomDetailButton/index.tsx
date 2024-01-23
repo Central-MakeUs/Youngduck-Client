@@ -6,50 +6,33 @@ import BlackTicket from '@/assets/icons/black-ticket.svg';
 import WhiteTicket from '@/assets/icons/white-ticket.svg';
 import OptionButton from '@/components/buttons/optionButton';
 import BoxButton from '@/components/buttons/boxButton';
-import {bottomButtonStyles} from './BottomDetailButton.style';
+import {
+  bottomButtonStyles,
+  bottomDetailTypesStyles,
+} from './BottomDetailButton.style';
 import SvgIcons from '@/assets/svgIcons';
+import {DetailBottomButtonType} from '@/types/ui';
 
 interface IBottomButtonProps {
   onPress: () => void;
-  type?: 'default' | 'complete' | 'finish' | 'reviewStart' | 'reviewComplete';
+  type?: DetailBottomButtonType;
   onOptionPress?: () => void;
   heartState?: boolean;
 }
 
-interface IBottomDetail {
-  text: string;
-  color: string;
-  disabled: boolean;
-  icon: React.ReactNode;
-  heartDisabled: boolean;
-}
-
-const bottomDetailTypesStyles: Record<
-  'complete' | 'reviewStart' | 'reviewComplete',
-  IBottomDetail
-> = {
-  complete: {
-    text: '신청완료',
-    color: palette.Another.White,
-    disabled: true,
-    icon: <WhiteTicket />,
-    heartDisabled: false,
-  },
-  reviewStart: {
-    text: '리뷰하기',
-    color: palette.Text.Normal,
-    disabled: false,
-    icon: <SvgIcons.Pencil fill={palette.Text.Normal} />,
-    heartDisabled: true,
-  },
-  reviewComplete: {
-    text: '리뷰완료',
-    color: palette.Another.White,
-    disabled: true,
-    icon: <SvgIcons.Pencil fill={palette.Another.White} />,
-    heartDisabled: true,
-  },
+const getBottomButtonIcon = (type: DetailBottomButtonType) => {
+  return (
+    <>
+      {type === 'default' && <BlackTicket />}
+      {(type === 'finish' || type === 'complete') && <WhiteTicket />}
+      {type === 'reviewStart' && <SvgIcons.Pencil fill={palette.Text.Normal} />}
+      {type === 'reviewComplete' && (
+        <SvgIcons.Pencil fill={palette.Another.White} />
+      )}
+    </>
+  );
 };
+
 const BottomDetailButton = ({
   onPress,
   onOptionPress,
@@ -73,7 +56,7 @@ const BottomDetailButton = ({
                   mr={8}>
                   {type === 'default' ? '관람신청' : '상영종료'}
                 </Typography>
-                {type === 'default' ? <BlackTicket /> : <WhiteTicket />}
+                {getBottomButtonIcon(type)}
               </View>
             </BoxButton>
           );
@@ -91,7 +74,7 @@ const BottomDetailButton = ({
                     mr={8}>
                     {bottomDetailTypesStyles[type].text}
                   </Typography>
-                  {bottomDetailTypesStyles[type].icon}
+                  {getBottomButtonIcon(type)}
                 </View>
               </BoxButton>
             </View>

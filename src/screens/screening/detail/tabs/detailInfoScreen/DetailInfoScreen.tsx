@@ -1,14 +1,16 @@
+import {View} from 'react-native';
+
 import DefaultContainer from '@/components/container/defaultContainer';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
-import {ScrollView, View} from 'react-native';
 import Call from '@/assets/icons/call.svg';
 import Mail from '@/assets/icons/mail.svg';
+
 import {detailInfoStyles} from './DetailInfoScreen.style';
 
 const DetailInfoScreen = () => {
   return (
-    <ScrollView>
+    <View>
       <DefaultContainer>
         {/*주최명*/}
         <Typography style="Label3" color={palette.Text.Normal} mt={24}>
@@ -59,7 +61,7 @@ const DetailInfoScreen = () => {
           </Typography>
         </View>
       </DefaultContainer>
-    </ScrollView>
+    </View>
   );
 };
 export default DetailInfoScreen;

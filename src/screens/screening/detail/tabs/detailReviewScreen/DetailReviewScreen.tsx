@@ -1,4 +1,4 @@
-import {ScrollView, View} from 'react-native';
+import {View} from 'react-native';
 
 import DefaultContainer from '@/components/container/defaultContainer';
 import CommentItem from '@/components/items/commentItem';
@@ -10,7 +10,7 @@ import {reviewScreenStyles} from './DetailReviewScreen.style';
 
 const DetailReviewScreen = () => {
   return (
-    <ScrollView>
+    <View>
       <DefaultContainer>
         <View style={reviewScreenStyles.title}>
           <Typography style="Subtitle2" color={palette.Another.Black}>
@@ -50,7 +50,7 @@ const DetailReviewScreen = () => {
           </BoxButton>
         </View>
       </DefaultContainer>
-    </ScrollView>
+    </View>
   );
 };
 export default DetailReviewScreen;
