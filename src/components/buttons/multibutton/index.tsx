@@ -1,6 +1,7 @@
 import {View} from 'react-native';
 import BoxButton from '../boxButton';
 import multiButtonStyles from './MultiButton.style';
+import {getScreenSize} from '@/utils/getScreenSize';
 
 interface IMultiButtonProps {
   leftButtonText: string;
@@ -17,12 +18,20 @@ const MultiButton = ({
   onRightButtonPress,
   disabled,
 }: IMultiButtonProps) => {
+  const {screenWidth} = getScreenSize();
+  const buttonWidth = (screenWidth - 40) / 2;
   return (
     <View style={multiButtonStyles.container}>
-      <BoxButton variant="default" width={'50%'} onPress={onLeftButtonPress}>
+      <BoxButton
+        variant="default"
+        width={buttonWidth}
+        onPress={onLeftButtonPress}>
         {leftButtonText}
       </BoxButton>
-      <BoxButton width={'50%'} onPress={onRightButtonPress} disabled={disabled}>
+      <BoxButton
+        width={buttonWidth}
+        onPress={onRightButtonPress}
+        disabled={disabled}>
         {rightButtonText}
       </BoxButton>
     </View>
