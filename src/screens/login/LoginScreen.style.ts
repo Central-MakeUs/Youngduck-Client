@@ -14,8 +14,8 @@ const loginScreenStyles = ({width, height}: ILoginScreenStylesProps) =>
     },
     description: {
       fontWeight: '400',
-      fontSize: 36,
-      lineHeight: 48,
+      fontSize: 32,
+      lineHeight: 42,
       color: palette.Primary.Dark,
       marginBottom: 8,
       fontFamily: 'Pretendard Variable',
