@@ -6,17 +6,23 @@ import {View} from 'react-native';
 interface IKeywordItemProps {
   keyword: string;
   isPositive: boolean;
+  totalCount: number;
   count: number;
 }
 
-const KeywordItem = ({keyword, isPositive, count}: IKeywordItemProps) => {
+const KeywordItem = ({
+  keyword,
+  isPositive,
+  totalCount,
+  count,
+}: IKeywordItemProps) => {
   return (
     <View style={keywordItemStyles.keywordWrap}>
       <View
         style={[
           keywordItemStyles.guageBar,
           {
-            width: `${count}%`,
+            width: `${(count / totalCount) * 100}%`,
             backgroundColor: isPositive
               ? palette.Primary.Assistive
               : palette.Fill.Assistive,

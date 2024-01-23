@@ -27,6 +27,7 @@ const PopcornKeyword = () => {
         <KeywordItem
           keyword={popcornKeyword.keyword}
           isPositive={popcornKeyword.isPositive}
+          totalCount={118}
           count={popcornKeyword.count}
           key={popcornKeyword.keyword}
         />
