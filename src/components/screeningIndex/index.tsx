@@ -2,12 +2,12 @@ import {CommonMarginVerticalProps} from '@/types/ui';
 import {Animated, View} from 'react-native';
 import Typography from '../typography';
 import {useEffect, useRef, useState} from 'react';
-import Tooltip from './tooltip';
 import screeningIndexStyles from './ScreeningIndex.style';
 import {Easing} from 'react-native';
 import DisappointedSvg from '@/assets/icons/disappointed.svg';
 import SatisfiedSvg from '@/assets/icons/satisfied.svg';
 import ReviewRate from './reviewRate';
+import Tooltip from '../tooltip';
 
 const TOOLTIP_MAX_LENGTH = 47.333343505859375;
 
