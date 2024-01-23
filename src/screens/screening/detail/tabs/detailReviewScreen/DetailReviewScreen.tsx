@@ -19,11 +19,30 @@ const DetailReviewScreen = () => {
             3
           </Typography>
         </View>
-        <CommentItem />
-        <Divider height={1} />
-        <CommentItem />
-        <Divider height={1} />
-        <CommentItem />
+        <CommentItem
+          totalComments={3}
+          nickname="팝코니"
+          isSatisfied={true}
+          review="리븉내용"
+          date="20203-"
+          idx={0}
+        />
+        <CommentItem
+          totalComments={3}
+          nickname="팝코니"
+          isSatisfied={true}
+          review="리븉내용"
+          date="20203-"
+          idx={1}
+        />
+        <CommentItem
+          totalComments={3}
+          nickname="팝코니"
+          isSatisfied={true}
+          review="리븉내용"
+          date="20203-"
+          idx={2}
+        />
         <View style={reviewScreenStyles.bottom}>
           <BoxButton onPress={() => {}} variant="default">
             더보기
