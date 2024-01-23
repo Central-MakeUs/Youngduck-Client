@@ -1,21 +1,28 @@
-import {Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {defaultImages} from '@/assets';
-import {getScreenSize} from '@/utils/getScreenSize';
 import gradientContainerStyles from './GradientContainer.style';
 
-function GradientContainer({children}: {children: React.ReactNode}) {
-  const {top, bottom} = useSafeAreaInsets();
-  const {screenWidth: width, screenHeight: height} = getScreenSize();
+interface IGradientContainerProps {
+  children: React.ReactNode;
+  colors: [string, string];
+  end?: {x: number; y: number};
+}
 
-  const style = gradientContainerStyles({top, bottom, width, height});
+function GradientContainer({
+  children,
+  colors,
+  end = {x: 0, y: 1},
+}: IGradientContainerProps) {
+  const {top, bottom} = useSafeAreaInsets();
+
+  const style = gradientContainerStyles({top, bottom});
 
   return (
     <LinearGradient
-      colors={['rgba(255,240,143,1)', 'rgba(255,246,189,1)']}
+      colors={colors}
+      start={{x: 0, y: 0}}
+      end={end}
       style={style.container}>
-      <Image source={defaultImages.loginPopcorn} style={style.image} />
       {children}
     </LinearGradient>
   );
