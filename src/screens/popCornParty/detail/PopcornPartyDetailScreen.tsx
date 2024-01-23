@@ -6,7 +6,7 @@ import DefaultContainer from '@/components/container/defaultContainer';
 import Typography from '@/components/typography';
 import Divider from '@/components/divider';
 import BoxButton from '@/components/buttons/boxButton';
-import ScreeningIndex from '@/components/screeningIndex';
+import ScreeningRate from '@/components/screeningRate';
 import TabBar from '@/components/tabBar';
 import PopcornKeyword from './popcornKeyword';
 import VoteNextPopcorn from '../home/components/voteNextPopcorn';
@@ -52,7 +52,7 @@ function PopcornPartyDetailScreen() {
         handleTopBarState={handleTopBarState}
       />
       <DefaultContainer>
-        <ScreeningIndex mt={24} mb={40} />
+        <ScreeningRate score={80} mt={24} mb={40} />
         <PopcornKeyword />
         <Divider height={8} mt={32} mb={16} />
       </DefaultContainer>

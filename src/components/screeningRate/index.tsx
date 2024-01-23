@@ -2,8 +2,8 @@ import {CommonMarginVerticalProps} from '@/types/ui';
 import {Animated, View} from 'react-native';
 import Typography from '../typography';
 import {useEffect, useRef, useState} from 'react';
-import Tooltip from './tooltip';
-import screeningIndexStyles from './ScreeningIndex.style';
+import Tooltip from '../tooltip';
+import screeningRateStyles from './ScreeningRate.style';
 import {Easing} from 'react-native';
 import DisappointedSvg from '@/assets/icons/disappointed.svg';
 import SatisfiedSvg from '@/assets/icons/satisfied.svg';
@@ -11,16 +11,25 @@ import ReviewRate from './reviewRate';
 
 const TOOLTIP_MAX_LENGTH = 47.333343505859375;
 
-const ScreeningIndex = ({mt, mb}: CommonMarginVerticalProps) => {
+interface IScreeningIndex extends CommonMarginVerticalProps {
+  score: number;
+}
+const ScreeningRate = ({score, mt, mb}: IScreeningIndex) => {
   const [tooltipHeight, setTooltipHeight] = useState<number>(0);
   const [percentageLength, setPercentageLength] = useState<number>(0);
 
   // 100점 일 때 tooltip width 값인 47.333...을 빼줌
   const screeningIndexLocation =
-    percentageLength * (13 / 13) - TOOLTIP_MAX_LENGTH;
-  const screeningIndex = ((13 / 13) * 100).toFixed(0);
+    (percentageLength * score) / 100 - TOOLTIP_MAX_LENGTH;
+  const screeningIndex = score.toString();
 
-  const style = screeningIndexStyles({tooltipHeight});
+  const reviewLists = [
+    {category: '작품 감상', negative: 3, positive: 10},
+    {category: '상영 장소', negative: 2, positive: 11},
+    {category: '운영 방식', negative: 1, positive: 12},
+  ];
+
+  const style = screeningRateStyles({tooltipHeight});
 
   const marginLeftAnim = useRef(new Animated.Value(0)).current;
 
@@ -72,9 +81,16 @@ const ScreeningIndex = ({mt, mb}: CommonMarginVerticalProps) => {
           </Typography>
         </View>
       </View>
-      <ReviewRate />
+      {reviewLists.map(reviewList => (
+        <ReviewRate
+          category={reviewList.category}
+          positive={reviewList.positive}
+          negative={reviewList.negative}
+          key={`${reviewList.category}-review-rate`}
+        />
+      ))}
     </View>
   );
 };
 
-export default ScreeningIndex;
+export default ScreeningRate;

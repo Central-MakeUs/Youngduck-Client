@@ -1,11 +1,11 @@
 import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
-interface IScreeningStylesProps {
+interface IScreeningRateStylesProps {
   tooltipHeight: number;
 }
 
-const screeningIndexStyles = ({tooltipHeight}: IScreeningStylesProps) =>
+const screeningRateStyles = ({tooltipHeight}: IScreeningRateStylesProps) =>
   StyleSheet.create({
     container: {
       paddingVertical: 12,
@@ -47,4 +47,4 @@ const screeningIndexStyles = ({tooltipHeight}: IScreeningStylesProps) =>
     },
   });
 
-export default screeningIndexStyles;
+export default screeningRateStyles;
