@@ -4,6 +4,6 @@ export const detailTitleStyles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     paddingTop: 16,
-    paddingBottom: 7,
+    paddingBottom: 24,
   },
 });
