@@ -1,13 +1,13 @@
 const enum bottomTabScreens {
   ScreeningScreen = 'ScreeningScreen',
-  HomeScreen = 'HomeScreen',
   PopcornPartyHomeScreen = 'PopcornPartyHomeScreen',
+  MyPageScreen = 'MyPageScreen',
 }
 
 export const enum bottomTabBarLabel {
   ScreeningScreen = '스크리닝',
-  HomeScreen = '파콩',
   PopcornPartyHomeScreen = '팝콘파티',
+  MyPageScreen = '마이페이지',
 }
 
 export default bottomTabScreens;

@@ -24,6 +24,7 @@ import useNavigator from '@/hooks/useNavigator';
 import {postAccessToken} from '@/apis/auth/auth';
 import {getIsInstalled} from '@/services/localStorage/localStorage';
 import stackScreens from '@/constants/stackScreens';
+import ChangeNicknameScreen from '@/screens/myPage/changeNickname/ChangeNicknameScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -69,7 +70,7 @@ function StackNavigator() {
   return (
     <Stack.Navigator>
       {/*로그인 페이지*/}
-      <Stack.Screen
+      {/* <Stack.Screen
         name={stackScreens.LoginScreen}
         component={LoginScreen}
         options={{headerShown: false}}
@@ -83,7 +84,7 @@ function StackNavigator() {
         name={stackScreens.SignupCompleteScreen}
         component={SignupCompleteScreen}
         options={{headerShown: false}}
-      />
+      /> */}
       {/*BottomTab 3개 페이지*/}
       <Stack.Screen
         name={stackScreens.BottomTabScreens}
@@ -92,8 +93,12 @@ function StackNavigator() {
           headerShown: false,
         }}
       />
-      {/*마이 페이지*/}
-      <Stack.Screen name={stackScreens.MyPageScreen} component={MyPageScreen} />
+      {/*닉네임 수정 페이지*/}
+      <Stack.Screen
+        name={stackScreens.ChangeNicknameScreen}
+        component={ChangeNicknameScreen}
+        options={{headerShown: false}}
+      />
       {/*스크리닝 페이지*/}
       {/*작성 페이지*/}
       <Stack.Screen
@@ -109,11 +114,7 @@ function StackNavigator() {
       <Stack.Screen
         name={stackScreens.DetailScreen}
         component={DetailScreen}
-        options={{
-          header: () => (
-            <BackTitleTopBar text="Dynamic 상영회" goBack={handleGoBack} />
-          ),
-        }}
+        options={{headerShown: false}}
       />
       {/*리뷰 작성 페이지*/}
       <Stack.Screen
@@ -139,6 +140,7 @@ function StackNavigator() {
       <Stack.Screen
         name={stackScreens.PopcornPartyDetailScreen}
         component={PopcornPartyDetailScreen}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name={stackScreens.RecommandListScreen}
@@ -160,6 +162,7 @@ function StackNavigator() {
       <Stack.Screen
         name={stackScreens.WriteReviewScreen}
         component={WriteReviewScreen}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );

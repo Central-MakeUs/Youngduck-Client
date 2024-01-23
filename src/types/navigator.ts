@@ -15,14 +15,15 @@ export type RootStackParamList = {
   SignupCompleteScreen: undefined;
   BottomTabScreens: undefined;
   MyPageScreen: undefined;
+  ChangeNicknameScreen: {nickname: string};
 } & PopcornPartyStackParamList &
   ScreeningStackScreensParamList;
 
 // bottomTab 컴포넌트 param 타입
 export type BottomTabParamList = {
   ScreeningScreen: undefined;
-  HomeScreen: undefined;
   PopcornPartyHomeScreen: undefined;
+  MyPageScreen: undefined;
 };
 
 // 스크리닝 페이지 stack param 타입
