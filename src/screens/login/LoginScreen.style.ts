@@ -8,6 +8,10 @@ interface ILoginScreenStylesProps {
 
 const loginScreenStyles = ({width, height}: ILoginScreenStylesProps) =>
   StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingHorizontal: 16,
+    },
     wrapper: {
       flex: 1,
       justifyContent: 'center',
