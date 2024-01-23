@@ -1,5 +1,5 @@
 import palette from '@/styles/theme/color';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {Path, Svg} from 'react-native-svg';
 import {svgIconStyles} from './SvgIcons.style';
 import {ValueOfColor} from '@/types/theme/color';
@@ -86,9 +86,8 @@ const SvgIcons = {
     width = 8,
     height = 14,
     fill = palette.Text.Normal,
-    onPress,
   }: SvgIconProps) => (
-    <TouchableOpacity style={svgIconStyles.arrow} onPress={onPress}>
+    <View style={svgIconStyles.arrow}>
       <Svg width={width} height={height} viewBox="0 0 8 14" fill="none">
         <Path
           fill-rule="evenodd"
@@ -97,7 +96,7 @@ const SvgIcons = {
           fill={fill}
         />
       </Svg>
-    </TouchableOpacity>
+    </View>
   ),
   CancelIcon: ({
     width = 14,
