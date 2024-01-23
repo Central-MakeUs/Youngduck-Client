@@ -11,7 +11,6 @@ const gradientContainerStyles = ({top, bottom}: IGradientContainerStyleProps) =>
       flex: 1,
       paddingTop: top,
       paddingBottom: bottom,
-      paddingHorizontal: 16,
     },
   });
 
