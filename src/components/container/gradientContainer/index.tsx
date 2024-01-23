@@ -1,15 +1,15 @@
 import {Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import loginContainerStyles from './LoginContainer.style';
 import {defaultImages} from '@/assets';
 import {getScreenSize} from '@/utils/getScreenSize';
+import gradientContainerStyles from './GradientContainer.style';
 
-function LoginContainer({children}: {children: React.ReactNode}) {
+function GradientContainer({children}: {children: React.ReactNode}) {
   const {top, bottom} = useSafeAreaInsets();
   const {screenWidth: width, screenHeight: height} = getScreenSize();
 
-  const style = loginContainerStyles({top, bottom, width, height});
+  const style = gradientContainerStyles({top, bottom, width, height});
 
   return (
     <LinearGradient
@@ -21,4 +21,4 @@ function LoginContainer({children}: {children: React.ReactNode}) {
   );
 }
 
-export default LoginContainer;
+export default GradientContainer;

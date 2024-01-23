@@ -1,18 +1,18 @@
 import {StyleSheet} from 'react-native';
 
-export interface ILoginContainerStyleProps {
+export interface IGradientContainerStyleProps {
   top: number;
   bottom: number;
   width: number;
   height: number;
 }
 
-const loginContainerStyles = ({
+const gradientContainerStyles = ({
   top,
   bottom,
   width,
   height,
-}: ILoginContainerStyleProps) =>
+}: IGradientContainerStyleProps) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -28,4 +28,4 @@ const loginContainerStyles = ({
     },
   });
 
-export default loginContainerStyles;
+export default gradientContainerStyles;
