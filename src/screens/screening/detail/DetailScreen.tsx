@@ -11,6 +11,7 @@ import {ScreenRouteProp} from '@/types/navigator';
 import {DetailBottomButtonType} from '@/types/ui';
 
 import {detailScreenStyles} from './DetailScreen.style';
+import DetailStatisticScreen from './tabs/detailStatisticScreen/DetailStatisticScreen';
 
 type DetailScreenProps = {
   route: ScreenRouteProp<'DetailScreen'>;
@@ -28,7 +29,9 @@ const DetailScreen = ({route}: DetailScreenProps) => {
   const tabBars = [
     {title: '스크리닝 정보', tabNumber: 0},
     {title: '리뷰', tabNumber: 1},
+    {title: '통계', tabNumber: 2},
   ];
+
   return (
     <View style={detailScreenStyles.wrapper}>
       <View style={detailScreenStyles.content}>
@@ -43,8 +46,10 @@ const DetailScreen = ({route}: DetailScreenProps) => {
 
           {currentTab === 0 && <DetailInfoScreen />}
           {currentTab === 1 && <DetailReviewScreen />}
+          {currentTab === 2 && <DetailStatisticScreen />}
         </ImageContentScrollContainer>
       </View>
+
       <View style={detailScreenStyles.bottom}>
         <BottomDetailButton
           onPress={() => {}}
