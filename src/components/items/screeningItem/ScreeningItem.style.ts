@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-export const recentStyles = StyleSheet.create({
+export const screeningItemStyles = StyleSheet.create({
   container: {
     width: '100%',
     display: 'flex',
@@ -10,11 +10,10 @@ export const recentStyles = StyleSheet.create({
     marginBottom: 16,
   },
   image: {
-    width: 132,
     borderRadius: 8,
-    height: 88,
-    marginRight: 8,
-    flex: 1,
+    height: 64,
+    marginRight: 12,
+    width: 80,
   },
   content: {
     flex: 1.5,

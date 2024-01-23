@@ -7,12 +7,12 @@ import BoxButton from '@/components/buttons/boxButton';
 import Banner from '@/components/banner';
 import {screeningHomeStyle} from './HomeScreen.style';
 import ReviewScreening from './components/reviewScreening';
-import RecentScreening from './components/recentScreening';
 import WeeklyScreening from './components/weeklyScreening';
 import SubTitle from '@/components/title/subTitle';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import ScreeningStackScreen from '@/constants/screeningStackScreen';
+import ScreeningItem from '@/components/items/screeningItem';
 
 function HomeScreen() {
   const {stackNavigation} = useNavigator();
@@ -64,7 +64,6 @@ function HomeScreen() {
 
   return (
     <DefaultScrollContainer>
-      {/*이미지 자리*/}
       <Banner type="screening" onPress={handleGoWriting} />
       <SubTitle text="이번주 스크리닝" mt={12} mb={8} />
 
@@ -83,11 +82,11 @@ function HomeScreen() {
 
       <SubTitle text="실시간 새 소식" mt={16} mb={8} />
       <DefaultContainer>
-        <RecentScreening />
-        <RecentScreening />
-        <RecentScreening />
+        <ScreeningItem />
+        <ScreeningItem />
+        <ScreeningItem />
         <BoxButton variant="default" onPress={handleGoScreeningList}>
-          더보기
+          실시간 새 소식 더보기
         </BoxButton>
       </DefaultContainer>
       <View style={screeningHomeStyle.bottom} />
