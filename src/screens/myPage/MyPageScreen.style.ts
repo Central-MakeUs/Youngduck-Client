@@ -29,7 +29,6 @@ const myPageScreenStyles = StyleSheet.create({
     bottom: 20,
     backgroundColor: palette.Another.White,
   },
-  buttonWrap: {alignItems: 'center'},
   divider: {
     height: '100%',
     borderWidth: 0.5,

@@ -10,6 +10,7 @@ import myPageScreenStyles from './MyPageScreen.style';
 import {defaultImages} from '@/assets';
 import Management from './components/management';
 import Divider from '@/components/divider';
+import MyScreening from './components/myScreening';
 
 const MyPageScreen = () => {
   const [nickname, setNickname] = useState<string>('LANY');
@@ -17,6 +18,10 @@ const MyPageScreen = () => {
     {postName: '스크리닝 리뷰', count: 1},
     {postName: '팝콘작 리뷰', count: 1},
     {postName: '나의 스크리닝', count: 1},
+  ];
+  const myScreenings = [
+    {type: '관람한 스크리닝', count: 1},
+    {type: '관심 스크리닝', count: 1},
   ];
   const {stackNavigation} = useNavigator();
   return (
@@ -48,23 +53,9 @@ const MyPageScreen = () => {
           style={myPageScreenStyles.image}
         />
         <View style={myPageScreenStyles.screeningWrap}>
-          <Pressable style={myPageScreenStyles.buttonWrap}>
-            <Typography style="Label2" color={palette.Text.Strong}>
-              1
-            </Typography>
-            <Typography style="Chips1" color={palette.Text.Alternative}>
-              관람한 스크리닝
-            </Typography>
-          </Pressable>
+          <MyScreening type="관람한 스크리닝" count={1} />
           <View style={myPageScreenStyles.divider} />
-          <Pressable style={myPageScreenStyles.buttonWrap}>
-            <Typography style="Label2" color={palette.Text.Strong}>
-              1
-            </Typography>
-            <Typography style="Chips1" color={palette.Text.Alternative}>
-              관심 스크리닝
-            </Typography>
-          </Pressable>
+          <MyScreening type="관심 스크리닝" count={1} />
         </View>
         <Typography style="Subtitle2">게시물 관리</Typography>
         <View style={myPageScreenStyles.managePostsContainer}>
