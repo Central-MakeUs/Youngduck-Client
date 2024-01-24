@@ -5,23 +5,21 @@ import MultiButton from '@/components/buttons/multibutton';
 
 import {ScreeningReviewStyle} from './ScreeningReview.style';
 import SubTitleDescription from '@/components/title/subTitleDescription';
+import {negativeReview, reviewTypes} from '@/constants/review';
 
 interface INegativeReviewProps {
   goNext: () => void;
   goPrevious: () => void;
+  setValue: (value: boolean, option: string) => void;
+  review: any;
 }
 
-const NegativeReview = ({goNext, goPrevious}: INegativeReviewProps) => {
-  const direct = ['애매한 연출', '화면이 잘 안 붙네', '정돈 안 된 앵글'];
-  const art = ['아쉬운 디테일', '칙칙한 색감', '어색한 복장'];
-  const music = ['음악이 별로', '음향이 별로'];
-  const content = [
-    '의문의 결말',
-    '힘빠지는 후반부',
-    '회수 안 된 떡밥',
-    '공감 불가 주제의식',
-  ];
-  const actor = ['눈물나는 연기력', '미스 캐스팅'];
+const NegativeReview = ({
+  goNext,
+  goPrevious,
+  setValue,
+  review,
+}: INegativeReviewProps) => {
   return (
     <View style={ScreeningReviewStyle.container}>
       <ScrollView>
@@ -32,41 +30,17 @@ const NegativeReview = ({goNext, goPrevious}: INegativeReviewProps) => {
             subTitle="모든 카테고리에서 선택하지 않아도 돼요."
           />
 
-          <SelectItem
-            text="연출이 아쉬워요"
-            labels={direct}
-            onPress={() => {}}
-            mt={16}
-          />
-
-          <SelectItem
-            text="미술이 아쉬워요"
-            labels={art}
-            onPress={() => {}}
-            mt={12}
-          />
-
-          <SelectItem
-            text="음악이 아쉬워요"
-            labels={music}
-            onPress={() => {}}
-            mt={12}
-          />
-
-          <SelectItem
-            text="내용이 아쉬워요"
-            labels={content}
-            onPress={() => {}}
-            mt={12}
-          />
-
-          <SelectItem
-            text="배우가 아쉬워요"
-            labels={actor}
-            onPress={() => {}}
-            mt={12}
-            mb={28}
-          />
+          {reviewTypes.map((t, index) => (
+            <SelectItem
+              key={t}
+              text={negativeReview[t].title}
+              labels={negativeReview[t].select}
+              setValue={(value, option) => setValue(value, option)}
+              value={review}
+              mt={index === 0 ? 16 : 12}
+              mb={index === reviewTypes.length - 1 ? 28 : undefined}
+            />
+          ))}
         </View>
         <View style={{height: 88, marginBottom: 40}}>
           <MultiButton
