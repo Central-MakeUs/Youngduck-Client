@@ -8,22 +8,16 @@ import {noticeCardStyles} from './NoticeCard.style';
 
 interface INoticeCardProps {
   value: boolean;
-  title: string;
   content: string;
   onChangeValue: () => void;
 }
 
-const NoticeCard = ({
-  value,
-  title,
-  content,
-  onChangeValue,
-}: INoticeCardProps) => {
+const AgreeNoticeCard = ({value, content, onChangeValue}: INoticeCardProps) => {
   return (
-    <View>
+    <View style={noticeCardStyles.wrapper}>
       <View style={noticeCardStyles.content}>
         <Typography style="Label1" color={palette.Text.Normal}>
-          {title}
+          게시글 정책을 확인했어요.
         </Typography>
         <CheckBox state={value ? 'on' : 'off'} onPress={onChangeValue} />
       </View>
@@ -33,4 +27,4 @@ const NoticeCard = ({
     </View>
   );
 };
-export default NoticeCard;
+export default AgreeNoticeCard;
