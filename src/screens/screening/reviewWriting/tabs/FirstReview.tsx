@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 
 import MultiButton from '@/components/buttons/multibutton';
 import SubTitle from '@/components/title/subTitle';
@@ -16,7 +16,7 @@ const FirstReview = ({goNext, goPrevious}: IFirstReviewProps) => {
   const good = ['좋았어요', '아쉬웠어요'];
   return (
     <View style={ScreeningReviewStyle.container}>
-      <View>
+      <ScrollView>
         <SubTitle
           mt={24}
           mb={9}
@@ -36,7 +36,7 @@ const FirstReview = ({goNext, goPrevious}: IFirstReviewProps) => {
           </View>
         </View>
 
-        <SubTitle text="좀 더 자세히 알려주세요" mt={27} />
+        <SubTitle text="좀 더 자세히 알려주세요" mt={15} />
         <View style={{paddingLeft: 16}}>
           <SelectItem
             text="작품에 대한 저의 느낌은"
@@ -49,26 +49,26 @@ const FirstReview = ({goNext, goPrevious}: IFirstReviewProps) => {
             text="장소 선정은"
             labels={good}
             onPress={() => {}}
-            mt={24}
+            mt={12}
           />
 
           <SelectItem
             text="운영 방식은"
             labels={good}
             onPress={() => {}}
-            mt={24}
-            mb={8}
+            mt={12}
+            mb={28}
           />
         </View>
-      </View>
-      <View>
-        <MultiButton
-          leftButtonText="이전"
-          rightButtonText="다음"
-          onLeftButtonPress={goPrevious}
-          onRightButtonPress={goNext}
-        />
-      </View>
+        <View style={{height: 88, marginBottom: 40}}>
+          <MultiButton
+            leftButtonText="이전"
+            rightButtonText="다음"
+            onLeftButtonPress={goPrevious}
+            onRightButtonPress={goNext}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };
