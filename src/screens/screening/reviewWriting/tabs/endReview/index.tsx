@@ -6,11 +6,11 @@ import TextArea from '@/components/inputs/textArea';
 import AgreeNoticeCard from '@/components/cards/agreeNoticeCard';
 import BoxButton from '@/components/buttons/boxButton';
 
-import {ScreeningReviewStyle} from './ScreeningReview.style';
+import {screeningReviewStyle} from '../ScreeningReview.style';
 
 interface IEndReviewProps {
   setValue: (value: boolean | string, option: string) => void;
-  value: any;
+  value: any; // TODO: 타입 생성
 }
 
 const EndReview = ({setValue, value}: IEndReviewProps) => {
@@ -18,7 +18,7 @@ const EndReview = ({setValue, value}: IEndReviewProps) => {
     setValue(!value.hasAgreed, 'hasAgreed');
   };
   return (
-    <ScrollView style={ScreeningReviewStyle.container}>
+    <ScrollView style={screeningReviewStyle.container}>
       <DefaultContainer>
         <SubTitleDescription
           mt={24}
@@ -32,18 +32,19 @@ const EndReview = ({setValue, value}: IEndReviewProps) => {
           maxLength={300}
           height={216}
         />
-        <View style={{marginTop: 16, marginBottom: 40}}>
+        <View style={screeningReviewStyle.notice}>
           <AgreeNoticeCard
             value={value.hasAgreed}
             content="작성한 리뷰는 삭제 및 수정할 수 없어요."
             onChangeValue={handleChangeAgree}
           />
         </View>
-        <View style={{height: 88, marginBottom: 40}}>
+        <View style={screeningReviewStyle.multi}>
           <BoxButton
             disabled={!value.hasAgreed}
             onPress={() => {
-              console.log(value);
+              //console.log(value);
+              //TODO: 백엔드 api 연결
             }}>
             리뷰 작성하기
           </BoxButton>

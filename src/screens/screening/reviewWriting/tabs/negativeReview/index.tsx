@@ -2,16 +2,16 @@ import {View, ScrollView} from 'react-native';
 
 import SelectItem from '@/components/items/selectItem';
 import MultiButton from '@/components/buttons/multibutton';
-
-import {ScreeningReviewStyle} from './ScreeningReview.style';
 import SubTitleDescription from '@/components/title/subTitleDescription';
 import {negativeReview, reviewTypes} from '@/constants/review';
+
+import {screeningReviewStyle} from '../ScreeningReview.style';
 
 interface INegativeReviewProps {
   goNext: () => void;
   goPrevious: () => void;
   setValue: (value: boolean, option: string) => void;
-  review: any;
+  review: any; // TODO: 백엔드 api 타입
 }
 
 const NegativeReview = ({
@@ -21,7 +21,7 @@ const NegativeReview = ({
   review,
 }: INegativeReviewProps) => {
   return (
-    <View style={ScreeningReviewStyle.container}>
+    <View style={screeningReviewStyle.container}>
       <ScrollView>
         <View style={{paddingLeft: 16}}>
           <SubTitleDescription
@@ -42,7 +42,7 @@ const NegativeReview = ({
             />
           ))}
         </View>
-        <View style={{height: 88, marginBottom: 40}}>
+        <View style={screeningReviewStyle.multi}>
           <MultiButton
             leftButtonText="이전"
             rightButtonText="다음"

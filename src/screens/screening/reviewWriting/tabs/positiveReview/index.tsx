@@ -5,13 +5,13 @@ import SubTitleDescription from '@/components/title/subTitleDescription';
 import SelectItem from '@/components/items/selectItem';
 import {positiveReview, reviewTypes} from '@/constants/review';
 
-import {ScreeningReviewStyle} from './ScreeningReview.style';
+import {screeningReviewStyle} from '../ScreeningReview.style';
 
 interface IPositiveReviewProps {
   goNext: () => void;
   goPrevious: () => void;
   setValue: (value: boolean, option: string) => void;
-  review: any;
+  review: any; // TODO: 백엔드 api 타입
 }
 
 const PositiveReview = ({
@@ -21,7 +21,7 @@ const PositiveReview = ({
   review,
 }: IPositiveReviewProps) => {
   return (
-    <View style={ScreeningReviewStyle.container}>
+    <View style={screeningReviewStyle.container}>
       <ScrollView>
         <View style={{paddingLeft: 16}}>
           <SubTitleDescription
@@ -42,7 +42,7 @@ const PositiveReview = ({
             />
           ))}
         </View>
-        <View style={{height: 88, marginBottom: 40}}>
+        <View style={screeningReviewStyle.multi}>
           <MultiButton
             leftButtonText="이전"
             rightButtonText="다음"

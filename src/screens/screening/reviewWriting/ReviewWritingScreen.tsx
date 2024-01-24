@@ -3,10 +3,10 @@ import {Animated, ScrollView, View} from 'react-native';
 
 import ProgressBar from '@/components/progressBar';
 import BackCancelTopBar from '@/components/topBar/backCancelTopBar';
-import FirstReview from './tabs/FirstReview';
-import PositiveReview from './tabs/PositiveReview';
-import NegativeReview from './tabs/NegativeReview';
-import EndReview from './tabs/EndReview';
+import FirstReview from './tabs/firstReview';
+import PositiveReview from './tabs/positiveReview';
+import NegativeReview from './tabs/negativeReview';
+import EndReview from './tabs/endReview';
 import useNavigator from '@/hooks/useNavigator';
 import moveScreen from '@/utils/moveScreen';
 
@@ -15,7 +15,7 @@ const ReviewWritingScreen = () => {
   const {stackNavigation} = useNavigator();
   const animatedValue = useRef(new Animated.Value(0)).current;
   const scrollViewRef = useRef<ScrollView>(null);
-  // 백엔드 api body 통신
+  // 백엔드 api body 통신 => TODO: 타입 추가
   const [inputValues, setInputValues] = useState({
     positive: {
       // 연출

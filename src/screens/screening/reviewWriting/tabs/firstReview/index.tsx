@@ -6,13 +6,13 @@ import SelectButton from '@/components/buttons/selectButton';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 
-import {ScreeningReviewStyle} from './ScreeningReview.style';
+import {screeningReviewStyle} from '../ScreeningReview.style';
 
 interface IFirstReviewProps {
   goNext: () => void;
   goPrevious: () => void;
   setValue: (value: boolean, option: string) => void;
-  review: any;
+  review: any; // TODO: 백엔드 api 타입
 }
 const FirstReview = ({
   goNext,
@@ -24,15 +24,15 @@ const FirstReview = ({
   const reaction = ['좋았어요', '아쉬웠어요'];
 
   return (
-    <View style={ScreeningReviewStyle.container}>
+    <View style={screeningReviewStyle.container}>
       <ScrollView>
         <SubTitle
           mt={24}
           mb={9}
           text={`상영회 관람 후,\n 이 상영회의 만족도는 어땠나요?`}
         />
-        <View style={{paddingLeft: 16}}>
-          <View style={ScreeningReviewStyle.flex}>
+        <View style={screeningReviewStyle.padding}>
+          <View style={screeningReviewStyle.flex}>
             {labels.map((label, index) => (
               <SelectButton
                 size="small"
@@ -58,11 +58,11 @@ const FirstReview = ({
         </View>
 
         <SubTitle text="좀 더 자세히 알려주세요" mt={15} />
-        <View style={{paddingLeft: 16}}>
+        <View style={screeningReviewStyle.padding}>
           <Typography mb={8} style="Body2" color={palette.Another.Black}>
             작품에 대한 저의 느낌은
           </Typography>
-          <View style={ScreeningReviewStyle.flex}>
+          <View style={screeningReviewStyle.flex}>
             {reaction.map((label, index) => (
               <SelectButton
                 size="small"
@@ -89,7 +89,7 @@ const FirstReview = ({
           <Typography mb={8} style="Body2" color={palette.Another.Black}>
             장소 선정은
           </Typography>
-          <View style={ScreeningReviewStyle.flex}>
+          <View style={screeningReviewStyle.flex}>
             {reaction.map((label, index) => (
               <SelectButton
                 size="small"
@@ -116,7 +116,7 @@ const FirstReview = ({
           <Typography mb={8} style="Body2" color={palette.Another.Black}>
             운영 방식은
           </Typography>
-          <View style={ScreeningReviewStyle.flex}>
+          <View style={screeningReviewStyle.flex}>
             {reaction.map((label, index) => (
               <SelectButton
                 size="small"
@@ -140,7 +140,7 @@ const FirstReview = ({
             ))}
           </View>
         </View>
-        <View style={{height: 88, marginBottom: 40, marginTop: 28}}>
+        <View style={screeningReviewStyle.bottom}>
           <MultiButton
             leftButtonText="이전"
             rightButtonText="다음"
