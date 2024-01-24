@@ -3,17 +3,26 @@ import {ScrollView, View} from 'react-native';
 import MultiButton from '@/components/buttons/multibutton';
 import SubTitle from '@/components/title/subTitle';
 import SelectButton from '@/components/buttons/selectButton';
-import SelectItem from '@/components/items/selectItem';
+import Typography from '@/components/typography';
+import palette from '@/styles/theme/color';
 
 import {ScreeningReviewStyle} from './ScreeningReview.style';
 
 interface IFirstReviewProps {
   goNext: () => void;
   goPrevious: () => void;
+  setValue: (value: boolean, option: string) => void;
+  review: any;
 }
-const FirstReview = ({goNext, goPrevious}: IFirstReviewProps) => {
+const FirstReview = ({
+  goNext,
+  goPrevious,
+  setValue,
+  review,
+}: IFirstReviewProps) => {
   const labels = ['기대만큼 좋았어요', '기대보다 아쉬웠어요'];
-  const good = ['좋았어요', '아쉬웠어요'];
+  const reaction = ['좋았어요', '아쉬웠어요'];
+
   return (
     <View style={ScreeningReviewStyle.container}>
       <ScrollView>
@@ -24,13 +33,25 @@ const FirstReview = ({goNext, goPrevious}: IFirstReviewProps) => {
         />
         <View style={{paddingLeft: 16}}>
           <View style={ScreeningReviewStyle.flex}>
-            {labels.map(label => (
+            {labels.map((label, index) => (
               <SelectButton
                 size="small"
                 key={label}
                 type={label}
-                onPress={() => {}}
-                isSelected={false}
+                onPress={() => {
+                  if (review.afterScreening === undefined) {
+                    setValue(index === 0 ? true : false, 'afterScreening');
+                  } else {
+                    setValue(!review.afterScreening, 'afterScreening');
+                  }
+                }}
+                isSelected={
+                  review.afterScreening !== undefined
+                    ? index === 0
+                      ? review.afterScreening
+                      : !review.afterScreening
+                    : false
+                }
               />
             ))}
           </View>
@@ -38,34 +59,100 @@ const FirstReview = ({goNext, goPrevious}: IFirstReviewProps) => {
 
         <SubTitle text="좀 더 자세히 알려주세요" mt={15} />
         <View style={{paddingLeft: 16}}>
-          <SelectItem
-            text="작품에 대한 저의 느낌은"
-            labels={good}
-            onPress={() => {}}
-            mt={8}
-          />
+          <Typography mb={8} style="Body2" color={palette.Another.Black}>
+            작품에 대한 저의 느낌은
+          </Typography>
+          <View style={ScreeningReviewStyle.flex}>
+            {reaction.map((label, index) => (
+              <SelectButton
+                size="small"
+                key={label}
+                type={label}
+                onPress={() => {
+                  if (review.screeningReview === undefined) {
+                    setValue(index === 0 ? true : false, 'screeningReview');
+                  } else {
+                    setValue(!review.screeningReview, 'screeningReview');
+                  }
+                }}
+                isSelected={
+                  review.screeningReview !== undefined
+                    ? index === 0
+                      ? review.screeningReview
+                      : !review.screeningReview
+                    : false
+                }
+              />
+            ))}
+          </View>
 
-          <SelectItem
-            text="장소 선정은"
-            labels={good}
-            onPress={() => {}}
-            mt={12}
-          />
+          <Typography mb={8} style="Body2" color={palette.Another.Black}>
+            장소 선정은
+          </Typography>
+          <View style={ScreeningReviewStyle.flex}>
+            {reaction.map((label, index) => (
+              <SelectButton
+                size="small"
+                key={label}
+                type={label}
+                onPress={() => {
+                  if (review.locationReview === undefined) {
+                    setValue(index === 0 ? true : false, 'locationReview');
+                  } else {
+                    setValue(!review.locationReview, 'locationReview');
+                  }
+                }}
+                isSelected={
+                  review.locationReview !== undefined
+                    ? index === 0
+                      ? review.locationReview
+                      : !review.locationReview
+                    : false
+                }
+              />
+            ))}
+          </View>
 
-          <SelectItem
-            text="운영 방식은"
-            labels={good}
-            onPress={() => {}}
-            mt={12}
-            mb={28}
-          />
+          <Typography mb={8} style="Body2" color={palette.Another.Black}>
+            운영 방식은
+          </Typography>
+          <View style={ScreeningReviewStyle.flex}>
+            {reaction.map((label, index) => (
+              <SelectButton
+                size="small"
+                key={label}
+                type={label}
+                onPress={() => {
+                  if (review.serviceReview === undefined) {
+                    setValue(index === 0 ? true : false, 'serviceReview');
+                  } else {
+                    setValue(!review.serviceReview, 'serviceReview');
+                  }
+                }}
+                isSelected={
+                  review.serviceReview !== undefined
+                    ? index === 0
+                      ? review.serviceReview
+                      : !review.serviceReview
+                    : false
+                }
+              />
+            ))}
+          </View>
         </View>
-        <View style={{height: 88, marginBottom: 40}}>
+        <View style={{height: 88, marginBottom: 40, marginTop: 28}}>
           <MultiButton
             leftButtonText="이전"
             rightButtonText="다음"
             onLeftButtonPress={goPrevious}
             onRightButtonPress={goNext}
+            disabled={
+              review.afterScreening == undefined ||
+              review.serviceReview === undefined ||
+              review.locationReview === undefined ||
+              review.screeningReview === undefined ||
+              review.afterScreening === undefined
+            }
           />
         </View>
       </ScrollView>
