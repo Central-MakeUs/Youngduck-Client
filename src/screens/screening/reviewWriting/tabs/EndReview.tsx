@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import {ScrollView, View} from 'react-native';
 
 import SubTitleDescription from '@/components/title/subTitleDescription';
@@ -9,13 +8,14 @@ import BoxButton from '@/components/buttons/boxButton';
 
 import {ScreeningReviewStyle} from './ScreeningReview.style';
 
-interface IEndReviewProps {}
+interface IEndReviewProps {
+  setValue: (value: boolean | string, option: string) => void;
+  value: any;
+}
 
-const EndReview = ({}: IEndReviewProps) => {
-  const [description, setDescription] = useState('');
-  const [agree, setAgree] = useState(false);
+const EndReview = ({setValue, value}: IEndReviewProps) => {
   const handleChangeAgree = () => {
-    setAgree(!agree);
+    setValue(!value.hasAgreed, 'hasAgreed');
   };
   return (
     <ScrollView style={ScreeningReviewStyle.container}>
@@ -27,20 +27,26 @@ const EndReview = ({}: IEndReviewProps) => {
           mb={8}
         />
         <TextArea
-          value={description}
-          onChangeInput={text => setDescription(text)}
+          value={value.review}
+          onChangeInput={text => setValue(text, 'review')}
           maxLength={300}
           height={216}
         />
         <View style={{marginTop: 16, marginBottom: 40}}>
           <AgreeNoticeCard
-            value={agree}
+            value={value.hasAgreed}
             content="작성한 리뷰는 삭제 및 수정할 수 없어요."
             onChangeValue={handleChangeAgree}
           />
         </View>
         <View style={{height: 88, marginBottom: 40}}>
-          <BoxButton onPress={() => {}}>리뷰 작성하기</BoxButton>
+          <BoxButton
+            disabled={!value.hasAgreed}
+            onPress={() => {
+              console.log(value);
+            }}>
+            리뷰 작성하기
+          </BoxButton>
         </View>
       </DefaultContainer>
     </ScrollView>

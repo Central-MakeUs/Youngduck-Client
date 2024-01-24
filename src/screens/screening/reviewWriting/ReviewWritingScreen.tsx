@@ -1,59 +1,82 @@
-import ProgressBar from '@/components/progressBar';
-import BackCancelTopBar from '@/components/topBar/backCancelTopBar';
-import useNavigator from '@/hooks/useNavigator';
-import moveScreen from '@/utils/moveScreen';
 import {useRef, useState} from 'react';
 import {Animated, ScrollView, View} from 'react-native';
+
+import ProgressBar from '@/components/progressBar';
+import BackCancelTopBar from '@/components/topBar/backCancelTopBar';
 import FirstReview from './tabs/FirstReview';
 import PositiveReview from './tabs/PositiveReview';
 import NegativeReview from './tabs/NegativeReview';
 import EndReview from './tabs/EndReview';
+import useNavigator from '@/hooks/useNavigator';
+import moveScreen from '@/utils/moveScreen';
 
 const ReviewWritingScreen = () => {
-  const [positive, setPositive] = useState({
-    cineMaster: false,
-    greatFilming: false,
-    pom: false,
-    animationIsGood: false,
-    artIsGood: false,
-    custom: false,
-    music: false,
-    topicIsGood: false,
-    linesAreGood: false,
-    endingIsGood: false,
-    castingIsGood: false,
-    actingIsGood: false,
-    chemistryIsGood: false,
-  });
-  const [negative, setNegative] = useState({
-    iffy: false,
-    badEditing: false,
-    badAngle: false,
-    badDetail: false,
-    badColor: false,
-    badCustom: false,
-    badMusic: false,
-    badSound: false,
-    badEnding: false,
-    endingLoose: false,
-    noDetail: false,
-    badTopic: false,
-    badActing: false,
-    badCasting: false,
-  });
-  const [review, setReview] = useState({
-    afterScreening: false,
-    screeningReview: false,
-    locationReview: false,
-    serviceReview: false,
-    review: '',
-    hasAgreed: false,
-  });
-
   const [currentScreen, setCurrentScreen] = useState<number>(0);
   const {stackNavigation} = useNavigator();
   const animatedValue = useRef(new Animated.Value(0)).current;
   const scrollViewRef = useRef<ScrollView>(null);
+  // 백엔드 api body 통신
+  const [inputValues, setInputValues] = useState({
+    positive: {
+      // 연출
+      cineMaster: false,
+      greatFilming: false,
+      pom: false,
+      animationIsGood: false,
+      // 미술
+      artIsGood: false,
+      custom: false,
+      // 음악
+      music: false,
+      // 내용
+      topicIsGood: false,
+      linesAreGood: false,
+      endingIsGood: false,
+      // 배우
+      castingIsGood: false,
+      actingIsGood: false,
+      chemistryIsGood: false,
+    },
+    negative: {
+      iffy: false,
+      badEditing: false,
+      badAngle: false,
+      badDetail: false,
+      badColor: false,
+      badCustom: false,
+      badMusic: false,
+      badSound: false,
+      badEnding: false,
+      endingLoose: false,
+      noDetail: false,
+      badTopic: false,
+      badActing: false,
+      badCasting: false,
+    },
+    afterScreening: undefined,
+    screeningReview: undefined,
+    locationReview: undefined,
+    serviceReview: undefined,
+    review: '',
+    hasAgreed: false,
+  });
+
+  const reviewPositive = {...inputValues.positive};
+  const reviewNegative = {...inputValues.negative};
+
+  const onChangePositive = (value: boolean, option: string) => {
+    const updatePositive = {...reviewPositive, [option]: value};
+    setInputValues({...inputValues, positive: updatePositive});
+  };
+
+  const onChangeNegative = (value: boolean, option: string) => {
+    const updateNegative = {...reviewNegative, [option]: value};
+    setInputValues({...inputValues, negative: updateNegative});
+  };
+
+  const onChangeOption = (value: boolean | string, option: string) => {
+    setInputValues({...inputValues, [option]: value});
+  };
 
   const nextScreen = () => {
     moveScreen({
@@ -90,16 +113,28 @@ const ReviewWritingScreen = () => {
         scrollEnabled={false}
         showsHorizontalScrollIndicator={false}
         ref={scrollViewRef}>
-        <FirstReview goNext={nextScreen} goPrevious={goBackOrPreviousScreen} />
+        <FirstReview
+          goNext={nextScreen}
+          goPrevious={goBackOrPreviousScreen}
+          review={inputValues}
+          setValue={(value, option) => onChangeOption(value, option)}
+        />
         <PositiveReview
+          setValue={(value, option) => onChangePositive(value, option)}
+          review={reviewPositive}
           goNext={nextScreen}
           goPrevious={goBackOrPreviousScreen}
         />
         <NegativeReview
+          setValue={(value, option) => onChangeNegative(value, option)}
+          review={reviewNegative}
           goNext={nextScreen}
           goPrevious={goBackOrPreviousScreen}
         />
-        <EndReview />
+        <EndReview
+          value={inputValues}
+          setValue={(value, option) => onChangeOption(value, option)}
+        />
       </ScrollView>
     </View>
   );
