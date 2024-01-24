@@ -104,7 +104,7 @@ export const positiveReview: PositiveReviewType = {
   },
 };
 
-export const NegativeReview: PositiveReviewType = {
+export const negativeReview: PositiveReviewType = {
   direct: {
     title: '연출이 아쉬워요',
     select: [
@@ -187,3 +187,5 @@ export const NegativeReview: PositiveReviewType = {
     ],
   },
 };
+
+export const reviewTypes = ['direct', 'art', 'music', 'content', 'actor'];
