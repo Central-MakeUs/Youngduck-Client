@@ -4,24 +4,20 @@ import Typography from '@/components/typography';
 import stackScreens from '@/constants/stackScreens';
 import useNavigator from '@/hooks/useNavigator';
 import palette from '@/styles/theme/color';
-import {useState} from 'react';
 import {View, Pressable, Image} from 'react-native';
 import myPageScreenStyles from './MyPageScreen.style';
 import {defaultImages} from '@/assets';
 import Management from './components/management';
 import Divider from '@/components/divider';
 import MyScreening from './components/myScreening';
+import {useUserStore} from '@/stores/user';
 
 const MyPageScreen = () => {
-  const [nickname, setNickname] = useState<string>('LANY');
+  const {user} = useUserStore();
   const managePosts = [
     {postName: '스크리닝 리뷰', count: 1},
     {postName: '팝콘작 리뷰', count: 1},
     {postName: '나의 스크리닝', count: 1},
-  ];
-  const myScreenings = [
-    {type: '관람한 스크리닝', count: 1},
-    {type: '관심 스크리닝', count: 1},
   ];
   const {stackNavigation} = useNavigator();
   return (
@@ -35,15 +31,12 @@ const MyPageScreen = () => {
         <Typography style="Title1">마이페이지</Typography>
         <Pressable
           onPress={() =>
-            stackNavigation.navigate(stackScreens.ChangeNicknameScreen, {
-              nickname,
-              setNickname,
-            })
+            stackNavigation.navigate(stackScreens.ChangeNicknameScreen)
           }
           style={myPageScreenStyles.nicknameContainer}>
           <View style={myPageScreenStyles.nicknameWrap}>
             <Typography style="Label1" color={palette.Primary.Dark}>
-              {nickname}
+              {user.nickname}
             </Typography>
             <SvgIcons.ModifyIcon />
           </View>
