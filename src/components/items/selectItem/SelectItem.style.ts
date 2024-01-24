@@ -4,5 +4,6 @@ export const selectItemStyles = StyleSheet.create({
   flex: {
     flexDirection: 'row',
     alignItems: 'center',
+    flexWrap: 'wrap',
   },
 });
