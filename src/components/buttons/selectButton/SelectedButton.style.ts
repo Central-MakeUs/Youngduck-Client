@@ -9,6 +9,7 @@ const commonStyles: ViewStyle = {
   marginBottom: 12,
   marginRight: 8,
   justifyContent: 'center',
+  alignSelf: 'flex-start',
 };
 
 export const selectedButtonStyles = StyleSheet.create({
