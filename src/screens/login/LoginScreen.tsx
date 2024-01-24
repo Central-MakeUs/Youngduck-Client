@@ -1,12 +1,16 @@
 import KakaoLogin from '@/components/auth/kakao';
-import {Image, Platform, Text, View} from 'react-native';
+
+import {Image, Platform, Pressable, Text, View} from 'react-native';
 import loginScreenStyles from '@/screens/login/LoginScreen.style';
 import {defaultImages} from '@/assets';
+import useNavigator from '@/hooks/useNavigator';
+import stackScreens from '@/constants/stackScreens';
 import AppleLogin from '@/components/auth/apple';
 import GradientContainer from '@/components/container/gradientContainer';
 import {getScreenSize} from '@/utils/getScreenSize';
 
 function LoginScreen() {
+  const {stackNavigation} = useNavigator();
   const platform = Platform.OS;
   const {screenWidth: width, screenHeight: height} = getScreenSize();
 
@@ -25,7 +29,15 @@ function LoginScreen() {
           {platform === 'ios' && <AppleLogin />}
         </View>
       </View>
-    </GradientContainer>
+      <View style={loginScreenStyles.wrapper}>
+        <KakaoLogin />
+        {platform === 'ios' && <AppleLogin />}
+      </View>
+      <Pressable
+        onPress={() => stackNavigation.navigate(stackScreens.SignupScreen)}>
+        <Text>SignupScreen</Text>
+      </Pressable>
+    </LoginContainer>
   );
 }
 
