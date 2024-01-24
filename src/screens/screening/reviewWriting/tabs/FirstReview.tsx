@@ -1,12 +1,11 @@
-import Typography from '@/components/typography';
 import {View} from 'react-native';
-import {ScreeningReviewStyle} from './ScreeningReview.style';
+
 import MultiButton from '@/components/buttons/multibutton';
-import FooterButtonContainer from '@/components/container/footerButtonContainer';
 import SubTitle from '@/components/title/subTitle';
 import SelectButton from '@/components/buttons/selectButton';
-import DefaultContainer from '@/components/container/defaultContainer';
-import palette from '@/styles/theme/color';
+import SelectItem from '@/components/items/selectItem';
+
+import {ScreeningReviewStyle} from './ScreeningReview.style';
 
 interface IFirstReviewProps {
   goNext: () => void;
@@ -27,6 +26,7 @@ const FirstReview = ({goNext, goPrevious}: IFirstReviewProps) => {
           <View style={ScreeningReviewStyle.flex}>
             {labels.map(label => (
               <SelectButton
+                size="small"
                 key={label}
                 type={label}
                 onPress={() => {}}
@@ -38,57 +38,27 @@ const FirstReview = ({goNext, goPrevious}: IFirstReviewProps) => {
 
         <SubTitle text="좀 더 자세히 알려주세요" mt={27} />
         <View style={{paddingLeft: 16}}>
-          <Typography mt={8} mb={8} style="Body2" color={palette.Another.Black}>
-            작품에 대한 저의 느낌은
-          </Typography>
-          <View style={ScreeningReviewStyle.flex}>
-            {good.map(g => (
-              <SelectButton
-                key={g}
-                type={g}
-                onPress={() => {}}
-                isSelected={false}
-              />
-            ))}
-          </View>
+          <SelectItem
+            text="작품에 대한 저의 느낌은"
+            labels={good}
+            onPress={() => {}}
+            mt={8}
+          />
 
-          <Typography
+          <SelectItem
+            text="장소 선정은"
+            labels={good}
+            onPress={() => {}}
+            mt={24}
+          />
+
+          <SelectItem
+            text="운영 방식은"
+            labels={good}
+            onPress={() => {}}
             mt={24}
             mb={8}
-            style="Body2"
-            color={palette.Another.Black}>
-            장소 선정은
-          </Typography>
-
-          <View style={ScreeningReviewStyle.flex}>
-            {good.map(g => (
-              <SelectButton
-                key={g}
-                type={g}
-                onPress={() => {}}
-                isSelected={false}
-              />
-            ))}
-          </View>
-
-          <Typography
-            mt={24}
-            mb={8}
-            style="Body2"
-            color={palette.Another.Black}>
-            운영 방식은
-          </Typography>
-
-          <View style={ScreeningReviewStyle.flex}>
-            {good.map(g => (
-              <SelectButton
-                key={g}
-                type={g}
-                onPress={() => {}}
-                isSelected={false}
-              />
-            ))}
-          </View>
+          />
         </View>
       </View>
       <View>
