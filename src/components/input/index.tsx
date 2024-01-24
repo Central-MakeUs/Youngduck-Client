@@ -109,7 +109,6 @@ const Input = ({
           importantForAutofill="yes"
           blurOnSubmit={false}
           clearButtonMode={mode !== 'input' ? 'never' : 'while-editing'}
-          editable={isDuplicated}
           keyboardType={
             keyBoardType === 'email'
               ? 'email-address'
