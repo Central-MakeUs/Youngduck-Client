@@ -103,3 +103,87 @@ export const positiveReview: PositiveReviewType = {
     ],
   },
 };
+
+export const NegativeReview: PositiveReviewType = {
+  direct: {
+    title: '연출이 아쉬워요',
+    select: [
+      {
+        value: 'iffy',
+        label: '애매한 연출',
+      },
+      {
+        value: 'badEditing',
+        label: '화면이 잘 안 붙네',
+      },
+      {
+        value: 'badAngle',
+        label: '정돈 안 된 앵글',
+      },
+    ],
+  },
+  art: {
+    title: '미술이 아쉬워요',
+    select: [
+      {
+        value: 'badDetail',
+        label: '아쉬운 디테일',
+      },
+      {
+        value: 'badColor',
+        label: '칙칙한 색감',
+      },
+      {
+        value: 'badCustom',
+        label: '어색한 복장',
+      },
+    ],
+  },
+  music: {
+    title: '음악이 아쉬워요',
+    select: [
+      {
+        value: 'badMusic',
+        label: '음악이 별로',
+      },
+      {
+        value: 'badSound',
+        label: '음향이 별로',
+      },
+    ],
+  },
+  content: {
+    title: '내용이 아쉬워요',
+    select: [
+      {
+        value: 'badEnding',
+        label: '의문의 결말',
+      },
+      {
+        value: 'endingLoose',
+        label: '힘빠지는 후반부',
+      },
+      {
+        value: 'noDetail',
+        label: '회수 안 된 떡밥',
+      },
+      {
+        value: 'badTopic',
+        label: '공감 불가 주제의식',
+      },
+    ],
+  },
+  actor: {
+    title: '배우가 아쉬워요',
+    select: [
+      {
+        value: 'badActing',
+        label: '눈물나는 연기력',
+      },
+      {
+        value: 'badCasting',
+        label: '미스 캐스팅',
+      },
+    ],
+  },
+};
