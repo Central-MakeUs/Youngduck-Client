@@ -1,16 +1,31 @@
+import {View} from 'react-native';
+
 import SelectButton from '@/components/buttons/selectButton';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
-import {View} from 'react-native';
-import {selectItemStyles} from './SelectItem.style';
 import {CommonMarginVerticalProps} from '@/types/ui';
 
-interface ISelectItemProps extends CommonMarginVerticalProps {
-  labels: string[];
-  onPress: () => void;
-  text: string;
+import {selectItemStyles} from './SelectItem.style';
+
+interface ISelectItem {
+  value: string;
+  label: string;
 }
-const SelectItem = ({text, labels, onPress, mt, mb}: ISelectItemProps) => {
+
+interface ISelectItemProps extends CommonMarginVerticalProps {
+  labels: ISelectItem[];
+  text: string;
+  setValue: (value: boolean, option: string) => void;
+  value: any;
+}
+const SelectItem = ({
+  text,
+  labels,
+  setValue,
+  mt,
+  mb,
+  value,
+}: ISelectItemProps) => {
   return (
     <View
       style={{
@@ -22,13 +37,13 @@ const SelectItem = ({text, labels, onPress, mt, mb}: ISelectItemProps) => {
       </Typography>
 
       <View style={selectItemStyles.flex}>
-        {labels.map(label => (
+        {labels.map(l => (
           <SelectButton
             size="small"
-            key={label}
-            type={label}
-            onPress={onPress}
-            isSelected={false}
+            key={l.label}
+            type={l.label}
+            onPress={() => setValue(!value[l.value], l.value)}
+            isSelected={value[l.value]}
           />
         ))}
       </View>
