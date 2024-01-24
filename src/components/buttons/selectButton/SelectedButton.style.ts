@@ -2,8 +2,8 @@ import palette from '@/styles/theme/color';
 import {StyleSheet, ViewStyle} from 'react-native';
 
 const commonStyles: ViewStyle = {
-  height: 40,
   paddingHorizontal: 16,
+  paddingVertical: 8,
   borderRadius: 100,
   borderWidth: 1,
   marginBottom: 12,
