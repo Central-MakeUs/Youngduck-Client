@@ -5,7 +5,7 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import {CommonMarginVerticalProps} from '@/types/ui';
 
-import {selectItemStyles} from './SelectItem.style';
+import {selectItemStyles} from './SelectMultipleButtons.style';
 
 interface ISelectItem {
   value: string;
@@ -18,7 +18,7 @@ interface ISelectItemProps extends CommonMarginVerticalProps {
   setValue: (value: boolean, option: string) => void;
   value: any;
 }
-const SelectItem = ({
+const SelectMultipleButtons = ({
   text,
   labels,
   setValue,
@@ -50,4 +50,4 @@ const SelectItem = ({
     </View>
   );
 };
-export default SelectItem;
+export default SelectMultipleButtons;

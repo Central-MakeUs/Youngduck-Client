@@ -2,11 +2,12 @@ import {ScrollView, View} from 'react-native';
 
 import MultiButton from '@/components/buttons/multibutton';
 import SubTitleDescription from '@/components/title/subTitleDescription';
-import SelectItem from '@/components/items/selectItem';
+
 import {reviewTypes} from '@/constants/review';
 import {getReview} from '@/utils/getReview';
 
 import {screeningReviewStyle} from '../ScreeningReview.style';
+import SelectMultipleButtons from '@/components/buttonGroups/selectMultipleButtons';
 
 interface ISelectReviewProps {
   goNext: () => void;
@@ -39,7 +40,7 @@ const SelectReview = ({
           />
 
           {reviewTypes.map((t, index) => (
-            <SelectItem
+            <SelectMultipleButtons
               key={t}
               text={reviewData[t].title}
               labels={reviewData[t].select}
