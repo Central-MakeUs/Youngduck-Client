@@ -5,6 +5,7 @@ const settingScreenStyles = StyleSheet.create({
     paddingHorizontal: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: -8,
   },
   appVersionWrap: {
     flexDirection: 'row',
