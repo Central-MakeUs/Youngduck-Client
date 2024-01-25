@@ -1,5 +1,5 @@
 import {FlatList, View} from 'react-native';
-import {useQueries, useQuery} from '@tanstack/react-query';
+import {useQueries} from '@tanstack/react-query';
 
 import Divider from '@/components/divider';
 import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
@@ -12,7 +12,6 @@ import SubTitle from '@/components/title/subTitle';
 import ScreeningItem from '@/components/items/screeningItem';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
-import ScreeningStackScreen from '@/constants/screeningStackScreen';
 import {getRecentScreening, getWeekScreening} from '@/apis/screening/screening';
 import {IWeekScreeningData} from '@/models/screening/response';
 
@@ -30,6 +29,7 @@ function HomeScreen() {
         queryKey: ['recentScreening'],
         queryFn: getRecentScreening,
       },
+      // 반응 좋았던 스크리닝 api
     ],
   });
 
@@ -52,7 +52,7 @@ function HomeScreen() {
   };
 
   const handleGoScreeningList = () => {
-    stackNavigation.navigate(ScreeningStackScreen.ScreeningListScreen);
+    stackNavigation.navigate(stackScreens.ScreeningListScreen);
   };
 
   return (
