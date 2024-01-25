@@ -22,7 +22,7 @@ const SubMenuTopBar = ({text, goback, mb, mt}: SubMenuTopBarProps) => {
         marginBottom: mb ? mb : undefined,
       }}>
       <Typography style="Label1">{text}</Typography>
-      <SvgIcons.RightArrowIcon onPress={goback} />
+      <SvgIcons.RightArrowIcon />
     </View>
   );
 };

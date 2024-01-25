@@ -10,7 +10,7 @@ const loginScreenStyles = ({width, height}: ILoginScreenStylesProps) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      paddingHorizontal: 16,
+      paddingHorizontal: 32,
     },
     wrapper: {
       flex: 1,

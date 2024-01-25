@@ -1,5 +1,5 @@
 import palette from '@/styles/theme/color';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {Path, Svg} from 'react-native-svg';
 import {svgIconStyles} from './SvgIcons.style';
 import {ValueOfColor} from '@/types/theme/color';
@@ -86,14 +86,9 @@ const SvgIcons = {
     width = 8,
     height = 14,
     fill = palette.Text.Normal,
-    onPress,
   }: SvgIconProps) => (
-    <TouchableOpacity style={svgIconStyles.arrow} onPress={onPress}>
-      <Svg
-        width={width}
-        height={height}
-        viewBox={`0 0 ${width} ${height}`}
-        fill="none">
+    <View style={svgIconStyles.arrow}>
+      <Svg width={width} height={height} viewBox="0 0 8 14" fill="none">
         <Path
           fill-rule="evenodd"
           clip-rule="evenodd"
@@ -101,7 +96,7 @@ const SvgIcons = {
           fill={fill}
         />
       </Svg>
-    </TouchableOpacity>
+    </View>
   ),
   CancelIcon: ({
     width = 14,
@@ -208,6 +203,26 @@ const SvgIcons = {
         fill-rule="evenodd"
         clip-rule="evenodd"
         d="M3 13.3043C3 12.8901 3.33579 12.5543 3.75 12.5543H14.25C14.6642 12.5543 15 12.8901 15 13.3043C15 13.7185 14.6642 14.0543 14.25 14.0543H3.75C3.33579 14.0543 3 13.7185 3 13.3043Z"
+        fill={fill}
+      />
+    </Svg>
+  ),
+  ModifyIcon: ({
+    width = 12,
+    height = 12,
+    fill = palette.Primary.Deep,
+  }: SvgIconProps) => (
+    <Svg
+      width={width}
+      height={height}
+      viewBox={`0 0 ${width} ${height}`}
+      fill="none">
+      <Path
+        d="M9.44589 0.399722C8.91293 -0.133242 8.04882 -0.13324 7.51586 0.399723L6.73344 1.18214L10.8179 5.26656L11.6003 4.48414C12.1332 3.95118 12.1332 3.08707 11.6003 2.55411L9.44589 0.399722Z"
+        fill={fill}
+      />
+      <Path
+        d="M10.3085 5.77587L6.22413 1.69146L0.42943 7.48615C0.312866 7.60272 0.242439 7.75754 0.231166 7.922L0.0015995 11.271C-0.0118877 11.4677 0.0604106 11.6607 0.199863 11.8001C0.339316 11.9396 0.532283 12.0119 0.729037 11.9984L4.07801 11.7688C4.24246 11.7576 4.39728 11.6871 4.51385 11.5706L10.3085 5.77587Z"
         fill={fill}
       />
     </Svg>

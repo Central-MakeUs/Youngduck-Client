@@ -15,7 +15,7 @@ export type RootStackParamList = {
   SignupCompleteScreen: undefined;
   BottomTabScreens: undefined;
   MyPageScreen: undefined;
-  ChangeNicknameScreen: {nickname: string};
+  ChangeNicknameScreen: undefined;
 } & PopcornPartyStackParamList &
   ScreeningStackScreensParamList;
 

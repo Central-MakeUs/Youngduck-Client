@@ -11,10 +11,10 @@ import ReviewRate from './reviewRate';
 
 const TOOLTIP_MAX_LENGTH = 47.333343505859375;
 
-interface IScreeningIndex extends CommonMarginVerticalProps {
+interface IScreeningRate extends CommonMarginVerticalProps {
   score: number;
 }
-const ScreeningRate = ({score, mt, mb}: IScreeningIndex) => {
+const ScreeningRate = ({score, mt, mb}: IScreeningRate) => {
   const [tooltipHeight, setTooltipHeight] = useState<number>(0);
   const [percentageLength, setPercentageLength] = useState<number>(0);
 
