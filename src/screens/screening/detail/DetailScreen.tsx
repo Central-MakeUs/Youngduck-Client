@@ -7,12 +7,12 @@ import TabBar from '@/components/tabBar';
 import BottomDetailButton from './components/bottomDetailButton';
 import DetailReviewScreen from './tabs/detailReviewScreen/DetailReviewScreen';
 import DetailInfoScreen from './tabs/detailInfoScreen/DetailInfoScreen';
+import DetailStatisticScreen from './tabs/detailStatisticScreen/DetailStatisticScreen';
+import stackScreens from '@/constants/stackScreens';
 import {ScreenRouteProp} from '@/types/navigator';
 import {DetailBottomButtonType} from '@/types/ui';
 
 import {detailScreenStyles} from './DetailScreen.style';
-import DetailStatisticScreen from './tabs/detailStatisticScreen/DetailStatisticScreen';
-import stackScreens from '@/constants/stackScreens';
 
 type DetailScreenProps = {
   route: ScreenRouteProp<stackScreens.DetailScreen>;
@@ -44,7 +44,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
             setCurrentTabBarNumber={setCurrentTab}
             tabBars={tabBars}
           />
-          <View style={detailScreenStyles.container}>
+          <View>
             {currentTab === 0 && <DetailInfoScreen />}
             {currentTab === 1 && <DetailReviewScreen />}
             {currentTab === 2 && <DetailStatisticScreen />}
