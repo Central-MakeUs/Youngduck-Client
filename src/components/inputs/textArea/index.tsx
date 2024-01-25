@@ -9,9 +9,9 @@ import {textAreaStyles} from './TextArea.style';
 interface ITextAreaProps extends TextInputProps {
   value: string;
   onChangeInput: (value: string) => void;
-  title: string;
+  title?: string;
   maxLength?: number;
-  placeholder: string;
+  placeholder?: string;
   height: number;
   essential?: boolean;
 
@@ -23,7 +23,7 @@ const TextArea = ({
   onChangeInput,
   title,
   maxLength,
-  placeholder,
+  placeholder = '',
   height,
   essential,
   inputRef,
@@ -42,13 +42,16 @@ const TextArea = ({
 
   return (
     <View>
-      <Typography
-        essential={essential}
-        style="Label2"
-        color={inputTypes[type].titleColor}
-        mb={4}>
-        {title}
-      </Typography>
+      {title && (
+        <Typography
+          essential={essential}
+          style="Label2"
+          color={inputTypes[type].titleColor}
+          mb={4}>
+          {title}
+        </Typography>
+      )}
+
       <TextInput
         {...props}
         style={[

@@ -7,9 +7,15 @@ interface ISelectButtonProps {
   onPress: () => void;
   type: string;
   isSelected: boolean;
+  size?: 'large' | 'small';
 }
 
-const SelectButton = ({onPress, type, isSelected}: ISelectButtonProps) => {
+const SelectButton = ({
+  onPress,
+  type,
+  isSelected,
+  size = 'large',
+}: ISelectButtonProps) => {
   return (
     <Pressable
       style={
@@ -19,7 +25,7 @@ const SelectButton = ({onPress, type, isSelected}: ISelectButtonProps) => {
       }
       onPress={onPress}>
       <Typography
-        style="Body1"
+        style={size === 'large' ? 'Body1' : 'Body2'}
         color={isSelected ? palette.Text.Normal : palette.Text.Alternative}>
         {type}
       </Typography>
