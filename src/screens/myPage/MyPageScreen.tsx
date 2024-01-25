@@ -11,6 +11,7 @@ import Management from './components/management';
 import Divider from '@/components/divider';
 import MyScreening from './components/myScreening';
 import {useUserStore} from '@/stores/user';
+import SubMenu from '@/components/subMenu';
 
 const MyPageScreen = () => {
   const {user} = useUserStore();
@@ -63,14 +64,10 @@ const MyPageScreen = () => {
         </View>
       </View>
       <Divider height={8} mt={32} mb={16} />
-      <View style={myPageScreenStyles.paddingWrap}>
-        <Pressable
-          style={myPageScreenStyles.settingButton}
-          onPress={() => stackNavigation.navigate(stackScreens.SettingScreen)}>
-          <Typography style="Label1">설정</Typography>
-          <SvgIcons.RightArrowIcon />
-        </Pressable>
-      </View>
+      <SubMenu
+        text="설정"
+        onPress={() => stackNavigation.navigate(stackScreens.SettingScreen)}
+      />
     </GradientContainer>
   );
 };

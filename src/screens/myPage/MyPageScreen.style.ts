@@ -41,12 +41,6 @@ const myPageScreenStyles = StyleSheet.create({
     borderWidth: 1,
     marginTop: 16,
   },
-  settingButton: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 8,
-  },
 });
 
 export default myPageScreenStyles;
