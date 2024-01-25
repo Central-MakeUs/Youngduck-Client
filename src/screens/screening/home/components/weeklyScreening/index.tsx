@@ -1,8 +1,10 @@
+import {Image, TouchableOpacity} from 'react-native';
+
 import Typography from '@/components/typography';
-import palette from '@/styles/theme/color';
-import {Image, TouchableOpacity, View} from 'react-native';
-import {weeklyStyles} from './WeeklyScreening.style';
 import useNavigator from '@/hooks/useNavigator';
+import palette from '@/styles/theme/color';
+
+import {weeklyStyles} from './WeeklyScreening.style';
 
 const WeeklyScreening = () => {
   const {stackNavigation} = useNavigator();
@@ -21,11 +23,6 @@ const WeeklyScreening = () => {
         }}
         style={weeklyStyles.image}
       />
-      <View style={weeklyStyles.text}>
-        <Typography style="Label4" color={palette.Another.White}>
-          D-2
-        </Typography>
-      </View>
       <Typography style="Label3" color={palette.Text.Alternative} mt={8}>
         상영전
       </Typography>
