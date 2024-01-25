@@ -4,11 +4,11 @@ import {Animated, ScrollView, View} from 'react-native';
 import ProgressBar from '@/components/progressBar';
 import BackCancelTopBar from '@/components/topBar/backCancelTopBar';
 import FirstReview from './tabs/firstReview';
-import PositiveReview from './tabs/positiveReview';
-import NegativeReview from './tabs/negativeReview';
+
 import EndReview from './tabs/endReview';
 import useNavigator from '@/hooks/useNavigator';
 import moveScreen from '@/utils/moveScreen';
+import SelectReview from './tabs/selectReview';
 
 const ReviewWritingScreen = () => {
   const [currentScreen, setCurrentScreen] = useState<number>(0);
@@ -119,17 +119,19 @@ const ReviewWritingScreen = () => {
           review={inputValues}
           setValue={(value, option) => onChangeOption(value, option)}
         />
-        <PositiveReview
+        <SelectReview
           setValue={(value, option) => onChangePositive(value, option)}
           review={reviewPositive}
           goNext={nextScreen}
           goPrevious={goBackOrPreviousScreen}
+          type="positive"
         />
-        <NegativeReview
+        <SelectReview
           setValue={(value, option) => onChangeNegative(value, option)}
           review={reviewNegative}
           goNext={nextScreen}
           goPrevious={goBackOrPreviousScreen}
+          type="negative"
         />
         <EndReview
           value={inputValues}

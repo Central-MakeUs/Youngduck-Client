@@ -12,6 +12,8 @@ type PositiveReviewType = {
   [key: string]: ReviewCategory;
 };
 
+export const reviewTypes = ['direct', 'art', 'music', 'content', 'actor'];
+
 export const positiveReview: PositiveReviewType = {
   direct: {
     title: '연출이 좋았어요',
@@ -187,5 +189,3 @@ export const negativeReview: PositiveReviewType = {
     ],
   },
 };
-
-export const reviewTypes = ['direct', 'art', 'music', 'content', 'actor'];

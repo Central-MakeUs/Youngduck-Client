@@ -3,23 +3,31 @@ import {ScrollView, View} from 'react-native';
 import MultiButton from '@/components/buttons/multibutton';
 import SubTitleDescription from '@/components/title/subTitleDescription';
 import SelectItem from '@/components/items/selectItem';
-import {positiveReview, reviewTypes} from '@/constants/review';
+import {reviewTypes} from '@/constants/review';
+import {getReview} from '@/utils/getReview';
 
 import {screeningReviewStyle} from '../ScreeningReview.style';
 
-interface IPositiveReviewProps {
+interface ISelectReviewProps {
   goNext: () => void;
   goPrevious: () => void;
   setValue: (value: boolean, option: string) => void;
   review: any; // TODO: 백엔드 api 타입
+  type: 'positive' | 'negative';
 }
 
-const PositiveReview = ({
+const SelectReview = ({
   goNext,
   goPrevious,
   setValue,
   review,
-}: IPositiveReviewProps) => {
+  type,
+}: ISelectReviewProps) => {
+  const reviewData = getReview('screening', type);
+
+  if (!reviewData) {
+    return null;
+  }
   return (
     <View style={screeningReviewStyle.container}>
       <ScrollView>
@@ -33,8 +41,8 @@ const PositiveReview = ({
           {reviewTypes.map((t, index) => (
             <SelectItem
               key={t}
-              text={positiveReview[t].title}
-              labels={positiveReview[t].select}
+              text={reviewData[t].title}
+              labels={reviewData[t].select}
               setValue={(value, option) => setValue(value, option)}
               value={review}
               mt={index === 0 ? 16 : 12}
@@ -54,4 +62,4 @@ const PositiveReview = ({
     </View>
   );
 };
-export default PositiveReview;
+export default SelectReview;
