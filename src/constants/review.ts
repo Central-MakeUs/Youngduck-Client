@@ -14,6 +14,16 @@ type PositiveReviewType = {
 
 export const reviewTypes = ['direct', 'art', 'music', 'content', 'actor'];
 
+// 스크리닝 단일 선택 상수
+export const labels = ['기대만큼 좋았어요', '기대보다 아쉬웠어요'];
+export const reaction = ['좋았어요', '아쉬웠어요'];
+
+export const reviewOptions = [
+  {subtitle: '작품에 대한 저의 느낌은', option: 'screeningReview'},
+  {subtitle: '장소 선정은', option: 'locationReview'},
+  {subtitle: '운영 방식은', option: 'serviceReview'},
+];
+
 export const positiveReview: PositiveReviewType = {
   direct: {
     title: '연출이 좋았어요',
