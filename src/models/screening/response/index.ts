@@ -60,6 +60,9 @@ export interface IScreeningDetailResponse {
 export interface IWeekScreeningData extends IScreeningBodyRequest {
   screeningId: 0;
   private: true;
+  screeningStartDate: DateParsable;
+  screeningEndDate: DateParsable;
+  screeningStartTime: Date;
 }
 
 export type TWeekScreeningResponse = IWeekScreeningData[];
