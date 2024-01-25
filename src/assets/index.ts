@@ -12,8 +12,9 @@ export const defaultImages: Assets = {
   writePopcorn: require('@/assets/images/bg-writeImage.png'),
   popCornParty: require('@/assets/images/bg-popcornParty.png'),
 
-  //프로필 이미지(임시)
-  profile1: require('@/assets/images/profile-1.png'),
-  profile2: require('@/assets/images/profile-2.png'),
-  profile3: require('@/assets/images/profile-3.png'),
+  profile1: require('@/assets/images/profile1.png'),
+
+  myPage1: require('@/assets/images/my-page1.png'),
+  myPage2: require('@/assets/images/my-page2.png'),
+  myPage3: require('@/assets/images/my-page3.png'),
 };

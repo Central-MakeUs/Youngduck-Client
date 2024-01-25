@@ -2,7 +2,6 @@ import SvgIcons from '@/assets/svgIcons';
 import bottomTabScreens, {
   bottomTabBarLabel,
 } from '@/constants/bottomTabScreens';
-import HomeScreen from '@/screens/home/HomeScreen';
 import palette from '@/styles/theme/color';
 import {BottomTabParamList} from '@/types/navigator';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -12,6 +11,7 @@ import TitleTopBar from '@/components/topBar/titleTopBar';
 import ScreeningStackNavigator from '../stackNavigator/ScreeningStackNavigator';
 
 import PopcornPartyHomeScreen from '@/screens/popCornParty/home/PopcornPartyHomeScreen';
+import MyPageScreen from '@/screens/myPage/MyPageScreen';
 
 export const getTabBarIcon = (routeName: string, focused: boolean) => {
   const iconColor = focused ? palette.Primary.Normal : palette.Text.Disable;
@@ -21,10 +21,10 @@ export const getTabBarIcon = (routeName: string, focused: boolean) => {
       {routeName === 'ScreeningScreen' && (
         <SvgIcons.ScreeningIcon fill={iconColor} />
       )}
-      {routeName === 'HomeScreen' && <SvgIcons.PopCornIcon fill={iconColor} />}
       {routeName === 'PopcornPartyHomeScreen' && (
         <SvgIcons.PopCornParty fill={iconColor} />
       )}
+      {routeName === 'MyPageScreen' && <SvgIcons.MyPageIcon fill={iconColor} />}
     </>
   );
 };
@@ -45,19 +45,19 @@ function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name={bottomTabScreens.HomeScreen}
-        component={HomeScreen}
-        options={{
-          tabBarLabel: bottomTabBarLabel.HomeScreen,
-          header: () => <TitleTopBar text="파콩" />,
-        }}
-      />
-      <BottomTab.Screen
         name={bottomTabScreens.PopcornPartyHomeScreen}
         component={PopcornPartyHomeScreen}
         options={{
           tabBarLabel: bottomTabBarLabel.PopcornPartyHomeScreen,
           header: () => <TitleTopBar text="팝콘 파티" />,
+        }}
+      />
+      <BottomTab.Screen
+        name={bottomTabScreens.MyPageScreen}
+        component={MyPageScreen}
+        options={{
+          tabBarLabel: bottomTabBarLabel.MyPageScreen,
+          headerShown: false,
         }}
       />
     </BottomTab.Navigator>

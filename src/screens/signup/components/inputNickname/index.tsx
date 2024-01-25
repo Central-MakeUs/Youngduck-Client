@@ -16,6 +16,10 @@ const InputNickname = ({
   setNickname,
 }: IInputNickname) => {
   const [isDuplicated, setIsDuplicated] = useState<boolean>(true);
+  const handleChangeNickname = (e: string) => {
+    setNickname(e);
+    setIsDuplicated(true);
+  };
   return (
     <>
       <View>
@@ -27,7 +31,7 @@ const InputNickname = ({
         <Input
           value={nickname}
           placeholder="닉네임을 입력해주세요"
-          onChangeInput={e => setNickname(e)}
+          onChangeInput={handleChangeNickname}
           title="닉네임"
           content="2~10자 입력 가능해요."
           maxLength={10}
