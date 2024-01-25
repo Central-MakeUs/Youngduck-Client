@@ -41,7 +41,7 @@ function HomeScreen() {
     ],
   });
 
-  console.log('댓글', screenings[2]?.data?.data);
+  //console.log('댓글', screenings[2]?.data?.data);
 
   const renderItem = ({item}: {item: IWeekScreeningData}) => (
     <WeeklyScreening
