@@ -2,7 +2,7 @@ import Carousel from '@/components/carousel';
 import {View} from 'react-native';
 import {reviewStyles} from './ReviewScreening.style';
 
-const ReviewScreening = () => {
+const ReviewScreeningCarousel = () => {
   // carousel 에 보여질 데이터 배열
   const data = [
     {
@@ -34,4 +34,4 @@ const ReviewScreening = () => {
     </View>
   );
 };
-export default ReviewScreening;
+export default ReviewScreeningCarousel;

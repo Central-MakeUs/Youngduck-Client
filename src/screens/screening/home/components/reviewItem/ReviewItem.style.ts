@@ -13,16 +13,23 @@ export const reviewItemStyles = StyleSheet.create({
     height: 110,
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
   },
   image: {
     borderRadius: 8,
     marginRight: 16,
-    height: 78,
-    width: 78,
+    height: 72,
+    flex: 1,
   },
   content: {
-    display: 'flex',
+    flex: 3,
+  },
+  flex: {
     flexDirection: 'row',
-    gap: 8,
+    alignItems: 'center',
+  },
+  option: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
