@@ -18,7 +18,6 @@ import WriteReviewScreen from '@/screens/popCornParty/writeReview/WriteReviewScr
 
 import {RootStackParamList} from '@/types/navigator';
 import TitleTopBar from '@/components/topBar/titleTopBar';
-import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
 import CancelTopBar from '@/components/topBar/cancelTopBar';
 import useNavigator from '@/hooks/useNavigator';
 import {postAccessToken} from '@/apis/auth/auth';

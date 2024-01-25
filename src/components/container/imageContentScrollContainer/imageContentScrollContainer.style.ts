@@ -7,6 +7,7 @@ const imageContentScrollContainerStyles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  topBarWrap: {width: '100%', position: 'absolute', zIndex: 1},
   image: {
     width: screenWidth,
     height: screenWidth,

@@ -42,11 +42,13 @@ const ImageContentScrollContainer = ({
         imageContentScrollContainerStyles.container,
         {paddingBottom: bottom},
       ]}>
-      <BackTitleTopBar
-        opacity={opacity}
-        goBack={handleGoBack}
-        text="1월 첫째주 팝콘작"
-      />
+      <View style={imageContentScrollContainerStyles.topBarWrap}>
+        <BackTitleTopBar
+          opacity={opacity}
+          goBack={handleGoBack}
+          text="1월 첫째주 팝콘작"
+        />
+      </View>
       <ScrollView
         style={imageContentScrollContainerStyles.container}
         scrollEventThrottle={16}
