@@ -36,6 +36,22 @@ export type TextInputStyle = {
   contentColor?: string;
 };
 
+// optionButton 타입 지정
+export type OptionButtonType = 'heart' | 'alarm' | 'write';
+
+// 디테일 페이지 BottomDetailButton 타입 지정
+export type DetailBottomButtonType =
+  | 'default'
+  | 'finish'
+  | DetailOptionBottomButtonType;
+
+export type DetailOptionBottomButtonType =
+  | 'complete'
+  | 'reviewStart'
+  | 'reviewComplete'
+  | 'myOpen'
+  | 'myClose';
+
 // 공통 컴포넌트 중복 prop 타입 지정
 export interface CommonTextProps {
   text: string;
