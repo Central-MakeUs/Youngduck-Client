@@ -1,4 +1,5 @@
 import {FlatList, View} from 'react-native';
+import {useQuery} from '@tanstack/react-query';
 
 import Divider from '@/components/divider';
 import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
@@ -12,43 +13,28 @@ import ScreeningItem from '@/components/items/screeningItem';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import ScreeningStackScreen from '@/constants/screeningStackScreen';
+import {getWeekScreening} from '@/apis/screening/screening';
+import {IWeekScreeningData} from '@/models/screening/response';
 
 import {screeningHomeStyle} from './HomeScreen.style';
+
 function HomeScreen() {
   const {stackNavigation} = useNavigator();
-  // 이번주 스크리닝 더미 데이터
-  const data = [
-    {
-      id: 1,
-      title: 'Dromapic 상영회',
-      date: '2024.01.05',
-      type: '상영전',
-      remain: 'D-2',
-    },
-    {
-      id: 2,
-      title: 'Dromapic 상영회',
-      date: '2024.01.05',
-      type: '상영전',
-      remain: 'D-2',
-    },
-    {
-      id: 3,
-      title: 'Dromapic 상영회',
-      date: '2024.01.05',
-      type: '상영전',
-      remain: 'D-2',
-    },
-    {
-      id: 4,
-      title: 'Dromapic 상영회',
-      date: '2024.01.05',
-      type: '상영전',
-      remain: 'D-2',
-    },
-  ];
+  // 이번주 스크리닝 api 통신
+  const {data: weekScreening, isLoading} = useQuery({
+    queryKey: ['weekScreening'],
+    queryFn: getWeekScreening,
+  });
 
-  const renderItem = () => <WeeklyScreening />;
+  const renderItem = ({item}: {item: IWeekScreeningData}) => (
+    <WeeklyScreening
+      id={item.screeningId}
+      date={item.screeningStartDate}
+      category={item.category}
+      img={item.posterImgUrl}
+      hostName={item.hostName}
+    />
+  );
 
   // 작성하기 페이지로 이동
   const handleGoWriting = () => {
@@ -66,14 +52,16 @@ function HomeScreen() {
     <DefaultScrollContainer>
       <Banner type="screening" onPress={handleGoWriting} />
       <SubTitle text="이번주 스크리닝" mt={12} mb={8} />
+      {!isLoading && (
+        <FlatList
+          horizontal
+          data={weekScreening?.data}
+          renderItem={renderItem}
+          showsHorizontalScrollIndicator={false}
+          style={{marginLeft: 16}}
+        />
+      )}
 
-      <FlatList
-        horizontal
-        data={data}
-        renderItem={renderItem}
-        showsHorizontalScrollIndicator={false}
-        style={{marginLeft: 16}}
-      />
       <SubTitle text="관객 리뷰" mt={24} mb={8} />
 
       <ReviewScreening />
