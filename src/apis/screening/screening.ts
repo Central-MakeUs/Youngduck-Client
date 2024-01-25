@@ -29,3 +29,11 @@ export const getRecentScreening = async (): Promise<
   const res = await api.get('/screening/recent-Screening');
   return res.data;
 };
+
+// 댓글 많은 스크리닝 함수
+export const getMostCommentScreening = async (): Promise<
+  ResponseDTO<TWeekScreeningResponse>
+> => {
+  const res = await api.get('/screening/most-reviewed');
+  return res.data;
+};
