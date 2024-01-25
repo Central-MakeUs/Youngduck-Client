@@ -6,13 +6,17 @@ import DefaultScrollContainer from '@/components/container/defaultScrollContaine
 import DefaultContainer from '@/components/container/defaultContainer';
 import BoxButton from '@/components/buttons/boxButton';
 import Banner from '@/components/banner';
-import ReviewScreening from './components/reviewScreening';
 import WeeklyScreening from './components/weeklyScreening';
+import ReviewScreeningCarousel from './components/reviewScreeningCarousel';
 import SubTitle from '@/components/title/subTitle';
 import ScreeningItem from '@/components/items/screeningItem';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
-import {getRecentScreening, getWeekScreening} from '@/apis/screening/screening';
+import {
+  getMostCommentScreening,
+  getRecentScreening,
+  getWeekScreening,
+} from '@/apis/screening/screening';
 import {IWeekScreeningData} from '@/models/screening/response';
 
 import {screeningHomeStyle} from './HomeScreen.style';
@@ -30,8 +34,14 @@ function HomeScreen() {
         queryFn: getRecentScreening,
       },
       // 반응 좋았던 스크리닝 api
+      {
+        queryKey: ['mostCommentScreening'],
+        queryFn: getMostCommentScreening,
+      },
     ],
   });
+
+  console.log('댓글', screenings[2]?.data?.data);
 
   const renderItem = ({item}: {item: IWeekScreeningData}) => (
     <WeeklyScreening
@@ -70,7 +80,7 @@ function HomeScreen() {
 
       <SubTitle text="반응 좋았던 스크리닝" mt={24} mb={8} />
 
-      <ReviewScreening />
+      <ReviewScreeningCarousel />
 
       <Divider height={8} />
 
