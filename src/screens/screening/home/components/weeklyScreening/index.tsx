@@ -1,11 +1,12 @@
 import {Image, TouchableOpacity} from 'react-native';
+import {DateParsable} from 'react-native-calendar-picker';
 
 import Typography from '@/components/typography';
 import useNavigator from '@/hooks/useNavigator';
 import palette from '@/styles/theme/color';
+import {getDate} from '@/utils/getDate';
 
 import {weeklyStyles} from './WeeklyScreening.style';
-import {DateParsable} from 'react-native-calendar-picker';
 
 interface IWeeklyScreeningProps {
   id: number;
@@ -23,7 +24,6 @@ const WeeklyScreening = ({
 }: IWeeklyScreeningProps) => {
   const {stackNavigation} = useNavigator();
   const handleGoDetail = () => {
-    // TODO: 상세 페이지 id param 넣어주기
     stackNavigation.navigate('DetailScreen', {id: id});
   };
   return (
@@ -41,7 +41,7 @@ const WeeklyScreening = ({
         {category}
       </Typography>
       <Typography style="Label1">{hostName}</Typography>
-      <Typography style="Chips2">{date.toString()}</Typography>
+      <Typography style="Chips2">{getDate(date)}</Typography>
     </TouchableOpacity>
   );
 };
