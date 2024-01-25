@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 import palette from '@/styles/theme/color';
+import {DetailOptionBottomButtonType} from '@/types/ui';
 
 interface IBottomDetail {
   text: string;
@@ -12,7 +13,7 @@ interface IBottomDetail {
 }
 
 export const bottomDetailTypesStyles: Record<
-  'complete' | 'reviewStart' | 'reviewComplete' | 'myOpen' | 'myClose',
+  DetailOptionBottomButtonType,
   IBottomDetail
 > = {
   complete: {

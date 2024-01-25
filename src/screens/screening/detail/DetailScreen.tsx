@@ -4,13 +4,17 @@ import {View} from 'react-native';
 import DetailTitle from './components/detailTitle';
 import ImageContentScrollContainer from '@/components/container/imageContentScrollContainer';
 import TabBar from '@/components/tabBar';
-import BottomDetailButton from './components/bottomDetailButton';
+
 import DetailReviewScreen from './tabs/detailReviewScreen/DetailReviewScreen';
 import DetailInfoScreen from './tabs/detailInfoScreen/DetailInfoScreen';
 import DetailStatisticScreen from './tabs/detailStatisticScreen/DetailStatisticScreen';
 import stackScreens from '@/constants/stackScreens';
 import {ScreenRouteProp} from '@/types/navigator';
 import {DetailBottomButtonType} from '@/types/ui';
+import {
+  BottomDetailButton,
+  BottomOptionDetailButton,
+} from './components/bottomDetailButton';
 
 import {detailScreenStyles} from './DetailScreen.style';
 
@@ -53,14 +57,15 @@ const DetailScreen = ({route}: DetailScreenProps) => {
       </View>
 
       <View style={detailScreenStyles.bottom}>
-        <BottomDetailButton
+        <BottomOptionDetailButton
           onPress={() => {}}
-          type={bottomType}
+          type={'reviewStart'}
           heartState={completeHeart}
           onOptionPress={() => {
             setCompleteHeart(!completeHeart);
           }}
         />
+        {/*<BottomDetailButton type="default" onPress={() => {}} />*/}
       </View>
     </View>
   );

@@ -42,8 +42,11 @@ export type OptionButtonType = 'heart' | 'alarm' | 'write';
 // 디테일 페이지 BottomDetailButton 타입 지정
 export type DetailBottomButtonType =
   | 'default'
-  | 'complete'
   | 'finish'
+  | DetailOptionBottomButtonType;
+
+export type DetailOptionBottomButtonType =
+  | 'complete'
   | 'reviewStart'
   | 'reviewComplete'
   | 'myOpen'

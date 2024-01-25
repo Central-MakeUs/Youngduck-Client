@@ -1,13 +1,14 @@
 import {View} from 'react-native';
+import {useState} from 'react';
 
 import DefaultContainer from '@/components/container/defaultContainer';
 import SubTitle from '@/components/title/subTitle';
 import Typography from '@/components/typography';
-import palette from '@/styles/theme/color';
 import KeywordItem from '@/components/items/keywordItem';
 import BoxButton from '@/components/buttons/boxButton';
-import {useState} from 'react';
-import DetailPositivePlus from './components/detailPositivePlus';
+import DetailPositivePlus from '../../components/detailPositivePlus';
+import palette from '@/styles/theme/color';
+
 import {detailStatisticStyles} from './DetailStatisticScreen.style';
 
 const DetailStatisticScreen = () => {
