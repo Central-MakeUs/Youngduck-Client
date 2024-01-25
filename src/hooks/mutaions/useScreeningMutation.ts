@@ -1,10 +1,12 @@
 import {postImageUpload} from '@/apis/image/image';
 import {postScreening} from '@/apis/screening/screening';
-import {useMutation} from '@tanstack/react-query';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 import useNavigator from '../useNavigator';
 
 const useScreeningMutation = () => {
   const {stackNavigation} = useNavigator();
+  const queryClient = useQueryClient();
+
   const uploadImage = useMutation({
     mutationFn: postImageUpload,
   });
@@ -13,6 +15,8 @@ const useScreeningMutation = () => {
     mutationFn: postScreening,
     onSuccess: data => {
       stackNavigation.navigate('DetailScreen', {id: data.data.id});
+
+      queryClient.invalidateQueries({queryKey: ['weekScreening']});
     },
   });
 
