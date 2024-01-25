@@ -111,7 +111,9 @@ const SettingScreen = () => {
         onPress={() => setIsVisible(true)}>
         <Typography style="Body1">로그아웃하기</Typography>
       </Pressable>
-      <Pressable style={settingScreenStyles.buttonWrap}>
+      <Pressable
+        style={settingScreenStyles.buttonWrap}
+        onPress={() => stackNavigation.navigate(stackScreens.WithdrawScreen)}>
         <Typography style="Body1">탈퇴하기</Typography>
       </Pressable>
       <Popup

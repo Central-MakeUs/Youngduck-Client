@@ -18,6 +18,7 @@ export type RootStackParamList = {
   ChangeNicknameScreen: undefined;
   SettingScreen: undefined;
   AgreementScreen: {uri: string};
+  WithdrawScreen: undefined;
 } & PopcornPartyStackParamList &
   ScreeningStackScreensParamList;
 
