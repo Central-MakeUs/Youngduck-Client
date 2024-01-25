@@ -16,6 +16,7 @@ export type RootStackParamList = {
   BottomTabScreens: undefined;
   MyPageScreen: undefined;
   ChangeNicknameScreen: undefined;
+  SettingScreen: undefined;
 } & PopcornPartyStackParamList &
   ScreeningStackScreensParamList;
 

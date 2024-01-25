@@ -64,7 +64,9 @@ const MyPageScreen = () => {
       </View>
       <Divider height={8} mt={32} mb={16} />
       <View style={myPageScreenStyles.paddingWrap}>
-        <Pressable style={myPageScreenStyles.settingButton}>
+        <Pressable
+          style={myPageScreenStyles.settingButton}
+          onPress={() => stackNavigation.navigate(stackScreens.SettingScreen)}>
           <Typography style="Label1">설정</Typography>
           <SvgIcons.RightArrowIcon />
         </Pressable>
