@@ -1,16 +1,17 @@
 import {Image, TouchableOpacity, View} from 'react-native';
 import {reviewItemStyles} from './ReviewItem.style';
 import Typography from '@/components/typography';
-import Chip from '@/components/chip';
+import ChatIcon from '@/assets/icons/chat.svg';
 import DefaultContainer from '@/components/container/defaultContainer';
 import useNavigator from '@/hooks/useNavigator';
+import palette from '@/styles/theme/color';
+import stackScreens from '@/constants/stackScreens';
 
 const ReviewItem = () => {
   const {stackNavigation} = useNavigator();
-  const reviews = ['재밌어요', '멋있어요'];
   const handleGoDetail = () => {
     // TODO: 상세 페이지 id param 넣어주기
-    stackNavigation.navigate('DetailScreen', {id: 1});
+    stackNavigation.navigate(stackScreens.DetailScreen, {id: 1});
   };
   return (
     <DefaultContainer>
@@ -24,15 +25,21 @@ const ReviewItem = () => {
           }}
           style={reviewItemStyles.image}
         />
-        <View>
+        <View style={reviewItemStyles.content}>
           <Typography style="Label2">영화제</Typography>
           <Typography style="Body1" mb={8}>
             부산영화제
           </Typography>
-          <View style={reviewItemStyles.content}>
-            {reviews.map((r: string) => (
-              <Chip text={r} key={r} />
-            ))}
+          <View style={reviewItemStyles.option}>
+            <Typography style="Body2" color={palette.Text.Alternative}>
+              2024.01.05 - 2024.01.06
+            </Typography>
+            <View style={reviewItemStyles.flex}>
+              <ChatIcon />
+              <Typography style="Body2" color={palette.Text.Alternative} ml={7}>
+                2
+              </Typography>
+            </View>
           </View>
         </View>
       </TouchableOpacity>
