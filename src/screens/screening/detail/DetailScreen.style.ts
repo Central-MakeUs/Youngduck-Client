@@ -15,4 +15,7 @@ export const detailScreenStyles = StyleSheet.create({
     height: 80,
     width: '100%',
   },
+  container: {
+    paddingBottom: 80,
+  },
 });

@@ -1,15 +1,17 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, ViewStyle} from 'react-native';
+
+const content: ViewStyle = {
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginTop: 4,
+};
 
 export const detailInfoStyles = StyleSheet.create({
   content: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 4,
+    ...content,
   },
   bottomContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 4,
+    ...content,
     marginBottom: 31,
   },
 });

@@ -12,9 +12,10 @@ import {DetailBottomButtonType} from '@/types/ui';
 
 import {detailScreenStyles} from './DetailScreen.style';
 import DetailStatisticScreen from './tabs/detailStatisticScreen/DetailStatisticScreen';
+import stackScreens from '@/constants/stackScreens';
 
 type DetailScreenProps = {
-  route: ScreenRouteProp<'DetailScreen'>;
+  route: ScreenRouteProp<stackScreens.DetailScreen>;
 };
 
 const DetailScreen = ({route}: DetailScreenProps) => {
@@ -43,10 +44,11 @@ const DetailScreen = ({route}: DetailScreenProps) => {
             setCurrentTabBarNumber={setCurrentTab}
             tabBars={tabBars}
           />
-
-          {currentTab === 0 && <DetailInfoScreen />}
-          {currentTab === 1 && <DetailReviewScreen />}
-          {currentTab === 2 && <DetailStatisticScreen />}
+          <View style={detailScreenStyles.container}>
+            {currentTab === 0 && <DetailInfoScreen />}
+            {currentTab === 1 && <DetailReviewScreen />}
+            {currentTab === 2 && <DetailStatisticScreen />}
+          </View>
         </ImageContentScrollContainer>
       </View>
 
