@@ -57,6 +57,7 @@ export interface IScreeningDetailResponse {
 }
 
 // 이번주 상영작 응답 타입
+// 실시간 상영작 응답 타입
 export interface IWeekScreeningData extends IScreeningBodyRequest {
   screeningId: 0;
   private: true;
@@ -66,3 +67,9 @@ export interface IWeekScreeningData extends IScreeningBodyRequest {
 }
 
 export type TWeekScreeningResponse = IWeekScreeningData[];
+
+// 댓글 많은 상영작 응답 타입
+export interface IMostCommentScreeningData extends IWeekScreeningData {
+  comment: number; // TODO: 임시로 데이터 추가
+}
+export type TMostCommentScreeningResponse = IMostCommentScreeningData[];
