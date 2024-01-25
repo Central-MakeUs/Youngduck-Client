@@ -4,12 +4,22 @@ import palette from '@/styles/theme/color';
 import {CommonMarginVerticalProps} from '@/types/ui';
 import {View} from 'react-native';
 import {subTitleDescriptionStyles} from './SubTitleDescripiton.style';
+import {KeyofText} from '@/types/theme/typography';
 
 interface TextTopBarProps extends CommonMarginVerticalProps {
-  subTitle: string;
   text: string;
+  subTitle: string;
+  textStyle?: KeyofText;
+  subTitleStyle?: KeyofText;
 }
-const SubTitleDescription = ({text, subTitle, mb, mt}: TextTopBarProps) => {
+const SubTitleDescription = ({
+  text,
+  subTitle,
+  textStyle = 'Subtitle2',
+  subTitleStyle = 'Body1',
+  mb,
+  mt,
+}: TextTopBarProps) => {
   return (
     <View
       style={{
@@ -17,10 +27,10 @@ const SubTitleDescription = ({text, subTitle, mb, mt}: TextTopBarProps) => {
         marginTop: mt ? mt : undefined,
         marginBottom: mb ? mb : undefined,
       }}>
-      <Typography style="Subtitle2" color={palette.Text.Strong}>
+      <Typography style={textStyle} color={palette.Text.Strong}>
         {text}
       </Typography>
-      <Typography style="Body1" color={palette.Text.Alternative} mt={8}>
+      <Typography style={subTitleStyle} color={palette.Text.Alternative} mt={8}>
         {subTitle}
       </Typography>
     </View>

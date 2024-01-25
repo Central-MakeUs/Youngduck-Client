@@ -2,13 +2,14 @@ import palette from '@/styles/theme/color';
 import {useEffect, useState} from 'react';
 import {Animated, Easing, Pressable} from 'react-native';
 import {switchStyles} from './Switch.style';
+import {CommonMarginVerticalProps} from '@/types/ui';
 
-type Props = {
+interface ISwitchProps extends CommonMarginVerticalProps {
   onPress: () => void;
   isOn: boolean;
-};
+}
 
-const Switch = ({onPress, isOn}: Props) => {
+const Switch = ({onPress, isOn, mt, mb}: ISwitchProps) => {
   const [animatedValue] = useState(new Animated.Value(isOn ? 1 : 0));
 
   useEffect(() => {
@@ -30,7 +31,12 @@ const Switch = ({onPress, isOn}: Props) => {
   return (
     <Pressable
       onPress={onPress}
-      style={[switchStyles.toggleContainer, {backgroundColor: color}]}>
+      style={{
+        ...switchStyles.toggleContainer,
+        marginTop: mt ? mt : undefined,
+        marginBottom: mb ? mb : undefined,
+        backgroundColor: color,
+      }}>
       <Animated.View
         style={[
           switchStyles.toggleWheel,
