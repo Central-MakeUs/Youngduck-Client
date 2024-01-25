@@ -14,10 +14,18 @@ export const postScreening = async (
   return res.data;
 };
 
-// 스크리닝 이번주 스크리닝 함수
+// 이번주 스크리닝 함수
 export const getWeekScreening = async (): Promise<
   ResponseDTO<TWeekScreeningResponse>
 > => {
   const res = await api.get('/screening/upcoming-Screening');
+  return res.data;
+};
+
+// 가장 최근 실시간 3개 스크리닝 함수
+export const getRecentScreening = async (): Promise<
+  ResponseDTO<TWeekScreeningResponse>
+> => {
+  const res = await api.get('/screening/recent-Screening');
   return res.data;
 };
