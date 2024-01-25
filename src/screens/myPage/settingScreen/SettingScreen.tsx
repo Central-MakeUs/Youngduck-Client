@@ -5,8 +5,11 @@ import SubTitleDescription from '@/components/title/subTitleDescription';
 import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
 import useNavigator from '@/hooks/useNavigator';
 import {useState} from 'react';
-import {View} from 'react-native';
+import {Pressable, View} from 'react-native';
 import settingScreenStyles from './SettingScreen.style';
+import SubMenu from '@/components/subMenu';
+import Typography from '@/components/typography';
+import palette from '@/styles/theme/color';
 
 const SettingScreen = () => {
   const {stackNavigation} = useNavigator();
@@ -35,6 +38,22 @@ const SettingScreen = () => {
         />
       </View>
       <Divider height={8} mt={16} mb={16} />
+      <SubTitle text="약관 및 개인정보 처리 방침" mb={8} />
+      <SubMenu text="이용약관" onPress={() => {}} mb={8} />
+      <SubMenu text="개인정보처리방침" onPress={() => {}} mb={8} />
+      <View style={settingScreenStyles.appVersionWrap}>
+        <Typography style="Body1">앱 버전</Typography>
+        <Typography style="Body2" color={palette.Text.Alternative}>
+          1.0
+        </Typography>
+      </View>
+      <Divider height={8} mt={16} mb={16} />
+      <Pressable style={settingScreenStyles.buttonWrap}>
+        <Typography style="Body1">로그아웃하기</Typography>
+      </Pressable>
+      <Pressable style={settingScreenStyles.buttonWrap}>
+        <Typography style="Body1">탈퇴하기</Typography>
+      </Pressable>
     </>
   );
 };
