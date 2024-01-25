@@ -5,12 +5,26 @@ import useNavigator from '@/hooks/useNavigator';
 import palette from '@/styles/theme/color';
 
 import {weeklyStyles} from './WeeklyScreening.style';
+import {DateParsable} from 'react-native-calendar-picker';
 
-const WeeklyScreening = () => {
+interface IWeeklyScreeningProps {
+  id: number;
+  date: DateParsable;
+  category: string;
+  img: string;
+  hostName: string;
+}
+const WeeklyScreening = ({
+  id,
+  date,
+  category,
+  img,
+  hostName,
+}: IWeeklyScreeningProps) => {
   const {stackNavigation} = useNavigator();
   const handleGoDetail = () => {
     // TODO: 상세 페이지 id param 넣어주기
-    stackNavigation.navigate('DetailScreen', {id: 1});
+    stackNavigation.navigate('DetailScreen', {id: id});
   };
   return (
     <TouchableOpacity
@@ -19,15 +33,15 @@ const WeeklyScreening = () => {
       onPress={handleGoDetail}>
       <Image
         source={{
-          uri: 'https://cdn.pixabay.com/photo/2017/07/13/23/11/cinema-2502213_1280.jpg',
+          uri: img,
         }}
         style={weeklyStyles.image}
       />
       <Typography style="Label3" color={palette.Text.Alternative} mt={8}>
-        상영전
+        {category}
       </Typography>
-      <Typography style="Label1">Dromapic 상영회</Typography>
-      <Typography style="Chips2">2024.01.05</Typography>
+      <Typography style="Label1">{hostName}</Typography>
+      <Typography style="Chips2">{date.toString()}</Typography>
     </TouchableOpacity>
   );
 };
