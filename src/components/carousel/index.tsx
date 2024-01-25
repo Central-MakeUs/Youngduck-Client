@@ -6,9 +6,8 @@ import {carouselStyles} from './Carousel.style';
 
 interface CarouselProps {
   data: any; // TODO: 백엔드 통신 응답 값에 따른 타입 지정
-  type?: 'image' | 'content';
 }
-const Carousel = ({data, type = 'content'}: CarouselProps) => {
+const Carousel = ({data}: CarouselProps) => {
   const dots = Array.from({length: data.length}, (_, index) => index);
   const {screenWidth} = getScreenSize();
   const [currentPage, setCurrentPage] = useState(0);
@@ -39,11 +38,7 @@ const Carousel = ({data, type = 'content'}: CarouselProps) => {
         renderItem={renderItem}
       />
 
-      <View
-        style={[
-          carouselStyles.indicatorContainer,
-          type === 'image' && {marginTop: -10},
-        ]}>
+      <View style={[carouselStyles.indicatorContainer]}>
         {dots.map(i => (
           <View
             key={i}
