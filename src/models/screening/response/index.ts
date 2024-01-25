@@ -1,4 +1,5 @@
 import {DateParsable} from 'react-native-calendar-picker';
+import {IScreeningBodyRequest} from '../request';
 
 // 스크리닝 id 디테일 응답 타입
 export interface IScreeningDetailResponse {
@@ -54,3 +55,11 @@ export interface IScreeningDetailResponse {
   category: string; // TODO: 백엔드 category 타입 생성
   private: boolean;
 }
+
+// 이번주 상영작 응답 타입
+export interface IWeekScreeningData extends IScreeningBodyRequest {
+  screeningId: 0;
+  private: true;
+}
+
+export type TWeekScreeningResponse = IWeekScreeningData[];
