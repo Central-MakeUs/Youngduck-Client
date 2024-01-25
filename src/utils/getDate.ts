@@ -10,6 +10,14 @@ const getDateRange = (startDate: DateParsable, endDate: DateParsable) => {
   return dateRange;
 };
 
+const getKorDateRange = (startDate: DateParsable, endDate: DateParsable) => {
+  const dateRange = `${format(startDate, 'yyyy년 MM월 dd일')} ~ ${format(
+    endDate,
+    'yyyy년 MM월 dd일',
+  )}`;
+  return dateRange;
+};
+
 const getTime = (date: Date) => {
   if (date) {
     const time = `${getHours(date)} : ${getMinutes(date)}`;
@@ -31,4 +39,4 @@ const getDate = (date: DateParsable) => {
   return dateRange;
 };
 
-export {getDateRange, getTime, getVoteDateRange, getDate};
+export {getDateRange, getTime, getVoteDateRange, getDate, getKorDateRange};

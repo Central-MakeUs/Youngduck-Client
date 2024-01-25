@@ -1,5 +1,5 @@
 import {FlatList, View} from 'react-native';
-import {useQuery} from '@tanstack/react-query';
+import {useQueries, useQuery} from '@tanstack/react-query';
 
 import Divider from '@/components/divider';
 import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
@@ -13,19 +13,25 @@ import ScreeningItem from '@/components/items/screeningItem';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import ScreeningStackScreen from '@/constants/screeningStackScreen';
-import {getWeekScreening} from '@/apis/screening/screening';
+import {getRecentScreening, getWeekScreening} from '@/apis/screening/screening';
 import {IWeekScreeningData} from '@/models/screening/response';
 
 import {screeningHomeStyle} from './HomeScreen.style';
 
 function HomeScreen() {
   const {stackNavigation} = useNavigator();
-  // 이번주 스크리닝 api 통신
-  const {data: weekScreening, isLoading} = useQuery({
-    queryKey: ['weekScreening'],
-    queryFn: getWeekScreening,
+
+  const screenings = useQueries({
+    queries: [
+      // 이번주 스크리닝 api
+      {queryKey: ['weekScreening'], queryFn: getWeekScreening},
+      // 실시간 스크리닝 api
+      {
+        queryKey: ['recentScreening'],
+        queryFn: getRecentScreening,
+      },
+    ],
   });
-  console.log(weekScreening);
 
   const renderItem = ({item}: {item: IWeekScreeningData}) => (
     <WeeklyScreening
@@ -53,15 +59,14 @@ function HomeScreen() {
     <DefaultScrollContainer>
       <Banner type="screening" onPress={handleGoWriting} />
       <SubTitle text="이번주 스크리닝" mt={12} mb={8} />
-      {!isLoading && (
-        <FlatList
-          horizontal
-          data={weekScreening?.data}
-          renderItem={renderItem}
-          showsHorizontalScrollIndicator={false}
-          style={{marginLeft: 16}}
-        />
-      )}
+
+      <FlatList
+        horizontal
+        data={screenings[0]?.data?.data}
+        renderItem={renderItem}
+        showsHorizontalScrollIndicator={false}
+        style={{marginLeft: 16}}
+      />
 
       <SubTitle text="반응 좋았던 스크리닝" mt={24} mb={8} />
 
@@ -71,9 +76,17 @@ function HomeScreen() {
 
       <SubTitle text="실시간 새 소식" mt={16} mb={8} />
       <DefaultContainer>
-        <ScreeningItem />
-        <ScreeningItem />
-        <ScreeningItem />
+        {screenings[1]?.data?.data.map(screening => (
+          <ScreeningItem
+            key={screening.screeningId}
+            img={screening.posterImgUrl}
+            title={screening.screeningTitle}
+            startDate={screening.screeningStartDate}
+            endDate={screening.screeningEndDate}
+            hostName={screening.hostName}
+            id={screening.screeningId}
+          />
+        ))}
         <BoxButton variant="default" onPress={handleGoScreeningList}>
           실시간 새 소식 더보기
         </BoxButton>
