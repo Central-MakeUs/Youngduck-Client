@@ -5,15 +5,15 @@ import DefaultScrollContainer from '@/components/container/defaultScrollContaine
 import DefaultContainer from '@/components/container/defaultContainer';
 import BoxButton from '@/components/buttons/boxButton';
 import Banner from '@/components/banner';
-import {screeningHomeStyle} from './HomeScreen.style';
 import ReviewScreening from './components/reviewScreening';
 import WeeklyScreening from './components/weeklyScreening';
 import SubTitle from '@/components/title/subTitle';
+import ScreeningItem from '@/components/items/screeningItem';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import ScreeningStackScreen from '@/constants/screeningStackScreen';
-import ScreeningItem from '@/components/items/screeningItem';
 
+import {screeningHomeStyle} from './HomeScreen.style';
 function HomeScreen() {
   const {stackNavigation} = useNavigator();
   // 이번주 스크리닝 더미 데이터
