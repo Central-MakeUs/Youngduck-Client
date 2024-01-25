@@ -25,7 +25,6 @@ const SettingScreen = () => {
 
   const onLogout = async () => {
     onCloseModal();
-    removeTokens();
     await removeTokens();
     // 로그아웃 후 이동하는 navigtion 설정하기
     // stackNavigation.popToTop();
