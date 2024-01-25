@@ -25,4 +25,10 @@ const getVoteDateRange = () => {
   return {startDate, endDate};
 };
 
-export {getDateRange, getTime, getVoteDateRange};
+const getDate = (date: DateParsable) => {
+  const dateRange = `${format(date, 'yyyy.MM.dd')}`;
+
+  return dateRange;
+};
+
+export {getDateRange, getTime, getVoteDateRange, getDate};

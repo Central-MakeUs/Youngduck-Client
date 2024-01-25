@@ -25,6 +25,7 @@ function HomeScreen() {
     queryKey: ['weekScreening'],
     queryFn: getWeekScreening,
   });
+  console.log(weekScreening);
 
   const renderItem = ({item}: {item: IWeekScreeningData}) => (
     <WeeklyScreening
@@ -62,7 +63,7 @@ function HomeScreen() {
         />
       )}
 
-      <SubTitle text="관객 리뷰" mt={24} mb={8} />
+      <SubTitle text="반응 좋았던 스크리닝" mt={24} mb={8} />
 
       <ReviewScreening />
 
