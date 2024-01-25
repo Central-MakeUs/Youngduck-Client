@@ -1,7 +1,9 @@
+import {useState} from 'react';
+import {FlatList, View} from 'react-native';
+
 import ReviewItem from '@/screens/screening/home/components/reviewItem';
 import {getScreenSize} from '@/utils/getScreenSize';
-import {useState} from 'react';
-import {Animated, FlatList, View} from 'react-native';
+
 import {carouselStyles} from './Carousel.style';
 
 interface CarouselProps {
@@ -11,9 +13,7 @@ const Carousel = ({data}: CarouselProps) => {
   const dots = Array.from({length: data.length}, (_, index) => index);
   const {screenWidth} = getScreenSize();
   const [currentPage, setCurrentPage] = useState(0);
-  const scrollX = new Animated.Value(0);
 
-  // 타입이 content 일 때 flatList 렌더링될 컴포넌트
   const renderItem = ({item}: any) => <ReviewItem key={item.id} />;
 
   const handlePageChange = (event: any) => {
@@ -30,10 +30,6 @@ const Carousel = ({data}: CarouselProps) => {
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {x: scrollX}}}],
-          {useNativeDriver: false},
-        )}
         onMomentumScrollEnd={handlePageChange}
         renderItem={renderItem}
       />
