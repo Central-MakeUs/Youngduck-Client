@@ -12,11 +12,24 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import stackScreens from '@/constants/stackScreens';
 import Config from 'react-native-config';
+import Popup from '@/components/popup';
+import {removeTokens} from '@/services/localStorage/localStorage';
 
 const SettingScreen = () => {
   const {stackNavigation} = useNavigator();
   const [isServiceAlarmOn, setIsServiceAlarmOn] = useState<boolean>(false);
   const [isAdBenefitAlarmOn, setIsAdBenefitAlarmOn] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+
+  const onCloseModal = async () => setIsVisible(false);
+
+  const onLogout = async () => {
+    onCloseModal();
+    removeTokens();
+    await removeTokens();
+    // 로그아웃 후 이동하는 navigtion 설정하기
+    // stackNavigation.popToTop();
+  };
 
   return (
     <>
@@ -93,12 +106,21 @@ const SettingScreen = () => {
         </Typography>
       </View>
       <Divider height={8} mt={16} mb={16} />
-      <Pressable style={settingScreenStyles.buttonWrap}>
+      <Pressable
+        style={settingScreenStyles.buttonWrap}
+        onPress={() => setIsVisible(true)}>
         <Typography style="Body1">로그아웃하기</Typography>
       </Pressable>
       <Pressable style={settingScreenStyles.buttonWrap}>
         <Typography style="Body1">탈퇴하기</Typography>
       </Pressable>
+      <Popup
+        isVisible={isVisible}
+        title={'로그아웃할까요?'}
+        content={''}
+        onClose={onCloseModal}
+        onPress={onLogout}
+      />
     </>
   );
 };
