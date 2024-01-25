@@ -6,6 +6,7 @@ import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
 import useNavigator from '@/hooks/useNavigator';
 import {useState} from 'react';
 import {View} from 'react-native';
+import settingScreenStyles from './SettingScreen.style';
 
 const SettingScreen = () => {
   const {stackNavigation} = useNavigator();
@@ -18,16 +19,13 @@ const SettingScreen = () => {
         opacity={0}
       />
       <SubTitle text="알림 설정" />
-      <View
-        style={{
-          paddingHorizontal: 16,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}>
+      <View style={settingScreenStyles.alarmWarp}>
         <View>
           <SubTitleDescription
             text="푸시 알림"
             subTitle={`관심 스크리닝 상영일 하루 전\n스케줄 알림을 드려요.`}
+            textStyle="Label1"
+            subTitleStyle="Body2"
           />
         </View>
         <Switch
