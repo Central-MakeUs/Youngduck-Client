@@ -5,6 +5,9 @@ declare module 'react-native-config' {
     KAKAO_NATIVE_APP_KEY_WITH_KAKAO: string;
     APP_KEY_WITH_KAKAO: string;
     BASE_URL: string;
+    MARKETING_POLICY_URI: string;
+    USAGE_POLICY_URI: string;
+    PRIVACY_POLICY_URI: string;
   }
 
   export const Config: NativeConfig;

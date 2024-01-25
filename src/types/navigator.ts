@@ -17,6 +17,7 @@ export type RootStackParamList = {
   MyPageScreen: undefined;
   ChangeNicknameScreen: undefined;
   SettingScreen: undefined;
+  AgreementScreen: {uri: string};
 } & PopcornPartyStackParamList &
   ScreeningStackScreensParamList;
 

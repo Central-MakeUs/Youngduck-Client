@@ -10,11 +10,14 @@ import settingScreenStyles from './SettingScreen.style';
 import SubMenu from '@/components/subMenu';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
+import stackScreens from '@/constants/stackScreens';
+import Config from 'react-native-config';
 
 const SettingScreen = () => {
   const {stackNavigation} = useNavigator();
   const [isServiceAlarmOn, setIsServiceAlarmOn] = useState<boolean>(false);
   const [isAdBenefitAlarmOn, setIsAdBenefitAlarmOn] = useState<boolean>(false);
+
   return (
     <>
       <BackTitleTopBar
@@ -53,11 +56,36 @@ const SettingScreen = () => {
           mt={16}
         />
       </View>
-      <SubMenu text="약관 보기" onPress={() => {}} textStyle="Body1" mt={8} />
+      <SubMenu
+        text="약관 보기"
+        onPress={() =>
+          stackNavigation.navigate(stackScreens.AgreementScreen, {
+            uri: Config.MARKETING_POLICY_URI,
+          })
+        }
+        textStyle="Body1"
+        mt={8}
+      />
       <Divider height={8} mt={16} mb={16} />
       <SubTitle text="약관 및 개인정보 처리 방침" mb={8} />
-      <SubMenu text="이용약관" onPress={() => {}} mb={8} />
-      <SubMenu text="개인정보처리방침" onPress={() => {}} mb={8} />
+      <SubMenu
+        text="이용약관"
+        onPress={() =>
+          stackNavigation.navigate(stackScreens.AgreementScreen, {
+            uri: Config.USAGE_POLICY_URI,
+          })
+        }
+        mb={8}
+      />
+      <SubMenu
+        text="개인정보처리방침"
+        onPress={() =>
+          stackNavigation.navigate(stackScreens.AgreementScreen, {
+            uri: Config.PRIVACY_POLICY_URI,
+          })
+        }
+        mb={8}
+      />
       <View style={settingScreenStyles.appVersionWrap}>
         <Typography style="Body1">앱 버전</Typography>
         <Typography style="Body2" color={palette.Text.Alternative}>
