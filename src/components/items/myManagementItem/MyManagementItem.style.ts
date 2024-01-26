@@ -6,6 +6,7 @@ const myManagementItemStyles = StyleSheet.create({
     padding: 16,
     borderRadius: 16,
     backgroundColor: palette.Another.White,
+    marginBottom: 8,
   },
   wrap: {
     flexDirection: 'row',
@@ -17,6 +18,13 @@ const myManagementItemStyles = StyleSheet.create({
     flex: 1,
   },
   contentWrap: {justifyContent: 'space-between'},
+  buttonWrap: {
+    width: 28,
+    height: 28,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 100,
+  },
   reviewContainer: {
     borderTopWidth: 1,
     borderTopColor: palette.Line.Normal,
