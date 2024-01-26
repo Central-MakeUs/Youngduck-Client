@@ -8,7 +8,7 @@ const enum stackScreens {
   SettingScreen = 'SettingScreen',
   AgreementScreen = 'AgreementScreen',
   WithdrawScreen = 'WithdrawScreen',
-  ManageScreening = 'ManageScreening',
+  ManageScreeningScreen = 'ManageScreeningScreen',
 
   //스크리닝 페이지
   HomeScreen = 'HomeScreen',

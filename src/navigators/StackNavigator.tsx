@@ -27,7 +27,7 @@ import ChangeNicknameScreen from '@/screens/myPage/changeNickname/ChangeNickname
 import SettingScreen from '@/screens/myPage/setting/SettingScreen';
 import AgreementScreen from '@/screens/myPage/setting/screens/agreement/AgreementScreen';
 import WithdrawScreen from '@/screens/myPage/setting/screens/withdraw/WithdrawScreen';
-import ManageScreening from '@/screens/myPage/manageScreening';
+import ManageScreeningScreen from '@/screens/myPage/manageScreening/ManageScreeningScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -121,8 +121,8 @@ function StackNavigator() {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name={stackScreens.ManageScreening}
-        component={ManageScreening}
+        name={stackScreens.ManageScreeningScreen}
+        component={ManageScreeningScreen}
         options={{headerShown: false}}
       />
       {/*스크리닝 페이지*/}

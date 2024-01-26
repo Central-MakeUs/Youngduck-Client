@@ -16,7 +16,7 @@ const MyScreening = ({type, count}: IMyScreeningProps) => {
     <Pressable
       style={myScreeningStyles.buttonWrap}
       onPress={() =>
-        stackNavigation.navigate(stackScreens.ManageScreening, {
+        stackNavigation.navigate(stackScreens.ManageScreeningScreen, {
           isWatcedScreening: type === '관람한 스크리닝',
         })
       }>
