@@ -27,6 +27,7 @@ import ChangeNicknameScreen from '@/screens/myPage/changeNickname/ChangeNickname
 import SettingScreen from '@/screens/myPage/setting/SettingScreen';
 import AgreementScreen from '@/screens/myPage/setting/screens/agreement/AgreementScreen';
 import WithdrawScreen from '@/screens/myPage/setting/screens/withdraw/WithdrawScreen';
+import ManageScreeningScreen from '@/screens/myPage/manageScreening/ManageScreeningScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -119,6 +120,11 @@ function StackNavigator() {
         component={WithdrawScreen}
         options={{headerShown: false}}
       />
+      <Stack.Screen
+        name={stackScreens.ManageScreeningScreen}
+        component={ManageScreeningScreen}
+        options={{headerShown: false}}
+      />
       {/*스크리닝 페이지*/}
       {/*작성 페이지*/}
       <Stack.Screen
@@ -141,6 +147,7 @@ function StackNavigator() {
         name={stackScreens.ReviewWritingScreen}
         component={ReviewWritingScreen}
         options={{
+          headerShown: false,
           header: () => (
             <CancelTopBar text="리뷰 작성하기" onPress={handleGoBack} />
           ),
