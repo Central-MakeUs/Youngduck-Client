@@ -1,5 +1,7 @@
 import {TouchableOpacity} from 'react-native';
-import kakaoLoginStyles from './KakaoLogin.style';
+import {useMutation} from '@tanstack/react-query';
+import {AxiosError} from 'axios';
+
 import Typography from '@/components/typography';
 import KakaoLogo from '@/assets/icons/kakao-logo.svg';
 import useNavigator from '@/hooks/useNavigator';
@@ -7,18 +9,41 @@ import {getKakaoIdToken, getKakaoProfile} from '@/apis/auth/social';
 import {postLoginUser} from '@/apis/auth/auth';
 import {useUserStore} from '@/stores/user';
 import {setIsInstalled} from '@/services/localStorage/localStorage';
+import {ResponseErrorAPI} from '@/models/common/responseDTO';
+import stackScreens from '@/constants/stackScreens';
+
+import kakaoLoginStyles from './KakaoLogin.style';
 
 function KakaoLogin() {
   const {stackNavigation} = useNavigator();
 
   const {setUser, user} = useUserStore();
 
+  const loginMutate = useMutation({
+    mutationFn: postLoginUser,
+    onSuccess: login => {
+      if (!login.data.canLogin) {
+        stackNavigation.navigate(stackScreens.SignupScreen);
+      } else {
+        setIsInstalled(true);
+        stackNavigation.navigate(stackScreens.BottomTabScreens);
+      }
+    },
+    onError: err => {
+      const errorResponse = (err as AxiosError).response;
+      if (errorResponse) {
+        const error = errorResponse.data as ResponseErrorAPI;
+        if (error.status === 400) {
+          stackNavigation.navigate(stackScreens.SignupScreen);
+        }
+      }
+    },
+  });
+
   // 카카오 로그인 함수
   const handleSignInKakao = async (): Promise<void> => {
     const res = await getKakaoIdToken();
     const profile = await getKakaoProfile();
-
-    const login = await postLoginUser('KAKAO', res.idToken);
     if (profile) {
       setUser({
         ...user,
@@ -28,14 +53,10 @@ function KakaoLogin() {
         type: 'KAKAO',
       });
     }
-    if (login) {
-      if (!login.data.canLogin) {
-        stackNavigation.navigate('SignupScreen');
-      } else {
-        setIsInstalled(true);
-        stackNavigation.navigate('BottomTabScreens');
-      }
-    }
+    await loginMutate.mutateAsync({
+      type: 'KAKAO',
+      token: res.idToken,
+    });
   };
 
   return (
