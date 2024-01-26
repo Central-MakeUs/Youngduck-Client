@@ -17,6 +17,8 @@ const useScreeningMutation = () => {
       stackNavigation.navigate('DetailScreen', {id: data.data.id});
 
       queryClient.invalidateQueries({queryKey: ['weekScreening']});
+      queryClient.invalidateQueries({queryKey: ['recentScreening']});
+      queryClient.invalidateQueries({queryKey: ['mostCommentScreening']});
     },
   });
 
