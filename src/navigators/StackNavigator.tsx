@@ -25,8 +25,8 @@ import {getIsInstalled} from '@/services/localStorage/localStorage';
 import stackScreens from '@/constants/stackScreens';
 import ChangeNicknameScreen from '@/screens/myPage/changeNickname/ChangeNicknameScreen';
 import SettingScreen from '@/screens/myPage/setting/SettingScreen';
-import AgreementScreen from '@/screens/myPage/agreement/AgreementScreen';
-import WithdrawScreen from '@/screens/myPage/withdraw/WithdrawScreen';
+import AgreementScreen from '@/screens/myPage/setting/screens/agreement/AgreementScreen';
+import WithdrawScreen from '@/screens/myPage/setting/screens/withdraw/WithdrawScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
