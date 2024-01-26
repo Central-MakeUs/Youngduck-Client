@@ -147,6 +147,7 @@ function StackNavigator() {
         name={stackScreens.ReviewWritingScreen}
         component={ReviewWritingScreen}
         options={{
+          headerShown: false,
           header: () => (
             <CancelTopBar text="리뷰 작성하기" onPress={handleGoBack} />
           ),

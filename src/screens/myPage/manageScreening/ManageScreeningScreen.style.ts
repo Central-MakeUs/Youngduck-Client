@@ -21,7 +21,7 @@ const manageScreeningScreenStyles = ({
       backgroundColor: '#F5F5F5',
       paddingHorizontal: 16,
       paddingTop: 16,
-      paddingBottom: bottom + 16,
+      paddingBottom: bottom + 8,
     },
   });
 
