@@ -7,6 +7,7 @@ export interface ITypography extends CommonMarginProps {
   children: string;
   color?: ValueOfColor;
   essential?: boolean;
+  numberOfLinesDisabled?: boolean;
 }
 
 export type KeyofText = keyof typeof text;
