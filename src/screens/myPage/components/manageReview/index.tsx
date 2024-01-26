@@ -1,29 +1,29 @@
 import SvgIcons from '@/assets/svgIcons';
 import Typography from '@/components/typography';
 import {Pressable, View} from 'react-native';
-import managementStyles from './Management.style';
+import manageReviewStyles from './ManageReview.style';
 
-interface IManagementProps {
+interface IManageReviewProps {
   postName: string;
   count: number;
   idx: number;
 }
 
-const Management = ({postName, count, idx}: IManagementProps) => {
+const ManageReview = ({postName, count, idx}: IManageReviewProps) => {
   return (
     <Pressable
       style={[
-        managementStyles.container,
+        manageReviewStyles.container,
         {
           borderBottomWidth: idx === 2 ? 0 : 1,
         },
       ]}>
       <Typography style="Label2">{postName}</Typography>
-      <View style={managementStyles.countArrowWrap}>
+      <View style={manageReviewStyles.countArrowWrap}>
         <Typography style="Body2">{count.toString()}</Typography>
         <SvgIcons.RightArrowIcon width={6.86} height={12} />
       </View>
     </Pressable>
   );
 };
-export default Management;
+export default ManageReview;

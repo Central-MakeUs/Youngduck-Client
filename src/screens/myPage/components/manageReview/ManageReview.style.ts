@@ -1,7 +1,7 @@
 import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
-const managementStyles = StyleSheet.create({
+const manageReviewStyles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -12,4 +12,4 @@ const managementStyles = StyleSheet.create({
   countArrowWrap: {flexDirection: 'row', gap: 2, alignItems: 'center'},
 });
 
-export default managementStyles;
+export default manageReviewStyles;
