@@ -1,7 +1,11 @@
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import Navigator from './navigators/Navigator';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import 'react-native-svg';
+
+import Navigator from './navigators/Navigator';
+import {setupAlarm} from './services/alarmService';
+
+setupAlarm();
 
 function App() {
   const queryClient = new QueryClient();
