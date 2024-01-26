@@ -1,4 +1,11 @@
-apply plugin: "com.android.application"
+//apply plugin: "com.android.application"
+//apply plugin: "com.google.gms.google-services"
+plugins {
+    id "com.android.application"
+
+    // Add the Google services Gradle plugin
+    id "com.google.gms.google-services"
+}
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 apply plugin: "com.facebook.react"
 
@@ -160,6 +167,9 @@ dependencies {
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.squareup.okhttp3', module:'okhttp'
     }
+
+    implementation platform('com.google.firebase:firebase-bom:32.7.1')
+    implementation 'com.google.firebase:firebase-analytics'
 
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}")
     if (hermesEnabled.toBoolean()) {
