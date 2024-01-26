@@ -44,9 +44,8 @@ function HomeScreen() {
     ],
   });
 
-  console.log('댓글', mostCommentScreenings.data?.data);
-
   if (weekScreenings.isLoading) {
+    // TODO: 로딩 스피너 구현
     return <Typography style="Body1">로딩중</Typography>;
   }
 
@@ -93,6 +92,7 @@ function HomeScreen() {
           <EmptyCard text={`최근에 방영했던 스크리닝은\n준비하고 있어요`} />
         )}
         {mostCommentScreenings.status === 'success' &&
+          weekScreenings?.data?.data &&
           mostCommentScreenings.data.data.length > 0 && (
             <ReviewScreeningCarousel item={weekScreenings?.data?.data} />
           )}
