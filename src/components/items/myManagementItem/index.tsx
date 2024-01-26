@@ -98,15 +98,11 @@ const MyManagementItem = ({
           {(mode === 'review' || mode === 'jjim') && (
             // 스크리닝 관리 -> 관람한 스크리닝 혹은 관심 스크리닝인 경우
             <Pressable
-              style={[
-                myManagementItemStyles.buttonWrap,
-                {
-                  backgroundColor:
-                    isJjimActivated || isReviewRequired
-                      ? palette.Primary.Assistive
-                      : palette.Fill.Normal,
-                },
-              ]}
+              style={
+                isJjimActivated || isReviewRequired
+                  ? myManagementItemStyles.activatedButtonWrap
+                  : myManagementItemStyles.deactivatedButtonWrap
+              }
               onPress={handleButtonPressed}>
               {/* 관람한 스크리닝의 경우 연필 아이콘 */}
               {mode === 'review' && (

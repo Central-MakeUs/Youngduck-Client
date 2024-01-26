@@ -1,5 +1,13 @@
 import palette from '@/styles/theme/color';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, ViewStyle} from 'react-native';
+
+const commonButtonWrap: ViewStyle = {
+  width: 28,
+  height: 28,
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: 100,
+};
 
 const myManagementItemStyles = StyleSheet.create({
   container: {
@@ -18,12 +26,13 @@ const myManagementItemStyles = StyleSheet.create({
     flex: 1,
   },
   contentWrap: {justifyContent: 'space-between'},
-  buttonWrap: {
-    width: 28,
-    height: 28,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 100,
+  activatedButtonWrap: {
+    ...commonButtonWrap,
+    backgroundColor: palette.Primary.Assistive,
+  },
+  deactivatedButtonWrap: {
+    ...commonButtonWrap,
+    backgroundColor: palette.Fill.Normal,
   },
   reviewContainer: {
     borderTopWidth: 1,

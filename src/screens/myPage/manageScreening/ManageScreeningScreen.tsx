@@ -13,12 +13,7 @@ import MyManagementItem from '@/components/items/myManagementItem';
 import {jjimScreenings, watchedScreenings} from './dummy';
 
 interface ICommonScreeningProps {
-  mode:
-    | 'review'
-    | 'jjim'
-    | 'screening-review'
-    | 'popcorn-review'
-    | 'my-screening';
+  mode: 'review' | 'jjim';
   imageURI: string;
   title: string;
   id: number;
