@@ -1,4 +1,4 @@
-import {FlatList, View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {useQueries} from '@tanstack/react-query';
 
 import Divider from '@/components/divider';
@@ -19,9 +19,10 @@ import {
   getWeekScreening,
 } from '@/apis/screening/screening';
 import {IWeekScreeningData} from '@/models/screening/response';
+import EmptyCard from '@/components/cards/emptyCard';
+import Typography from '@/components/typography';
 
 import {screeningHomeStyle} from './HomeScreen.style';
-import EmptyCard from '@/components/cards/emptyCard';
 
 function HomeScreen() {
   const {stackNavigation} = useNavigator();
@@ -43,15 +44,11 @@ function HomeScreen() {
     ],
   });
 
-  const renderItem = ({item}: {item: IWeekScreeningData}) => (
-    <WeeklyScreening
-      id={item.screeningId}
-      date={item.screeningStartDate}
-      category={item.category}
-      img={item.posterImgUrl}
-      hostName={item.hostName}
-    />
-  );
+  console.log('댓글', mostCommentScreenings.data?.data);
+
+  if (weekScreenings.isLoading) {
+    return <Typography style="Body1">로딩중</Typography>;
+  }
 
   // 작성하기 페이지로 이동
   const handleGoWriting = () => {
@@ -75,13 +72,18 @@ function HomeScreen() {
       {weekScreenings.status === 'success' &&
         weekScreenings.data?.data.length > 0 && (
           <View style={screeningHomeStyle.content}>
-            <FlatList
-              horizontal
-              data={weekScreenings?.data?.data}
-              renderItem={renderItem}
-              showsHorizontalScrollIndicator={false}
-              style={{marginLeft: 16}}
-            />
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {weekScreenings?.data?.data?.map((item: IWeekScreeningData) => (
+                <WeeklyScreening
+                  key={item.screeningId}
+                  id={item.screeningId}
+                  date={item.screeningStartDate}
+                  category={item.category}
+                  img={item.posterImgUrl}
+                  hostName={item.hostName}
+                />
+              ))}
+            </ScrollView>
           </View>
         )}
 
@@ -92,7 +94,7 @@ function HomeScreen() {
         )}
         {mostCommentScreenings.status === 'success' &&
           mostCommentScreenings.data.data.length > 0 && (
-            <ReviewScreeningCarousel />
+            <ReviewScreeningCarousel item={weekScreenings?.data?.data} />
           )}
       </View>
       <Divider height={8} />
