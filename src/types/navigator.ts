@@ -19,6 +19,7 @@ export type RootStackParamList = {
   SettingScreen: undefined;
   AgreementScreen: {uri: string};
   WithdrawScreen: undefined;
+  ManageScreening: {isWatcedScreening: boolean};
 } & PopcornPartyStackParamList &
   ScreeningStackScreensParamList;
 
