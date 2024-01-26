@@ -354,6 +354,9 @@ PODS:
     - React-Core
   - react-native-encrypted-storage (4.0.3):
     - React-Core
+  - react-native-pager-view (6.2.3):
+    - RCT-Folly (= 2021.07.22.00)
+    - React-Core
   - react-native-safe-area-context (4.8.2):
     - React-Core
   - react-native-slider (4.5.0):
@@ -526,6 +529,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-config (from `../node_modules/react-native-config`)
   - react-native-encrypted-storage (from `../node_modules/react-native-encrypted-storage`)
+  - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
@@ -624,6 +628,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-config"
   react-native-encrypted-storage:
     :path: "../node_modules/react-native-encrypted-storage"
+  react-native-pager-view:
+    :path: "../node_modules/react-native-pager-view"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-slider:
@@ -677,7 +683,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 3ca42e259043ee0dc5c0cdd76c4bc568b8e42af7
-  boost: 57d2868c099736d80fcd648bf211b4431e51a558
+  boost: a4affe924b4a240c0417ecd7921681d3bf92ee80
   BVLinearGradient: 880f91a7854faff2df62518f0281afb1c60d49a3
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
@@ -717,6 +723,7 @@ SPEC CHECKSUMS:
   React-logger: 0d58569ec51d30d1792c5e86a8e3b78d24b582c6
   react-native-config: 86038147314e2e6d10ea9972022aa171e6b1d4d8
   react-native-encrypted-storage: db300a3f2f0aba1e818417c1c0a6be549038deb7
+  react-native-pager-view: e26d35e382d86950c936f8917e3beb9188115ccc
   react-native-safe-area-context: 0ee144a6170530ccc37a0fd9388e28d06f516a89
   react-native-slider: cc89964e1432fa31aa9db7a0fa9b21e26b5d5152
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457

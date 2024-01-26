@@ -28,6 +28,8 @@ import SettingScreen from '@/screens/myPage/setting/SettingScreen';
 import AgreementScreen from '@/screens/myPage/setting/screens/agreement/AgreementScreen';
 import WithdrawScreen from '@/screens/myPage/setting/screens/withdraw/WithdrawScreen';
 import ManageScreeningScreen from '@/screens/myPage/manageScreening/ManageScreeningScreen';
+import ManageReviewScreen from '@/screens/myPage/manageReview/ManageReview';
+import MyScreeningScreen from '@/screens/myPage/myScreening/MyScreeningScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -120,9 +122,22 @@ function StackNavigator() {
         component={WithdrawScreen}
         options={{headerShown: false}}
       />
+      {/* 스크리닝 관리 페이지 */}
       <Stack.Screen
         name={stackScreens.ManageScreeningScreen}
         component={ManageScreeningScreen}
+        options={{headerShown: false}}
+      />
+      {/* 리뷰 관리 페이지 */}
+      <Stack.Screen
+        name={stackScreens.ManageReviewScreen}
+        component={ManageReviewScreen}
+        options={{headerShown: false}}
+      />
+      {/* 나의 스크리닝 페이지 */}
+      <Stack.Screen
+        name={stackScreens.MyScreeningScreen}
+        component={MyScreeningScreen}
         options={{headerShown: false}}
       />
       {/*스크리닝 페이지*/}
