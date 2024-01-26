@@ -26,7 +26,7 @@ const ScreeningItem = ({
 }: IScreeningItemProps) => {
   const {stackNavigation} = useNavigator();
   const handleGoDetail = () => {
-    stackNavigation.navigate(stackScreens.DetailScreen, {id: id});
+    stackNavigation.navigate(stackScreens.DetailScreen, {id});
   };
   return (
     <TouchableOpacity

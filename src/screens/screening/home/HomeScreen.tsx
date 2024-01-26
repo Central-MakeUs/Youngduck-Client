@@ -24,7 +24,7 @@ import {screeningHomeStyle} from './HomeScreen.style';
 function HomeScreen() {
   const {stackNavigation} = useNavigator();
 
-  const screenings = useQueries({
+  const [weekScreenings, recentScreenings, mostCommentScreenings] = useQueries({
     queries: [
       // 이번주 스크리닝 api
       {queryKey: ['weekScreening'], queryFn: getWeekScreening},
@@ -72,7 +72,7 @@ function HomeScreen() {
 
       <FlatList
         horizontal
-        data={screenings[0]?.data?.data}
+        data={weekScreenings?.data?.data}
         renderItem={renderItem}
         showsHorizontalScrollIndicator={false}
         style={{marginLeft: 16}}
@@ -86,7 +86,7 @@ function HomeScreen() {
 
       <SubTitle text="실시간 새 소식" mt={16} mb={8} />
       <DefaultContainer>
-        {screenings[1]?.data?.data.map(screening => (
+        {recentScreenings?.data?.data.map(screening => (
           <ScreeningItem
             key={screening.screeningId}
             img={screening.posterImgUrl}

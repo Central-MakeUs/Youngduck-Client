@@ -34,7 +34,7 @@ const Carousel = ({data}: CarouselProps) => {
         renderItem={renderItem}
       />
 
-      <View style={[carouselStyles.indicatorContainer]}>
+      <View style={carouselStyles.indicatorContainer}>
         {dots.map(i => (
           <View
             key={i}
