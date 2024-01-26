@@ -15,6 +15,10 @@ export const styleButton: Record<IVariant, DetailStyle> = {
     backgroundColor: palette.Fill.Strong,
     textColor: palette.Text.Alternative,
   },
+  highlight: {
+    backgroundColor: palette.State.Point,
+    textColor: palette.Another.White,
+  },
 };
 
 export const buttonStyles = StyleSheet.create({

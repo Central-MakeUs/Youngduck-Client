@@ -18,13 +18,15 @@ import WriteReviewScreen from '@/screens/popCornParty/writeReview/WriteReviewScr
 
 import {RootStackParamList} from '@/types/navigator';
 import TitleTopBar from '@/components/topBar/titleTopBar';
-import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
 import CancelTopBar from '@/components/topBar/cancelTopBar';
 import useNavigator from '@/hooks/useNavigator';
 import {postAccessToken} from '@/apis/auth/auth';
 import {getIsInstalled} from '@/services/localStorage/localStorage';
 import stackScreens from '@/constants/stackScreens';
 import ChangeNicknameScreen from '@/screens/myPage/changeNickname/ChangeNicknameScreen';
+import SettingScreen from '@/screens/myPage/setting/SettingScreen';
+import AgreementScreen from '@/screens/myPage/setting/screens/agreement/AgreementScreen';
+import WithdrawScreen from '@/screens/myPage/setting/screens/withdraw/WithdrawScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -97,6 +99,24 @@ function StackNavigator() {
       <Stack.Screen
         name={stackScreens.ChangeNicknameScreen}
         component={ChangeNicknameScreen}
+        options={{headerShown: false}}
+      />
+      {/* 설정 페이지 */}
+      <Stack.Screen
+        name={stackScreens.SettingScreen}
+        component={SettingScreen}
+        options={{headerShown: false}}
+      />
+      {/* 약관 동의 페이지 */}
+      <Stack.Screen
+        name={stackScreens.AgreementScreen}
+        component={AgreementScreen}
+        options={{headerShown: false}}
+      />
+      {/* 회원 탈퇴 페이지 */}
+      <Stack.Screen
+        name={stackScreens.WithdrawScreen}
+        component={WithdrawScreen}
         options={{headerShown: false}}
       />
       {/*스크리닝 페이지*/}
