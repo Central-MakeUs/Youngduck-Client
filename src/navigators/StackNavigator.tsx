@@ -28,7 +28,7 @@ import SettingScreen from '@/screens/myPage/setting/SettingScreen';
 import AgreementScreen from '@/screens/myPage/setting/screens/agreement/AgreementScreen';
 import WithdrawScreen from '@/screens/myPage/setting/screens/withdraw/WithdrawScreen';
 import ManageScreeningScreen from '@/screens/myPage/manageScreening/ManageScreeningScreen';
-import ManageReviewScreen from '@/screens/myPage/manageReview/ManageReview';
+import ManageReviewScreen from '@/screens/myPage/manageReview/ManageReviewScreen';
 import MyScreeningScreen from '@/screens/myPage/myScreening/MyScreeningScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

@@ -7,7 +7,7 @@ import palette from '@/styles/theme/color';
 import {View, Pressable, Image} from 'react-native';
 import myPageScreenStyles from './MyPageScreen.style';
 import {defaultImages} from '@/assets';
-import ManageReview from './components/manageReview';
+import ManagePost from './components/managePost';
 import Divider from '@/components/divider';
 import MyScreening from './components/myScreening';
 import {useUserStore} from '@/stores/user';
@@ -54,7 +54,7 @@ const MyPageScreen = () => {
         <Typography style="Subtitle2">게시물 관리</Typography>
         <View style={myPageScreenStyles.managePostsContainer}>
           {managePosts.map((managePost, idx) => (
-            <ManageReview
+            <ManagePost
               postName={managePost.postName}
               count={managePost.count}
               idx={idx}

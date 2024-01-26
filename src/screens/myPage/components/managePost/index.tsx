@@ -1,7 +1,7 @@
 import SvgIcons from '@/assets/svgIcons';
 import Typography from '@/components/typography';
 import {Pressable, View} from 'react-native';
-import manageReviewStyles from './ManageReview.style';
+import managePostStyles from './ManagePost.style';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 
@@ -11,12 +11,12 @@ interface IManageReviewProps {
   idx: number;
 }
 
-const ManageReview = ({postName, count, idx}: IManageReviewProps) => {
+const ManagePost = ({postName, count, idx}: IManageReviewProps) => {
   const {stackNavigation} = useNavigator();
   return (
     <Pressable
       style={[
-        manageReviewStyles.container,
+        managePostStyles.container,
         {
           borderBottomWidth: idx === 2 ? 0 : 1,
         },
@@ -29,11 +29,11 @@ const ManageReview = ({postName, count, idx}: IManageReviewProps) => {
             })
       }>
       <Typography style="Label2">{postName}</Typography>
-      <View style={manageReviewStyles.countArrowWrap}>
+      <View style={managePostStyles.countArrowWrap}>
         <Typography style="Body2">{count.toString()}</Typography>
         <SvgIcons.RightArrowIcon width={6.86} height={12} />
       </View>
     </Pressable>
   );
 };
-export default ManageReview;
+export default ManagePost;

@@ -1,7 +1,7 @@
 import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
-const manageReviewStyles = StyleSheet.create({
+const managePostStyles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -12,4 +12,4 @@ const manageReviewStyles = StyleSheet.create({
   countArrowWrap: {flexDirection: 'row', gap: 2, alignItems: 'center'},
 });
 
-export default manageReviewStyles;
+export default managePostStyles;
