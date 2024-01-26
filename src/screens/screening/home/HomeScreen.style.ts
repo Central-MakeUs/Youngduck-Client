@@ -14,7 +14,7 @@ export const screeningHomeStyle = StyleSheet.create({
     top: 126,
     left: 16,
   },
-  content: {marginTop: 8, marginBottom: 24},
+  content: {marginTop: 8, marginBottom: 24, marginLeft: 16},
   recent: {
     marginBottom: 32,
     paddingHorizontal: 16,

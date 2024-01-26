@@ -1,8 +1,12 @@
 import Carousel from '@/components/carousel';
 import {View} from 'react-native';
 import {reviewStyles} from './ReviewScreening.style';
+import {IWeekScreeningData} from '@/models/screening/response';
 
-const ReviewScreeningCarousel = () => {
+interface IReviewScreeningCarouselProp {
+  item: IWeekScreeningData[];
+}
+const ReviewScreeningCarousel = ({item}: IReviewScreeningCarouselProp) => {
   // carousel 에 보여질 데이터 배열
   const data = [
     {
@@ -30,7 +34,7 @@ const ReviewScreeningCarousel = () => {
 
   return (
     <View style={reviewStyles.container}>
-      <Carousel data={data} />
+      <Carousel data={item} />
     </View>
   );
 };
