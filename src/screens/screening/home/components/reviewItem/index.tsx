@@ -1,19 +1,21 @@
 import {Image, TouchableOpacity, View} from 'react-native';
+import {DateParsable} from 'react-native-calendar-picker';
 
 import Typography from '@/components/typography';
 import ChatIcon from '@/assets/icons/chat.svg';
 import useNavigator from '@/hooks/useNavigator';
 import palette from '@/styles/theme/color';
 import stackScreens from '@/constants/stackScreens';
+import {getDateRange} from '@/utils/getDate';
+import {TEngCategory} from '@/models/screening/request';
 
 import {reviewItemStyles} from './ReviewItem.style';
-import {DateParsable} from 'react-native-calendar-picker';
-import {getDateRange} from '@/utils/getDate';
+import {getCategory} from '@/utils/getCategory';
 
 interface IReviewItemProps {
   id: number;
   img: string;
-  category: string;
+  category: TEngCategory;
   title: string;
   startDate: DateParsable;
   endDate: DateParsable;
@@ -30,7 +32,6 @@ const ReviewItem = ({
 }: IReviewItemProps) => {
   const {stackNavigation} = useNavigator();
   const handleGoDetail = () => {
-    // TODO: 상세 페이지 id param 넣어주기
     stackNavigation.navigate(stackScreens.DetailScreen, {id});
   };
   return (
@@ -45,7 +46,7 @@ const ReviewItem = ({
         style={reviewItemStyles.image}
       />
       <View style={reviewItemStyles.content}>
-        <Typography style="Label2">{category}</Typography>
+        <Typography style="Label2">{getCategory(category)}</Typography>
         <Typography style="Body1" mb={8}>
           {title}
         </Typography>

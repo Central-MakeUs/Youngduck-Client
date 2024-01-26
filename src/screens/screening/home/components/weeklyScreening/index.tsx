@@ -7,11 +7,13 @@ import palette from '@/styles/theme/color';
 import {getDate} from '@/utils/getDate';
 
 import {weeklyStyles} from './WeeklyScreening.style';
+import {TEngCategory} from '@/models/screening/request';
+import {getCategory} from '@/utils/getCategory';
 
 interface IWeeklyScreeningProps {
   id: number;
   date: DateParsable;
-  category: string;
+  category: TEngCategory;
   img: string;
   hostName: string;
 }
@@ -38,7 +40,7 @@ const WeeklyScreening = ({
         style={weeklyStyles.image}
       />
       <Typography style="Label3" color={palette.Text.Alternative} mt={8}>
-        {category}
+        {getCategory(category)}
       </Typography>
       <Typography style="Label1">{hostName}</Typography>
       <Typography style="Chips2">{getDate(date)}</Typography>

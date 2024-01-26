@@ -13,7 +13,10 @@ import TextArea from '@/components/inputs/textArea';
 import DismissKeyboardView from '@/components/dismissKeyboardView';
 import Input from '@/components/input';
 import BoxButton from '@/components/buttons/boxButton';
-import {IScreeningBodyRequest} from '@/models/screening/request';
+import {
+  IScreeningBodyRequest,
+  KorCategoryValues,
+} from '@/models/screening/request';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import {ScreenRouteProp} from '@/types/navigator';
 import useNavigator from '@/hooks/useNavigator';
@@ -146,7 +149,7 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
         {/*분류*/}
         <View style={writingStyles.container}>
           <Select
-            options={['졸업상영', '과제상영', '정기상영', '특별상영', '기타']}
+            options={KorCategoryValues}
             title="분류"
             value={inputValues.category}
             setValue={value => onChangeInput('category', value)}
