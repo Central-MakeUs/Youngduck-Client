@@ -13,9 +13,13 @@ import useNavigator from '@/hooks/useNavigator';
 import {getVoteDateRange} from '@/utils/getDate';
 
 import writeRecommandScreenStyles from './WriteRecommandScreen.style';
+import {IRecommendMovieProps} from '@/types/popcornParty';
 
 function WriteRecommandScreen() {
-  const [selectedMovie, setSelectedMovie] = useState<string>('');
+  const [selectedMovie, setSelectedMovie] = useState<IRecommendMovieProps>({
+    title: '',
+    movieSeq: '',
+  });
   const [reason, setReason] = useState<string>('');
   const [isAgree, setIsAgree] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -25,7 +29,8 @@ function WriteRecommandScreen() {
   const {stackNavigation} = useNavigator();
 
   const styles = writeRecommandScreenStyles({bottom});
-  const canRegister = !!selectedMovie.length && reason.length >= 10 && isAgree;
+  const canRegister =
+    !!selectedMovie.title.length && reason.length >= 10 && isAgree;
 
   const inputReason = (e: string) => setReason(e);
 

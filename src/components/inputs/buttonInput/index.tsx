@@ -121,7 +121,11 @@ const ButtonInput = ({
           ]}
           placeholder={placeholder}
           value={
-            category === 'date' || category === 'time' ? timeString : value
+            category === 'date' || category === 'time'
+              ? timeString
+              : category === 'search'
+              ? value.title
+              : value
           }
           editable={false}
           placeholderTextColor={palette.Text.Assistive}
