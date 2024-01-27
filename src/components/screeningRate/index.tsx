@@ -1,4 +1,3 @@
-import {CommonMarginVerticalProps} from '@/types/ui';
 import {Animated, View} from 'react-native';
 import Typography from '../typography';
 import {useEffect, useRef, useState} from 'react';
@@ -7,14 +6,15 @@ import screeningRateStyles from './ScreeningRate.style';
 import {Easing} from 'react-native';
 import DisappointedSvg from '@/assets/icons/disappointed.svg';
 import SatisfiedSvg from '@/assets/icons/satisfied.svg';
-import ReviewRate from './reviewRate';
 
 const TOOLTIP_MAX_LENGTH = 47.333343505859375;
 
-interface IScreeningRate extends CommonMarginVerticalProps {
+interface IScreeningRate {
   score: number;
+  mode: 'screeningRate' | 'popcornRate';
+  children: React.ReactNode;
 }
-const ScreeningRate = ({score, mt, mb}: IScreeningRate) => {
+const ScreeningRate = ({score, mode, children}: IScreeningRate) => {
   const [tooltipHeight, setTooltipHeight] = useState<number>(0);
   const [percentageLength, setPercentageLength] = useState<number>(0);
 
@@ -22,12 +22,6 @@ const ScreeningRate = ({score, mt, mb}: IScreeningRate) => {
   const screeningIndexLocation =
     (percentageLength * score) / 100 - TOOLTIP_MAX_LENGTH;
   const screeningIndex = score.toString();
-
-  const reviewLists = [
-    {category: '작품 감상', negative: 3, positive: 10},
-    {category: '상영 장소', negative: 2, positive: 11},
-    {category: '운영 방식', negative: 1, positive: 12},
-  ];
 
   const style = screeningRateStyles({tooltipHeight});
 
@@ -50,13 +44,10 @@ const ScreeningRate = ({score, mt, mb}: IScreeningRate) => {
   });
 
   return (
-    <View
-      style={{
-        ...style.container,
-        marginTop: mt ? mt : undefined,
-        marginBottom: mb ? mb : undefined,
-      }}>
-      <Typography style="Label1">상영지수</Typography>
+    <View style={style.container}>
+      <Typography style={mode === 'screeningRate' ? 'Label1' : 'Title2'}>
+        {mode === 'screeningRate' ? '상영지수' : '팝콘지수'}
+      </Typography>
       <View
         style={style.screeningIndexWrap}
         onLayout={e => setPercentageLength(e.nativeEvent.layout.width)}>
@@ -81,14 +72,7 @@ const ScreeningRate = ({score, mt, mb}: IScreeningRate) => {
           </Typography>
         </View>
       </View>
-      {reviewLists.map(reviewList => (
-        <ReviewRate
-          category={reviewList.category}
-          positive={reviewList.positive}
-          negative={reviewList.negative}
-          key={`${reviewList.category}-review-rate`}
-        />
-      ))}
+      {children}
     </View>
   );
 };

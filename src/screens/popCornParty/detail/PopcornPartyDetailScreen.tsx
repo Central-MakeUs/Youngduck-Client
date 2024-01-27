@@ -14,6 +14,7 @@ import stackScreens from '@/constants/stackScreens';
 import CommentItem from '@/components/items/commentItem';
 import ImageContentScrollContainer from '@/components/container/imageContentScrollContainer';
 import ScreeningRate from '@/components/screeningRate';
+import PopcornRate from '@/components/popcornRate';
 
 function PopcornPartyDetailScreen() {
   const {stackNavigation} = useNavigator();
@@ -80,7 +81,9 @@ function PopcornPartyDetailScreen() {
       {/* 현재 tab bar에 맞는 컴포넌트 보여주기 */}
       {currentTabBarNumber === 0 && (
         <DefaultContainer>
-          <ScreeningRate score={90} mt={24} mb={40} />
+          <ScreeningRate mode="screeningRate" score={90}>
+            <PopcornRate />
+          </ScreeningRate>
           <PopcornKeyword />
           <Divider height={8} mt={32} mb={16} />
         </DefaultContainer>
