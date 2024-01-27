@@ -18,3 +18,8 @@ export interface IRenderItemProps<T> {
   item: T;
   index: number;
 }
+
+export interface IRecommendMovieProps {
+  title: string;
+  movieSeq: string;
+}

@@ -2,23 +2,23 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import {Image, Pressable, View} from 'react-native';
 import movieItemStyles from './MovieItem.style';
+import {IRecommendMovieProps} from '@/types/popcornParty';
+import {ISearchMovieDataRequest} from '@/models/popcornParty/request';
 
-interface IMovieItem {
-  imageURL: string;
-  title: string;
-  director: string;
+interface IMovieItem extends ISearchMovieDataRequest {
   selected: string;
-  setSelected: React.Dispatch<React.SetStateAction<string>>;
+  setSelected: React.Dispatch<React.SetStateAction<IRecommendMovieProps>>;
 }
 
 const MovieItem = ({
-  imageURL,
+  poster,
   title,
-  director,
+  directorNm,
   selected,
+  movieSeq,
   setSelected,
 }: IMovieItem) => {
-  const setRecommandMovie = () => setSelected(title);
+  const setRecommandMovie = () => setSelected({title, movieSeq});
   return (
     <Pressable
       style={
@@ -28,16 +28,18 @@ const MovieItem = ({
       }
       onPress={setRecommandMovie}>
       <Image
-        source={{
-          uri: imageURL,
-        }}
+        source={
+          poster === 'default'
+            ? require('../../../assets/images/pacong.png')
+            : {uri: poster}
+        }
         style={movieItemStyles.image}
       />
       <View>
         <Typography style="Label1" color={palette.Text.Strong}>
           {title}
         </Typography>
-        <Typography style="Body2">{`감독: ${director}`}</Typography>
+        <Typography style="Body2">{`감독: ${directorNm}`}</Typography>
       </View>
     </Pressable>
   );
