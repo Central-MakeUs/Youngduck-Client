@@ -43,10 +43,12 @@ const ScreeningRate = ({score, mode, children}: IScreeningRate) => {
     extrapolate: 'clamp',
   });
 
+  const isScreeningRateMode = mode === 'screeningRate';
+
   return (
     <View style={style.container}>
-      <Typography style={mode === 'screeningRate' ? 'Label1' : 'Title2'}>
-        {mode === 'screeningRate' ? '상영지수' : '팝콘지수'}
+      <Typography style={isScreeningRateMode ? 'Label1' : 'Title2'}>
+        {isScreeningRateMode ? '상영지수' : '팝콘지수'}
       </Typography>
       <View
         style={style.screeningIndexWrap}
@@ -62,13 +64,13 @@ const ScreeningRate = ({score, mode, children}: IScreeningRate) => {
         <View style={style.reviewIcon}>
           <DisappointedSvg />
           <Typography style="Label3" mt={4}>
-            아쉽..
+            {isScreeningRateMode ? '아쉽..' : '눅눅..'}
           </Typography>
         </View>
         <View style={style.reviewIcon}>
           <SatisfiedSvg />
           <Typography style="Label3" mt={4}>
-            만족!
+            {isScreeningRateMode ? '만족!' : '바삭!'}
           </Typography>
         </View>
       </View>
