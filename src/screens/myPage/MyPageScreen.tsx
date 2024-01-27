@@ -12,6 +12,7 @@ import Divider from '@/components/divider';
 import MyScreening from './components/myScreening';
 import {useUserStore} from '@/stores/user';
 import SubMenu from '@/components/subMenu';
+import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
 
 const MyPageScreen = () => {
   const {user} = useUserStore();
@@ -28,46 +29,48 @@ const MyPageScreen = () => {
         'rgb(255,255,255)',
       ]}
       end={{x: 0, y: 0.3}}>
-      <View style={myPageScreenStyles.paddingWrap}>
-        <Typography style="Title1">마이페이지</Typography>
-        <Pressable
-          onPress={() =>
-            stackNavigation.navigate(stackScreens.ChangeNicknameScreen)
-          }
-          style={myPageScreenStyles.nicknameContainer}>
-          <View style={myPageScreenStyles.nicknameWrap}>
-            <Typography style="Label1" color={palette.Primary.Dark}>
-              {user.nickname}
-            </Typography>
-            <SvgIcons.ModifyIcon />
+      <DefaultScrollContainer>
+        <View style={myPageScreenStyles.paddingWrap}>
+          <Typography style="Title1">마이페이지</Typography>
+          <Pressable
+            onPress={() =>
+              stackNavigation.navigate(stackScreens.ChangeNicknameScreen)
+            }
+            style={myPageScreenStyles.nicknameContainer}>
+            <View style={myPageScreenStyles.nicknameWrap}>
+              <Typography style="Label1" color={palette.Primary.Dark}>
+                {user.nickname}
+              </Typography>
+              <SvgIcons.ModifyIcon />
+            </View>
+          </Pressable>
+          <Image
+            source={defaultImages.myPage1}
+            style={myPageScreenStyles.image}
+          />
+          <View style={myPageScreenStyles.screeningWrap}>
+            <MyScreening type="관람한 스크리닝" count={1} />
+            <View style={myPageScreenStyles.divider} />
+            <MyScreening type="관심 스크리닝" count={1} />
           </View>
-        </Pressable>
-        <Image
-          source={defaultImages.myPage1}
-          style={myPageScreenStyles.image}
+          <Typography style="Subtitle2">게시물 관리</Typography>
+          <View style={myPageScreenStyles.managePostsContainer}>
+            {managePosts.map((managePost, idx) => (
+              <ManagePost
+                postName={managePost.postName}
+                count={managePost.count}
+                idx={idx}
+                key={managePost.postName}
+              />
+            ))}
+          </View>
+        </View>
+        <Divider height={8} mt={32} mb={16} />
+        <SubMenu
+          text="설정"
+          onPress={() => stackNavigation.navigate(stackScreens.SettingScreen)}
         />
-        <View style={myPageScreenStyles.screeningWrap}>
-          <MyScreening type="관람한 스크리닝" count={1} />
-          <View style={myPageScreenStyles.divider} />
-          <MyScreening type="관심 스크리닝" count={1} />
-        </View>
-        <Typography style="Subtitle2">게시물 관리</Typography>
-        <View style={myPageScreenStyles.managePostsContainer}>
-          {managePosts.map((managePost, idx) => (
-            <ManagePost
-              postName={managePost.postName}
-              count={managePost.count}
-              idx={idx}
-              key={managePost.postName}
-            />
-          ))}
-        </View>
-      </View>
-      <Divider height={8} mt={32} mb={16} />
-      <SubMenu
-        text="설정"
-        onPress={() => stackNavigation.navigate(stackScreens.SettingScreen)}
-      />
+      </DefaultScrollContainer>
     </GradientContainer>
   );
 };
