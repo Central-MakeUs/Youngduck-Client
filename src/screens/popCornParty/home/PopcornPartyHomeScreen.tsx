@@ -8,13 +8,17 @@ import OtherPopcorns from './components/otherPopcorns';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import {useQueries} from '@tanstack/react-query';
-import {getTrendingPopcornItems} from '@/apis/popcornParty';
+import {
+  getTrendingPopcornData,
+  getTrendingMovieData,
+} from '@/apis/popcornParty';
 
 function PopcornPartyHomeScreen() {
   const {stackNavigation} = useNavigator();
-  const [trendingPopcornData] = useQueries({
+  const [trendingPopcornData, trendingMovieData] = useQueries({
     queries: [
-      {queryKey: ['trendingPopcorn'], queryFn: getTrendingPopcornItems},
+      {queryKey: ['trendingPopcorn'], queryFn: getTrendingPopcornData},
+      {queryKey: ['trendingMovieData'], queryFn: getTrendingMovieData},
     ],
   });
 
@@ -27,7 +31,7 @@ function PopcornPartyHomeScreen() {
         }
       />
       <TrendingPopcorn trendingPopcornData={trendingPopcornData.data?.data!} />
-      <TrendingMovie />
+      <TrendingMovie trendingMovieData={trendingMovieData.data?.data!} />
       <Divider height={8} mt={24} mb={16} />
       <VoteNextPopcorn title="다음 주 팝콘작 투표하기" />
       <OtherPopcorns />
