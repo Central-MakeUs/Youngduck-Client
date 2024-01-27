@@ -1,4 +1,4 @@
-package com.youngduck;
+package com.popcornmate;
 
 import android.os.Bundle;
 

@@ -87,7 +87,7 @@ function StackNavigator() {
         name={stackScreens.SignupCompleteScreen}
         component={SignupCompleteScreen}
         options={{headerShown: false}}
-      />
+      /> 
       {/*BottomTab 3개 페이지*/}
       <Stack.Screen
         name={stackScreens.BottomTabScreens}

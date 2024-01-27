@@ -66,3 +66,5 @@ yarn-error.log
 ios/tmp.xcconfig
 
 .env
+
+android/app/google-services.json
