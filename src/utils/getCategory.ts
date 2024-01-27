@@ -1,4 +1,4 @@
-import {TEngCategory, TKorCategory} from '@/models/screening/request';
+import {TEngCategory, TKorCategory} from '@/models/enums/category';
 
 const getCategory = (category: TEngCategory): TKorCategory => {
   const categoryMap: Record<TEngCategory, TKorCategory> = {
