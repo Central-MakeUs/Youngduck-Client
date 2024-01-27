@@ -6,6 +6,7 @@ import Input from '@/components/input';
 import ScreeningFilterList from './components/screeningFilterList';
 import DateOption from './components/dateOption';
 import {screeningListStyles} from './ScreeningList.style';
+import EmptyItem from '@/components/items/emptyItem';
 
 const ScreeningListScreen = () => {
   const [searchInput, setSearchInput] = useState<string>('');
@@ -60,6 +61,9 @@ const ScreeningListScreen = () => {
         </View>
       )}
 
+      {/*<View style={{flex: 1}}>
+        <EmptyItem size="large" text="검색 결과가 나오지 않아요." />
+      </View>*/}
       <ScreeningFilterList />
     </View>
   );
