@@ -20,7 +20,7 @@ function PopcornPartyDetailScreen() {
   const {stackNavigation} = useNavigator();
 
   const [currentTabBarNumber, setCurrentTabBarNumber] = useState<number>(0);
-
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   // tab bar에 필요한 제목들 선언
   const tabBars = [
     {title: '팝콘 지수', tabNumber: 0},
@@ -81,8 +81,8 @@ function PopcornPartyDetailScreen() {
       {/* 현재 tab bar에 맞는 컴포넌트 보여주기 */}
       {currentTabBarNumber === 0 && (
         <DefaultContainer>
-          <ScreeningRate mode="screeningRate" score={90}>
-            <PopcornRate />
+          <ScreeningRate mode="popcornRate" score={90}>
+            <PopcornRate isOpen={isOpen} setIsOpen={setIsOpen} />
           </ScreeningRate>
           <PopcornKeyword />
           <Divider height={8} mt={32} mb={16} />
