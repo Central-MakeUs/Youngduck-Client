@@ -22,7 +22,7 @@ export interface IWeekScreeningData extends Omit<IWeekScreening, 'category'> {
 export type TWeekScreeningResponse = IWeekScreeningData[];
 
 // 스크리닝 목록 응답 타입
-export type TScreeningListContent = {
+export type TScreeningContent = {
   createdAt: Date;
   updatedAt: Date;
   id: number;
@@ -75,7 +75,7 @@ export type TScreeningListContent = {
   participationUrl: string;
   information: string;
   hasAgreed: boolean;
-  category: 'GRADUATE';
+  category: TEngCategory;
   screeningRate: number;
   movieReviewCountNeg: number;
   movieReviewCountPos: number;
@@ -87,7 +87,7 @@ export type TScreeningListContent = {
 };
 
 export interface IScreeningListResponse {
-  content: TScreeningListContent[];
+  content: TScreeningContent[];
   page: number;
   size: number;
   hasNext: boolean;
