@@ -1,21 +1,33 @@
 import {ActivityIndicator, FlatList, View} from 'react-native';
+import {useInfiniteQuery} from '@tanstack/react-query';
 
 import DefaultContainer from '@/components/container/defaultContainer';
 import Divider from '@/components/divider';
 import ScreeningItem from '@/components/items/screeningItem';
-import {useInfiniteQuery} from '@tanstack/react-query';
 import {getTimeOptionScreeningList} from '@/apis/screening/screening';
 import {TScreeningContent} from '@/models/screening/response';
 import EmptyItem from '@/components/items/emptyItem';
+import {TScreeningTimeOption} from '@/models/enums/screeningOption';
+import {TEngCategory} from '@/models/enums/category';
 
-const ScreeningFilterList = () => {
+interface IScreenFilterListProps {
+  sortBy: TScreeningTimeOption;
+  category: TEngCategory | '';
+  search: string;
+}
+const ScreeningFilterList = ({
+  sortBy,
+  category,
+  search,
+}: IScreenFilterListProps) => {
   const {data, isFetchingNextPage} = useInfiniteQuery({
-    queryKey: ['screeningFilter'],
+    queryKey: ['screeningFilter', sortBy, category, search],
     queryFn: ({pageParam = 0}) =>
       getTimeOptionScreeningList({
         page: pageParam,
-        sortBy: 'createdAt',
-        category: 'ASSIGNMENT',
+        sortBy,
+        category,
+        size: 10,
       }),
     initialPageParam: 0,
     getNextPageParam: lastPage => {

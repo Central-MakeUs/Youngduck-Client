@@ -5,20 +5,22 @@ import SelectButton from '@/components/buttons/selectButton';
 import Input from '@/components/input';
 import ScreeningFilterList from './components/screeningFilterList';
 import DateOption from './components/dateOption';
+import {TScreeningTimeOption} from '@/models/enums/screeningOption';
+import {TEngCategory} from '@/models/enums/category';
+
 import {screeningListStyles} from './ScreeningList.style';
-import EmptyItem from '@/components/items/emptyItem';
 
 const ScreeningListScreen = () => {
   const [searchInput, setSearchInput] = useState<string>('');
-  const [category, setCategory] = useState<string>('ALL');
-  const categoryOptions = [
-    {label: '전체', value: 'ALL'},
+  const [category, setCategory] = useState<TEngCategory | ''>('');
+  const categoryOptions: {label: string; value: TEngCategory | ''}[] = [
+    {label: '전체', value: ''},
     {label: '졸업상영', value: 'ASSIGNMENT'},
     {label: '과제상영', value: 'CASUAL'},
     {label: '정기상영', value: 'SPECIAL'},
     {label: '기타', value: 'ETC'},
   ];
-  const [date, setDate] = useState<'createdAt' | 'startDate'>('createdAt');
+  const [date, setDate] = useState<TScreeningTimeOption>('createdAt');
   return (
     <View style={screeningListStyles.wrapper}>
       <View style={screeningListStyles.container}>
@@ -64,7 +66,11 @@ const ScreeningListScreen = () => {
       {/*<View style={{flex: 1}}>
         <EmptyItem size="large" text="검색 결과가 나오지 않아요." />
       </View>*/}
-      <ScreeningFilterList />
+      <ScreeningFilterList
+        sortBy={date}
+        category={category}
+        search={searchInput}
+      />
     </View>
   );
 };
