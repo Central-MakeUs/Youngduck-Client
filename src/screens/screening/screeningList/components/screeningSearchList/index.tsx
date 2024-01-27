@@ -4,10 +4,7 @@ import {useInfiniteQuery} from '@tanstack/react-query';
 import DefaultContainer from '@/components/container/defaultContainer';
 import Divider from '@/components/divider';
 import ScreeningItem from '@/components/items/screeningItem';
-import {
-  getSearchScreeningList,
-  getTimeOptionScreeningList,
-} from '@/apis/screening/screening';
+import {getSearchScreeningList} from '@/apis/screening/screening';
 import {TScreeningContent} from '@/models/screening/response';
 import EmptyItem from '@/components/items/emptyItem';
 import {TEngCategory} from '@/models/enums/category';
@@ -30,10 +27,7 @@ const ScreeningSearchList = ({category, search}: IScreenFilterListProps) => {
     getNextPageParam: lastPage => {
       return lastPage.data.hasNext ? lastPage.data.page + 1 : undefined;
     },
-    //enabled: searchText.length > 0,
   });
-
-  console.log('응답', data?.pages);
 
   const screeningListItem = ({
     item,

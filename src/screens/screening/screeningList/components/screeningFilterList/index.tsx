@@ -28,7 +28,6 @@ const ScreeningFilterList = ({sortBy, category}: IScreenFilterListProps) => {
     getNextPageParam: lastPage => {
       return lastPage.data.hasNext ? lastPage.data.page + 1 : undefined;
     },
-    //enabled: searchText.length > 0,
   });
 
   console.log('응답', data?.pages);
