@@ -1,6 +1,9 @@
 import {api} from '@/apis';
 import {ResponseDTO} from '@/models/common/responseDTO';
-import {IScreeningBodyRequest} from '@/models/screening/request';
+import {
+  IScreeningBodyRequest,
+  IScreeningListOptionBodyRequest,
+} from '@/models/screening/request';
 import {
   IScreeningDetailResponse,
   TWeekScreeningResponse,
@@ -35,5 +38,15 @@ export const getMostCommentScreening = async (): Promise<
   ResponseDTO<TWeekScreeningResponse>
 > => {
   const res = await api.get('/screening/most-reviewed');
+  return res.data;
+};
+
+// 스크리닝 목록 시간 옵션 고르는 함수
+export const getTimeOptionScreeningList = async (
+  body: IScreeningListOptionBodyRequest,
+) => {
+  const res = await api.get(
+    `/screening/screenings/search-by-date?category=${body.category}&page=${body.page}&size=${body.size}&sortBy=${body.sortBy}`,
+  );
   return res.data;
 };

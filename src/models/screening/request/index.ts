@@ -41,3 +41,11 @@ export interface IScreeningBodyRequest {
   hostEmail: string;
   hasAgreed: boolean;
 }
+
+// 스크리닝 목록 옵션 요청 body 타입
+export interface IScreeningListOptionBodyRequest {
+  category: TEngCategory | '';
+  page: number;
+  size: number;
+  sortBy: 'createdAt' | 'startDate';
+}

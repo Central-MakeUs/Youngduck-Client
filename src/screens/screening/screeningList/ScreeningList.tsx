@@ -45,6 +45,7 @@ const ScreeningListScreen = () => {
             <SelectButton
               key={option.label}
               type={option.label}
+              size="small"
               onPress={() => {
                 setCategory(option.value);
               }}
