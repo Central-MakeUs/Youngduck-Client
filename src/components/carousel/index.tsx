@@ -1,21 +1,19 @@
+import {useState} from 'react';
+import {ScrollView, View} from 'react-native';
+
 import ReviewItem from '@/screens/screening/home/components/reviewItem';
 import {getScreenSize} from '@/utils/getScreenSize';
-import {useState} from 'react';
-import {Animated, FlatList, View} from 'react-native';
+import {IWeekScreeningData} from '@/models/screening/response';
+
 import {carouselStyles} from './Carousel.style';
 
 interface CarouselProps {
-  data: any; // TODO: 백엔드 통신 응답 값에 따른 타입 지정
-  type?: 'image' | 'content';
+  data: IWeekScreeningData[];
 }
-const Carousel = ({data, type = 'content'}: CarouselProps) => {
-  const dots = Array.from({length: data.length}, (_, index) => index);
+const Carousel = ({data}: CarouselProps) => {
+  const dots = Array.from({length: data?.length}, (_, index) => index);
   const {screenWidth} = getScreenSize();
   const [currentPage, setCurrentPage] = useState(0);
-  const scrollX = new Animated.Value(0);
-
-  // 타입이 content 일 때 flatList 렌더링될 컴포넌트
-  const renderItem = ({item}: any) => <ReviewItem key={item.id} />;
 
   const handlePageChange = (event: any) => {
     const offset = event.nativeEvent.contentOffset.x;
@@ -25,25 +23,26 @@ const Carousel = ({data, type = 'content'}: CarouselProps) => {
 
   return (
     <View>
-      <FlatList
-        data={data}
-        keyExtractor={item => item.id.toString()}
+      <ScrollView
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {x: scrollX}}}],
-          {useNativeDriver: false},
-        )}
-        onMomentumScrollEnd={handlePageChange}
-        renderItem={renderItem}
-      />
+        onMomentumScrollEnd={handlePageChange}>
+        {data.map((item: IWeekScreeningData) => (
+          <ReviewItem
+            key={item.screeningId}
+            id={item.screeningId}
+            img={item.posterImgUrl}
+            category={item.category}
+            title={item.screeningTitle}
+            startDate={item.screeningStartDate}
+            endDate={item.screeningEndDate}
+            chatCount={item.reviewCount}
+          />
+        ))}
+      </ScrollView>
 
-      <View
-        style={[
-          carouselStyles.indicatorContainer,
-          type === 'image' && {marginTop: -10},
-        ]}>
+      <View style={carouselStyles.indicatorContainer}>
         {dots.map(i => (
           <View
             key={i}

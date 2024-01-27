@@ -1,5 +1,5 @@
 //버튼 타입 지정
-export type IVariant = 'primary' | 'secondary' | 'default';
+export type IVariant = 'primary' | 'secondary' | 'default' | 'highlight';
 
 export type DetailStyle = {
   backgroundColor: string;

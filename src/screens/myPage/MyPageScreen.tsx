@@ -7,10 +7,11 @@ import palette from '@/styles/theme/color';
 import {View, Pressable, Image} from 'react-native';
 import myPageScreenStyles from './MyPageScreen.style';
 import {defaultImages} from '@/assets';
-import Management from './components/management';
+import ManageReview from './components/manageReview';
 import Divider from '@/components/divider';
 import MyScreening from './components/myScreening';
 import {useUserStore} from '@/stores/user';
+import SubMenu from '@/components/subMenu';
 
 const MyPageScreen = () => {
   const {user} = useUserStore();
@@ -53,7 +54,7 @@ const MyPageScreen = () => {
         <Typography style="Subtitle2">게시물 관리</Typography>
         <View style={myPageScreenStyles.managePostsContainer}>
           {managePosts.map((managePost, idx) => (
-            <Management
+            <ManageReview
               postName={managePost.postName}
               count={managePost.count}
               idx={idx}
@@ -63,12 +64,10 @@ const MyPageScreen = () => {
         </View>
       </View>
       <Divider height={8} mt={32} mb={16} />
-      <View style={myPageScreenStyles.paddingWrap}>
-        <Pressable style={myPageScreenStyles.settingButton}>
-          <Typography style="Label1">설정</Typography>
-          <SvgIcons.RightArrowIcon />
-        </Pressable>
-      </View>
+      <SubMenu
+        text="설정"
+        onPress={() => stackNavigation.navigate(stackScreens.SettingScreen)}
+      />
     </GradientContainer>
   );
 };

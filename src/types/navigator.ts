@@ -16,6 +16,10 @@ export type RootStackParamList = {
   BottomTabScreens: undefined;
   MyPageScreen: undefined;
   ChangeNicknameScreen: undefined;
+  SettingScreen: undefined;
+  AgreementScreen: {uri: string};
+  WithdrawScreen: undefined;
+  ManageScreeningScreen: {isWatcedScreening: boolean};
 } & PopcornPartyStackParamList &
   ScreeningStackScreensParamList;
 

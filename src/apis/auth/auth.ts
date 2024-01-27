@@ -1,17 +1,19 @@
+import {AxiosError} from 'axios';
+
 import {LoginType} from '@/models/auth/entity';
 import {apiWithoutToken} from '@/apis';
 import {IRegisterRequest} from '@/models/auth/request';
-import {ResponseDTO} from '@/models/common/responseDTO';
+import {ResponseDTO, ResponseErrorAPI} from '@/models/common/responseDTO';
 import {ILoginResponse, IRegisterResponse} from '@/models/auth/response';
 import {getRefreshToken, setTokens} from '@/services/localStorage/localStorage';
 
 // 로그인 api 함수
-export const postLoginUser = async (
-  type: LoginType,
-  token: string,
-): Promise<ResponseDTO<ILoginResponse>> => {
+export const postLoginUser = async (body: {
+  type: LoginType;
+  token: string;
+}): Promise<ResponseDTO<ILoginResponse>> => {
   const res = await apiWithoutToken.post(
-    `/auth/oauth/login/${type}/idtoken?idToken=${token}`,
+    `/auth/oauth/login/${body.type}/idtoken?idToken=${body.token}`,
   );
   await setTokens(res.data.data.refreshToken, res.data.data.accessToken);
   return res.data;

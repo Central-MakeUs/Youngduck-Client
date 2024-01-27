@@ -1,42 +1,68 @@
 import {Image, TouchableOpacity, View} from 'react-native';
-import {reviewItemStyles} from './ReviewItem.style';
-import Typography from '@/components/typography';
-import Chip from '@/components/chip';
-import DefaultContainer from '@/components/container/defaultContainer';
-import useNavigator from '@/hooks/useNavigator';
+import {DateParsable} from 'react-native-calendar-picker';
 
-const ReviewItem = () => {
+import Typography from '@/components/typography';
+import ChatIcon from '@/assets/icons/chat.svg';
+import useNavigator from '@/hooks/useNavigator';
+import palette from '@/styles/theme/color';
+import stackScreens from '@/constants/stackScreens';
+import {getDateRange} from '@/utils/getDate';
+import {TEngCategory} from '@/models/screening/request';
+
+import {reviewItemStyles} from './ReviewItem.style';
+import {getCategory} from '@/utils/getCategory';
+
+interface IReviewItemProps {
+  id: number;
+  img: string;
+  category: TEngCategory;
+  title: string;
+  startDate: DateParsable;
+  endDate: DateParsable;
+  chatCount: number;
+}
+const ReviewItem = ({
+  id,
+  img,
+  category,
+  title,
+  startDate,
+  endDate,
+  chatCount,
+}: IReviewItemProps) => {
   const {stackNavigation} = useNavigator();
-  const reviews = ['재밌어요', '멋있어요'];
   const handleGoDetail = () => {
-    // TODO: 상세 페이지 id param 넣어주기
-    stackNavigation.navigate('DetailScreen', {id: 1});
+    stackNavigation.navigate(stackScreens.DetailScreen, {id});
   };
   return (
-    <DefaultContainer>
-      <TouchableOpacity
-        style={reviewItemStyles.container}
-        activeOpacity={0.8}
-        onPress={handleGoDetail}>
-        <Image
-          source={{
-            uri: 'https://cdn.pixabay.com/photo/2017/07/13/23/11/cinema-2502213_1280.jpg',
-          }}
-          style={reviewItemStyles.image}
-        />
-        <View>
-          <Typography style="Label2">영화제</Typography>
-          <Typography style="Body1" mb={8}>
-            부산영화제
+    <TouchableOpacity
+      style={reviewItemStyles.container}
+      activeOpacity={0.8}
+      onPress={handleGoDetail}>
+      <Image
+        source={{
+          uri: img,
+        }}
+        style={reviewItemStyles.image}
+      />
+      <View style={reviewItemStyles.content}>
+        <Typography style="Label2">{getCategory(category)}</Typography>
+        <Typography style="Body1" mb={8}>
+          {title}
+        </Typography>
+        <View style={reviewItemStyles.option}>
+          <Typography style="Body2" color={palette.Text.Alternative}>
+            {getDateRange(startDate, endDate)}
           </Typography>
-          <View style={reviewItemStyles.content}>
-            {reviews.map((r: string) => (
-              <Chip text={r} key={r} />
-            ))}
+          <View style={reviewItemStyles.flex}>
+            <ChatIcon />
+            <Typography style="Body2" color={palette.Text.Alternative} ml={7}>
+              {chatCount.toString()}
+            </Typography>
           </View>
         </View>
-      </TouchableOpacity>
-    </DefaultContainer>
+      </View>
+    </TouchableOpacity>
   );
 };
 export default ReviewItem;

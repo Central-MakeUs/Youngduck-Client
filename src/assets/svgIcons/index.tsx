@@ -208,15 +208,11 @@ const SvgIcons = {
     </Svg>
   ),
   Pencil: ({
-    width = 17,
+    width = 16,
     height = 16,
     fill = palette.Text.Normal,
   }: SvgIconProps) => (
-    <Svg
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
-      fill="none">
+    <Svg width={width} height={height} viewBox="0 0 16 16" fill="none">
       <Path
         d="M13.0945 0.532963C12.3839 -0.177656 11.2318 -0.177653 10.5211 0.532964L9.47792 1.57619L14.9238 7.02208L15.967 5.97885C16.6777 5.26823 16.6777 4.1161 15.967 3.40548L13.0945 0.532963Z"
         fill={fill}
@@ -252,11 +248,7 @@ const SvgIcons = {
     height = 16,
     fill = palette.Fill.Strong,
   }: SvgIconProps) => (
-    <Svg
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
-      fill="none">
+    <Svg width={width} height={height} viewBox="0 0 16 16" fill="none">
       <Path
         fill-rule="evenodd"
         clip-rule="evenodd"

@@ -5,6 +5,10 @@ const enum stackScreens {
   BottomTabScreens = 'BottomTabScreens',
   MyPageScreen = 'MyPageScreen',
   ChangeNicknameScreen = 'ChangeNicknameScreen',
+  SettingScreen = 'SettingScreen',
+  AgreementScreen = 'AgreementScreen',
+  WithdrawScreen = 'WithdrawScreen',
+  ManageScreeningScreen = 'ManageScreeningScreen',
 
   //스크리닝 페이지
   HomeScreen = 'HomeScreen',

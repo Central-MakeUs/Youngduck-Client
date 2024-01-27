@@ -1,19 +1,18 @@
-import SvgIcons from '@/assets/svgIcons';
 import BoxButton from '@/components/buttons/boxButton';
 import DefaultContainer from '@/components/container/defaultContainer';
 import Input from '@/components/input';
 import Typography from '@/components/typography';
 import useNavigator from '@/hooks/useNavigator';
 import {useUserStore} from '@/stores/user';
-import palette from '@/styles/theme/color';
 import {useState} from 'react';
 import {View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import changeNicknameScreenStyles from './ChangeNicknameScreen.style';
+import TitleCenterTopBar from '@/components/topBar/titleCenterTopBar';
 
 const ChangeNicknameScreen = () => {
   const {stackNavigation} = useNavigator();
-  const {top, bottom} = useSafeAreaInsets();
+  const {bottom} = useSafeAreaInsets();
   const {user, setUser} = useUserStore();
   const [isDuplicated, setIsDuplicated] = useState<boolean>(true);
   const [nickname, setNickname] = useState<string>(user.nickname);
@@ -28,17 +27,10 @@ const ChangeNicknameScreen = () => {
     stackNavigation.goBack();
   };
 
-  const style = changeNicknameScreenStyles({top, bottom});
+  const style = changeNicknameScreenStyles({bottom});
   return (
     <>
-      <View style={style.topBarWrap}>
-        <SvgIcons.BackArrowIcon onPress={stackNavigation.goBack} />
-        <View style={style.topBar}>
-          <Typography style="Label1" color={palette.Another.Black}>
-            닉네임 변경하기
-          </Typography>
-        </View>
-      </View>
+      <TitleCenterTopBar title="닉네임 변경하기" />
       <DefaultContainer>
         <View style={style.inputWrap}>
           <View>

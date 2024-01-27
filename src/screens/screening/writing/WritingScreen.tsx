@@ -13,13 +13,16 @@ import TextArea from '@/components/inputs/textArea';
 import DismissKeyboardView from '@/components/dismissKeyboardView';
 import Input from '@/components/input';
 import BoxButton from '@/components/buttons/boxButton';
-import {IScreeningBodyRequest} from '@/models/screening/request';
+import {
+  IScreeningBodyRequest,
+  KorCategoryValues,
+} from '@/models/screening/request';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
-
-import {writingStyles} from './WritingScreen.style';
 import {ScreenRouteProp} from '@/types/navigator';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
+
+import {writingStyles} from './WritingScreen.style';
 
 interface IWritingScreenProps {
   route: ScreenRouteProp<'WritingScreen'>;
@@ -93,13 +96,12 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
   };
 
   const handleWriteScreening = async () => {
-    //console.log('보내기', inputValues);
     await uploadScreening.mutateAsync(inputValues);
   };
 
   return (
-    <DefaultContainer>
-      <DismissKeyboardView>
+    <DismissKeyboardView>
+      <DefaultContainer>
         <Typography
           mt={40}
           mb={20}
@@ -147,7 +149,7 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
         {/*분류*/}
         <View style={writingStyles.container}>
           <Select
-            options={['상영회', '영화제', '시사회']}
+            options={KorCategoryValues}
             title="분류"
             value={inputValues.category}
             setValue={value => onChangeInput('category', value)}
@@ -272,8 +274,8 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
         <BoxButton onPress={handleWriteScreening} mb={12} disabled={!canGoNext}>
           등록하기
         </BoxButton>
-      </DismissKeyboardView>
-    </DefaultContainer>
+      </DefaultContainer>
+    </DismissKeyboardView>
   );
 };
 export default WritingScreen;
