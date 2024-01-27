@@ -1,31 +1,26 @@
 import PopcornTrendingCard from '@/components/cards/popcornTrendingCard';
 import SubTitle from '@/components/title/subTitle';
-import {
-  IPopcornTrendingCardDatas,
-  IRenderItemProps,
-} from '@/types/popcornParty';
 import {FlatList} from 'react-native';
-import {popcornTrendingCardDatas} from '../../dummy';
+import {ITrendingPopcornData} from '@/models/popcornParty/reponse';
 
-const TrendingPopcorn = () => {
-  const withoutRankingItem = ({
-    item,
-    index,
-  }: IRenderItemProps<IPopcornTrendingCardDatas>) => (
+const TrendingPopcorn = ({
+  trendingPopcornData,
+}: Record<'trendingPopcornData', ITrendingPopcornData[]>) => {
+  const withoutRankingItem = ({item}: Record<'item', ITrendingPopcornData>) => (
     <PopcornTrendingCard
-      id={item.id}
-      title={item.title}
-      imageURL={item.imageURL}
-      index={index}
+      popcornId={item.popcornId}
+      movieTitle={item.movieTitle}
+      imageUrl={item.imageUrl}
       mode="without-ranking"
     />
   );
+
   return (
     <>
       <SubTitle text="이번 주 팝콘작" mt={16} mb={8} />
       <FlatList
         horizontal
-        data={popcornTrendingCardDatas}
+        data={trendingPopcornData}
         renderItem={withoutRankingItem}
         showsHorizontalScrollIndicator={false}
       />
