@@ -1,7 +1,7 @@
 import {DateParsable} from 'react-native-calendar-picker';
 
 import {TEngCategory, TKorCategory} from '@/models/enums/category';
-import {TScreeningTimeOption} from '@/models/enums/screeningOption';
+import {TScreeningTimeOption} from '@/models/enums/time';
 
 // 스크리닝 등록하기 요청 body 타입
 export interface IScreeningBodyRequest {

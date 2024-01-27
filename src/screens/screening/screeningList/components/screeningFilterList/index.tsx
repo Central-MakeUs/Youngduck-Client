@@ -7,7 +7,7 @@ import ScreeningItem from '@/components/items/screeningItem';
 import {getTimeOptionScreeningList} from '@/apis/screening/screening';
 import {TScreeningContent} from '@/models/screening/response';
 import EmptyItem from '@/components/items/emptyItem';
-import {TScreeningTimeOption} from '@/models/enums/screeningOption';
+import {TScreeningTimeOption} from '@/models/enums/time';
 import {TEngCategory} from '@/models/enums/category';
 
 interface IScreenFilterListProps {
@@ -20,7 +20,7 @@ const ScreeningFilterList = ({
   category,
   search,
 }: IScreenFilterListProps) => {
-  const {data, isFetchingNextPage} = useInfiniteQuery({
+  const {data, isFetchingNextPage, fetchNextPage} = useInfiniteQuery({
     queryKey: ['screeningFilter', sortBy, category, search],
     queryFn: ({pageParam = 0}) =>
       getTimeOptionScreeningList({
@@ -30,9 +30,11 @@ const ScreeningFilterList = ({
         size: 10,
       }),
     initialPageParam: 0,
-    getNextPageParam: lastPage => {
-      return lastPage.data.hasNext ? lastPage.data.page + 1 : undefined;
-    },
+    //getNextPageParam: lastPage => {
+    //  return lastPage.data.hasNext ? lastPage.data.page + 1 : undefined;
+    //},
+    getNextPageParam: lastPage => lastPage.data.page + 1,
+    //enabled: searchText.length > 0,
   });
 
   console.log('응답', data?.pages);
@@ -58,6 +60,12 @@ const ScreeningFilterList = ({
     </>
   );
 
+  const onEndReachedHandler = () => {
+    if (!isFetchingNextPage) {
+      fetchNextPage();
+    }
+  };
+
   return (
     <View style={{flex: 1}}>
       <DefaultContainer>
@@ -69,12 +77,14 @@ const ScreeningFilterList = ({
         {data?.pages.flatMap(page => page.data.content) &&
           data?.pages.flatMap(page => page.data.content)?.length > 0 && (
             <FlatList
+              onEndReached={onEndReachedHandler}
               data={data?.pages.flatMap(page => page.data.content) || []}
               renderItem={screeningListItem}
               keyExtractor={item => item.id.toString()}
               onEndReachedThreshold={0.6}
             />
           )}
+
         {isFetchingNextPage && <ActivityIndicator style={{marginBottom: 10}} />}
       </DefaultContainer>
     </View>

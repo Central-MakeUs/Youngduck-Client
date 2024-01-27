@@ -5,7 +5,7 @@ import SelectButton from '@/components/buttons/selectButton';
 import Input from '@/components/input';
 import ScreeningFilterList from './components/screeningFilterList';
 import DateOption from './components/dateOption';
-import {TScreeningTimeOption} from '@/models/enums/screeningOption';
+import {TScreeningTimeOption} from '@/models/enums/time';
 import {TEngCategory} from '@/models/enums/category';
 
 import {screeningListStyles} from './ScreeningList.style';
@@ -63,9 +63,6 @@ const ScreeningListScreen = () => {
         </View>
       )}
 
-      {/*<View style={{flex: 1}}>
-        <EmptyItem size="large" text="검색 결과가 나오지 않아요." />
-      </View>*/}
       <ScreeningFilterList
         sortBy={date}
         category={category}
