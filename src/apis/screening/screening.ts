@@ -5,15 +5,10 @@ import {
   IScreeningListOptionBodyRequest,
   IScreeningListSearchBodyRequest,
 } from '@/models/screening/request';
-import {
-  IScreeningDetailResponse,
-  TWeekScreeningResponse,
-} from '@/models/screening/response';
+import {TWeekScreeningResponse} from '@/models/screening/response';
 
 // 스크리닝 업로드 함수
-export const postScreening = async (
-  body: IScreeningBodyRequest,
-): Promise<ResponseDTO<IScreeningDetailResponse>> => {
+export const postScreening = async (body: IScreeningBodyRequest) => {
   const res = await api.post('/screening/upload-screening', body);
   return res.data;
 };
