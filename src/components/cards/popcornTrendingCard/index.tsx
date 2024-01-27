@@ -4,22 +4,20 @@ import {popcornTrendingCardStyles} from './PopcornTrendingCard.style';
 import Chip from '@/components/chip';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
-import {ITrendingPopcornData} from '@/models/popcornParty/reponse';
-
-interface IPopcornTrendingCardProps extends ITrendingPopcornData {
-  index?: number;
-  mode: 'with-ranking' | 'without-ranking';
-}
+import {ITrendingData} from '@/models/popcornParty/reponse';
 
 const PopcornTrendingCard = ({
   popcornId,
+  movieId,
   movieTitle,
   imageUrl,
   index,
+  rank,
   mode,
-}: IPopcornTrendingCardProps) => {
+}: ITrendingData) => {
   const {stackNavigation} = useNavigator();
   const goToPopcornPartyDetail = () =>
+    popcornId &&
     stackNavigation.navigate(stackScreens.PopcornPartyDetailScreen, {
       id: popcornId,
     });
@@ -32,9 +30,7 @@ const PopcornTrendingCard = ({
       }
       onPress={goToPopcornPartyDetail}>
       <Image source={{uri: imageUrl}} style={popcornTrendingCardStyles.image} />
-      {mode === 'with-ranking' && (
-        <Chip text={`${index! + 1}위`} mt={4} mb={4} />
-      )}
+      {mode === 'with-ranking' && <Chip text={`${rank}위`} mt={4} mb={4} />}
       <Typography style="Label1">{movieTitle}</Typography>
     </Pressable>
   );
