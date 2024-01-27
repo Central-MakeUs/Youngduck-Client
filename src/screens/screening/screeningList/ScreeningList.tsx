@@ -9,6 +9,7 @@ import {TScreeningTimeOption} from '@/models/enums/time';
 import {TEngCategory} from '@/models/enums/category';
 
 import {screeningListStyles} from './ScreeningList.style';
+import ScreeningSearchList from './components/screeningSearchList';
 
 const ScreeningListScreen = () => {
   const [searchInput, setSearchInput] = useState<string>('');
@@ -63,12 +64,11 @@ const ScreeningListScreen = () => {
             <DateOption value={date} setValue={setDate} />
           </View>
 
-          <ScreeningFilterList
-            sortBy={date}
-            category={category}
-            search={searchInput}
-          />
+          <ScreeningFilterList sortBy={date} category={category} />
         </>
+      )}
+      {searchInput.length > 0 && (
+        <ScreeningSearchList category={category} search={searchInput} />
       )}
     </View>
   );

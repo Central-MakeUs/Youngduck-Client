@@ -4,23 +4,25 @@ import {useInfiniteQuery} from '@tanstack/react-query';
 import DefaultContainer from '@/components/container/defaultContainer';
 import Divider from '@/components/divider';
 import ScreeningItem from '@/components/items/screeningItem';
-import {getTimeOptionScreeningList} from '@/apis/screening/screening';
+import {
+  getSearchScreeningList,
+  getTimeOptionScreeningList,
+} from '@/apis/screening/screening';
 import {TScreeningContent} from '@/models/screening/response';
 import EmptyItem from '@/components/items/emptyItem';
-import {TScreeningTimeOption} from '@/models/enums/time';
 import {TEngCategory} from '@/models/enums/category';
 
 interface IScreenFilterListProps {
-  sortBy: TScreeningTimeOption;
   category: TEngCategory | '';
+  search: string;
 }
-const ScreeningFilterList = ({sortBy, category}: IScreenFilterListProps) => {
+const ScreeningSearchList = ({category, search}: IScreenFilterListProps) => {
   const {data, isFetchingNextPage, fetchNextPage} = useInfiniteQuery({
-    queryKey: ['screeningFilter', sortBy, category],
+    queryKey: ['screeningSearch', search, category],
     queryFn: ({pageParam = 0}) =>
-      getTimeOptionScreeningList({
+      getSearchScreeningList({
         page: pageParam,
-        sortBy,
+        title: search,
         category,
         size: 10,
       }),
@@ -87,4 +89,4 @@ const ScreeningFilterList = ({sortBy, category}: IScreenFilterListProps) => {
     </View>
   );
 };
-export default ScreeningFilterList;
+export default ScreeningSearchList;
