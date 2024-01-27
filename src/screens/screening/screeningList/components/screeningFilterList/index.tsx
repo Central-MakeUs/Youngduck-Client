@@ -21,7 +21,7 @@ const ScreeningFilterList = ({
   search,
 }: IScreenFilterListProps) => {
   const {data, isFetchingNextPage, fetchNextPage} = useInfiniteQuery({
-    queryKey: ['screeningFilter', sortBy, category, search],
+    queryKey: ['screeningFilter', sortBy, category],
     queryFn: ({pageParam = 0}) =>
       getTimeOptionScreeningList({
         page: pageParam,
@@ -30,10 +30,9 @@ const ScreeningFilterList = ({
         size: 10,
       }),
     initialPageParam: 0,
-    //getNextPageParam: lastPage => {
-    //  return lastPage.data.hasNext ? lastPage.data.page + 1 : undefined;
-    //},
-    getNextPageParam: lastPage => lastPage.data.page + 1,
+    getNextPageParam: lastPage => {
+      return lastPage.data.hasNext ? lastPage.data.page + 1 : undefined;
+    },
     //enabled: searchText.length > 0,
   });
 
@@ -56,7 +55,10 @@ const ScreeningFilterList = ({
         endDate={item.screeningEndDate}
         hostName={item.hostInfo.hostName}
       />
-      <Divider height={2} mb={16} />
+      {data?.pages.flatMap(page => page.data.content) &&
+        index !== data?.pages.flatMap(page => page.data.content).length - 1 && (
+          <Divider height={2} mb={16} />
+        )}
     </>
   );
 

@@ -58,16 +58,18 @@ const ScreeningListScreen = () => {
         </ScrollView>
       </View>
       {searchInput.length === 0 && (
-        <View style={screeningListStyles.dateContainer}>
-          <DateOption value={date} setValue={setDate} />
-        </View>
-      )}
+        <>
+          <View style={screeningListStyles.dateContainer}>
+            <DateOption value={date} setValue={setDate} />
+          </View>
 
-      <ScreeningFilterList
-        sortBy={date}
-        category={category}
-        search={searchInput}
-      />
+          <ScreeningFilterList
+            sortBy={date}
+            category={category}
+            search={searchInput}
+          />
+        </>
+      )}
     </View>
   );
 };
