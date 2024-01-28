@@ -9,8 +9,14 @@ import useNavigator from '@/hooks/useNavigator';
 import moveScreen from '@/utils/moveScreen';
 import SelectReview from './tabs/selectReview';
 import {IScreeningReviewBodyRequest} from '@/models/screening/request/reviewRequestDto';
+import {ScreenRouteProp} from '@/types/navigator';
+import stackScreens from '@/constants/stackScreens';
 
-const ReviewWritingScreen = () => {
+interface IReviewWritingScreenProps {
+  route: ScreenRouteProp<stackScreens.ReviewWritingScreen>;
+}
+
+const ReviewWritingScreen = ({route: {params}}: IReviewWritingScreenProps) => {
   const [currentScreen, setCurrentScreen] = useState<number>(0);
   const {stackNavigation} = useNavigator();
   const animatedValue = useRef(new Animated.Value(0)).current;
