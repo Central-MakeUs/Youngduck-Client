@@ -32,6 +32,8 @@ const DetailScreen = ({route}: DetailScreenProps) => {
     queryKey: ['screeningDetail'],
     queryFn: () => getScreeningDetailContent(id),
   });
+
+  //console.log(data?.data.reviewed, data?.data.bookmarked);
   return (
     <View style={detailScreenStyles.wrapper}>
       <View style={detailScreenStyles.content}>
@@ -51,7 +53,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
             {currentTab === 0 && data?.data && (
               <DetailInfoScreen item={data?.data} />
             )}
-            {currentTab === 1 && <DetailReviewScreen />}
+            {currentTab === 1 && <DetailReviewScreen id={id} />}
           </View>
         </ImageContentScrollContainer>
       </View>
