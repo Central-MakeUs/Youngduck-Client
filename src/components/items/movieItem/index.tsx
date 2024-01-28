@@ -6,7 +6,7 @@ import {IRecommendMovieProps} from '@/types/popcornParty';
 import {ISearchMovieDataRequest} from '@/models/popcornParty/request';
 
 interface IMovieItem extends ISearchMovieDataRequest {
-  selected: string;
+  selected: IRecommendMovieProps;
   setSelected: React.Dispatch<React.SetStateAction<IRecommendMovieProps>>;
 }
 
@@ -22,7 +22,7 @@ const MovieItem = ({
   return (
     <Pressable
       style={
-        selected === title
+        selected.title === title && selected.movieSeq === movieSeq
           ? movieItemStyles.selectedContainer
           : movieItemStyles.defaultContainer
       }
