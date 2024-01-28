@@ -149,6 +149,7 @@ const ReviewWritingScreen = ({route: {params}}: IReviewWritingScreenProps) => {
         />
         <EndReview
           value={inputValues}
+          id={params.id}
           setValue={(value, option) => onChangeOption(value, option)}
         />
       </ScrollView>

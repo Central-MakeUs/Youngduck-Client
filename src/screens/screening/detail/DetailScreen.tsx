@@ -37,7 +37,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
 
   const handleBottomButtonPress = () => {
     if (bottomType === 'reviewStart') {
-      stackNavigation.navigate(stackScreens.ReviewWritingScreen);
+      stackNavigation.navigate(stackScreens.ReviewWritingScreen, {id});
     }
   };
 

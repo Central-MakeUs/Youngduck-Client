@@ -22,3 +22,8 @@ export type TScreeningReviewBodyRequest = {
     IScreeningReviewBodyRequest[K]
   >;
 };
+
+export interface IScreeningDetailReviewBodyRequest
+  extends IScreeningReviewBodyRequest {
+  id: number;
+}
