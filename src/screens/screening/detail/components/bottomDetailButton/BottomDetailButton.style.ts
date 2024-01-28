@@ -40,46 +40,12 @@ export const bottomDetailTypesStyles: Record<
     optionDisabled: true,
     boxButtonType: 'default',
   },
-  myClose: {
-    text: '비공개하기',
-    color: palette.Text.Normal,
-    disabled: false,
-    option: 'write',
-    optionDisabled: false,
-    boxButtonType: 'default',
-  },
-  myOpen: {
-    text: '공개하기',
-    color: palette.Text.Normal,
-    disabled: false,
-    option: 'write',
-    optionDisabled: false,
-    boxButtonType: 'primary',
-  },
 };
 
 export const bottomButtonStyles = StyleSheet.create({
-  container: {
-    backgroundColor: palette.Another.White,
-    width: '100%',
-    height: 80,
-    paddingTop: 12,
-    paddingBottom: 20,
-    borderTopWidth: 2,
-    borderTopColor: palette.Primary.Alternative,
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    gap: 8,
-  },
   content: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  left: {
-    flex: 1,
-  },
-  right: {
-    width: 48,
   },
 });

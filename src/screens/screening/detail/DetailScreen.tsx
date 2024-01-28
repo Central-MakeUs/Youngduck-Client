@@ -1,19 +1,21 @@
 import {useState} from 'react';
 import {View} from 'react-native';
+import {useQuery} from '@tanstack/react-query';
 
 import DetailTitle from './components/detailTitle';
 import ImageContentScrollContainer from '@/components/container/imageContentScrollContainer';
 import TabBar from '@/components/tabBar';
-
 import DetailReviewScreen from './tabs/detailReviewScreen/DetailReviewScreen';
 import DetailInfoScreen from './tabs/detailInfoScreen/DetailInfoScreen';
-import DetailStatisticScreen from './tabs/detailStatisticScreen/DetailStatisticScreen';
 import stackScreens from '@/constants/stackScreens';
 import {ScreenRouteProp} from '@/types/navigator';
 import {DetailBottomButtonType} from '@/types/ui';
 import BottomDetailButton from './components/bottomDetailButton';
 
 import {detailScreenStyles} from './DetailScreen.style';
+
+import {getScreeningDetailContent} from '@/apis/screening/screening';
+import {screeningTabBars} from '@/constants/tabBars';
 
 type DetailScreenProps = {
   route: ScreenRouteProp<stackScreens.DetailScreen>;
@@ -22,18 +24,17 @@ type DetailScreenProps = {
 const DetailScreen = ({route}: DetailScreenProps) => {
   const {id} = route.params;
 
+  const [isMyPage, setIsMyPage] = useState<boolean>(false);
+
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [completeHeart, setCompleteHeart] = useState<boolean>(true);
   const [bottomType, setBottomType] =
     useState<DetailBottomButtonType>('reviewStart');
 
-  // tab bar에 필요한 제목들 선언
-  const tabBars = [
-    {title: '스크리닝 정보', tabNumber: 0},
-    {title: '리뷰', tabNumber: 1},
-    {title: '통계', tabNumber: 2},
-  ];
-
+  const {data} = useQuery({
+    queryKey: ['screeningDetail'],
+    queryFn: () => getScreeningDetailContent(id),
+  });
   return (
     <View style={detailScreenStyles.wrapper}>
       <View style={detailScreenStyles.content}>
@@ -43,19 +44,18 @@ const DetailScreen = ({route}: DetailScreenProps) => {
           <TabBar
             currentTabBarNumber={currentTab}
             setCurrentTabBarNumber={setCurrentTab}
-            tabBars={tabBars}
+            tabBars={screeningTabBars}
           />
           <View>
             {currentTab === 0 && <DetailInfoScreen />}
             {currentTab === 1 && <DetailReviewScreen />}
-            {currentTab === 2 && <DetailStatisticScreen />}
           </View>
         </ImageContentScrollContainer>
       </View>
 
       <View style={detailScreenStyles.bottom}>
         <BottomDetailButton
-          type="reviewStart"
+          type="complete"
           onPress={() => {
             console.log('클릭');
           }}

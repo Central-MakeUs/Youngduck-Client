@@ -1,43 +1,24 @@
 import {View} from 'react-native';
 
-import BottomButton from '@/components/bottomButton';
+import BottomButton from '@/components/bottomButton/bottomBoxButton';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import BlackTicket from '@/assets/icons/black-ticket.svg';
 import WhiteTicket from '@/assets/icons/white-ticket.svg';
-import CloseEye from '@/assets/icons/close-eye.svg';
-import OpenEye from '@/assets/icons/open-eye.svg';
 import {DetailBottomButtonType} from '@/types/ui';
-import BoxButton from '@/components/buttons/boxButton';
-import SvgIcons from '@/assets/svgIcons';
-import OptionButton from '@/components/buttons/optionButton';
 
 import {
   bottomButtonStyles,
   bottomDetailTypesStyles,
 } from './BottomDetailButton.style';
+import BottomOptionButton from '@/components/bottomButton/bottomOptionButton';
 
 interface IBottomDetailButtonProps {
   onPress: () => void;
   type: DetailBottomButtonType;
   onOptionPress?: () => void;
-  heartState?: boolean;
+  heartState: boolean;
 }
-
-const getBottomButtonIcon = (type: DetailBottomButtonType) => {
-  return (
-    <>
-      {(type === 'complete' || type === 'finish') && <WhiteTicket />}
-      {type === 'reviewStart' && <SvgIcons.Pencil fill={palette.Text.Normal} />}
-      {type === 'reviewComplete' && (
-        <SvgIcons.Pencil fill={palette.Another.White} />
-      )}
-      {type === 'default' && <BlackTicket />}
-      {type === 'myOpen' && <OpenEye />}
-      {type === 'myClose' && <CloseEye />}
-    </>
-  );
-};
 
 const BottomDetailButton = ({
   type,
@@ -58,42 +39,28 @@ const BottomDetailButton = ({
               mr={8}>
               {type === 'default' ? '관람신청' : '상영종료'}
             </Typography>
-            {getBottomButtonIcon(type)}
+            {type === 'default' ? <BlackTicket /> : <WhiteTicket />}
           </View>
         </BottomButton>
       ) : (
-        <View style={bottomButtonStyles.container}>
-          <View style={bottomButtonStyles.left}>
-            <BoxButton
-              onPress={onPress}
-              variant={bottomDetailTypesStyles[type].boxButtonType}
-              disabled={bottomDetailTypesStyles[type].disabled}>
-              <View style={bottomButtonStyles.content}>
-                <Typography
-                  style="Label1"
-                  color={bottomDetailTypesStyles[type].color}
-                  mr={8}>
-                  {bottomDetailTypesStyles[type].text}
-                </Typography>
-                {getBottomButtonIcon(type)}
-              </View>
-            </BoxButton>
-          </View>
-          <View style={bottomButtonStyles.right}>
-            <OptionButton
-              type={bottomDetailTypesStyles[type].option}
-              isSelected={
-                bottomDetailTypesStyles[type].optionDisabled
-                  ? true
-                  : type === 'complete'
-                  ? heartState
-                  : false
-              }
-              onPress={onOptionPress!}
-              disabled={bottomDetailTypesStyles[type].optionDisabled}
-            />
-          </View>
-        </View>
+        <BottomOptionButton
+          onPress={onPress}
+          disabled={bottomDetailTypesStyles[type].disabled}
+          variant={bottomDetailTypesStyles[type].boxButtonType}
+          text={bottomDetailTypesStyles[type].text}
+          iconType={type}
+          optionPress={onOptionPress}
+          optionSelected={
+            bottomDetailTypesStyles[type].optionDisabled
+              ? true
+              : type === 'complete'
+              ? heartState
+              : false
+          }
+          textColor={bottomDetailTypesStyles[type].color}
+          optionDisabled={bottomDetailTypesStyles[type].optionDisabled}
+          optionType="heart"
+        />
       )}
     </>
   );

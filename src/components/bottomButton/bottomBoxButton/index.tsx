@@ -1,16 +1,16 @@
 import {View} from 'react-native';
 
-import BoxButton from '../buttons/boxButton';
+import BoxButton from '../../buttons/boxButton';
 import {IVariant} from '@/types/ui';
 
-import {bottomButtonStyles} from './BottomButton.style';
+import {bottomButtonStyles} from './BottomBoxButton.style';
 interface IBottomButtonProps {
   children: string | React.ReactNode;
   onPress: () => void;
   disabled?: boolean;
   variant?: IVariant;
 }
-const BottomButton = ({
+const BottomBoxButton = ({
   children,
   onPress,
   disabled,
@@ -24,4 +24,4 @@ const BottomButton = ({
     </View>
   );
 };
-export default BottomButton;
+export default BottomBoxButton;
