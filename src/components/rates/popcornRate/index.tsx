@@ -1,5 +1,5 @@
 import {Pressable, View} from 'react-native';
-import Typography from '../typography';
+import Typography from '../../typography';
 import palette from '@/styles/theme/color';
 import DisappointedSvg from '@/assets/icons/disappointed.svg';
 import SatisfiedSvg from '@/assets/icons/satisfied.svg';

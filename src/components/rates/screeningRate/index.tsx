@@ -1,7 +1,7 @@
 import {Animated, View} from 'react-native';
-import Typography from '../typography';
+import Typography from '../../typography';
 import {useEffect, useRef, useState} from 'react';
-import Tooltip from '../tooltip';
+import Tooltip from '../../tooltip';
 import screeningRateStyles from './ScreeningRate.style';
 import {Easing} from 'react-native';
 import DisappointedSvg from '@/assets/icons/disappointed.svg';

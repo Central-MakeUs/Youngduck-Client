@@ -13,8 +13,8 @@ import palette from '@/styles/theme/color';
 import stackScreens from '@/constants/stackScreens';
 import CommentItem from '@/components/items/commentItem';
 import ImageContentScrollContainer from '@/components/container/imageContentScrollContainer';
-import ScreeningRate from '@/components/screeningRate';
-import PopcornRate from '@/components/popcornRate';
+import ScreeningRate from '@/components/rates/screeningRate';
+import PopcornRate from '@/components/rates/popcornRate';
 
 function PopcornPartyDetailScreen() {
   const {stackNavigation} = useNavigator();
