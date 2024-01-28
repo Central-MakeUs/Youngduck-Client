@@ -1,7 +1,7 @@
 import {DateParsable} from 'react-native-calendar-picker';
 
 import {TNonNullScreeningBodyRequest} from '../request';
-import {TEngCategory, TKorCategory} from '@/models/enums/category';
+import {TEngCategory} from '@/models/enums/category';
 
 // 이번주 상영작 응답 타입
 // 실시간 상영작 응답 타입
@@ -105,3 +105,15 @@ export interface IScreeningDetailContent
   extends Omit<IScreeningDetail, 'category'> {
   category: TEngCategory;
 }
+
+// 스크리닝 리뷰 리스트 응답 타입
+export type TScreeningReviewContent = {
+  reviewId: number;
+  afterScreening: boolean;
+  createdAt: Date;
+  screeningId: number;
+  review: string;
+  userId: number;
+  nickname: string;
+  profileImageNumber: number;
+};
