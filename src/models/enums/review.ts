@@ -1,37 +1,37 @@
 // 스크리닝 긍정 리뷰 타입
-export type TScreeningPositiveReview = {
-  cineMaster: number;
-  greatFilming: number;
-  pom: number;
-  animationIsGood: number;
-  artIsGood: number;
-  setIsArt: number;
-  custom: number;
-  music: number;
-  ost: number;
-  writtenByGod: number;
-  topicIsGood: number;
-  linesAreGood: number;
-  endingIsGood: number;
-  castingIsGood: number;
-  actingIsGood: number;
-  chemistryIsGood: number;
+export type TScreeningPositiveReview<T> = {
+  cineMaster: T;
+  greatFilming: T;
+  pom: T;
+  animationIsGood: T;
+  artIsGood: T;
+  setIsArt: T;
+  custom: T;
+  music: T;
+  ost: T;
+  writtenByGod: T;
+  topicIsGood: T;
+  linesAreGood: T;
+  endingIsGood: T;
+  castingIsGood: T;
+  actingIsGood: T;
+  chemistryIsGood: T;
 };
 
 // 스크리닝 부정 리뷰 타입
-export type TScreeningNegativeReview = {
-  iffy: number;
-  badEditing: number;
-  badAngle: number;
-  badDetail: number;
-  badColor: number;
-  badCustom: number;
-  badMusic: number;
-  badSound: number;
-  badEnding: number;
-  endingLoose: number;
-  noDetail: number;
-  badTopic: number;
-  badActing: number;
-  badCasting: number;
+export type TScreeningNegativeReview<T> = {
+  iffy: T;
+  badEditing: T;
+  badAngle: T;
+  badDetail: T;
+  badColor: T;
+  badCustom: T;
+  badMusic: T;
+  badSound: T;
+  badEnding: T;
+  endingLoose: T;
+  noDetail: T;
+  badTopic: T;
+  badActing: T;
+  badCasting: T;
 };

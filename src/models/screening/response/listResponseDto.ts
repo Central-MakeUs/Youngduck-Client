@@ -17,8 +17,8 @@ export type TScreeningContent = {
     hostPhoneNumber: string;
     hostEmail: string;
   };
-  positiveCount: TScreeningPositiveReview;
-  negativeCount: TScreeningNegativeReview;
+  positiveCount: TScreeningPositiveReview<number>;
+  negativeCount: TScreeningNegativeReview<number>;
   month: Date;
   screeningStartDate: DateParsable;
   screeningEndDate: DateParsable;
