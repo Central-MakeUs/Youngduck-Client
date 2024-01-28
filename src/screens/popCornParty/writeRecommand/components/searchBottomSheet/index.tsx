@@ -54,18 +54,21 @@ const SearchBottomSheet = ({
       title={item.title}
       directorNm={item.directorNm}
       movieSeq={item.movieSeq}
-      selected={selected.title}
+      selected={selected}
       setSelected={setSelected}
     />
   );
 
   const inputMovie = (e: string) => setMovie(e);
 
-  const closeModal = () => bottomDrawerRef?.current?.close();
+  const closeModal = () => {
+    setMovie('');
+    setSearchResults([]);
+    bottomDrawerRef?.current?.close();
+  };
 
   const setRecommandMovie = () => {
     setValue({title: selected.title, movieSeq: selected.movieSeq});
-    setSearchResults([]);
     closeModal();
   };
 
