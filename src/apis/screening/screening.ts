@@ -55,9 +55,7 @@ export const getSearchScreeningList = async (
   body: IScreeningListSearchBodyRequest,
 ): Promise<ResponseDTO<TScreeningListResponse>> => {
   const res = await api.get(
-    `/screening/screenings/search?title=${body.title}&category=${
-      body.category
-    }&page=${body.page}&size=${10}`,
+    `/screening/screenings/search?title=${body.title}&category=${body.category}&page=${body.page}&size=${body.size}`,
   );
   return res.data;
 };

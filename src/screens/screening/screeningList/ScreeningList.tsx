@@ -3,13 +3,12 @@ import {ScrollView, View} from 'react-native';
 
 import SelectButton from '@/components/buttons/selectButton';
 import Input from '@/components/input';
-import ScreeningFilterList from './components/screeningFilterList';
 import DateOption from './components/dateOption';
 import {TScreeningTimeOption} from '@/models/enums/time';
 import {TEngCategory} from '@/models/enums/category';
+import ScreeningSearchList from './components/screeningSearchList';
 
 import {screeningListStyles} from './ScreeningList.style';
-import ScreeningSearchList from './components/screeningSearchList';
 
 const ScreeningListScreen = () => {
   const [searchInput, setSearchInput] = useState<string>('');
@@ -30,9 +29,7 @@ const ScreeningListScreen = () => {
           placeholder="상영회 타이틀, 주최명으로 검색"
           onChangeInput={value => setSearchInput(value)}
           mode="search"
-          onSearchPress={() => {
-            console.log('클릭');
-          }}
+          onSearchPress={() => {}}
         />
       </View>
       <View
@@ -59,17 +56,16 @@ const ScreeningListScreen = () => {
         </ScrollView>
       </View>
       {searchInput.length === 0 && (
-        <>
-          <View style={screeningListStyles.dateContainer}>
-            <DateOption value={date} setValue={setDate} />
-          </View>
+        <View style={screeningListStyles.dateContainer}>
+          <DateOption value={date} setValue={setDate} />
+        </View>
+      )}
 
-          <ScreeningFilterList sortBy={date} category={category} />
-        </>
-      )}
-      {searchInput.length > 0 && (
-        <ScreeningSearchList category={category} search={searchInput} />
-      )}
+      <ScreeningSearchList
+        category={category}
+        search={searchInput}
+        sortBy={date}
+      />
     </View>
   );
 };
