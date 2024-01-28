@@ -4,7 +4,6 @@ import {Animated, ScrollView, View} from 'react-native';
 import ProgressBar from '@/components/progressBar';
 import BackCancelTopBar from '@/components/topBar/backCancelTopBar';
 import FirstReview from './tabs/firstReview';
-
 import EndReview from './tabs/endReview';
 import useNavigator from '@/hooks/useNavigator';
 import moveScreen from '@/utils/moveScreen';
