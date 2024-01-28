@@ -6,7 +6,7 @@ import {
   IScreeningListSearchBodyRequest,
 } from '@/models/screening/request';
 import {
-  IScreeningListResponse,
+  TScreeningListResponse,
   TWeekScreeningResponse,
 } from '@/models/screening/response';
 
@@ -43,7 +43,7 @@ export const getMostCommentScreening = async (): Promise<
 // 스크리닝 목록 시간 옵션 고르는 함수
 export const getTimeOptionScreeningList = async (
   body: IScreeningListOptionBodyRequest,
-): Promise<ResponseDTO<IScreeningListResponse>> => {
+): Promise<ResponseDTO<TScreeningListResponse>> => {
   const res = await api.get(
     `/screening/screenings/search-by-date?category=${body.category}&page=${body.page}&size=${body.size}&sortBy=${body.sortBy}`,
   );
@@ -53,7 +53,7 @@ export const getTimeOptionScreeningList = async (
 // 스크리닝 목록 검색 함수
 export const getSearchScreeningList = async (
   body: IScreeningListSearchBodyRequest,
-): Promise<ResponseDTO<IScreeningListResponse>> => {
+): Promise<ResponseDTO<TScreeningListResponse>> => {
   const res = await api.get(
     `/screening/screenings/search?title=${body.title}&category=${
       body.category

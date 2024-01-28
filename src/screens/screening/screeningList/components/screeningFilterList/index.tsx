@@ -9,6 +9,10 @@ import {TScreeningContent} from '@/models/screening/response';
 import EmptyItem from '@/components/items/emptyItem';
 import {TScreeningTimeOption} from '@/models/enums/time';
 import {TEngCategory} from '@/models/enums/category';
+import {
+  InfiniteData,
+  getInfiniteQueryArray,
+} from '@/utils/getInfiniteQueryArray';
 
 interface IScreenFilterListProps {
   sortBy: TScreeningTimeOption;
@@ -30,7 +34,10 @@ const ScreeningFilterList = ({sortBy, category}: IScreenFilterListProps) => {
     },
   });
 
-  console.log('응답', data?.pages);
+  const screeningFilterLists = getInfiniteQueryArray<TScreeningContent>(
+    data as InfiniteData<TScreeningContent>,
+  );
+  console.log(screeningFilterLists);
 
   const screeningListItem = ({
     item,
@@ -55,7 +62,7 @@ const ScreeningFilterList = ({sortBy, category}: IScreenFilterListProps) => {
         )}
     </>
   );
-
+  //console.log(data?.pages[0]);
   const onEndReachedHandler = () => {
     if (!isFetchingNextPage) {
       fetchNextPage();

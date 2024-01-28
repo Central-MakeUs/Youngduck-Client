@@ -86,9 +86,12 @@ export type TScreeningContent = {
   private: true;
 };
 
-export interface IScreeningListResponse {
-  content: TScreeningContent[];
+export interface IScreeningInfinityResponse<T> {
+  content: T[];
   page: number;
   size: number;
   hasNext: boolean;
 }
+
+export type TScreeningListResponse =
+  IScreeningInfinityResponse<TScreeningContent>;
