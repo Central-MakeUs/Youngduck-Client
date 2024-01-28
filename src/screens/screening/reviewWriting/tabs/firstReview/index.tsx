@@ -6,12 +6,13 @@ import SelectTwoButton from '@/components/buttonGroups/selectTwoButtons';
 import {labels, reaction, reviewOptions} from '@/constants/review';
 
 import {screeningReviewStyle} from '../ScreeningReview.style';
+import {IScreeningReviewBodyRequest} from '@/models/screening/request/reviewRequestDto';
 
 interface IFirstReviewProps {
   goNext: () => void;
   goPrevious: () => void;
   setValue: (value: boolean, option: string) => void;
-  review: any; // TODO: 백엔드 api 타입
+  review: IScreeningReviewBodyRequest;
 }
 const FirstReview = ({
   goNext,

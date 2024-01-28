@@ -12,7 +12,7 @@ interface ISelectButtonProps extends CommonMarginVerticalProps {
   labels: string[];
   setValue: (value: boolean, option: string) => void;
   option: string;
-  value: boolean;
+  value: boolean | undefined;
   title?: string;
   subtitle?: string;
 }
@@ -50,7 +50,12 @@ const SelectTwoButton = ({
               if (value === undefined) {
                 setValue(index === 0 ? true : false, option);
               } else {
-                setValue(!value, option);
+                if (value === true && index === 1) {
+                  setValue(!value, option);
+                }
+                if (value === false && index === 0) {
+                  setValue(!value, option);
+                }
               }
             }}
             isSelected={

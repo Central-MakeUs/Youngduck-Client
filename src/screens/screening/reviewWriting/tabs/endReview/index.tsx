@@ -5,12 +5,13 @@ import DefaultContainer from '@/components/container/defaultContainer';
 import TextArea from '@/components/inputs/textArea';
 import AgreeNoticeCard from '@/components/cards/agreeNoticeCard';
 import BoxButton from '@/components/buttons/boxButton';
+import {IScreeningReviewBodyRequest} from '@/models/screening/request/reviewRequestDto';
 
 import {screeningReviewStyle} from '../ScreeningReview.style';
 
 interface IEndReviewProps {
   setValue: (value: boolean | string, option: string) => void;
-  value: any; // TODO: 타입 생성
+  value: IScreeningReviewBodyRequest;
 }
 
 const EndReview = ({setValue, value}: IEndReviewProps) => {
@@ -43,7 +44,7 @@ const EndReview = ({setValue, value}: IEndReviewProps) => {
           <BoxButton
             disabled={!value.hasAgreed}
             onPress={() => {
-              //console.log(value);
+              console.log(value);
               //TODO: 백엔드 api 연결
             }}>
             리뷰 작성하기

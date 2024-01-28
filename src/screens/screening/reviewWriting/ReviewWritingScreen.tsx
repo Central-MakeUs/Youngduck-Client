@@ -8,14 +8,15 @@ import EndReview from './tabs/endReview';
 import useNavigator from '@/hooks/useNavigator';
 import moveScreen from '@/utils/moveScreen';
 import SelectReview from './tabs/selectReview';
+import {IScreeningReviewBodyRequest} from '@/models/screening/request/reviewRequestDto';
 
 const ReviewWritingScreen = () => {
   const [currentScreen, setCurrentScreen] = useState<number>(0);
   const {stackNavigation} = useNavigator();
   const animatedValue = useRef(new Animated.Value(0)).current;
   const scrollViewRef = useRef<ScrollView>(null);
-  // 백엔드 api body 통신 => TODO: 타입 추가
-  const [inputValues, setInputValues] = useState({
+
+  const [inputValues, setInputValues] = useState<IScreeningReviewBodyRequest>({
     positive: {
       // 연출
       cineMaster: false,
@@ -24,10 +25,13 @@ const ReviewWritingScreen = () => {
       animationIsGood: false,
       // 미술
       artIsGood: false,
+      setIsArt: false,
       custom: false,
       // 음악
       music: false,
+      ost: false,
       // 내용
+      writtenByGod: false,
       topicIsGood: false,
       linesAreGood: false,
       endingIsGood: false,
@@ -37,18 +41,23 @@ const ReviewWritingScreen = () => {
       chemistryIsGood: false,
     },
     negative: {
+      // 연출
       iffy: false,
       badEditing: false,
       badAngle: false,
+      // 미술
       badDetail: false,
       badColor: false,
       badCustom: false,
+      // 음악
       badMusic: false,
       badSound: false,
+      // 내용
       badEnding: false,
       endingLoose: false,
       noDetail: false,
       badTopic: false,
+      // 배우
       badActing: false,
       badCasting: false,
     },
