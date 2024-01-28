@@ -1,6 +1,6 @@
 import {api} from '@/apis';
 import {ResponseDTO} from '@/models/common/responseDTO';
-import {IScreeningDetailContent} from '@/models/screening/response';
+import {IScreeningDetailContent} from '@/models/screening/response/detailResponseDto';
 
 // 스크리닝 디테일 id 정보 함수
 export const getScreeningDetailContent = async (

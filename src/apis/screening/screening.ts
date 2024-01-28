@@ -1,7 +1,7 @@
 import {api} from '@/apis';
 import {ResponseDTO} from '@/models/common/responseDTO';
-import {IScreeningBodyRequest} from '@/models/screening/request';
-import {TWeekScreeningResponse} from '@/models/screening/response';
+import {IScreeningBodyRequest} from '@/models/screening/request/screeningRequestDto';
+import {TWeekScreeningResponse} from '@/models/screening/response/screeningResponseDto';
 
 // 스크리닝 업로드 함수
 export const postScreening = async (body: IScreeningBodyRequest) => {

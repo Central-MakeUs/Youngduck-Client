@@ -9,7 +9,7 @@ import {
   getSearchScreeningList,
   getTimeOptionScreeningList,
 } from '@/apis/screening/list';
-import {TScreeningContent} from '@/models/screening/response';
+
 import EmptyItem from '@/components/items/emptyItem';
 import {TEngCategory} from '@/models/enums/category';
 import {
@@ -20,6 +20,7 @@ import {TScreeningTimeOption} from '@/models/enums/time';
 import Typography from '@/components/typography';
 
 import {screeningSearchListStyles} from './ScreeningSearchList.style';
+import {TScreeningContent} from '@/models/screening/response/listResponseDto';
 interface IScreenFilterListProps {
   category: TEngCategory | '';
   search: string;

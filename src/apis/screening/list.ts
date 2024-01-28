@@ -3,8 +3,8 @@ import {ResponseDTO} from '@/models/common/responseDTO';
 import {
   IScreeningListOptionBodyRequest,
   IScreeningListSearchBodyRequest,
-} from '@/models/screening/request';
-import {TScreeningListResponse} from '@/models/screening/response';
+} from '@/models/screening/request/listRequestDto';
+import {TScreeningListResponse} from '@/models/screening/response/listResponseDto';
 
 // 스크리닝 목록 시간 옵션 고르는 함수
 export const getTimeOptionScreeningList = async (

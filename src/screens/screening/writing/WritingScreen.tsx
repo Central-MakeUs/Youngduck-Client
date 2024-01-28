@@ -13,14 +13,15 @@ import TextArea from '@/components/inputs/textArea';
 import DismissKeyboardView from '@/components/dismissKeyboardView';
 import Input from '@/components/input';
 import BoxButton from '@/components/buttons/boxButton';
-import {IScreeningBodyRequest} from '@/models/screening/request';
+
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import {ScreenRouteProp} from '@/types/navigator';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
+import {KorCategoryValues} from '@/models/enums/category';
+import {IScreeningBodyRequest} from '@/models/screening/request/screeningRequestDto';
 
 import {writingStyles} from './WritingScreen.style';
-import {KorCategoryValues} from '@/models/enums/category';
 
 interface IWritingScreenProps {
   route: ScreenRouteProp<'WritingScreen'>;

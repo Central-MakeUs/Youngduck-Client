@@ -5,10 +5,10 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import DetailInfo from '../../components/detailInfo';
 import DetailInfoPhone from '../../components/detailInfoPhone';
+import {getKorDateRange} from '@/utils/getDate';
+import {IScreeningDetailContent} from '@/models/screening/response/detailResponseDto';
 
 import {detailInfoStyles} from './DetailInfoScreen.style';
-import {IScreeningDetailContent} from '@/models/screening/response';
-import {getKorDateRange} from '@/utils/getDate';
 
 interface IDetailInfoProps {
   item: IScreeningDetailContent;
