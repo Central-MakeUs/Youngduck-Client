@@ -5,11 +5,10 @@ import Typography from '@/components/typography';
 import useNavigator from '@/hooks/useNavigator';
 import palette from '@/styles/theme/color';
 import {getDate} from '@/utils/getDate';
+import {getCategory} from '@/utils/getCategory';
+import {TEngCategory} from '@/models/enums/category';
 
 import {weeklyStyles} from './WeeklyScreening.style';
-import {TEngCategory} from '@/models/screening/request';
-import {getCategory} from '@/utils/getCategory';
-
 interface IWeeklyScreeningProps {
   id: number;
   date: DateParsable;

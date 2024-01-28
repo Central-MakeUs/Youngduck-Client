@@ -2,6 +2,7 @@ import {postImageUpload} from '@/apis/image/image';
 import {postScreening} from '@/apis/screening/screening';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import useNavigator from '../useNavigator';
+import stackScreens from '@/constants/stackScreens';
 
 const useScreeningMutation = () => {
   const {stackNavigation} = useNavigator();
@@ -13,12 +14,13 @@ const useScreeningMutation = () => {
 
   const uploadScreening = useMutation({
     mutationFn: postScreening,
-    onSuccess: data => {
-      stackNavigation.navigate('DetailScreen', {id: data.data.id});
+    onSuccess: () => {
+      stackNavigation.navigate(stackScreens.ScreeningListScreen);
 
       queryClient.invalidateQueries({queryKey: ['weekScreening']});
       queryClient.invalidateQueries({queryKey: ['recentScreening']});
       queryClient.invalidateQueries({queryKey: ['mostCommentScreening']});
+      queryClient.invalidateQueries({queryKey: ['screeningFilter']});
     },
   });
 

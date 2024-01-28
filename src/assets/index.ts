@@ -14,6 +14,7 @@ export const defaultImages: Assets = {
 
   emptyPopcorn: require('@/assets/images/empty.png'),
   emptyCard: require('@/assets/images/empty-card.png'),
+  emptyList: require('@/assets/images/empty-list.png'),
 
   profile1: require('@/assets/images/profile1.png'),
 

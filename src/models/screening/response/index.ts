@@ -1,11 +1,30 @@
 import {DateParsable} from 'react-native-calendar-picker';
 
-import {IScreeningBodyRequest, TEngCategory} from '../request';
+import {IScreeningBodyRequest} from '../request';
+import {TEngCategory} from '@/models/enums/category';
 
-// 스크리닝 id 디테일 응답 타입
-export interface IScreeningDetailResponse {
-  createdAt: string;
-  updatedAt: string;
+// 이번주 상영작 응답 타입
+// 실시간 상영작 응답 타입
+// 댓글 많은 상영작 응답 타입
+export interface IWeekScreening extends IScreeningBodyRequest {
+  screeningId: number;
+  private: true;
+  screeningStartDate: DateParsable;
+  screeningEndDate: DateParsable;
+  screeningStartTime: Date;
+  reviewCount: number;
+}
+
+export interface IWeekScreeningData extends Omit<IWeekScreening, 'category'> {
+  category: TEngCategory;
+}
+
+export type TWeekScreeningResponse = IWeekScreeningData[];
+
+// 스크리닝 목록 응답 타입
+export type TScreeningContent = {
+  createdAt: Date;
+  updatedAt: Date;
   id: number;
   title: string;
   posterImgUrl: string;
@@ -20,8 +39,11 @@ export interface IScreeningDetailResponse {
     pom: number;
     animationIsGood: number;
     artIsGood: number;
+    setIsArt: number;
     custom: number;
     music: number;
+    ost: number;
+    writtenByGod: number;
     topicIsGood: number;
     linesAreGood: number;
     endingIsGood: number;
@@ -45,7 +67,7 @@ export interface IScreeningDetailResponse {
     badActing: number;
     badCasting: number;
   };
-  month: string;
+  month: Date;
   screeningStartDate: DateParsable;
   screeningEndDate: DateParsable;
   screeningStartTime: Date;
@@ -54,23 +76,22 @@ export interface IScreeningDetailResponse {
   information: string;
   hasAgreed: boolean;
   category: TEngCategory;
-  private: boolean;
-}
-
-// 이번주 상영작 응답 타입
-// 실시간 상영작 응답 타입
-// 댓글 많은 상영작 응답 타입
-export interface IWeekScreening extends IScreeningBodyRequest {
-  screeningId: number;
+  screeningRate: number;
+  movieReviewCountNeg: number;
+  movieReviewCountPos: number;
+  locationCountNeg: number;
+  locationCountPos: number;
+  serviceCountNeg: number;
+  serviceCountPos: number;
   private: true;
-  screeningStartDate: DateParsable;
-  screeningEndDate: DateParsable;
-  screeningStartTime: Date;
-  reviewCount: number;
+};
+
+export interface IScreeningInfinityResponse<T> {
+  content: T[];
+  page: number;
+  size: number;
+  hasNext: boolean;
 }
 
-export interface IWeekScreeningData extends Omit<IWeekScreening, 'category'> {
-  category: TEngCategory;
-}
-
-export type TWeekScreeningResponse = IWeekScreeningData[];
+export type TScreeningListResponse =
+  IScreeningInfinityResponse<TScreeningContent>;

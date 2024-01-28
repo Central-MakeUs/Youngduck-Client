@@ -3,19 +3,19 @@ import {Pressable} from 'react-native';
 import {selectedButtonStyles} from './SelectedButton.style';
 import palette from '@/styles/theme/color';
 
-interface ISelectButtonProps {
+interface ISelectButtonProps<T = string> {
   onPress: () => void;
-  type: string;
+  type: T;
   isSelected: boolean;
   size?: 'large' | 'small';
 }
 
-const SelectButton = ({
+const SelectButton = <T extends string>({
   onPress,
   type,
   isSelected,
   size = 'large',
-}: ISelectButtonProps) => {
+}: ISelectButtonProps<T>) => {
   return (
     <Pressable
       style={
