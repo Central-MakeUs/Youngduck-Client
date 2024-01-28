@@ -9,6 +9,7 @@ export const getSearchMovieData = async (
     collection: 'kmdb_new2',
     title: movie,
     ServiceKey: Config.KMDB_API_KEY,
+    listCount: 500,
   };
   const res = await api.get(Config.KMDB_API_BASE_URL, {params});
   return res.data.Data[0].Result;
