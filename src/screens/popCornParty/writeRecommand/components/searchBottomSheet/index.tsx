@@ -17,8 +17,10 @@ import GrayPopcornSvg from '@/assets/icons/gray-popcorn.svg';
 import {useQuery} from '@tanstack/react-query';
 import {getSearchMovieData} from '@/apis/popcornParty';
 import {ISearchMovieDataResponse} from '@/models/popcornParty/reponse';
-import {ISearchMovieDataRequest} from '@/models/popcornParty/request';
-import {IRecommendMovieProps} from '@/types/popcornParty';
+import {
+  IRecommendMovieProps,
+  ISearchMovieDataProps,
+} from '@/types/popcornParty';
 import formatString from '@/utils/formatString';
 
 interface ISearchBottomSheetProp {
@@ -32,7 +34,7 @@ const SearchBottomSheet = ({
 }: ISearchBottomSheetProp) => {
   const {bottom} = useSafeAreaInsets();
   const [movie, setMovie] = useState<string>('');
-  const [searchResults, setSearchResults] = useState<ISearchMovieDataRequest[]>(
+  const [searchResults, setSearchResults] = useState<ISearchMovieDataProps[]>(
     [],
   );
   const [selected, setSelected] = useState<IRecommendMovieProps>({
@@ -48,7 +50,7 @@ const SearchBottomSheet = ({
     enabled: false,
   });
 
-  const renderItem = ({item}: Record<'item', ISearchMovieDataRequest>) => (
+  const renderItem = ({item}: Record<'item', ISearchMovieDataProps>) => (
     <MovieItem
       poster={item.poster}
       title={item.title}

@@ -2,10 +2,12 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import {Image, Pressable, View} from 'react-native';
 import movieItemStyles from './MovieItem.style';
-import {IRecommendMovieProps} from '@/types/popcornParty';
-import {ISearchMovieDataRequest} from '@/models/popcornParty/request';
+import {
+  IRecommendMovieProps,
+  ISearchMovieDataProps,
+} from '@/types/popcornParty';
 
-interface IMovieItem extends ISearchMovieDataRequest {
+interface IMovieItem extends ISearchMovieDataProps {
   selected: IRecommendMovieProps;
   setSelected: React.Dispatch<React.SetStateAction<IRecommendMovieProps>>;
 }

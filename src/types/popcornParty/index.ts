@@ -23,3 +23,8 @@ export interface IRecommendMovieProps {
   title: string;
   movieSeq: string;
 }
+
+export interface ISearchMovieDataProps extends IRecommendMovieProps {
+  poster: string;
+  directorNm: string;
+}
