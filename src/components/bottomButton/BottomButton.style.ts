@@ -10,5 +10,6 @@ export const bottomButtonStyles = StyleSheet.create({
     borderTopWidth: 2,
     borderTopColor: palette.Primary.Alternative,
     paddingHorizontal: 16,
+    backgroundColor: palette.Another.White,
   },
 });

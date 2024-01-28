@@ -11,10 +11,7 @@ import DetailStatisticScreen from './tabs/detailStatisticScreen/DetailStatisticS
 import stackScreens from '@/constants/stackScreens';
 import {ScreenRouteProp} from '@/types/navigator';
 import {DetailBottomButtonType} from '@/types/ui';
-import {
-  BottomDetailButton,
-  BottomOptionDetailButton,
-} from './components/bottomDetailButton';
+import BottomDetailButton from './components/bottomDetailButton';
 
 import {detailScreenStyles} from './DetailScreen.style';
 
@@ -24,8 +21,6 @@ type DetailScreenProps = {
 
 const DetailScreen = ({route}: DetailScreenProps) => {
   const {id} = route.params;
-
-  console.log('아이디', id);
 
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [completeHeart, setCompleteHeart] = useState<boolean>(true);
@@ -59,15 +54,17 @@ const DetailScreen = ({route}: DetailScreenProps) => {
       </View>
 
       <View style={detailScreenStyles.bottom}>
-        <BottomOptionDetailButton
-          onPress={() => {}}
-          type={'reviewStart'}
-          heartState={completeHeart}
+        <BottomDetailButton
+          type="reviewStart"
+          onPress={() => {
+            console.log('클릭');
+          }}
           onOptionPress={() => {
             setCompleteHeart(!completeHeart);
+            console.log('옵션 클릭');
           }}
+          heartState={completeHeart}
         />
-        {/*<BottomDetailButton type="default" onPress={() => {}} />*/}
       </View>
     </View>
   );

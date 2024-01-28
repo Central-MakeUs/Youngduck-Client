@@ -77,9 +77,9 @@ export const bottomButtonStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   left: {
-    flex: 5.5,
+    flex: 1,
   },
   right: {
-    flex: 1,
+    width: 48,
   },
 });

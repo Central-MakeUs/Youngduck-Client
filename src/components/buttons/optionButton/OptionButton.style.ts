@@ -40,5 +40,6 @@ export const optionStyles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 17,
     justifyContent: 'center',
+    alignItems: 'center',
   },
 });
