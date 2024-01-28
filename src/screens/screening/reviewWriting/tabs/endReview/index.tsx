@@ -5,17 +5,27 @@ import DefaultContainer from '@/components/container/defaultContainer';
 import TextArea from '@/components/inputs/textArea';
 import AgreeNoticeCard from '@/components/cards/agreeNoticeCard';
 import BoxButton from '@/components/buttons/boxButton';
+import {IScreeningReviewBodyRequest} from '@/models/screening/request/reviewRequestDto';
 
 import {screeningReviewStyle} from '../ScreeningReview.style';
+import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 
 interface IEndReviewProps {
   setValue: (value: boolean | string, option: string) => void;
-  value: any; // TODO: 타입 생성
+  value: IScreeningReviewBodyRequest;
+  id: number;
 }
 
-const EndReview = ({setValue, value}: IEndReviewProps) => {
+const EndReview = ({setValue, value, id}: IEndReviewProps) => {
+  const {uploadScreeningReview} = useScreeningMutation();
   const handleChangeAgree = () => {
     setValue(!value.hasAgreed, 'hasAgreed');
+  };
+
+  const handleReviewComplete = async () => {
+    const body = {...value, id};
+    console.log(body);
+    await uploadScreeningReview.mutateAsync(body);
   };
   return (
     <ScrollView style={screeningReviewStyle.container}>
@@ -40,12 +50,7 @@ const EndReview = ({setValue, value}: IEndReviewProps) => {
           />
         </View>
         <View style={screeningReviewStyle.multi}>
-          <BoxButton
-            disabled={!value.hasAgreed}
-            onPress={() => {
-              //console.log(value);
-              //TODO: 백엔드 api 연결
-            }}>
+          <BoxButton disabled={!value.hasAgreed} onPress={handleReviewComplete}>
             리뷰 작성하기
           </BoxButton>
         </View>

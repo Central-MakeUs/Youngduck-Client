@@ -7,10 +7,10 @@ import useNavigator from '@/hooks/useNavigator';
 import palette from '@/styles/theme/color';
 import stackScreens from '@/constants/stackScreens';
 import {getDateRange} from '@/utils/getDate';
-import {TEngCategory} from '@/models/screening/request';
+import {getCategory} from '@/utils/getCategory';
+import {TEngCategory} from '@/models/enums/category';
 
 import {reviewItemStyles} from './ReviewItem.style';
-import {getCategory} from '@/utils/getCategory';
 
 interface IReviewItemProps {
   id: number;

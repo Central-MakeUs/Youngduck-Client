@@ -4,11 +4,12 @@ import {useInfiniteQuery} from '@tanstack/react-query';
 import DefaultContainer from '@/components/container/defaultContainer';
 import Divider from '@/components/divider';
 import ScreeningItem from '@/components/items/screeningItem';
+
 import {
   getSearchScreeningList,
   getTimeOptionScreeningList,
-} from '@/apis/screening/screening';
-import {TScreeningContent} from '@/models/screening/response';
+} from '@/apis/screening/list';
+
 import EmptyItem from '@/components/items/emptyItem';
 import {TEngCategory} from '@/models/enums/category';
 import {
@@ -16,10 +17,10 @@ import {
   getInfiniteQueryArray,
 } from '@/utils/getInfiniteQueryArray';
 import {TScreeningTimeOption} from '@/models/enums/time';
-
-import {screeningSearchListStyles} from './ScreeningSearchList.style';
 import Typography from '@/components/typography';
 
+import {screeningSearchListStyles} from './ScreeningSearchList.style';
+import {TScreeningContent} from '@/models/screening/response/listResponseDto';
 interface IScreenFilterListProps {
   category: TEngCategory | '';
   search: string;

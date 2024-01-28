@@ -18,7 +18,12 @@ export const reviewTypes = ['direct', 'art', 'music', 'content', 'actor'];
 export const labels = ['기대만큼 좋았어요', '기대보다 아쉬웠어요'];
 export const reaction = ['좋았어요', '아쉬웠어요'];
 
-export const reviewOptions = [
+type ReviewOption = {
+  subtitle: string;
+  option: 'screeningReview' | 'locationReview' | 'serviceReview';
+};
+
+export const reviewOptions: ReviewOption[] = [
   {subtitle: '작품에 대한 저의 느낌은', option: 'screeningReview'},
   {subtitle: '장소 선정은', option: 'locationReview'},
   {subtitle: '운영 방식은', option: 'serviceReview'},
@@ -49,12 +54,12 @@ export const positiveReview: PositiveReviewType = {
   art: {
     title: '미술이 좋았어요',
     select: [
-      //{
-      //  value: '',
-      //  label: '영화미술의 교과서',
-      //},
       {
         value: 'artIsGood',
+        label: '영화미술의 교과서',
+      },
+      {
+        value: 'setIsArt',
         label: '세트가 아트다',
       },
       {
@@ -70,19 +75,19 @@ export const positiveReview: PositiveReviewType = {
         value: 'music',
         label: '가슴이 뛰는 음악',
       },
-      //{
-      //  value: '',
-      //  label: '영혼을 울리는 OST',
-      //},
+      {
+        value: 'ost',
+        label: '영혼을 울리는 OST',
+      },
     ],
   },
   content: {
     title: '내용이 좋았어요',
     select: [
-      //{
-      //  value: '',
-      //  label: '신이 쓴 각본',
-      //},
+      {
+        value: 'writtenByGod',
+        label: '신이 쓴 각본',
+      },
       {
         value: 'topicIsGood',
         label: '의미있는 주제',
@@ -98,7 +103,7 @@ export const positiveReview: PositiveReviewType = {
     ],
   },
   actor: {
-    title: '내용이 좋았어요',
+    title: '배우가 좋았어요',
     select: [
       {
         value: 'castingIsGood',

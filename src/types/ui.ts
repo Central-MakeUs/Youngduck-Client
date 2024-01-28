@@ -48,9 +48,12 @@ export type DetailBottomButtonType =
 export type DetailOptionBottomButtonType =
   | 'complete'
   | 'reviewStart'
-  | 'reviewComplete'
+  | 'reviewComplete';
+
+export type DetailAllBottomButtonType =
+  | 'myClose'
   | 'myOpen'
-  | 'myClose';
+  | DetailOptionBottomButtonType;
 
 // 공통 컴포넌트 중복 prop 타입 지정
 export interface CommonTextProps {

@@ -2,18 +2,21 @@ import {ScrollView, View} from 'react-native';
 
 import MultiButton from '@/components/buttons/multibutton';
 import SubTitleDescription from '@/components/title/subTitleDescription';
-
+import SelectMultipleButtons from '@/components/buttonGroups/selectMultipleButtons';
 import {reviewTypes} from '@/constants/review';
 import {getReview} from '@/utils/getReview';
+import {
+  TScreeningNegativeReview,
+  TScreeningPositiveReview,
+} from '@/models/enums/review';
 
 import {screeningReviewStyle} from '../ScreeningReview.style';
-import SelectMultipleButtons from '@/components/buttonGroups/selectMultipleButtons';
 
 interface ISelectReviewProps {
   goNext: () => void;
   goPrevious: () => void;
   setValue: (value: boolean, option: string) => void;
-  review: any; // TODO: 백엔드 api 타입
+  review: TScreeningPositiveReview<boolean> | TScreeningNegativeReview<boolean>;
   type: 'positive' | 'negative';
 }
 

@@ -15,7 +15,7 @@ const EmptyItem = ({text, size = 'small'}: IEmptyItemProp) => {
     <View
       style={{
         ...emptyItemStyles.container,
-        ...(size === 'small' ? {paddingTop: 16, paddingBottom: 15} : {flex: 1}),
+        ...(size === 'small' ? {paddingTop: 16, paddingBottom: 24} : {flex: 1}),
       }}>
       <Image
         source={

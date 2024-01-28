@@ -57,7 +57,7 @@ const MyManagementItem = ({
       if (!isReviewRequired) {
         return;
       }
-      stackNavigation.navigate(stackScreens.ReviewWritingScreen);
+      stackNavigation.navigate(stackScreens.ReviewWritingScreen, {id});
     } else if (isJjimActivated !== undefined) {
       if (isJjimActivated) {
         // 찜 off API 요청
