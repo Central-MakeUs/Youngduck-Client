@@ -20,6 +20,10 @@ export interface IScreeningBodyRequest {
   hasAgreed: boolean;
 }
 
+export type TNonNullScreeningBodyRequest = {
+  [K in keyof IScreeningBodyRequest]-?: NonNullable<IScreeningBodyRequest[K]>;
+};
+
 // 스크리닝 목록 api 공통 요청 body 타입
 export interface IScreeningListCommon {
   category: TEngCategory | '';

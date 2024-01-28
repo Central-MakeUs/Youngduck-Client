@@ -25,6 +25,8 @@ type DetailScreenProps = {
 const DetailScreen = ({route}: DetailScreenProps) => {
   const {id} = route.params;
 
+  console.log('아이디', id);
+
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [completeHeart, setCompleteHeart] = useState<boolean>(true);
   const [bottomType, setBottomType] =
