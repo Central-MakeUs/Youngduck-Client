@@ -14,6 +14,8 @@ import {getVoteDateRange} from '@/utils/getDate';
 
 import writeRecommandScreenStyles from './WriteRecommandScreen.style';
 import {IRecommendMovieProps} from '@/types/popcornParty';
+import {useMutation} from '@tanstack/react-query';
+import {postRecommendMovie} from '@/apis/popcornParty';
 
 function WriteRecommandScreen() {
   const [selectedMovie, setSelectedMovie] = useState<IRecommendMovieProps>({
@@ -32,14 +34,24 @@ function WriteRecommandScreen() {
   const canRegister =
     !!selectedMovie.title.length && reason.length >= 10 && isAgree;
 
+  const {mutate} = useMutation({
+    mutationFn: postRecommendMovie,
+    onSuccess: res => console.log(res),
+    onError: err => console.log(err),
+  });
+
   const inputReason = (e: string) => setReason(e);
 
   const toggleIsAgreeState = () => setIsAgree(!isAgree);
   const toggleIsVisibleState = () => setIsVisible(!isVisible);
 
   const goToRecommandListScreen = () => {
-    // 추후 API 요청 로직 추가
-    stackNavigation.popToTop();
+    mutate({
+      movieId: selectedMovie.movieSeq,
+      reason,
+      agreed: isAgree,
+    });
+    stackNavigation.goBack();
   };
 
   return (

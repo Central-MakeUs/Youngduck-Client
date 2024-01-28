@@ -1,6 +1,5 @@
-export interface ISearchMovieDataRequest {
-  title: string;
-  poster: string;
-  directorNm: string;
-  movieSeq: string;
+export interface IRecommendMovieBodyRequest {
+  movieId: string;
+  reason: string;
+  agreed: boolean;
 }
