@@ -11,7 +11,8 @@ import stackScreens from '@/constants/stackScreens';
 import {ScreenRouteProp} from '@/types/navigator';
 import {DetailBottomButtonType} from '@/types/ui';
 import BottomDetailButton from './components/bottomDetailButton';
-import {getScreeningDetailContent} from '@/apis/screening/screening';
+import useNavigator from '@/hooks/useNavigator';
+import {getScreeningDetailContent} from '@/apis/screening/detail';
 import {screeningTabBars} from '@/constants/tabBars';
 
 import {detailScreenStyles} from './DetailScreen.style';
@@ -22,6 +23,7 @@ type DetailScreenProps = {
 
 const DetailScreen = ({route}: DetailScreenProps) => {
   const {id} = route.params;
+  const {stackNavigation} = useNavigator();
 
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [completeHeart, setCompleteHeart] = useState<boolean>(true);
@@ -32,6 +34,12 @@ const DetailScreen = ({route}: DetailScreenProps) => {
     queryKey: ['screeningDetail'],
     queryFn: () => getScreeningDetailContent(id),
   });
+
+  const handleBottomButtonPress = () => {
+    if (bottomType === 'reviewStart') {
+      stackNavigation.navigate(stackScreens.ReviewWritingScreen);
+    }
+  };
 
   //console.log(data?.data.reviewed, data?.data.bookmarked);
   return (
@@ -60,8 +68,8 @@ const DetailScreen = ({route}: DetailScreenProps) => {
 
       <View style={detailScreenStyles.bottom}>
         <BottomDetailButton
-          type="finish"
-          onPress={() => {}}
+          type="reviewStart"
+          onPress={handleBottomButtonPress}
           onOptionPress={() => {
             setCompleteHeart(!completeHeart);
           }}

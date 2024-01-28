@@ -6,11 +6,11 @@ import CommentItem from '@/components/items/commentItem';
 import BoxButton from '@/components/buttons/boxButton';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
-
-import {reviewScreenStyles} from './DetailReviewScreen.style';
-import {getScreeningDetailReview} from '@/apis/screening/screening';
+import {getScreeningDetailReview} from '@/apis/screening/review';
 import EmptyItem from '@/components/items/emptyItem';
 import {getDate} from '@/utils/getDate';
+
+import {reviewScreenStyles} from './DetailReviewScreen.style';
 
 interface IDetailReviewProps {
   id: number;
@@ -20,7 +20,7 @@ const DetailReviewScreen = ({id}: IDetailReviewProps) => {
     queryKey: ['screeningReview'],
     queryFn: () => getScreeningDetailReview(id),
   });
-  console.log('응답', data);
+  //console.log('응답', data);
 
   const reviewList = status === 'success' ? data.data : [];
 
@@ -44,9 +44,9 @@ const DetailReviewScreen = ({id}: IDetailReviewProps) => {
             </View>
             {reviewList.map((comment, idx) => (
               <CommentItem
-                totalComments={3}
+                totalComments={reviewList.length}
                 nickname={comment.nickname}
-                isSatisfied={true}
+                isSatisfied={comment.afterScreening}
                 review={comment.review}
                 date={getDate(comment.createdAt)}
                 idx={idx}
