@@ -1,16 +1,23 @@
+import {View} from 'react-native';
+
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
-import {View} from 'react-native';
-import {detailTitleStyles} from './DetailTitle.style';
+import {TEngCategory} from '@/models/enums/category';
 
-const DetailTitle = () => {
+import {detailTitleStyles} from './DetailTitle.style';
+import {getCategory} from '@/utils/getCategory';
+interface IDetailTitleProps {
+  title: string;
+  category: TEngCategory;
+}
+const DetailTitle = ({title, category}: IDetailTitleProps) => {
   return (
     <View style={detailTitleStyles.container}>
       <Typography style="Label2" color={palette.Text.Normal}>
-        상영전
+        {getCategory(category)}
       </Typography>
       <Typography style="Title2" color={palette.Text.Normal}>
-        Dromapic 상영회
+        {title}
       </Typography>
     </View>
   );

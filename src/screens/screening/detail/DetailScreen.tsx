@@ -11,11 +11,10 @@ import stackScreens from '@/constants/stackScreens';
 import {ScreenRouteProp} from '@/types/navigator';
 import {DetailBottomButtonType} from '@/types/ui';
 import BottomDetailButton from './components/bottomDetailButton';
-
-import {detailScreenStyles} from './DetailScreen.style';
-
 import {getScreeningDetailContent} from '@/apis/screening/screening';
 import {screeningTabBars} from '@/constants/tabBars';
+
+import {detailScreenStyles} from './DetailScreen.style';
 
 type DetailScreenProps = {
   route: ScreenRouteProp<stackScreens.DetailScreen>;
@@ -23,8 +22,6 @@ type DetailScreenProps = {
 
 const DetailScreen = ({route}: DetailScreenProps) => {
   const {id} = route.params;
-
-  const [isMyPage, setIsMyPage] = useState<boolean>(false);
 
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [completeHeart, setCompleteHeart] = useState<boolean>(true);
@@ -39,15 +36,21 @@ const DetailScreen = ({route}: DetailScreenProps) => {
     <View style={detailScreenStyles.wrapper}>
       <View style={detailScreenStyles.content}>
         <ImageContentScrollContainer>
-          <DetailTitle />
-
+          {data && (
+            <DetailTitle
+              title={data?.data.screeningTitle}
+              category={data?.data.category}
+            />
+          )}
           <TabBar
             currentTabBarNumber={currentTab}
             setCurrentTabBarNumber={setCurrentTab}
             tabBars={screeningTabBars}
           />
           <View>
-            {currentTab === 0 && <DetailInfoScreen />}
+            {currentTab === 0 && data?.data && (
+              <DetailInfoScreen item={data?.data} />
+            )}
             {currentTab === 1 && <DetailReviewScreen />}
           </View>
         </ImageContentScrollContainer>
@@ -55,13 +58,10 @@ const DetailScreen = ({route}: DetailScreenProps) => {
 
       <View style={detailScreenStyles.bottom}>
         <BottomDetailButton
-          type="complete"
-          onPress={() => {
-            console.log('클릭');
-          }}
+          type="finish"
+          onPress={() => {}}
           onOptionPress={() => {
             setCompleteHeart(!completeHeart);
-            console.log('옵션 클릭');
           }}
           heartState={completeHeart}
         />
