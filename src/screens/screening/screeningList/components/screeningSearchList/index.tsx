@@ -8,6 +8,10 @@ import {getSearchScreeningList} from '@/apis/screening/screening';
 import {TScreeningContent} from '@/models/screening/response';
 import EmptyItem from '@/components/items/emptyItem';
 import {TEngCategory} from '@/models/enums/category';
+import {
+  InfiniteData,
+  getInfiniteQueryArray,
+} from '@/utils/getInfiniteQueryArray';
 
 interface IScreenFilterListProps {
   category: TEngCategory | '';
@@ -28,6 +32,10 @@ const ScreeningSearchList = ({category, search}: IScreenFilterListProps) => {
       return lastPage.data.hasNext ? lastPage.data.page + 1 : undefined;
     },
   });
+
+  const screeningSearchLists = getInfiniteQueryArray<TScreeningContent>(
+    data as InfiniteData<TScreeningContent>,
+  );
 
   const screeningListItem = ({
     item,
@@ -62,21 +70,20 @@ const ScreeningSearchList = ({category, search}: IScreenFilterListProps) => {
   return (
     <View style={{flex: 1}}>
       <DefaultContainer>
-        {data?.pages.flatMap(page => page.data.content)?.length === 0 && (
+        {screeningSearchLists?.length === 0 && (
           <View style={{flex: 1}}>
             <EmptyItem size="large" text="검색 결과가 나오지 않아요." />
           </View>
         )}
-        {data?.pages.flatMap(page => page.data.content) &&
-          data?.pages.flatMap(page => page.data.content)?.length > 0 && (
-            <FlatList
-              onEndReached={onEndReachedHandler}
-              data={data?.pages.flatMap(page => page.data.content) || []}
-              renderItem={screeningListItem}
-              keyExtractor={item => item.id.toString()}
-              onEndReachedThreshold={0.6}
-            />
-          )}
+        {screeningSearchLists && screeningSearchLists?.length > 0 && (
+          <FlatList
+            onEndReached={onEndReachedHandler}
+            data={screeningSearchLists}
+            renderItem={screeningListItem}
+            keyExtractor={item => item.id.toString()}
+            onEndReachedThreshold={0.6}
+          />
+        )}
 
         {isFetchingNextPage && <ActivityIndicator style={{marginBottom: 10}} />}
       </DefaultContainer>

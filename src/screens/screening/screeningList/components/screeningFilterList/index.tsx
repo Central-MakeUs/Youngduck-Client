@@ -37,7 +37,6 @@ const ScreeningFilterList = ({sortBy, category}: IScreenFilterListProps) => {
   const screeningFilterLists = getInfiniteQueryArray<TScreeningContent>(
     data as InfiniteData<TScreeningContent>,
   );
-  console.log(screeningFilterLists);
 
   const screeningListItem = ({
     item,
@@ -56,13 +55,11 @@ const ScreeningFilterList = ({sortBy, category}: IScreenFilterListProps) => {
         endDate={item.screeningEndDate}
         hostName={item.hostInfo.hostName}
       />
-      {data?.pages.flatMap(page => page.data.content) &&
-        index !== data?.pages.flatMap(page => page.data.content).length - 1 && (
-          <Divider height={2} mb={16} />
-        )}
+      {screeningFilterLists && index !== screeningFilterLists.length - 1 && (
+        <Divider height={2} mb={16} />
+      )}
     </>
   );
-  //console.log(data?.pages[0]);
   const onEndReachedHandler = () => {
     if (!isFetchingNextPage) {
       fetchNextPage();
@@ -72,21 +69,20 @@ const ScreeningFilterList = ({sortBy, category}: IScreenFilterListProps) => {
   return (
     <View style={{flex: 1}}>
       <DefaultContainer>
-        {data?.pages.flatMap(page => page.data.content)?.length === 0 && (
+        {screeningFilterLists?.length === 0 && (
           <View style={{flex: 1}}>
             <EmptyItem size="large" text="검색 결과가 나오지 않아요." />
           </View>
         )}
-        {data?.pages.flatMap(page => page.data.content) &&
-          data?.pages.flatMap(page => page.data.content)?.length > 0 && (
-            <FlatList
-              onEndReached={onEndReachedHandler}
-              data={data?.pages.flatMap(page => page.data.content) || []}
-              renderItem={screeningListItem}
-              keyExtractor={item => item.id.toString()}
-              onEndReachedThreshold={0.6}
-            />
-          )}
+        {screeningFilterLists && screeningFilterLists?.length > 0 && (
+          <FlatList
+            onEndReached={onEndReachedHandler}
+            data={data?.pages.flatMap(page => page.data.content) || []}
+            renderItem={screeningListItem}
+            keyExtractor={item => item.id.toString()}
+            onEndReachedThreshold={0.6}
+          />
+        )}
 
         {isFetchingNextPage && <ActivityIndicator style={{marginBottom: 10}} />}
       </DefaultContainer>
