@@ -6,6 +6,7 @@ import {
   IScreeningListSearchBodyRequest,
 } from '@/models/screening/request';
 import {
+  IScreeningDetailContent,
   TScreeningListResponse,
   TWeekScreeningResponse,
 } from '@/models/screening/response';
@@ -57,5 +58,13 @@ export const getSearchScreeningList = async (
   const res = await api.get(
     `/screening/screenings/search?title=${body.title}&category=${body.category}&page=${body.page}&size=${body.size}`,
   );
+  return res.data;
+};
+
+// 스크리닝 디테일 id 정보 함수
+export const getScreeningDetailContent = async (
+  id: number,
+): Promise<ResponseDTO<IScreeningDetailContent>> => {
+  const res = await api.get(`/screening/${id}`);
   return res.data;
 };

@@ -96,5 +96,7 @@ export type TScreeningListResponse =
 // 스크리닝 디테일 응답 타입
 export interface IScreeningDetailContent extends TNonNullScreeningBodyRequest {
   screeningId: number;
-  private: true;
+  private: boolean;
+  bookmarked: boolean;
+  reviewed: boolean;
 }
