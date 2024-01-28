@@ -17,8 +17,13 @@ const EmptyItem = ({text, size = 'small'}: IEmptyItemProp) => {
         ...emptyItemStyles.container,
         ...(size === 'small' ? {paddingTop: 16, paddingBottom: 15} : {flex: 1}),
       }}>
-      {size === 'small' && <Image source={defaultImages.emptyPopcorn} />}
-      {size === 'large' && <Image source={defaultImages.emptyList} />}
+      <Image
+        source={
+          size === 'small'
+            ? defaultImages.emptyPopcorn
+            : defaultImages.emptyList
+        }
+      />
       <Typography
         style={size === 'small' ? 'Label2' : 'Label1'}
         color={palette.Text.Alternative}
