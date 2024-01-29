@@ -1,11 +1,11 @@
 import {View} from 'react-native';
-import Typography from '../typography';
-
 import ModalContainer from 'react-native-modal';
 
-import palette from '@/styles/theme/color';
-import {popupStyles} from './Modal.style';
+import Typography from '../typography';
 import BoxButton from '../buttons/boxButton';
+import palette from '@/styles/theme/color';
+
+import {popupStyles} from './Popup.style';
 
 interface ModalProps {
   title: string;
