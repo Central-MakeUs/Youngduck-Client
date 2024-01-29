@@ -1,13 +1,13 @@
-import {postRecommendMovie} from '@/apis/popcornParty';
+import {postVoteMovie} from '@/apis/popcornParty';
 import {useMutation} from '@tanstack/react-query';
 
-const useRecommendMovieMutation = () => {
-  const {mutate: recommendMovieMutate} = useMutation({
-    mutationFn: postRecommendMovie,
+const useVoteMovieMutation = () => {
+  const {mutate: voteMovieMutate} = useMutation({
+    mutationFn: postVoteMovie,
     onSuccess: () => console.log('추천하기 성공'),
     onError: err => console.log(err),
   });
 
-  return {recommendMovieMutate};
+  return {voteMovieMutate};
 };
-export default useRecommendMovieMutation;
+export default useVoteMovieMutation;

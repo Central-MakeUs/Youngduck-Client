@@ -18,11 +18,11 @@ const PopcornItem = ({
 }: TPopcornRecommendData) => {
   const [voteState, setVoteState] = useState(false);
   const [voteCount, setVoteCount] = useState(recommendationCount);
-  const {recommendMovieMutate} = useRecommendMovieMutation();
+  const {voteMovieMutate} = useRecommendMovieMutation();
 
   const handleVoteMovie = () => {
     if (voteState) return;
-    recommendMovieMutate(id);
+    voteMovieMutate(id);
     setVoteState(true);
     setVoteCount(prev => prev + 1);
   };

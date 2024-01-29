@@ -27,7 +27,7 @@ export const geTPopcornRecommendData = async (): Promise<
   return res.data;
 };
 
-export const postRecommendMovie = async (id: number) => {
+export const postVoteMovie = async (id: number) => {
   const res = await api.post(
     `/popcorn/recommend/vote?recommendedPopcorn=${id}`,
   );
