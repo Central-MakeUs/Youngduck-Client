@@ -4,7 +4,7 @@ import {popcornTrendingCardStyles} from './PopcornTrendingCard.style';
 import Chip from '@/components/chip';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
-import {ITrendingData} from '@/models/popcornParty/reponse';
+import {TTrendingData} from '@/models/popcornParty/reponse';
 
 const PopcornTrendingCard = ({
   popcornId,
@@ -14,7 +14,7 @@ const PopcornTrendingCard = ({
   index,
   rank,
   mode,
-}: ITrendingData) => {
+}: TTrendingData) => {
   const {stackNavigation} = useNavigator();
   const goToPopcornPartyDetail = () =>
     popcornId &&
@@ -31,7 +31,9 @@ const PopcornTrendingCard = ({
       onPress={goToPopcornPartyDetail}>
       <Image source={{uri: imageUrl}} style={popcornTrendingCardStyles.image} />
       {mode === 'with-ranking' && <Chip text={`${rank}위`} mt={4} mb={4} />}
-      <Typography style="Label1">{movieTitle}</Typography>
+      <Typography style="Label1" numberOfLinesDisabled={1}>
+        {movieTitle}
+      </Typography>
     </Pressable>
   );
 };
