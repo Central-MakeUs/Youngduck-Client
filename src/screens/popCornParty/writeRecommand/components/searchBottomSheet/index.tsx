@@ -16,12 +16,11 @@ import {getScreenSize} from '@/utils/getScreenSize';
 import GrayPopcornSvg from '@/assets/icons/gray-popcorn.svg';
 import {useQuery} from '@tanstack/react-query';
 import {getSearchMovieData} from '@/apis/popcornParty';
-import {ISearchMovieDataResponse} from '@/models/popcornParty/reponse';
 import {
   IRecommendMovieProps,
   ISearchMovieDataProps,
 } from '@/types/popcornParty';
-import formatString from '@/utils/formatString';
+import getMovieList from '@/utils/getMovieList';
 
 interface ISearchBottomSheetProp {
   bottomDrawerRef: React.RefObject<BottomDrawerMethods>;
@@ -34,9 +33,6 @@ const SearchBottomSheet = ({
 }: ISearchBottomSheetProp) => {
   const {bottom} = useSafeAreaInsets();
   const [movie, setMovie] = useState<string>('');
-  const [searchResults, setSearchResults] = useState<ISearchMovieDataProps[]>(
-    [],
-  );
   const [selected, setSelected] = useState<IRecommendMovieProps>({
     title: '',
     movieSeq: '',
@@ -44,11 +40,12 @@ const SearchBottomSheet = ({
   const styles = searchBottomSheetStyles({bottom});
   const {screenHeight} = getScreenSize();
 
-  const searchMovieData = useQuery({
+  const {data: searchMovieData, refetch} = useQuery({
     queryKey: ['searchMovie'],
     queryFn: () => getSearchMovieData(movie),
     enabled: false,
   });
+  const searchResults = getMovieList(searchMovieData!);
 
   const renderItem = ({item}: Record<'item', ISearchMovieDataProps>) => (
     <MovieItem
@@ -65,8 +62,12 @@ const SearchBottomSheet = ({
 
   const closeModal = () => {
     setMovie('');
-    setSearchResults([]);
     bottomDrawerRef?.current?.close();
+  };
+
+  // 팝콘작 추천하기 -> 영화 검색
+  const searchMovies = async () => {
+    await refetch();
   };
 
   const setRecommandMovie = () => {
@@ -74,26 +75,6 @@ const SearchBottomSheet = ({
     closeModal();
   };
 
-  // 팝콘작 추천하기 -> 영화 검색
-  const searchMovies = async () => {
-    await searchMovieData
-      .refetch()
-      .then(res => {
-        const data = res.data?.map((movie: ISearchMovieDataResponse) => {
-          return {
-            title: formatString('title', movie.title),
-            poster: !!movie.posters
-              ? formatString('poster', movie.posters)
-              : 'default',
-            directorNm: movie.directors.director[0].directorNm,
-            movieSeq: movie.movieSeq,
-          };
-        });
-        Keyboard.dismiss();
-        setSearchResults(data!);
-      })
-      .catch(err => console.log(err));
-  };
   return (
     <BottomSheet drawerRef={bottomDrawerRef} height={(screenHeight * 2) / 3}>
       <View style={styles.container}>
@@ -116,12 +97,14 @@ const SearchBottomSheet = ({
           <View style={styles.totalResultWrap}>
             <Typography style="Label3">영화 검색결과 총 </Typography>
             <Typography style="Label3" color={palette.Primary.Deep}>
-              {`${searchResults.length}건`}
+              {`${
+                searchMovieData === undefined ? 0 : searchMovieData.length
+              }건`}
             </Typography>
           </View>
           <Divider height={1} mb={8} mt={8} />
           <View style={styles.responseWrap}>
-            {!searchResults.length ? (
+            {searchMovieData === undefined || searchMovieData.length === 0 ? (
               <View style={styles.emptyResponseWrap}>
                 <GrayPopcornSvg />
                 <Typography
