@@ -67,6 +67,14 @@ const useScreeningMutation = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: ['screeningReview']});
     },
+    onError: err => {
+      const errorResponse = (err as AxiosError).response;
+      if (errorResponse) {
+        const error = errorResponse.data as ResponseErrorAPI;
+        console.log(error);
+        showSnackBar('신고에 실패하였습니다.');
+      }
+    },
   });
 
   return {

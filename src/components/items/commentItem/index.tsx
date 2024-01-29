@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import {Pressable, View} from 'react-native';
 
 import Chip from '@/components/chip';
@@ -7,7 +6,6 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 
 import {commentItemStyles} from './CommentItem.style';
-import Popup from '@/components/popup';
 
 interface ICommentItemProps {
   totalComments: number;
@@ -29,25 +27,12 @@ const CommentItem = ({
   idx,
   complainOnPress,
 }: ICommentItemProps) => {
-  const [complainPopup, setComplainPopup] = useState<boolean>(false);
-
-  const onCloseComplainPopup = () => {
-    setComplainPopup(false);
-  };
   return (
     <View
       style={[
         commentItemStyles.container,
         {borderBottomWidth: idx === totalComments - 1 ? 0 : 1},
       ]}>
-      <Popup
-        title="정말 신고하시겠어요?"
-        content={`신고가 누적되면\n해당 유저의 서비스 이용이 제한돼요. `}
-        isVisible={complainPopup}
-        onClose={onCloseComplainPopup}
-        onPress={complainOnPress}
-        type="error"
-      />
       <View style={commentItemStyles.profileContentWrap}>
         <Profile size="large" />
         <View style={commentItemStyles.label}>
@@ -55,7 +40,7 @@ const CommentItem = ({
             <Typography style="Label1" color={palette.Text.Strong}>
               {nickname}
             </Typography>
-            <Pressable onPress={() => setComplainPopup(true)}>
+            <Pressable onPress={complainOnPress}>
               <Typography style="Chips1" color={palette.Text.Alternative}>
                 신고
               </Typography>

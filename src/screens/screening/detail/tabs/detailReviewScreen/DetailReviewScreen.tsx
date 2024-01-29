@@ -11,6 +11,8 @@ import EmptyItem from '@/components/items/emptyItem';
 import palette from '@/styles/theme/color';
 import {getScreeningDetailReview} from '@/apis/screening/review';
 import {getSimpleDate} from '@/utils/getDate';
+import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
+import Popup from '@/components/popup';
 
 import {reviewScreenStyles} from './DetailReviewScreen.style';
 
@@ -18,6 +20,9 @@ interface IDetailReviewProps {
   id: number;
 }
 const DetailReviewScreen = ({id}: IDetailReviewProps) => {
+  const [complainPopup, setComplainPopup] = useState<boolean>(false);
+  const [reviewId, setReviewId] = useState<number>(0);
+
   const [moreComment, setMoreComment] = useState<boolean>(false);
   const {data, status, isLoading} = useQuery({
     queryKey: ['screeningReview'],
@@ -25,6 +30,13 @@ const DetailReviewScreen = ({id}: IDetailReviewProps) => {
   });
 
   const reviewList = status === 'success' ? data.data : [];
+
+  const {complainScreeningReview} = useScreeningMutation();
+
+  const handleComplainReview = async () => {
+    setComplainPopup(false);
+    await complainScreeningReview.mutateAsync(reviewId);
+  };
 
   if (isLoading) {
     return (
@@ -48,6 +60,16 @@ const DetailReviewScreen = ({id}: IDetailReviewProps) => {
     <DefaultContainer>
       {reviewList && (
         <>
+          <Popup
+            title="정말 신고하시겠어요?"
+            content={`신고가 누적되면\n해당 유저의 서비스 이용이 제한돼요. `}
+            isVisible={complainPopup}
+            onClose={() => {
+              setComplainPopup(false);
+            }}
+            onPress={handleComplainReview}
+            type="error"
+          />
           <View style={reviewScreenStyles.title}>
             <Typography style="Subtitle2" color={palette.Another.Black}>
               관객 리뷰
@@ -67,7 +89,10 @@ const DetailReviewScreen = ({id}: IDetailReviewProps) => {
                 date={getSimpleDate(comment.createdAt)}
                 idx={idx}
                 key={idx}
-                complainOnPress={() => {}}
+                complainOnPress={() => {
+                  setReviewId(comment.reviewId);
+                  setComplainPopup(true);
+                }}
               />
             ))}
           {reviewList.length > 5 && !moreComment ? (
@@ -91,7 +116,10 @@ const DetailReviewScreen = ({id}: IDetailReviewProps) => {
                   date={getSimpleDate(comment.createdAt)}
                   idx={idx}
                   key={idx}
-                  complainOnPress={() => {}}
+                  complainOnPress={() => {
+                    setReviewId(comment.reviewId);
+                    setComplainPopup(true);
+                  }}
                 />
               ))}
             </>
