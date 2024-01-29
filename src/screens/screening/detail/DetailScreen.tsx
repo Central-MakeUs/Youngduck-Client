@@ -27,11 +27,14 @@ const DetailScreen = ({route}: DetailScreenProps) => {
   const {id} = route.params;
   const [currentTab, setCurrentTab] = useState<number>(0);
 
-  const {isVisited} = useWebviewStore();
+  const {webview, setWebview} = useWebviewStore();
+
   const {uploadScreeningBookmark} = useScreeningMutation();
 
-  // 임의로 uri 넣어줌
-  const uri = 'https://www.naver.com';
+  const {data, status} = useQuery({
+    queryKey: ['screeningDetail'],
+    queryFn: () => getScreeningDetailContent(id),
+  });
 
   const {
     buttonType,
@@ -41,12 +44,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
     onClosePopupCancel,
     onClosePopupScreening,
     handleOptionOnPress,
-  } = useScreeningType(id, uri);
-
-  const {data, status} = useQuery({
-    queryKey: ['screeningDetail'],
-    queryFn: () => getScreeningDetailContent(id),
-  });
+  } = useScreeningType(id);
 
   useEffect(() => {
     if (status === 'success') {
@@ -55,6 +53,9 @@ const DetailScreen = ({route}: DetailScreenProps) => {
         data?.data.bookmarked,
         data?.data.screeningEndDate,
       );
+      if (buttonType === 'default') {
+        setWebview({uri: data.data.formUrl, isVisited: false});
+      }
     }
   }, [data]);
 
@@ -78,7 +79,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
       <Popup
         title="관람 예정이신가요?"
         content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
-        isVisible={buttonType === 'default' && isVisited}
+        isVisible={buttonType === 'default' && webview.isVisited}
         onClose={onClosePopupScreening}
         onPress={handleScreeningPopupPress}
       />

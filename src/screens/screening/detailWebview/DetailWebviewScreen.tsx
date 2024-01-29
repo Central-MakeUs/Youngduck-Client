@@ -11,11 +11,11 @@ interface IDetailWebviewScreen {
 }
 const DetailWebviewScreen = ({route: {params}}: IDetailWebviewScreen) => {
   const {stackNavigation} = useNavigator();
-  const {setWebviewIsVisited} = useWebviewStore();
+  const {setWebview, webview} = useWebviewStore();
 
   useEffect(() => {
     const handleBackPress = () => {
-      setWebviewIsVisited(true);
+      setWebview({uri: '', isVisited: true});
       stackNavigation.navigate(stackScreens.DetailScreen, {id: params.id});
       return true;
     };
@@ -25,8 +25,8 @@ const DetailWebviewScreen = ({route: {params}}: IDetailWebviewScreen) => {
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
     };
-  }, [params.id, setWebviewIsVisited, stackNavigation]);
-  // params.uri
-  return <WebView source={{uri: 'https://www.naver.com'}} style={{flex: 1}} />;
+  }, [params.id, setWebview, stackNavigation]);
+
+  return <WebView source={{uri: webview.uri}} style={{flex: 1}} />;
 };
 export default DetailWebviewScreen;

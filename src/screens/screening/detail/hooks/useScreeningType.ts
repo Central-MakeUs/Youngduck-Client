@@ -7,14 +7,14 @@ import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import {useWebviewStore} from '@/stores/webview';
 
-const useScreeningType = (id: number, uri: string) => {
+const useScreeningType = (id: number) => {
   const {stackNavigation} = useNavigator();
   const [buttonType, setButtonType] =
     useState<DetailBottomButtonType>('default');
   // 관람 취소 팝업
   const [popupCancel, setPopupCancel] = useState<boolean>(false);
   // 관람 신청 팝업
-  const {setWebviewIsVisited} = useWebviewStore();
+  const {setWebview, webview} = useWebviewStore();
 
   const setDetailButtonType = (
     reviewed: boolean,
@@ -52,8 +52,7 @@ const useScreeningType = (id: number, uri: string) => {
     }
     if (buttonType === 'default') {
       // 관람 신청 웹뷰 열기
-      stackNavigation.navigate(stackScreens.DetailWebviewScreen, {uri, id});
-      //setPopupScreening(true);
+      stackNavigation.navigate(stackScreens.DetailWebviewScreen, {id});
     }
   };
 
@@ -71,7 +70,7 @@ const useScreeningType = (id: number, uri: string) => {
 
   // 관람 신청 모달 닫기
   const onClosePopupScreening = () => {
-    setWebviewIsVisited(false);
+    setWebview({...webview, isVisited: false});
   };
 
   return {

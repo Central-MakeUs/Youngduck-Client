@@ -1,15 +1,22 @@
 import {create} from 'zustand';
 
-interface IWebviewStoreState {
+interface IWebviewContent {
   isVisited: boolean;
+  uri: string;
+}
+interface IWebviewStoreState {
+  webview: IWebviewContent;
 }
 interface IWebviewStoreActions {
-  setWebviewIsVisited: (state: boolean) => void;
+  setWebview: (state: IWebviewContent) => void;
 }
 
 export const useWebviewStore = create<
   IWebviewStoreState & IWebviewStoreActions
 >(set => ({
-  isVisited: false,
-  setWebviewIsVisited: (state: boolean) => set({isVisited: state}),
+  webview: {
+    isVisited: false,
+    uri: '',
+  },
+  setWebview: (state: IWebviewContent) => set({webview: state}),
 }));
