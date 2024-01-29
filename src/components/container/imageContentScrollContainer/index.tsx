@@ -32,7 +32,7 @@ const ImageContentScrollContainer = ({
 
   const calculateOpacity = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const value =
-      1 - e.nativeEvent.contentOffset.y / (screenWidth * 1.47 - (top + 60));
+      1 - e.nativeEvent.contentOffset.y / (screenWidth - (top + 60));
     setOpacity(value < 0 ? 0 : value);
   };
 
@@ -57,7 +57,7 @@ const ImageContentScrollContainer = ({
         <View style={{opacity: opacity}}>
           <Image
             source={{
-              uri: 'http://file.koreafilm.or.kr/thm/02/00/02/20/tn_DPF004699.JPG',
+              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR9C_se7NWEVh0Yigz0mxRBfSpQSxkcWZmAA&usqp=CAU',
             }}
             style={imageContentScrollContainerStyles.image}
           />
