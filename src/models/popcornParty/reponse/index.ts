@@ -12,10 +12,9 @@ export type TTrendingMovieData = Omit<TTrendingData, 'popcornId'>;
 export type TTrendingPopcornData = Omit<TTrendingData, 'movieId' | 'rank'>;
 export type TRandomPopcornRecommendData = {
   id: number;
-  movieId: string;
   movieTitle: string;
   imageUrl: string;
   recommendationReason: string;
-  recommendationCount: 0;
+  recommendationCount: number;
   movieDirector: string;
 };

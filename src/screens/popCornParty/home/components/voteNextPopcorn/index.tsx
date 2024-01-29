@@ -24,7 +24,6 @@ const VoteNextPopcorn = ({
               <PopcornItem
                 key={popcornData.movieTitle}
                 id={popcornData.id}
-                movieId={popcornData.movieId}
                 movieTitle={popcornData.movieTitle}
                 imageUrl={popcornData.imageUrl}
                 recommendationCount={popcornData.recommendationCount}

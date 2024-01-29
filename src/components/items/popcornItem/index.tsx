@@ -4,23 +4,28 @@ import Typography from '../../typography';
 import Vote from '../../vote';
 import popcornItemStyles from './PopcornItem.style';
 import {useState} from 'react';
-import {IPopcornItemProps} from '@/types/popcornParty';
 import {TRandomPopcornRecommendData} from '@/models/popcornParty/reponse';
 import {defaultImages} from '@/assets';
+import useRecommendMovieMutation from '@/hooks/mutaions/useRecommendMovie';
 
 const PopcornItem = ({
   id,
   imageUrl,
-  movieId,
   movieTitle,
   recommendationCount,
   recommendationReason,
   movieDirector,
-}: // isVoted,
-TRandomPopcornRecommendData) => {
+}: TRandomPopcornRecommendData) => {
   const [voteState, setVoteState] = useState(false);
+  const [voteCount, setVoteCount] = useState(recommendationCount);
+  const {recommendMovieMutate} = useRecommendMovieMutation();
 
-  const toggleVoteState = () => setVoteState(!voteState);
+  const handleVoteMovie = () => {
+    if (voteState) return;
+    recommendMovieMutate(id);
+    setVoteState(true);
+    setVoteCount(prev => prev + 1);
+  };
   return (
     <Pressable
       style={
@@ -28,7 +33,7 @@ TRandomPopcornRecommendData) => {
           ? popcornItemStyles.votedContainer
           : popcornItemStyles.notVotedContainer
       }
-      onPress={toggleVoteState}>
+      onPress={handleVoteMovie}>
       <Image
         source={
           !!imageUrl
@@ -47,7 +52,7 @@ TRandomPopcornRecommendData) => {
             </Typography>
           </View>
           <View style={popcornItemStyles.contentWrap}>
-            <Vote isVoted={voteState} voteCount={recommendationCount} />
+            <Vote isVoted={voteState} voteCount={voteCount} />
           </View>
         </View>
         <Typography style="Body2">{movieDirector}</Typography>
