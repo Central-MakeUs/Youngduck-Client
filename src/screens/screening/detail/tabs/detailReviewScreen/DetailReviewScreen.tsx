@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {View} from 'react-native';
-import {useQueries, useQuery} from '@tanstack/react-query';
+import {useQueries} from '@tanstack/react-query';
 
 import DefaultContainer from '@/components/container/defaultContainer';
 import CommentItem from '@/components/items/commentItem';
@@ -13,6 +13,7 @@ import {
   getScreeningDetailReview,
   getScreeningRateReview,
 } from '@/apis/screening/review';
+import DetailScreeningRate from './components/detailScreeningRate';
 import {getSimpleDate} from '@/utils/getDate';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import Popup from '@/components/popup';
@@ -25,7 +26,6 @@ interface IDetailReviewProps {
 const DetailReviewScreen = ({id}: IDetailReviewProps) => {
   const [complainPopup, setComplainPopup] = useState<boolean>(false);
   const [reviewId, setReviewId] = useState<number>(0);
-
   const [moreComment, setMoreComment] = useState<boolean>(false);
 
   const [reviews, screeningRates] = useQueries({
@@ -41,12 +41,12 @@ const DetailReviewScreen = ({id}: IDetailReviewProps) => {
     ],
   });
 
-  console.log('상영지수', screeningRates.data?.data);
-
   const reviewList = reviews.data?.data ? reviews.data.data : [];
+  const screeningRate = screeningRates.data?.data;
 
   const {complainScreeningReview} = useScreeningMutation();
 
+  // 신고 버튼 클릭 시
   const handleComplainReview = async () => {
     setComplainPopup(false);
     await complainScreeningReview.mutateAsync(reviewId);
@@ -74,6 +74,7 @@ const DetailReviewScreen = ({id}: IDetailReviewProps) => {
     <DefaultContainer>
       {reviewList && (
         <>
+          {/*신고 팝업 컴포넌트*/}
           <Popup
             title="정말 신고하시겠어요?"
             content={`신고가 누적되면\n해당 유저의 서비스 이용이 제한돼요. `}
@@ -84,6 +85,9 @@ const DetailReviewScreen = ({id}: IDetailReviewProps) => {
             onPress={handleComplainReview}
             type="error"
           />
+          {/*상영 지수 아이템*/}
+          {screeningRate && <DetailScreeningRate rates={screeningRate} />}
+
           <View style={reviewScreenStyles.title}>
             <Typography style="Subtitle2" color={palette.Another.Black}>
               관객 리뷰
