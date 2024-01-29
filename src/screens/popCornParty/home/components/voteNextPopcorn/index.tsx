@@ -1,31 +1,46 @@
 import DefaultContainer from '@/components/container/defaultContainer';
 import PopcornItem from '@/components/items/popcornItem';
 import SubTitle from '@/components/title/subTitle';
-import {popcornDatas} from '../../dummy';
-import {IPopcornItemProps} from '@/types/popcornParty';
+import {TPopcornRecommendData} from '@/models/popcornParty/reponse';
+import {ActivityIndicator} from 'react-native';
 
-interface IVoteNextPopcornProp {
+type IVoteNextPopcornProp = Record<
+  'popcornRecommendData',
+  TPopcornRecommendData[]
+> & {
   title: string;
-}
+  isLoading: boolean;
+  voteMovieMutate: (id: number) => void;
+};
 
-const VoteNextPopcorn = ({title}: IVoteNextPopcornProp) => {
+const VoteNextPopcorn = ({
+  title,
+  popcornRecommendData,
+  isLoading,
+  voteMovieMutate,
+}: IVoteNextPopcornProp) => {
   return (
     <>
       <SubTitle text={title} mb={8} />
-      <DefaultContainer>
-        {popcornDatas.map((popcornData: IPopcornItemProps) => (
-          <PopcornItem
-            key={popcornData.title}
-            id={popcornData.id}
-            imageURL={popcornData.imageURL}
-            title={popcornData.title}
-            count={popcornData.count}
-            nickname={popcornData.nickname}
-            content={popcornData.content}
-            isVoted={popcornData.isVoted}
-          />
-        ))}
-      </DefaultContainer>
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <DefaultContainer>
+          {popcornRecommendData &&
+            popcornRecommendData.map((popcornData: TPopcornRecommendData) => (
+              <PopcornItem
+                key={popcornData.movieTitle}
+                id={popcornData.id}
+                movieTitle={popcornData.movieTitle}
+                imageUrl={popcornData.imageUrl}
+                recommendationCount={popcornData.recommendationCount}
+                recommendationReason={popcornData.recommendationReason}
+                movieDirector={popcornData.movieDirector}
+                voteMovieMutate={voteMovieMutate}
+              />
+            ))}
+        </DefaultContainer>
+      )}
     </>
   );
 };

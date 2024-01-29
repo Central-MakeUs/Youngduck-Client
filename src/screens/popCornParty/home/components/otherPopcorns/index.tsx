@@ -2,12 +2,19 @@ import BoxButton from '@/components/buttons/boxButton';
 import DefaultContainer from '@/components/container/defaultContainer';
 import stackScreens from '@/constants/stackScreens';
 import useNavigator from '@/hooks/useNavigator';
+import {useQueryClient} from '@tanstack/react-query';
 
 const OtherPopcorns = () => {
   const {stackNavigation} = useNavigator();
+  const queryClient = useQueryClient();
 
-  const goToRecommandListScreen = () =>
+  const goToRecommandListScreen = () => {
     stackNavigation.navigate(stackScreens.RecommandListScreen);
+    queryClient.removeQueries({queryKey: ['popcornOfNextWeek']});
+  };
+
+  const goToWriteRecommandScreen = () =>
+    stackNavigation.navigate(stackScreens.WriteRecommandScreen);
 
   return (
     <DefaultContainer>
@@ -16,13 +23,9 @@ const OtherPopcorns = () => {
         variant="default"
         mt={12}
         mb={8}>
-        5건의 투표작 모두 보기
+        투표작 모두 보기
       </BoxButton>
-      <BoxButton
-        onPress={() =>
-          stackNavigation.navigate(stackScreens.WriteRecommandScreen)
-        }
-        mb={32}>
+      <BoxButton onPress={goToWriteRecommandScreen} mb={32}>
         다른 작품 추천하기
       </BoxButton>
     </DefaultContainer>

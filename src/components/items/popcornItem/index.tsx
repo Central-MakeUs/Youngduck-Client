@@ -4,20 +4,31 @@ import Typography from '../../typography';
 import Vote from '../../vote';
 import popcornItemStyles from './PopcornItem.style';
 import {useState} from 'react';
-import {IPopcornItemProps} from '@/types/popcornParty';
+import {TPopcornRecommendData} from '@/models/popcornParty/reponse';
+import {defaultImages} from '@/assets';
+
+interface IPopcornItem extends TPopcornRecommendData {
+  voteMovieMutate: (id: number) => void;
+}
 
 const PopcornItem = ({
   id,
-  imageURL,
-  title,
-  count,
-  nickname,
-  content,
-  isVoted,
-}: IPopcornItemProps) => {
-  const [voteState, setVoteState] = useState(isVoted);
+  imageUrl,
+  movieTitle,
+  recommendationCount,
+  recommendationReason,
+  movieDirector,
+  voteMovieMutate,
+}: IPopcornItem) => {
+  const [voteState, setVoteState] = useState(false);
+  const [voteCount, setVoteCount] = useState(recommendationCount);
 
-  const toggleVoteState = () => setVoteState(!voteState);
+  const handleVoteMovie = () => {
+    if (voteState) return;
+    voteMovieMutate(id);
+    setVoteState(true);
+    setVoteCount(prev => prev + 1);
+  };
   return (
     <Pressable
       style={
@@ -25,21 +36,31 @@ const PopcornItem = ({
           ? popcornItemStyles.votedContainer
           : popcornItemStyles.notVotedContainer
       }
-      onPress={toggleVoteState}>
+      onPress={handleVoteMovie}>
       <Image
-        source={{
-          uri: imageURL,
-        }}
+        source={
+          !!imageUrl
+            ? {
+                uri: imageUrl,
+              }
+            : defaultImages.pacong
+        }
         style={popcornItemStyles.image}
       />
-      <View style={popcornItemStyles.contentWrap}>
-        <View style={popcornItemStyles.voteWrap}>
-          <Typography style="Label1">{title}</Typography>
-          <Vote isVoted={voteState} voteCount={count} />
+      <View style={popcornItemStyles.wrap}>
+        <View style={popcornItemStyles.contentWrap}>
+          <View style={popcornItemStyles.typoWrap}>
+            <Typography style="Label1" numberOfLines={1}>
+              {movieTitle}
+            </Typography>
+          </View>
+          <View style={popcornItemStyles.contentWrap}>
+            <Vote isVoted={voteState} voteCount={voteCount} />
+          </View>
         </View>
-        <Typography style="Body2">{nickname}</Typography>
+        <Typography style="Body2">{movieDirector}</Typography>
         <Typography style="Chips1" color={palette.Text.Alternative}>
-          {content}
+          {recommendationReason}
         </Typography>
       </View>
     </Pressable>

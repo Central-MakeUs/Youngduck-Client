@@ -1,45 +1,34 @@
-import {useEffect, useState} from 'react';
 import {ActivityIndicator, FlatList} from 'react-native';
 
 import DefaultContainer from '@/components/container/defaultContainer';
 import PopcornItem from '@/components/items/popcornItem';
 import SubTitleDescription from '@/components/title/subTitleDescription';
-import {IPopcornItemProps, IRenderItemProps} from '@/types/popcornParty';
-import {defaultDatas, moreDats} from './dummy';
 import {getVoteDateRange} from '@/utils/getDate';
+import {useQuery} from '@tanstack/react-query';
+import {getPopcornOfNextWeekData} from '@/apis/popcornParty/recommendList/recommendList';
+import {TPopcornRecommendData} from '@/models/popcornParty/reponse';
+import useVoteMovieMutation from '@/hooks/mutaions/useRecommendMovie';
 
 function RecommandListScreen() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {startDate, endDate} = getVoteDateRange();
-  const [popcornDatas, setPopcornDatas] =
-    useState<IPopcornItemProps[]>(defaultDatas);
+  const {data: popcornOfNextWeekData, isLoading} = useQuery({
+    queryKey: ['popcornOfNextWeek'],
+    queryFn: getPopcornOfNextWeekData,
+  });
+  const {voteMovieMutate} = useVoteMovieMutation();
 
-  const popcornItem = ({item}: IRenderItemProps<IPopcornItemProps>) => (
+  const renderPopcornItem = ({item}: Record<'item', TPopcornRecommendData>) => (
     <PopcornItem
-      key={item.title}
+      key={item.movieTitle}
       id={item.id}
-      imageURL={item.imageURL}
-      title={item.title}
-      count={item.count}
-      nickname={item.nickname}
-      content={item.content}
-      isVoted={item.isVoted}
+      movieTitle={item.movieTitle}
+      imageUrl={item.imageUrl}
+      recommendationCount={item.recommendationCount}
+      recommendationReason={item.recommendationReason}
+      movieDirector={item.movieDirector}
+      voteMovieMutate={voteMovieMutate}
     />
   );
-
-  const renderMoreItems = () => {
-    setIsLoading(true);
-    // 데이터 받아오는 것처럼 하기 위해 setTimeout 추가
-    // 추후 setTimeout 삭제 예정
-    setTimeout(() => {
-      setPopcornDatas([...popcornDatas, ...moreDats]);
-      setIsLoading(false);
-    }, 1000);
-  };
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
 
   return (
     <DefaultContainer>
@@ -48,14 +37,15 @@ function RecommandListScreen() {
         subTitle={`${startDate} ~ ${endDate}의 팝콘작을 선정해 주세요.\n상위 3편의 영화가 다음 주 오픈됩니다.`}
         mb={8}
       />
-      <FlatList
-        data={popcornDatas}
-        renderItem={popcornItem}
-        keyExtractor={(item: IPopcornItemProps) => item.id.toString()}
-        onEndReached={renderMoreItems}
-        onEndReachedThreshold={0.6}
-      />
-      {isLoading && <ActivityIndicator style={{marginBottom: 10}} />}
+      {!isLoading && (
+        <FlatList
+          data={popcornOfNextWeekData?.data}
+          renderItem={renderPopcornItem}
+          keyExtractor={(item: TPopcornRecommendData) => item.id.toString()}
+        />
+      )}
+
+      {isLoading && <ActivityIndicator style={{flex: 1}} />}
     </DefaultContainer>
   );
 }

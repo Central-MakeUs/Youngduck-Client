@@ -7,9 +7,41 @@ import TrendingPopcorn from './components/trendingPopcorn';
 import OtherPopcorns from './components/otherPopcorns';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
+import {useQueries, useQueryClient} from '@tanstack/react-query';
+import {
+  getTrendingPopcornData,
+  getTrendingMovieData,
+  geTPopcornRecommendData,
+} from '@/apis/popcornParty';
+import {useEffect} from 'react';
+import {useIsFocused} from '@react-navigation/native';
+import useVoteMovieMutation from '@/hooks/mutaions/useRecommendMovie';
 
 function PopcornPartyHomeScreen() {
   const {stackNavigation} = useNavigator();
+  const currentFocusState = useIsFocused();
+  const queryClient = useQueryClient();
+  const {voteMovieMutate} = useVoteMovieMutation();
+
+  const [trendingPopcornData, trendingMovieData, randomPopcornRecommendData] =
+    useQueries({
+      queries: [
+        {queryKey: ['trendingPopcorn'], queryFn: getTrendingPopcornData},
+        {queryKey: ['trendingMovieData'], queryFn: getTrendingMovieData},
+        {
+          queryKey: ['randomPopcornRecommendData'],
+          queryFn: geTPopcornRecommendData,
+        },
+      ],
+    });
+
+  useEffect(() => {
+    if (currentFocusState && randomPopcornRecommendData.status === 'success') {
+      queryClient.removeQueries({queryKey: ['randomPopcornRecommendData']});
+      randomPopcornRecommendData.refetch();
+    }
+  }, [currentFocusState]);
+
   return (
     <DefaultScrollContainer>
       <Banner
@@ -18,10 +50,15 @@ function PopcornPartyHomeScreen() {
           stackNavigation.navigate(stackScreens.WriteRecommandScreen)
         }
       />
-      <TrendingPopcorn />
-      <TrendingMovie />
+      <TrendingPopcorn trendingPopcornData={trendingPopcornData.data?.data!} />
+      <TrendingMovie trendingMovieData={trendingMovieData.data?.data!} />
       <Divider height={8} mt={24} mb={16} />
-      <VoteNextPopcorn title="다음 주 팝콘작 투표하기" />
+      <VoteNextPopcorn
+        popcornRecommendData={randomPopcornRecommendData.data?.data!}
+        title="다음 주 팝콘작 투표하기"
+        isLoading={randomPopcornRecommendData.isLoading}
+        voteMovieMutate={voteMovieMutate}
+      />
       <OtherPopcorns />
     </DefaultScrollContainer>
   );

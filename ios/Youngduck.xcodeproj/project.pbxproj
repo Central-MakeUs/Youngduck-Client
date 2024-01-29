@@ -15,7 +15,7 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C53CE5A322394EFFE995A68F /* Pods_Youngduck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2642B67C48770D2BB09FFDF /* Pods_Youngduck.framework */; };
 		F50377AE2B4EB3980010FB4B /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = F50377AD2B4EB3980010FB4B /* Fonts */; };
-		F5072C592B64C9DC00136C70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5072C582B64C9DC00136C70 /* GoogleService-Info.plist */; };
+		F59FF3CB2B6778C2002085D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F59FF3CA2B6778C2002085D0 /* GoogleService-Info.plist */; };
 		F5A7F1B92B4BC1AD0039B26C /* SwiftBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A7F1B82B4BC1AD0039B26C /* SwiftBridge.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,9 +48,9 @@
 		B2642B67C48770D2BB09FFDF /* Pods_Youngduck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Youngduck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F50377AD2B4EB3980010FB4B /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
-		F5072C582B64C9DC00136C70 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F54F87C82B583A1000303134 /* Youngduck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Youngduck.entitlements; path = Youngduck/Youngduck.entitlements; sourceTree = "<group>"; };
 		F562C2B42B44775500AED450 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		F59FF3CA2B6778C2002085D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F5A7F1B72B4BC1AC0039B26C /* Youngduck-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Youngduck-Bridging-Header.h"; sourceTree = "<group>"; };
 		F5A7F1B82B4BC1AD0039B26C /* SwiftBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBridge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -95,7 +95,7 @@
 		13B07FAE1A68108700A75B9A /* Youngduck */ = {
 			isa = PBXGroup;
 			children = (
-				F5072C582B64C9DC00136C70 /* GoogleService-Info.plist */,
+				F59FF3CA2B6778C2002085D0 /* GoogleService-Info.plist */,
 				F54F87C82B583A1000303134 /* Youngduck.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -259,7 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F50377AE2B4EB3980010FB4B /* Fonts in Resources */,
-				F5072C592B64C9DC00136C70 /* GoogleService-Info.plist in Resources */,
+				F59FF3CB2B6778C2002085D0 /* GoogleService-Info.plist in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
