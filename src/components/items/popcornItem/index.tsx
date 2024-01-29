@@ -47,7 +47,7 @@ const PopcornItem = ({
       <View style={popcornItemStyles.wrap}>
         <View style={popcornItemStyles.contentWrap}>
           <View style={popcornItemStyles.typoWrap}>
-            <Typography style="Label1" numberOfLinesDisabled={1}>
+            <Typography style="Label1" numberOfLines={1}>
               {movieTitle}
             </Typography>
           </View>

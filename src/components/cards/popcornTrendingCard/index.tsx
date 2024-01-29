@@ -31,7 +31,7 @@ const PopcornTrendingCard = ({
       onPress={goToPopcornPartyDetail}>
       <Image source={{uri: imageUrl}} style={popcornTrendingCardStyles.image} />
       {mode === 'with-ranking' && <Chip text={`${rank}위`} mt={4} mb={4} />}
-      <Typography style="Label1" numberOfLinesDisabled={1}>
+      <Typography style="Label1" numberOfLines={1}>
         {movieTitle}
       </Typography>
     </Pressable>
