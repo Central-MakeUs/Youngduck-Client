@@ -18,7 +18,10 @@ import PopcornRate from '@/components/rates/popcornRate';
 import useVoteMovieMutation from '@/hooks/mutaions/useRecommendMovie';
 import {ScreenRouteProp} from '@/types/navigator';
 import {useQueries} from '@tanstack/react-query';
-import {getPopcornPartyDetailData} from '@/apis/popcornParty/detail/detail';
+import {
+  getPopconrRateData,
+  getPopcornPartyDetailData,
+} from '@/apis/popcornParty/detail/detail';
 import {usePosterImageStore} from '@/stores/posterImage';
 
 interface IPopcornPartyDetailScreenProp {
@@ -34,15 +37,20 @@ function PopcornPartyDetailScreen({
   const {stackNavigation} = useNavigator();
   const {setPosterImage} = usePosterImageStore();
   const {voteMovieMutate} = useVoteMovieMutation();
-  const [popcornPartyDetailData] = useQueries({
+  const [popcornPartyDetailData, popcornRateData] = useQueries({
     queries: [
       {
         queryKey: ['popcornPartyDetail'],
         queryFn: () => getPopcornPartyDetailData(params.id),
       },
+      {
+        queryKey: ['popcornRateData'],
+        queryFn: () => getPopconrRateData(params.id),
+      },
     ],
   });
   const movieData = popcornPartyDetailData.data?.data;
+  const popcornRate = popcornRateData.data?.data;
 
   // tab bar에 필요한 제목들 선언
   const tabBars = [
@@ -108,7 +116,9 @@ function PopcornPartyDetailScreen({
       {/* 현재 tab bar에 맞는 컴포넌트 보여주기 */}
       {currentTabBarNumber === 0 && (
         <DefaultContainer>
-          <ScreeningRate mode="popcornRate" score={90}>
+          <ScreeningRate
+            mode="popcornRate"
+            score={popcornRate === undefined ? 0 : Number(popcornRate)}>
             <PopcornRate isOpen={isOpen} setIsOpen={setIsOpen} />
           </ScreeningRate>
           <PopcornKeyword />

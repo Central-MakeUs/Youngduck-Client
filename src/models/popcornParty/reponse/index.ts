@@ -23,6 +23,10 @@ export interface IPopcornPartyDetailResponse {
   detail: string;
 }
 
+export interface IPopcornRateResponse {
+  data: number;
+}
+
 export type TTrendingMovieData = Omit<ITrendingData, 'popcornId'>;
 export type TTrendingPopcornData = Omit<ITrendingData, 'movieId' | 'rank'>;
 export type TPopcornRecommendData = {
