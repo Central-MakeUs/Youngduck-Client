@@ -17,14 +17,12 @@ interface IBottomDetailButtonProps {
   onPress: () => void;
   type: DetailBottomButtonType;
   onOptionPress?: () => void;
-  heartState: boolean;
 }
 
 const BottomDetailButton = ({
   type,
   onPress,
   onOptionPress,
-  heartState,
 }: IBottomDetailButtonProps) => {
   return (
     <>
@@ -50,13 +48,7 @@ const BottomDetailButton = ({
           text={bottomDetailTypesStyles[type].text}
           iconType={type}
           optionPress={onOptionPress}
-          optionSelected={
-            bottomDetailTypesStyles[type].optionDisabled
-              ? true
-              : type === 'complete'
-              ? heartState
-              : false
-          }
+          optionSelected={true}
           textColor={bottomDetailTypesStyles[type].color}
           optionDisabled={bottomDetailTypesStyles[type].optionDisabled}
           optionType="heart"

@@ -1,9 +1,14 @@
+import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {AxiosError} from 'axios';
+
 import {postImageUpload} from '@/apis/image/image';
 import {postScreening} from '@/apis/screening/screening';
-import {useMutation, useQueryClient} from '@tanstack/react-query';
 import useNavigator from '../useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import {postScreeningDetailReview} from '@/apis/screening/review';
+import {postScreeningBookmark} from '@/apis/screening/detail';
+import {ResponseErrorAPI} from '@/models/common/responseDTO';
+import {showSnackBar} from '@/utils/showSnackBar';
 
 const useScreeningMutation = () => {
   const {stackNavigation} = useNavigator();
@@ -31,10 +36,34 @@ const useScreeningMutation = () => {
   const uploadScreeningReview = useMutation({
     mutationFn: postScreeningDetailReview,
     onSuccess: () => {
+      console.log('성공');
       queryClient.invalidateQueries({queryKey: ['screeningReview']});
+      queryClient.invalidateQueries({queryKey: ['screeningDetail']});
     },
   });
 
-  return {uploadImage, uploadScreening, uploadScreeningReview};
+  // 스크리닝 찜하기 post
+  const uploadScreeningBookmark = useMutation({
+    mutationFn: postScreeningBookmark,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['screeningDetail']});
+    },
+    onError: err => {
+      const errorResponse = (err as AxiosError).response;
+      if (errorResponse) {
+        const error = errorResponse.data as ResponseErrorAPI;
+        if (error.code === 'USER_SCREENING_401') {
+          showSnackBar(error.reason);
+        }
+      }
+    },
+  });
+
+  return {
+    uploadImage,
+    uploadScreening,
+    uploadScreeningReview,
+    uploadScreeningBookmark,
+  };
 };
 export default useScreeningMutation;

@@ -1,6 +1,7 @@
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import StackNavigator from './StackNavigator';
 import palette from '@/styles/theme/color';
+import SnackBar from '@/components/snackBar';
 
 const navTheme = {
   ...DefaultTheme,
@@ -12,9 +13,12 @@ const navTheme = {
 
 function Navigator() {
   return (
-    <NavigationContainer theme={navTheme}>
-      <StackNavigator />
-    </NavigationContainer>
+    <>
+      <NavigationContainer theme={navTheme}>
+        <StackNavigator />
+      </NavigationContainer>
+      <SnackBar />
+    </>
   );
 }
 

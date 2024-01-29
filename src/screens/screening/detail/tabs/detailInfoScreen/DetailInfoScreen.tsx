@@ -14,7 +14,6 @@ interface IDetailInfoProps {
   item: IScreeningDetailContent;
 }
 const DetailInfoScreen = ({item}: IDetailInfoProps) => {
-  //console.log(item);
   return (
     <View>
       <DefaultContainer>
