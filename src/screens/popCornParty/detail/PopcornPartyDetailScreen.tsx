@@ -15,9 +15,11 @@ import CommentItem from '@/components/items/commentItem';
 import ImageContentScrollContainer from '@/components/container/imageContentScrollContainer';
 import ScreeningRate from '@/components/rates/screeningRate';
 import PopcornRate from '@/components/rates/popcornRate';
+import useVoteMovieMutation from '@/hooks/mutaions/useRecommendMovie';
 
 function PopcornPartyDetailScreen() {
   const {stackNavigation} = useNavigator();
+  const {voteMovieMutate} = useVoteMovieMutation();
 
   const [currentTabBarNumber, setCurrentTabBarNumber] = useState<number>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -107,6 +109,7 @@ function PopcornPartyDetailScreen() {
         popcornRecommendData={[]}
         title="팝콘 튀기고 싶은 다른 영화가 있다면?"
         isLoading={false}
+        voteMovieMutate={voteMovieMutate}
       />
       <DefaultContainer>
         <Pressable

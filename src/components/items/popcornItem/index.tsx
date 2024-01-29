@@ -6,7 +6,10 @@ import popcornItemStyles from './PopcornItem.style';
 import {useState} from 'react';
 import {TPopcornRecommendData} from '@/models/popcornParty/reponse';
 import {defaultImages} from '@/assets';
-import useRecommendMovieMutation from '@/hooks/mutaions/useRecommendMovie';
+
+interface IPopcornItem extends TPopcornRecommendData {
+  voteMovieMutate: (id: number) => void;
+}
 
 const PopcornItem = ({
   id,
@@ -15,10 +18,10 @@ const PopcornItem = ({
   recommendationCount,
   recommendationReason,
   movieDirector,
-}: TPopcornRecommendData) => {
+  voteMovieMutate,
+}: IPopcornItem) => {
   const [voteState, setVoteState] = useState(false);
   const [voteCount, setVoteCount] = useState(recommendationCount);
-  const {voteMovieMutate} = useRecommendMovieMutation();
 
   const handleVoteMovie = () => {
     if (voteState) return;

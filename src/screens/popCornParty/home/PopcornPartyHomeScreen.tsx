@@ -15,11 +15,13 @@ import {
 } from '@/apis/popcornParty';
 import {useEffect} from 'react';
 import {useIsFocused} from '@react-navigation/native';
+import useVoteMovieMutation from '@/hooks/mutaions/useRecommendMovie';
 
 function PopcornPartyHomeScreen() {
   const {stackNavigation} = useNavigator();
   const currentFocusState = useIsFocused();
   const queryClient = useQueryClient();
+  const {voteMovieMutate} = useVoteMovieMutation();
 
   const [trendingPopcornData, trendingMovieData, randomPopcornRecommendData] =
     useQueries({
@@ -55,6 +57,7 @@ function PopcornPartyHomeScreen() {
         popcornRecommendData={randomPopcornRecommendData.data?.data!}
         title="다음 주 팝콘작 투표하기"
         isLoading={randomPopcornRecommendData.isLoading}
+        voteMovieMutate={voteMovieMutate}
       />
       <OtherPopcorns />
     </DefaultScrollContainer>

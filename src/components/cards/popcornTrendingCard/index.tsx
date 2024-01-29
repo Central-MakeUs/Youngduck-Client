@@ -8,7 +8,6 @@ import {TTrendingData} from '@/models/popcornParty/reponse';
 
 const PopcornTrendingCard = ({
   popcornId,
-  movieId,
   movieTitle,
   imageUrl,
   index,

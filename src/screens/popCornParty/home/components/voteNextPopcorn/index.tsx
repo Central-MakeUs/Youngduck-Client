@@ -10,12 +10,14 @@ type IVoteNextPopcornProp = Record<
 > & {
   title: string;
   isLoading: boolean;
+  voteMovieMutate: (id: number) => void;
 };
 
 const VoteNextPopcorn = ({
   title,
   popcornRecommendData,
   isLoading,
+  voteMovieMutate,
 }: IVoteNextPopcornProp) => {
   return (
     <>
@@ -34,6 +36,7 @@ const VoteNextPopcorn = ({
                 recommendationCount={popcornData.recommendationCount}
                 recommendationReason={popcornData.recommendationReason}
                 movieDirector={popcornData.movieDirector}
+                voteMovieMutate={voteMovieMutate}
               />
             ))}
         </DefaultContainer>
