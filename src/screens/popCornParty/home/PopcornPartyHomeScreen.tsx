@@ -7,15 +7,20 @@ import TrendingPopcorn from './components/trendingPopcorn';
 import OtherPopcorns from './components/otherPopcorns';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
-import {useQueries} from '@tanstack/react-query';
+import {useQueries, useQueryClient} from '@tanstack/react-query';
 import {
   getTrendingPopcornData,
   getTrendingMovieData,
-  getRandomPopcornRecommendData,
+  geTPopcornRecommendData,
 } from '@/apis/popcornParty';
+import {useEffect} from 'react';
+import {useIsFocused} from '@react-navigation/native';
 
 function PopcornPartyHomeScreen() {
   const {stackNavigation} = useNavigator();
+  const currentFocusState = useIsFocused();
+  const queryClient = useQueryClient();
+
   const [trendingPopcornData, trendingMovieData, randomPopcornRecommendData] =
     useQueries({
       queries: [
@@ -23,10 +28,18 @@ function PopcornPartyHomeScreen() {
         {queryKey: ['trendingMovieData'], queryFn: getTrendingMovieData},
         {
           queryKey: ['randomPopcornRecommendData'],
-          queryFn: getRandomPopcornRecommendData,
+          queryFn: geTPopcornRecommendData,
         },
       ],
     });
+
+  useEffect(() => {
+    if (currentFocusState && randomPopcornRecommendData.status === 'success') {
+      queryClient.removeQueries({queryKey: ['randomPopcornRecommendData']});
+      randomPopcornRecommendData.refetch();
+    }
+  }, [currentFocusState]);
+
   return (
     <DefaultScrollContainer>
       <Banner
@@ -41,6 +54,7 @@ function PopcornPartyHomeScreen() {
       <VoteNextPopcorn
         popcornRecommendData={randomPopcornRecommendData.data?.data!}
         title="다음 주 팝콘작 투표하기"
+        isLoading={randomPopcornRecommendData.isLoading}
       />
       <OtherPopcorns />
     </DefaultScrollContainer>

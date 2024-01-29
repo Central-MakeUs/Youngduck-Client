@@ -103,6 +103,7 @@ function PopcornPartyDetailScreen() {
       <VoteNextPopcorn
         popcornRecommendData={[]}
         title="팝콘 튀기고 싶은 다른 영화가 있다면?"
+        isLoading={false}
       />
       <DefaultContainer>
         <Pressable

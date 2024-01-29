@@ -1,26 +1,31 @@
 import DefaultContainer from '@/components/container/defaultContainer';
 import PopcornItem from '@/components/items/popcornItem';
 import SubTitle from '@/components/title/subTitle';
-import {TRandomPopcornRecommendData} from '@/models/popcornParty/reponse';
+import {TPopcornRecommendData} from '@/models/popcornParty/reponse';
+import {ActivityIndicator} from 'react-native';
 
 type IVoteNextPopcornProp = Record<
   'popcornRecommendData',
-  TRandomPopcornRecommendData[]
+  TPopcornRecommendData[]
 > & {
   title: string;
+  isLoading: boolean;
 };
 
 const VoteNextPopcorn = ({
   title,
   popcornRecommendData,
+  isLoading,
 }: IVoteNextPopcornProp) => {
   return (
     <>
       <SubTitle text={title} mb={8} />
-      <DefaultContainer>
-        {popcornRecommendData &&
-          popcornRecommendData.map(
-            (popcornData: TRandomPopcornRecommendData) => (
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <DefaultContainer>
+          {popcornRecommendData &&
+            popcornRecommendData.map((popcornData: TPopcornRecommendData) => (
               <PopcornItem
                 key={popcornData.movieTitle}
                 id={popcornData.id}
@@ -30,9 +35,9 @@ const VoteNextPopcorn = ({
                 recommendationReason={popcornData.recommendationReason}
                 movieDirector={popcornData.movieDirector}
               />
-            ),
-          )}
-      </DefaultContainer>
+            ))}
+        </DefaultContainer>
+      )}
     </>
   );
 };

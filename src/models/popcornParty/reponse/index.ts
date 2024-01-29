@@ -10,7 +10,7 @@ export interface TTrendingData {
 
 export type TTrendingMovieData = Omit<TTrendingData, 'popcornId'>;
 export type TTrendingPopcornData = Omit<TTrendingData, 'movieId' | 'rank'>;
-export type TRandomPopcornRecommendData = {
+export type TPopcornRecommendData = {
   id: number;
   movieTitle: string;
   imageUrl: string;

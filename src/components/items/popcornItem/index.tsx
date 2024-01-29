@@ -4,7 +4,7 @@ import Typography from '../../typography';
 import Vote from '../../vote';
 import popcornItemStyles from './PopcornItem.style';
 import {useState} from 'react';
-import {TRandomPopcornRecommendData} from '@/models/popcornParty/reponse';
+import {TPopcornRecommendData} from '@/models/popcornParty/reponse';
 import {defaultImages} from '@/assets';
 import useRecommendMovieMutation from '@/hooks/mutaions/useRecommendMovie';
 
@@ -15,7 +15,7 @@ const PopcornItem = ({
   recommendationCount,
   recommendationReason,
   movieDirector,
-}: TRandomPopcornRecommendData) => {
+}: TPopcornRecommendData) => {
   const [voteState, setVoteState] = useState(false);
   const [voteCount, setVoteCount] = useState(recommendationCount);
   const {recommendMovieMutate} = useRecommendMovieMutation();

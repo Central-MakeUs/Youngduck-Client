@@ -1,9 +1,10 @@
 import {api} from '@/apis';
+import {ResponseDTO} from '@/models/common/responseDTO';
+import {TPopcornRecommendData} from '@/models/popcornParty/reponse';
 
-export const postRecommendMovie = async (id: number) => {
-  console.log(id);
-  const res = await api.post(
-    `/popcorn/recommend/vote?recommendedPopcorn=${id}`,
-  );
-  return res;
+export const getPopcornOfNextWeekData = async (): Promise<
+  ResponseDTO<TPopcornRecommendData[]>
+> => {
+  const res = await api.get('/popcorn/recommend/all');
+  return res.data;
 };

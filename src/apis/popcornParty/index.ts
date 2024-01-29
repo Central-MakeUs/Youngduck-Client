@@ -1,6 +1,6 @@
 import {ResponseDTO} from '@/models/common/responseDTO';
 import {
-  TRandomPopcornRecommendData,
+  TPopcornRecommendData,
   TTrendingMovieData,
   TTrendingPopcornData,
 } from '@/models/popcornParty/reponse';
@@ -20,9 +20,16 @@ export const getTrendingMovieData = async (): Promise<
   return res.data;
 };
 
-export const getRandomPopcornRecommendData = async (): Promise<
-  ResponseDTO<TRandomPopcornRecommendData[]>
+export const geTPopcornRecommendData = async (): Promise<
+  ResponseDTO<TPopcornRecommendData[]>
 > => {
   const res = await api.get('/popcorn/recommend');
   return res.data;
+};
+
+export const postRecommendMovie = async (id: number) => {
+  const res = await api.post(
+    `/popcorn/recommend/vote?recommendedPopcorn=${id}`,
+  );
+  return res;
 };

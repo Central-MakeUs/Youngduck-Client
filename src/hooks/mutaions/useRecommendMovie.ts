@@ -1,5 +1,5 @@
+import {postRecommendMovie} from '@/apis/popcornParty';
 import {useMutation} from '@tanstack/react-query';
-import {postRecommendMovie} from '@/apis/popcornParty/recommendList/recommendList';
 
 const useRecommendMovieMutation = () => {
   const {mutate: recommendMovieMutate} = useMutation({
