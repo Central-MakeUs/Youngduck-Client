@@ -13,12 +13,25 @@ interface ModalProps {
   isVisible: boolean;
   onClose: () => void;
   onPress: () => void;
+  type?: 'error' | 'default';
 }
 
-const Popup = ({title, content, isVisible, onClose, onPress}: ModalProps) => {
+const Popup = ({
+  title,
+  content,
+  isVisible,
+  onClose,
+  onPress,
+  type,
+}: ModalProps) => {
   return (
     <ModalContainer isVisible={isVisible} onBackdropPress={onClose}>
-      <View style={popupStyles.modal}>
+      <View
+        style={{
+          ...popupStyles.modal,
+          borderColor:
+            type === 'error' ? palette.State.Point : palette.Primary.Normal,
+        }}>
         <Typography style="Subtitle2" color={palette.Text.Strong}>
           {title}
         </Typography>
@@ -29,8 +42,11 @@ const Popup = ({title, content, isVisible, onClose, onPress}: ModalProps) => {
           <BoxButton variant="default" onPress={onClose} width="50%">
             아니오
           </BoxButton>
-          <BoxButton onPress={onPress} width="50%">
-            예
+          <BoxButton
+            onPress={onPress}
+            variant={type === 'error' ? 'highlight' : 'primary'}
+            width="50%">
+            네
           </BoxButton>
         </View>
       </View>
