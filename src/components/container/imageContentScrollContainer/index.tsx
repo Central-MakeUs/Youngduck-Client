@@ -21,8 +21,6 @@ interface IImageContentScrollContainerProp {
 const ImageContentScrollContainer = ({
   children,
 }: IImageContentScrollContainerProp) => {
-  // To-do image 크기를 정사각형으로 할지 -> 현재 코드 사용
-  // 혹은 이미지 비율 그대로 가져와서 사용할지  -> image 크기 구해서 적용하는 코드로 수정
   const {stackNavigation} = useNavigator();
   const {screenWidth} = getScreenSize();
   const {top, bottom} = useSafeAreaInsets();
@@ -57,12 +55,22 @@ const ImageContentScrollContainer = ({
         onScroll={calculateOpacity}
         bounces={false}>
         <View style={{opacity: opacity}}>
-          <Image
-            source={{
-              uri: posterImage,
-            }}
-            style={imageContentScrollContainerStyles.image}
-          />
+          {!!posterImage ? (
+            <Image
+              source={{
+                uri: posterImage,
+              }}
+              style={imageContentScrollContainerStyles.image}
+            />
+          ) : (
+            <View
+              style={[
+                imageContentScrollContainerStyles.image,
+                {backgroundColor: 'white'},
+              ]}
+            />
+          )}
+
           <LinearGradient
             colors={['rgba(0,0,0,0.7)', 'rgba(0,0,0,0)']}
             style={imageContentScrollContainerStyles.imageBlur}

@@ -1,7 +1,7 @@
 import {Pressable, View} from 'react-native';
 import popcornPartyDetailScreenStyles from './popcornPartyDetailScreen.style';
 import useNavigator from '@/hooks/useNavigator';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import DefaultContainer from '@/components/container/defaultContainer';
 import Typography from '@/components/typography';
 import Divider from '@/components/divider';
@@ -43,15 +43,16 @@ function PopcornPartyDetailScreen({
     ],
   });
   const movieData = popcornPartyDetailData.data?.data;
-  if (!popcornPartyDetailData.isLoading) {
-    setPosterImage(movieData?.imageUrl!);
-  }
 
   // tab bar에 필요한 제목들 선언
   const tabBars = [
     {title: '팝콘 지수', tabNumber: 0},
     {title: '팝콘들의 리뷰', tabNumber: 1},
   ];
+
+  useEffect(() => {
+    setPosterImage(movieData?.imageUrl!);
+  }, [movieData?.popcornId]);
 
   const comments = [
     {
