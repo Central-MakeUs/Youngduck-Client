@@ -8,6 +8,8 @@ declare module 'react-native-config' {
     MARKETING_POLICY_URI: string;
     USAGE_POLICY_URI: string;
     PRIVACY_POLICY_URI: string;
+    KMDB_API_BASE_URL: string;
+    KMDB_API_KEY: string;
   }
 
   export const Config: NativeConfig;

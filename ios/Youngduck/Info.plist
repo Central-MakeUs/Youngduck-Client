@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Youngduck</string>
+	<string>팝콘 메이트</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -28,7 +28,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>$(KAKAO_NATIVE_APP_KEY_WITH_KAKAO)</string>
-				<string>com.popcornmate</string>
+				<string>com.popcornmate.app</string>
 			</array>
 		</dict>
 	</array>

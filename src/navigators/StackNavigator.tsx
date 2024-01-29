@@ -6,7 +6,6 @@ import LoginScreen from '@/screens/login/LoginScreen';
 import SignupScreen from '@/screens/signup/SignupScreen';
 import BottomTabNavigator from './bottomTabNavigator';
 import SignupCompleteScreen from '@/screens/signupComplete/SIgnupCompleteScreen';
-import MyPageScreen from '@/screens/myPage/MyPageScreen';
 import DetailScreen from '@/screens/screening/detail/DetailScreen';
 import WritingScreen from '@/screens/screening/writing/WritingScreen';
 import KakaoSearchScreen from '@/screens/screening/kakaoSearch/KakaoSearchScreen';
@@ -89,7 +88,7 @@ function StackNavigator() {
         name={stackScreens.SignupCompleteScreen}
         component={SignupCompleteScreen}
         options={{headerShown: false}}
-      /> 
+      />
       {/*BottomTab 3개 페이지*/}
       <Stack.Screen
         name={stackScreens.BottomTabScreens}
@@ -196,9 +195,7 @@ function StackNavigator() {
         name={stackScreens.WriteRecommandScreen}
         component={WriteRecommandScreen}
         options={{
-          header: () => (
-            <CancelTopBar text="팝콘작 추천하기" onPress={handleGoBack} />
-          ),
+          headerShown: false,
         }}
       />
       <Stack.Screen

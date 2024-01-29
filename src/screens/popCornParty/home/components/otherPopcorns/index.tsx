@@ -18,7 +18,11 @@ const OtherPopcorns = () => {
         mb={8}>
         5건의 투표작 모두 보기
       </BoxButton>
-      <BoxButton onPress={() => {}} mb={32}>
+      <BoxButton
+        onPress={() =>
+          stackNavigation.navigate(stackScreens.WriteRecommandScreen)
+        }
+        mb={32}>
         다른 작품 추천하기
       </BoxButton>
     </DefaultContainer>

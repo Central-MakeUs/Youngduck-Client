@@ -206,8 +206,6 @@
 			dependencies = (
 			);
 			name = Youngduck;
-			packageProductDependencies = (
-			);
 			productName = Youngduck;
 			productReference = 13B07F961A680F5B00A75B9A /* Youngduck.app */;
 			productType = "com.apple.product-type.application";
@@ -238,8 +236,6 @@
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
-			packageReferences = (
-			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -486,7 +482,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcornmate;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcornmate.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Youngduck.app/Youngduck";
 			};
@@ -511,7 +507,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcornmate;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcornmate.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Youngduck.app/Youngduck";
 			};
@@ -525,7 +521,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Youngduck/Youngduck.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 69F5355JYF;
+				DEVELOPMENT_TEAM = 4FD8AV745R;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Youngduck/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -538,7 +534,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcornmate;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcornmate.app;
 				PRODUCT_NAME = Youngduck;
 				SWIFT_OBJC_BRIDGING_HEADER = "Youngduck-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -555,7 +551,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Youngduck/Youngduck.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 69F5355JYF;
+				DEVELOPMENT_TEAM = 4FD8AV745R;
 				INFOPLIST_FILE = Youngduck/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -567,7 +563,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.popcornmate;
+				PRODUCT_BUNDLE_IDENTIFIER = com.popcornmate.app;
 				PRODUCT_NAME = Youngduck;
 				SWIFT_OBJC_BRIDGING_HEADER = "Youngduck-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
