@@ -65,7 +65,7 @@ function WriteRecommandScreen() {
         />
         <View style={styles.buttonMargin}>
           <ButtonInput
-            value={selectedMovie}
+            value={selectedMovie.title}
             placeholder="클릭하면 영화를 검색할 수 있어요"
             title="추천 영화"
             category="search"
