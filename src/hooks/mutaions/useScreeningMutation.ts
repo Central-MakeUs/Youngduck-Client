@@ -4,6 +4,7 @@ import {useMutation, useQueryClient} from '@tanstack/react-query';
 import useNavigator from '../useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import {postScreeningDetailReview} from '@/apis/screening/review';
+import {postScreeningBookmark} from '@/apis/screening/detail';
 
 const useScreeningMutation = () => {
   const {stackNavigation} = useNavigator();
@@ -35,6 +36,16 @@ const useScreeningMutation = () => {
     },
   });
 
-  return {uploadImage, uploadScreening, uploadScreeningReview};
+  // 스크리닝 찜하기 post
+  const uploadScreeningBookmark = useMutation({
+    mutationFn: postScreeningBookmark,
+  });
+
+  return {
+    uploadImage,
+    uploadScreening,
+    uploadScreeningReview,
+    uploadScreeningBookmark,
+  };
 };
 export default useScreeningMutation;
