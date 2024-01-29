@@ -48,6 +48,7 @@ const useScreeningMutation = () => {
   const uploadScreeningBookmark = useMutation({
     mutationFn: postScreeningBookmark,
     onSuccess: () => {
+      console.log('신고 성공');
       queryClient.invalidateQueries({queryKey: ['screeningDetail']});
     },
     onError: err => {
@@ -65,6 +66,7 @@ const useScreeningMutation = () => {
   const complainScreeningReview = useMutation({
     mutationFn: postScreeningComplainReview,
     onSuccess: () => {
+      console.log('성공');
       queryClient.invalidateQueries({queryKey: ['screeningReview']});
     },
     onError: err => {
@@ -72,7 +74,7 @@ const useScreeningMutation = () => {
       if (errorResponse) {
         const error = errorResponse.data as ResponseErrorAPI;
         console.log(error);
-        showSnackBar('신고에 실패하였습니다.');
+        showSnackBar(error.reason);
       }
     },
   });
