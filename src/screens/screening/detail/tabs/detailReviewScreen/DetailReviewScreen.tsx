@@ -67,6 +67,7 @@ const DetailReviewScreen = ({id}: IDetailReviewProps) => {
                 date={getSimpleDate(comment.createdAt)}
                 idx={idx}
                 key={idx}
+                complainOnPress={() => {}}
               />
             ))}
           {reviewList.length > 5 && !moreComment ? (
@@ -90,6 +91,7 @@ const DetailReviewScreen = ({id}: IDetailReviewProps) => {
                   date={getSimpleDate(comment.createdAt)}
                   idx={idx}
                   key={idx}
+                  complainOnPress={() => {}}
                 />
               ))}
             </>
