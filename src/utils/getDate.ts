@@ -54,19 +54,16 @@ const getSimpleDate = (date: DateParsable) => {
   return '';
 };
 
-// 오늘 날짜가 기간 안에 있는 지
-const getDateRangeIn = (startDate: DateParsable, endDate: DateParsable) => {
+// 오늘 날짜가 시작일 이전에 있는 지
+const getDatePrevious = (startDate: DateParsable) => {
   const today = new Date();
-  return (
-    (isAfter(today, startDate) || isSameDay(today, startDate)) &&
-    (isBefore(today, endDate) || isSameDay(today, endDate))
-  );
+  return isBefore(today, startDate) || isSameDay(today, startDate);
 };
 
 // 오늘 날짜가 하루 뒤 날짜 인지
 const getOneDayAfter = (endDate: DateParsable) => {
   const tommorow = addDays(endDate, 1);
-  return isSameDay(new Date(), tommorow);
+  return isSameDay(new Date(), tommorow) || isAfter(new Date(), tommorow);
 };
 
 export {
@@ -75,6 +72,6 @@ export {
   getVoteDateRange,
   getSimpleDate,
   getKorDateRange,
-  getDateRangeIn,
+  getDatePrevious,
   getOneDayAfter,
 };

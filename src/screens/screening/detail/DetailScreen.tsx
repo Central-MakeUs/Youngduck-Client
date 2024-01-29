@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {useQuery} from '@tanstack/react-query';
 
@@ -9,11 +9,11 @@ import DetailReviewScreen from './tabs/detailReviewScreen/DetailReviewScreen';
 import DetailInfoScreen from './tabs/detailInfoScreen/DetailInfoScreen';
 import stackScreens from '@/constants/stackScreens';
 import {ScreenRouteProp} from '@/types/navigator';
-import {DetailBottomButtonType} from '@/types/ui';
 import BottomDetailButton from './components/bottomDetailButton';
 import useNavigator from '@/hooks/useNavigator';
 import {getScreeningDetailContent} from '@/apis/screening/detail';
 import {screeningTabBars} from '@/constants/tabBars';
+import useScreeningType from './hooks/useScreeningType';
 
 import {detailScreenStyles} from './DetailScreen.style';
 
@@ -27,21 +27,35 @@ const DetailScreen = ({route}: DetailScreenProps) => {
 
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [completeHeart, setCompleteHeart] = useState<boolean>(true);
-  const [bottomType, setBottomType] =
-    useState<DetailBottomButtonType>('reviewStart');
 
-  const {data} = useQuery({
+  const {buttonType, setDetailButtonType, buttonOnPress} = useScreeningType();
+
+  const {data, status} = useQuery({
     queryKey: ['screeningDetail'],
     queryFn: () => getScreeningDetailContent(id),
   });
 
-  const handleBottomButtonPress = () => {
-    if (bottomType === 'reviewStart') {
-      stackNavigation.navigate(stackScreens.ReviewWritingScreen, {id});
+  useEffect(() => {
+    if (status === 'success') {
+      //console.log('제목 이름', data.data.screeningTitle);
+      //console.log('리뷰 했는지', data?.data.reviewed);
+      //console.log('찜했는지', data?.data.bookmarked);
+      setDetailButtonType(
+        data?.data.reviewed,
+        data?.data.bookmarked,
+        data?.data.screeningEndDate,
+      );
     }
+  }, [data]);
+
+  // 하단 box button 클릭 시
+  const handleBottomButtonPress = () => {
+    //if (buttonType === 'reviewStart') {
+    //  stackNavigation.navigate(stackScreens.ReviewWritingScreen, {id});
+    //}
+    buttonOnPress();
   };
 
-  //console.log(data?.data.reviewed, data?.data.bookmarked);
   return (
     <View style={detailScreenStyles.wrapper}>
       <View style={detailScreenStyles.content}>
@@ -57,6 +71,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
             setCurrentTabBarNumber={setCurrentTab}
             tabBars={screeningTabBars}
           />
+
           <View>
             {currentTab === 0 && data?.data && (
               <DetailInfoScreen item={data?.data} />
@@ -68,7 +83,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
 
       <View style={detailScreenStyles.bottom}>
         <BottomDetailButton
-          type="reviewStart"
+          type={buttonType}
           onPress={handleBottomButtonPress}
           onOptionPress={() => {
             setCompleteHeart(!completeHeart);

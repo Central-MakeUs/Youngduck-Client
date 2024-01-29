@@ -1,5 +1,5 @@
 import {ResponseDTO} from '@/models/common/responseDTO';
-import {IScreeningInfinityResponse} from '@/models/screening/response';
+import {IScreeningInfinityResponse} from '@/models/screening/response/listResponseDto';
 
 export interface InfiniteData<T> {
   pageParams: number[];
