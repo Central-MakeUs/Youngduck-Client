@@ -155,7 +155,7 @@ const MyManagementItem = ({
               ))}
           </View>
           {isOpenedUp && (
-            <Typography style="Body1" numberOfLinesDisabled mb={16}>
+            <Typography style="Body1" numberOfLinesDisabled={-1} mb={16}>
               {review!}
             </Typography>
           )}

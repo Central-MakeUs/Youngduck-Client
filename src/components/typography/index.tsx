@@ -8,7 +8,7 @@ function Typography({
   children,
   color = palette.Text.Normal,
   essential,
-  numberOfLinesDisabled = false,
+  numberOfLinesDisabled = 3,
   m,
   mt,
   mr,
@@ -31,7 +31,9 @@ function Typography({
         fontFamily: 'Pretendard Variable',
         ...text[style],
       }}
-      numberOfLines={numberOfLinesDisabled ? undefined : 3}>
+      numberOfLines={
+        numberOfLinesDisabled === -1 ? undefined : numberOfLinesDisabled
+      }>
       {children}
       {essential && <Text style={{color: palette.State.Point}}>*</Text>}
     </Text>
