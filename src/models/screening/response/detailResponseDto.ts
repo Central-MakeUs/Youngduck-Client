@@ -13,3 +13,10 @@ export interface IScreeningDetailContent
   extends Omit<IScreeningDetail, 'category'> {
   category: TEngCategory;
 }
+
+// 스크리닝 찜하기 응답 타입
+export interface IScreeningBookMarkResponse {
+  screeningId: number;
+  canCancel: boolean;
+  bookMarked: boolean;
+}
