@@ -11,12 +11,18 @@ export type TScreeningReviewContent = {
 };
 
 // 스크리닝 리뷰 상영 지수 응답 타입
-export type TScreeningReviewCountResponse = {
-  movieReviewCountNeg: number;
-  movieReviewCountPos: number;
-  locationCountNeg: number;
-  locationCountPos: number;
-  serviceCountNeg: number;
+export type TScreeningReviewPostive = {
   serviceCountPos: number;
-  screeningRate: number;
+  locationCountPos: number;
+  movieReviewCountPos: number;
 };
+
+export type TScreeningReviewNegative = {
+  movieReviewCountNeg: number;
+  locationCountNeg: number;
+  serviceCountNeg: number;
+};
+export type TScreeningReviewCountResponse = {
+  screeningRate: number;
+} & TScreeningReviewPostive &
+  TScreeningReviewNegative;

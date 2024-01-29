@@ -1,5 +1,6 @@
 import ReviewRate from '@/components/rates/reviewRate';
 import ScreeningRate from '@/components/rates/screeningRate';
+import {screeningRateArray} from '@/constants/review';
 import {TScreeningReviewCountResponse} from '@/models/screening/response/reviewResponseDto';
 
 interface IDetailScreeningRate {
@@ -8,21 +9,14 @@ interface IDetailScreeningRate {
 const DetailScreeningRate = ({rates}: IDetailScreeningRate) => {
   return (
     <ScreeningRate score={rates?.screeningRate} mode="screeningRate">
-      <ReviewRate
-        category="작품 감상"
-        negative={rates?.serviceCountNeg}
-        positive={rates?.serviceCountPos}
-      />
-      <ReviewRate
-        category="상영 장소"
-        negative={rates?.locationCountNeg}
-        positive={rates.locationCountPos}
-      />
-      <ReviewRate
-        category="운영 방식"
-        negative={rates?.serviceCountNeg}
-        positive={rates?.serviceCountPos}
-      />
+      {screeningRateArray.map(rateLabel => (
+        <ReviewRate
+          category={rateLabel.title}
+          key={rateLabel.title}
+          negative={rates?.[rateLabel.negative]}
+          positive={rates?.[rateLabel.positive]}
+        />
+      ))}
     </ScreeningRate>
   );
 };
