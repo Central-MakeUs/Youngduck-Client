@@ -15,9 +15,9 @@ import {screeningTabBars} from '@/constants/tabBars';
 import useScreeningType from './hooks/useScreeningType';
 import Popup from '@/components/popup';
 import {useWebviewStore} from '@/stores/webview';
+import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 
 import {detailScreenStyles} from './DetailScreen.style';
-import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 
 type DetailScreenProps = {
   route: ScreenRouteProp<stackScreens.DetailScreen>;
@@ -25,12 +25,11 @@ type DetailScreenProps = {
 
 const DetailScreen = ({route}: DetailScreenProps) => {
   const {id} = route.params;
+  const [currentTab, setCurrentTab] = useState<number>(0);
 
   const {isVisited} = useWebviewStore();
   const {uploadScreeningBookmark} = useScreeningMutation();
 
-  const [currentTab, setCurrentTab] = useState<number>(0);
-  const [completeHeart, setCompleteHeart] = useState<boolean>(true);
   // 임의로 uri 넣어줌
   const uri = 'https://www.naver.com';
 
@@ -51,8 +50,6 @@ const DetailScreen = ({route}: DetailScreenProps) => {
 
   useEffect(() => {
     if (status === 'success') {
-      console.log('찜하기 여부', data?.data.bookmarked);
-      console.log('리뷰 여부', data?.data.reviewed);
       setDetailButtonType(
         data?.data.reviewed,
         data?.data.bookmarked,
@@ -63,13 +60,17 @@ const DetailScreen = ({route}: DetailScreenProps) => {
 
   // 관람 신청 모달 네 클릭 시
   const handleScreeningPopupPress = () => {
-    onClosePopupScreening();
     // 찜하기 api 실행
     uploadScreeningBookmark.mutate(id);
+    onClosePopupScreening();
   };
 
   // 관람 취소 모달 네 클릭 시
-  const handleCacelPopupPress = () => {};
+  const handleCacelPopupPress = () => {
+    // 찜하기 api 실행
+    uploadScreeningBookmark.mutate(id);
+    onClosePopupCancel();
+  };
 
   return (
     <View style={detailScreenStyles.wrapper}>
@@ -82,7 +83,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
         onPress={handleScreeningPopupPress}
       />
 
-      {/*관람 신청 팝업 모달*/}
+      {/*관람 취소 팝업 모달*/}
       <Popup
         title="관람 예정을 취소할까요?"
         content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
@@ -119,7 +120,6 @@ const DetailScreen = ({route}: DetailScreenProps) => {
           type={buttonType}
           onPress={handleButtonOnPress}
           onOptionPress={handleOptionOnPress}
-          heartState={completeHeart}
         />
       </View>
     </View>
