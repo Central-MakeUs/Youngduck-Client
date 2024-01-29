@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {View} from 'react-native';
-import {useQuery} from '@tanstack/react-query';
+import {useQueries, useQuery} from '@tanstack/react-query';
 
 import DefaultContainer from '@/components/container/defaultContainer';
 import CommentItem from '@/components/items/commentItem';
@@ -9,7 +9,10 @@ import Typography from '@/components/typography';
 import LoadingPage from '@/components/pages/loadingPage';
 import EmptyItem from '@/components/items/emptyItem';
 import palette from '@/styles/theme/color';
-import {getScreeningDetailReview} from '@/apis/screening/review';
+import {
+  getScreeningDetailReview,
+  getScreeningRateReview,
+} from '@/apis/screening/review';
 import {getSimpleDate} from '@/utils/getDate';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import Popup from '@/components/popup';
@@ -24,12 +27,23 @@ const DetailReviewScreen = ({id}: IDetailReviewProps) => {
   const [reviewId, setReviewId] = useState<number>(0);
 
   const [moreComment, setMoreComment] = useState<boolean>(false);
-  const {data, status, isLoading} = useQuery({
-    queryKey: ['screeningReview'],
-    queryFn: () => getScreeningDetailReview(id),
+
+  const [reviews, screeningRates] = useQueries({
+    queries: [
+      {
+        queryKey: ['screeningReview', id],
+        queryFn: () => getScreeningDetailReview(id),
+      },
+      {
+        queryKey: ['screeningRate', id],
+        queryFn: () => getScreeningRateReview(id),
+      },
+    ],
   });
 
-  const reviewList = status === 'success' ? data.data : [];
+  console.log('상영지수', screeningRates.data?.data);
+
+  const reviewList = reviews.data?.data ? reviews.data.data : [];
 
   const {complainScreeningReview} = useScreeningMutation();
 
@@ -38,7 +52,7 @@ const DetailReviewScreen = ({id}: IDetailReviewProps) => {
     await complainScreeningReview.mutateAsync(reviewId);
   };
 
-  if (isLoading) {
+  if (reviews.isLoading) {
     return (
       <View style={{height: 350}}>
         <LoadingPage />
@@ -46,7 +60,7 @@ const DetailReviewScreen = ({id}: IDetailReviewProps) => {
     );
   }
 
-  if (reviewList.length === 0) {
+  if (reviewList && reviewList.length === 0) {
     return (
       <View
         style={{
