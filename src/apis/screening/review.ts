@@ -19,3 +19,11 @@ export const postScreeningDetailReview = async (
   const res = await api.post(`/screening/review/${id}`, review);
   return res.data;
 };
+
+// 특정 리뷰 신고하는 함수
+export const postScreeningComplainReview = async (
+  id: number,
+): Promise<string> => {
+  const res = await api.post(`/screening/review/complain/${id}`);
+  return res.data;
+};
