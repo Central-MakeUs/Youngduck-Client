@@ -39,6 +39,9 @@ const useScreeningMutation = () => {
   // 스크리닝 찜하기 post
   const uploadScreeningBookmark = useMutation({
     mutationFn: postScreeningBookmark,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['screeningDetail']});
+    },
   });
 
   return {

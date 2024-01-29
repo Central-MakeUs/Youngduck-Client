@@ -27,6 +27,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
   const {id} = route.params;
 
   const {isVisited} = useWebviewStore();
+  const {uploadScreeningBookmark} = useScreeningMutation();
 
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [completeHeart, setCompleteHeart] = useState<boolean>(true);
@@ -50,6 +51,8 @@ const DetailScreen = ({route}: DetailScreenProps) => {
 
   useEffect(() => {
     if (status === 'success') {
+      console.log('찜하기 여부', data?.data.bookmarked);
+      console.log('리뷰 여부', data?.data.reviewed);
       setDetailButtonType(
         data?.data.reviewed,
         data?.data.bookmarked,
@@ -61,6 +64,8 @@ const DetailScreen = ({route}: DetailScreenProps) => {
   // 관람 신청 모달 네 클릭 시
   const handleScreeningPopupPress = () => {
     onClosePopupScreening();
+    // 찜하기 api 실행
+    uploadScreeningBookmark.mutate(id);
   };
 
   // 관람 취소 모달 네 클릭 시
