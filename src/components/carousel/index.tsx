@@ -3,7 +3,7 @@ import {ScrollView, View} from 'react-native';
 
 import ReviewItem from '@/screens/screening/home/components/reviewItem';
 import {getScreenSize} from '@/utils/getScreenSize';
-import {IWeekScreeningData} from '@/models/screening/response';
+import {IWeekScreeningData} from '@/models/screening/response/screeningResponseDto';
 
 import {carouselStyles} from './Carousel.style';
 

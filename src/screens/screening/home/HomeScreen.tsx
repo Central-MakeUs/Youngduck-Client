@@ -18,11 +18,12 @@ import {
   getRecentScreening,
   getWeekScreening,
 } from '@/apis/screening/screening';
-import {IWeekScreeningData} from '@/models/screening/response';
+
 import EmptyCard from '@/components/cards/emptyCard';
 import Typography from '@/components/typography';
 
 import {screeningHomeStyle} from './HomeScreen.style';
+import {IWeekScreeningData} from '@/models/screening/response/screeningResponseDto';
 
 function HomeScreen() {
   const {stackNavigation} = useNavigator();

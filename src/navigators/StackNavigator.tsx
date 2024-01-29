@@ -6,7 +6,6 @@ import LoginScreen from '@/screens/login/LoginScreen';
 import SignupScreen from '@/screens/signup/SignupScreen';
 import BottomTabNavigator from './bottomTabNavigator';
 import SignupCompleteScreen from '@/screens/signupComplete/SIgnupCompleteScreen';
-import MyPageScreen from '@/screens/myPage/MyPageScreen';
 import DetailScreen from '@/screens/screening/detail/DetailScreen';
 import WritingScreen from '@/screens/screening/writing/WritingScreen';
 import KakaoSearchScreen from '@/screens/screening/kakaoSearch/KakaoSearchScreen';
@@ -30,6 +29,7 @@ import WithdrawScreen from '@/screens/myPage/setting/screens/withdraw/WithdrawSc
 import ManageScreeningScreen from '@/screens/myPage/manageScreening/ManageScreeningScreen';
 import ManageReviewScreen from '@/screens/myPage/manageReview/ManageReviewScreen';
 import MyScreeningScreen from '@/screens/myPage/myScreening/MyScreeningScreen';
+import DetailWebviewScreen from '@/screens/screening/detailWebview/DetailWebviewScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -89,7 +89,7 @@ function StackNavigator() {
         name={stackScreens.SignupCompleteScreen}
         component={SignupCompleteScreen}
         options={{headerShown: false}}
-      /> 
+      />
       {/*BottomTab 3개 페이지*/}
       <Stack.Screen
         name={stackScreens.BottomTabScreens}
@@ -157,6 +157,12 @@ function StackNavigator() {
         component={DetailScreen}
         options={{headerShown: false}}
       />
+      {/*상세 웹뷰 페이지*/}
+      <Stack.Screen
+        name={stackScreens.DetailWebviewScreen}
+        component={DetailWebviewScreen}
+        options={{headerShown: false}}
+      />
       {/*리뷰 작성 페이지*/}
       <Stack.Screen
         name={stackScreens.ReviewWritingScreen}
@@ -196,9 +202,7 @@ function StackNavigator() {
         name={stackScreens.WriteRecommandScreen}
         component={WriteRecommandScreen}
         options={{
-          header: () => (
-            <CancelTopBar text="팝콘작 추천하기" onPress={handleGoBack} />
-          ),
+          headerShown: false,
         }}
       />
       <Stack.Screen

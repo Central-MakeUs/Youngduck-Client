@@ -13,9 +13,16 @@ import useNavigator from '@/hooks/useNavigator';
 import {getVoteDateRange} from '@/utils/getDate';
 
 import writeRecommandScreenStyles from './WriteRecommandScreen.style';
+import {IRecommendMovieProps} from '@/types/popcornParty';
+import useRecommendMovieMutation from '@/hooks/mutaions/useRecommendMovieMutation';
+import CancelTopBar from '@/components/topBar/cancelTopBar';
+import {useQueryClient} from '@tanstack/react-query';
 
 function WriteRecommandScreen() {
-  const [selectedMovie, setSelectedMovie] = useState<string>('');
+  const [selectedMovie, setSelectedMovie] = useState<IRecommendMovieProps>({
+    title: '',
+    movieSeq: '',
+  });
   const [reason, setReason] = useState<string>('');
   const [isAgree, setIsAgree] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -23,9 +30,13 @@ function WriteRecommandScreen() {
   const {bottom} = useSafeAreaInsets();
   const {startDate, endDate} = getVoteDateRange();
   const {stackNavigation} = useNavigator();
+  const queryClient = useQueryClient();
+
+  const {recommendMovieMutate} = useRecommendMovieMutation();
 
   const styles = writeRecommandScreenStyles({bottom});
-  const canRegister = !!selectedMovie.length && reason.length >= 10 && isAgree;
+  const canRegister =
+    !!selectedMovie.title.length && reason.length >= 10 && isAgree;
 
   const inputReason = (e: string) => setReason(e);
 
@@ -33,12 +44,22 @@ function WriteRecommandScreen() {
   const toggleIsVisibleState = () => setIsVisible(!isVisible);
 
   const goToRecommandListScreen = () => {
-    // 추후 API 요청 로직 추가
-    stackNavigation.popToTop();
+    recommendMovieMutate({
+      movieId: selectedMovie.movieSeq,
+      reason,
+      agreed: isAgree,
+    });
+    handleGoBack();
+  };
+
+  const handleGoBack = () => {
+    queryClient.removeQueries({queryKey: ['searchMovie']});
+    stackNavigation.goBack();
   };
 
   return (
     <DefaultContainer>
+      <CancelTopBar text="팝콘작 추천하기" onPress={handleGoBack} />
       <Pressable style={styles.container} onPress={Keyboard.dismiss}>
         <SubTitleDescription
           text="다음 주의 팝콘작을 추천해 주세요"
@@ -48,7 +69,7 @@ function WriteRecommandScreen() {
         />
         <View style={styles.buttonMargin}>
           <ButtonInput
-            value={selectedMovie}
+            value={selectedMovie.title}
             placeholder="클릭하면 영화를 검색할 수 있어요"
             title="추천 영화"
             category="search"

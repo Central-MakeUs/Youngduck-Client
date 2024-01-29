@@ -1,5 +1,3 @@
-import {DateParsable} from 'react-native-calendar-picker';
-
 export type TCategory = {
   CASUAL: '정기상영';
   ASSIGNMENT: '과제상영';
@@ -24,20 +22,3 @@ export const KorCategoryValues: Array<TCategory[TEngCategory]> = [
   '졸업상영',
   '기타',
 ];
-
-// 스크리닝 등록하기 요청 body 타입
-export interface IScreeningBodyRequest {
-  posterImgUrl: string;
-  screeningTitle: string;
-  hostName: string;
-  category: TKorCategory | '';
-  screeningStartDate: DateParsable | undefined;
-  screeningEndDate: DateParsable | undefined;
-  screeningStartTime: Date | undefined;
-  location: string;
-  information: string;
-  formUrl: string;
-  hostPoneNumber: string;
-  hostEmail: string;
-  hasAgreed: boolean;
-}

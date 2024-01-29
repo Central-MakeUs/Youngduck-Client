@@ -14,6 +14,8 @@ const screeningRateStyles = ({tooltipHeight}: IScreeningRateStylesProps) =>
       borderColor: palette.Text.Alternative,
       borderRadius: 16,
       alignItems: 'center',
+      marginTop: 24,
+      marginBottom: 40,
     },
     screeningIndexWrap: {
       borderTopWidth: 0.5,

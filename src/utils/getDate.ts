@@ -1,5 +1,15 @@
-import {endOfWeek, format, getHours, getMinutes, startOfWeek} from 'date-fns';
 import {DateParsable} from 'react-native-calendar-picker';
+import {
+  addDays,
+  endOfWeek,
+  format,
+  getHours,
+  getMinutes,
+  isAfter,
+  isBefore,
+  startOfWeek,
+  isSameDay,
+} from 'date-fns';
 
 const getDateRange = (startDate: DateParsable, endDate: DateParsable) => {
   const dateRange = `${format(startDate, 'yyyy-MM-dd')} ~ ${format(
@@ -36,7 +46,7 @@ const getVoteDateRange = () => {
   return {startDate, endDate};
 };
 
-const getDate = (date: DateParsable) => {
+const getSimpleDate = (date: DateParsable) => {
   if (date) {
     const dateRange = `${format(date, 'yyyy.MM.dd')}`;
     return dateRange;
@@ -44,4 +54,24 @@ const getDate = (date: DateParsable) => {
   return '';
 };
 
-export {getDateRange, getTime, getVoteDateRange, getDate, getKorDateRange};
+// 오늘 날짜가 시작일 이전에 있는 지
+const getDatePrevious = (startDate: DateParsable) => {
+  const today = new Date();
+  return isBefore(today, startDate) || isSameDay(today, startDate);
+};
+
+// 오늘 날짜가 하루 뒤 날짜 인지
+const getOneDayAfter = (endDate: DateParsable) => {
+  const tommorow = addDays(endDate, 1);
+  return isSameDay(new Date(), tommorow) || isAfter(new Date(), tommorow);
+};
+
+export {
+  getDateRange,
+  getTime,
+  getVoteDateRange,
+  getSimpleDate,
+  getKorDateRange,
+  getDatePrevious,
+  getOneDayAfter,
+};

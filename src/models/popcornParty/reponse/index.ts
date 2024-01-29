@@ -1,4 +1,4 @@
-export interface TTrendingData {
+export interface ITrendingData {
   popcornId?: number;
   movieId?: number;
   index: number;
@@ -8,8 +8,15 @@ export interface TTrendingData {
   mode: 'with-ranking' | 'without-ranking';
 }
 
-export type TTrendingMovieData = Omit<TTrendingData, 'popcornId'>;
-export type TTrendingPopcornData = Omit<TTrendingData, 'movieId' | 'rank'>;
+export interface ISearchMovieDataResponse {
+  title: string;
+  posters: string;
+  directors: {director: {directorNm: string}[]};
+  movieSeq: string;
+}
+
+export type TTrendingMovieData = Omit<ITrendingData, 'popcornId'>;
+export type TTrendingPopcornData = Omit<ITrendingData, 'movieId' | 'rank'>;
 export type TPopcornRecommendData = {
   id: number;
   movieTitle: string;

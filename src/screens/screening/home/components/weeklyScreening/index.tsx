@@ -4,11 +4,11 @@ import {DateParsable} from 'react-native-calendar-picker';
 import Typography from '@/components/typography';
 import useNavigator from '@/hooks/useNavigator';
 import palette from '@/styles/theme/color';
-import {getDate} from '@/utils/getDate';
+import {getCategory} from '@/utils/getCategory';
+import {TEngCategory} from '@/models/enums/category';
+import {getSimpleDate} from '@/utils/getDate';
 
 import {weeklyStyles} from './WeeklyScreening.style';
-import {TEngCategory} from '@/models/screening/request';
-import {getCategory} from '@/utils/getCategory';
 
 interface IWeeklyScreeningProps {
   id: number;
@@ -43,7 +43,7 @@ const WeeklyScreening = ({
         {getCategory(category)}
       </Typography>
       <Typography style="Label1">{hostName}</Typography>
-      <Typography style="Chips2">{getDate(date)}</Typography>
+      <Typography style="Chips2">{getSimpleDate(date)}</Typography>
     </TouchableOpacity>
   );
 };

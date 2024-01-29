@@ -7,7 +7,8 @@ export const detailScreenStyles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    height: screenHeight - 80,
+    height: screenHeight - 155,
+    marginBottom: 80,
   },
   bottom: {
     position: 'absolute',
