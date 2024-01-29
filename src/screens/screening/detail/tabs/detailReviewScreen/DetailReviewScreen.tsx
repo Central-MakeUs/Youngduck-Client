@@ -8,7 +8,7 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import {getScreeningDetailReview} from '@/apis/screening/review';
 import EmptyItem from '@/components/items/emptyItem';
-import {getDate} from '@/utils/getDate';
+import {getSimpleDate} from '@/utils/getDate';
 
 import {reviewScreenStyles} from './DetailReviewScreen.style';
 
@@ -48,7 +48,7 @@ const DetailReviewScreen = ({id}: IDetailReviewProps) => {
                 nickname={comment.nickname}
                 isSatisfied={comment.afterScreening}
                 review={comment.review}
-                date={getDate(comment.createdAt)}
+                date={getSimpleDate(comment.createdAt)}
                 idx={idx}
                 key={comment.reviewId}
               />
