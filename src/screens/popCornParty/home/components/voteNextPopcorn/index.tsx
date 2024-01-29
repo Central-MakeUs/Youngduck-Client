@@ -3,12 +3,19 @@ import PopcornItem from '@/components/items/popcornItem';
 import SubTitle from '@/components/title/subTitle';
 import {popcornDatas} from '../../dummy';
 import {IPopcornItemProps} from '@/types/popcornParty';
+import {TRandomPopcornRecommendData} from '@/models/popcornParty/reponse';
 
-interface IVoteNextPopcornProp {
+type IVoteNextPopcornProp = Record<
+  'randomPopcornRecommendData',
+  TRandomPopcornRecommendData[]
+> & {
   title: string;
-}
+};
 
-const VoteNextPopcorn = ({title}: IVoteNextPopcornProp) => {
+const VoteNextPopcorn = ({
+  title,
+  randomPopcornRecommendData,
+}: IVoteNextPopcornProp) => {
   return (
     <>
       <SubTitle text={title} mb={8} />
