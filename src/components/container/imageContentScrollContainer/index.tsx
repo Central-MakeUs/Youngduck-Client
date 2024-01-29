@@ -12,6 +12,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import imageContentScrollContainerStyles from './imageContentScrollContainer.style';
+import {usePosterImageStore} from '@/stores/posterImage';
 
 interface IImageContentScrollContainerProp {
   children: React.ReactNode;
@@ -25,6 +26,7 @@ const ImageContentScrollContainer = ({
   const {stackNavigation} = useNavigator();
   const {screenWidth} = getScreenSize();
   const {top, bottom} = useSafeAreaInsets();
+  const {posterImage} = usePosterImageStore();
 
   const [opacity, setOpacity] = useState<number>(1);
 
@@ -57,7 +59,7 @@ const ImageContentScrollContainer = ({
         <View style={{opacity: opacity}}>
           <Image
             source={{
-              uri: 'http://file.koreafilm.or.kr/thm/02/00/02/20/tn_DPF004699.JPG',
+              uri: posterImage,
             }}
             style={imageContentScrollContainerStyles.image}
           />

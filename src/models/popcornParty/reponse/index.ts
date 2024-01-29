@@ -15,6 +15,14 @@ export interface ISearchMovieDataResponse {
   movieSeq: string;
 }
 
+export interface IPopcornPartyDetailResponse {
+  popcornId: number;
+  movieTitle: string;
+  directorName: string;
+  imageUrl: string;
+  detail: string;
+}
+
 export type TTrendingMovieData = Omit<ITrendingData, 'popcornId'>;
 export type TTrendingPopcornData = Omit<ITrendingData, 'movieId' | 'rank'>;
 export type TPopcornRecommendData = {
