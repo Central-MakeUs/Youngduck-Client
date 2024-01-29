@@ -15,6 +15,8 @@ import {getVoteDateRange} from '@/utils/getDate';
 import writeRecommandScreenStyles from './WriteRecommandScreen.style';
 import {IRecommendMovieProps} from '@/types/popcornParty';
 import useRecommendMovieMutation from '@/hooks/mutaions/useRecommendMovieMutation';
+import CancelTopBar from '@/components/topBar/cancelTopBar';
+import {useQueryClient} from '@tanstack/react-query';
 
 function WriteRecommandScreen() {
   const [selectedMovie, setSelectedMovie] = useState<IRecommendMovieProps>({
@@ -28,6 +30,8 @@ function WriteRecommandScreen() {
   const {bottom} = useSafeAreaInsets();
   const {startDate, endDate} = getVoteDateRange();
   const {stackNavigation} = useNavigator();
+  const queryClient = useQueryClient();
+
   const {recommendMovieMutate} = useRecommendMovieMutation();
 
   const styles = writeRecommandScreenStyles({bottom});
@@ -45,11 +49,17 @@ function WriteRecommandScreen() {
       reason,
       agreed: isAgree,
     });
+    handleGoBack();
+  };
+
+  const handleGoBack = () => {
+    queryClient.removeQueries({queryKey: ['searchMovie']});
     stackNavigation.goBack();
   };
 
   return (
     <DefaultContainer>
+      <CancelTopBar text="팝콘작 추천하기" onPress={handleGoBack} />
       <Pressable style={styles.container} onPress={Keyboard.dismiss}>
         <SubTitleDescription
           text="다음 주의 팝콘작을 추천해 주세요"

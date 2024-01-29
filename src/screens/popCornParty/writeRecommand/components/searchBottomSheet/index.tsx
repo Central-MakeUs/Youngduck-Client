@@ -14,7 +14,7 @@ import MovieItem from '@/components/items/movieItem';
 import BoxButton from '@/components/buttons/boxButton';
 import {getScreenSize} from '@/utils/getScreenSize';
 import GrayPopcornSvg from '@/assets/icons/gray-popcorn.svg';
-import {useQuery} from '@tanstack/react-query';
+import {useQuery, useQueryClient} from '@tanstack/react-query';
 import {getSearchMovieData} from '@/apis/popcornParty';
 import {
   IRecommendMovieProps,
@@ -46,6 +46,7 @@ const SearchBottomSheet = ({
     enabled: false,
   });
   const searchResults = getMovieList(searchMovieData!);
+  const queryClient = useQueryClient();
 
   const renderItem = ({item}: Record<'item', ISearchMovieDataProps>) => (
     <MovieItem
@@ -62,6 +63,7 @@ const SearchBottomSheet = ({
 
   const closeModal = () => {
     setMovie('');
+    queryClient.removeQueries({queryKey: ['searchMovie']});
     bottomDrawerRef?.current?.close();
   };
 
