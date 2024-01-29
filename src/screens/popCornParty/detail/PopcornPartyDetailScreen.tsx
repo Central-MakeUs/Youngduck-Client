@@ -100,7 +100,10 @@ function PopcornPartyDetailScreen() {
           ))}
         </DefaultContainer>
       )}
-      <VoteNextPopcorn title="팝콘 튀기고 싶은 다른 영화가 있다면?" />
+      <VoteNextPopcorn
+        popcornRecommendData={[]}
+        title="팝콘 튀기고 싶은 다른 영화가 있다면?"
+      />
       <DefaultContainer>
         <Pressable
           onPress={() =>

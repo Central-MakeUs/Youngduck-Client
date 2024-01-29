@@ -39,7 +39,7 @@ function PopcornPartyHomeScreen() {
       <TrendingMovie trendingMovieData={trendingMovieData.data?.data!} />
       <Divider height={8} mt={24} mb={16} />
       <VoteNextPopcorn
-        randomPopcornRecommendData={randomPopcornRecommendData.data?.data!}
+        popcornRecommendData={randomPopcornRecommendData.data?.data!}
         title="다음 주 팝콘작 투표하기"
       />
       <OtherPopcorns />

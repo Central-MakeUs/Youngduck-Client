@@ -20,12 +20,16 @@ const popcornItemStyles = StyleSheet.create({
     borderColor: palette.Line.Normal,
   },
   image: {width: 88, height: 88, borderRadius: 8, marginRight: 16},
-  contentWrap: {flex: 1, justifyContent: 'space-between'},
-  voteWrap: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  wrap: {
+    flex: 1,
     justifyContent: 'space-between',
   },
+  contentWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  typoWrap: {flex: 8.5},
+  voteWrap: {flex: 1.5, alignItems: 'flex-end'},
 });
 
 export default popcornItemStyles;

@@ -1,15 +1,15 @@
 import PopcornTrendingCard from '@/components/cards/popcornTrendingCard';
 import SubTitle from '@/components/title/subTitle';
 import {FlatList} from 'react-native';
-import {ITrendingMovieData} from '@/models/popcornParty/reponse';
+import {TTrendingMovieData} from '@/models/popcornParty/reponse';
 
-interface ITrendingMovieProps extends Record<'item', ITrendingMovieData> {
+interface ITrendingMovieProps extends Record<'item', TTrendingMovieData> {
   index: number;
 }
 
 const TrendingMovie = ({
   trendingMovieData,
-}: Record<'trendingMovieData', ITrendingMovieData[]>) => {
+}: Record<'trendingMovieData', TTrendingMovieData[]>) => {
   const withRankingItem = ({item, index}: ITrendingMovieProps) => (
     <PopcornTrendingCard
       movieId={item.movieId}
