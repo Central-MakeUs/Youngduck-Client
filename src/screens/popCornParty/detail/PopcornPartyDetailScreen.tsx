@@ -17,12 +17,14 @@ import ScreeningRate from '@/components/rates/screeningRate';
 import PopcornRate from '@/components/rates/popcornRate';
 import useVoteMovieMutation from '@/hooks/mutaions/useRecommendMovie';
 import {ScreenRouteProp} from '@/types/navigator';
-import {useQueries} from '@tanstack/react-query';
+import {useQueries, useQueryClient} from '@tanstack/react-query';
 import {
   getPopconrRateData,
   getPopcornPartyDetailData,
 } from '@/apis/popcornParty/detail/detail';
 import {usePosterImageStore} from '@/stores/posterImage';
+import {getPopcornRecommendData} from '@/apis/popcornParty';
+import {useIsFocused} from '@react-navigation/native';
 
 interface IPopcornPartyDetailScreenProp {
   route: ScreenRouteProp<stackScreens.PopcornPartyDetailScreen>;
@@ -35,20 +37,28 @@ function PopcornPartyDetailScreen({
   const [isMoreDetailMode, setIsMoreDetailMode] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const {stackNavigation} = useNavigator();
+  const currentFocusState = useIsFocused();
+  const queryClient = useQueryClient();
   const {setPosterImage} = usePosterImageStore();
   const {voteMovieMutate} = useVoteMovieMutation();
-  const [popcornPartyDetailData, popcornRateData] = useQueries({
-    queries: [
-      {
-        queryKey: ['popcornPartyDetail'],
-        queryFn: () => getPopcornPartyDetailData(params.id),
-      },
-      {
-        queryKey: ['popcornRateData'],
-        queryFn: () => getPopconrRateData(params.id),
-      },
-    ],
-  });
+  const [popcornPartyDetailData, popcornRateData, randomPopcornRecommendData] =
+    useQueries({
+      queries: [
+        {
+          queryKey: ['popcornPartyDetail'],
+          queryFn: () => getPopcornPartyDetailData(params.id),
+        },
+        {
+          queryKey: ['popcornRateData'],
+          queryFn: () => getPopconrRateData(params.id),
+        },
+
+        {
+          queryKey: ['randomPopcornRecommendData'],
+          queryFn: getPopcornRecommendData,
+        },
+      ],
+    });
   const movieData = popcornPartyDetailData.data?.data;
   const popcornRate = popcornRateData.data?.data;
 
@@ -61,6 +71,13 @@ function PopcornPartyDetailScreen({
   useEffect(() => {
     setPosterImage(movieData?.imageUrl!);
   }, [movieData?.popcornId]);
+
+  useEffect(() => {
+    if (currentFocusState && randomPopcornRecommendData.status === 'success') {
+      queryClient.removeQueries({queryKey: ['randomPopcornRecommendData']});
+      randomPopcornRecommendData.refetch();
+    }
+  }, [currentFocusState]);
 
   const comments = [
     {
@@ -141,7 +158,7 @@ function PopcornPartyDetailScreen({
         </DefaultContainer>
       )}
       <VoteNextPopcorn
-        popcornRecommendData={[]}
+        popcornRecommendData={randomPopcornRecommendData.data?.data!}
         title="팝콘 튀기고 싶은 다른 영화가 있다면?"
         isLoading={false}
         voteMovieMutate={voteMovieMutate}

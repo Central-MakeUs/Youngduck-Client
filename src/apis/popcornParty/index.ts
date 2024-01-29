@@ -3,7 +3,7 @@ import {
   TPopcornRecommendData,
   TTrendingMovieData,
   TTrendingPopcornData,
-  ISearchMovieDataResponse
+  ISearchMovieDataResponse,
 } from '@/models/popcornParty/reponse';
 import {IRecommendMovieBodyRequest} from '@/models/popcornParty/request';
 import Config from 'react-native-config';
@@ -36,7 +36,7 @@ export const getTrendingMovieData = async (): Promise<
   return res.data;
 };
 
-export const geTPopcornRecommendData = async (): Promise<
+export const getPopcornRecommendData = async (): Promise<
   ResponseDTO<TPopcornRecommendData[]>
 > => {
   const res = await api.get('/popcorn/recommend');

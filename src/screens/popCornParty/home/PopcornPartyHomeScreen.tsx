@@ -11,7 +11,7 @@ import {useQueries, useQueryClient} from '@tanstack/react-query';
 import {
   getTrendingPopcornData,
   getTrendingMovieData,
-  geTPopcornRecommendData,
+  getPopcornRecommendData,
 } from '@/apis/popcornParty';
 import {useEffect} from 'react';
 import {useIsFocused} from '@react-navigation/native';
@@ -30,7 +30,7 @@ function PopcornPartyHomeScreen() {
         {queryKey: ['trendingMovieData'], queryFn: getTrendingMovieData},
         {
           queryKey: ['randomPopcornRecommendData'],
-          queryFn: geTPopcornRecommendData,
+          queryFn: getPopcornRecommendData,
         },
       ],
     });
