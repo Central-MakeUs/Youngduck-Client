@@ -7,13 +7,13 @@ import MultiButton from '@/components/buttons/multibutton';
 import getQuestions from '@/utils/getQuestions';
 
 interface ISelectReviewProps {
-  review: {[key: string]: string};
-  setReview: React.Dispatch<React.SetStateAction<{[key: string]: string}>>;
+  review: {[key: string]: boolean};
+  setReview: React.Dispatch<React.SetStateAction<{[key: string]: boolean}>>;
   isSelectedPositive: boolean;
   screenNumber: number;
   onLeftButtonPress: () => void;
   onRightButtonPress: () => void;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 const SelectReview = ({
@@ -23,8 +23,10 @@ const SelectReview = ({
   screenNumber,
   onLeftButtonPress,
   onRightButtonPress,
+  disabled = false,
 }: ISelectReviewProps) => {
   const questions = getQuestions({isSelectedPositive});
+
   return (
     <ScrollView>
       <SubTitleDescription
@@ -53,12 +55,12 @@ const SelectReview = ({
                   onPress={() =>
                     setReview({
                       ...review,
-                      [question.category]: answer,
+                      [answer.value]: !review[answer.value],
                     })
                   }
-                  type={answer}
-                  isSelected={review[question.category] === answer}
-                  key={answer}
+                  type={answer.category}
+                  isSelected={review[answer.value]}
+                  key={answer.category}
                 />
               ))}
             </View>
@@ -71,6 +73,7 @@ const SelectReview = ({
           rightButtonText="다음"
           onLeftButtonPress={onLeftButtonPress}
           onRightButtonPress={onRightButtonPress}
+          disabled={disabled}
         />
       </View>
     </ScrollView>

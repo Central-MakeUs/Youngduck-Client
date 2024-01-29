@@ -17,29 +17,62 @@ import BoxButton from '@/components/buttons/boxButton';
 function WriteReviewScreen() {
   const [currentScreen, setCurrentScreen] = useState<number>(0);
   const [isAgree, setIsAgree] = useState<boolean>(false);
-  const [startReview, setStartReview] = useState<{[key: string]: string}>({
-    isWatched: '',
-    expectation: '',
-    satisfaction: '',
+  const [startReview, setStartReview] = useState<{
+    [key: string]: boolean | undefined;
+  }>({
+    hasWatched: undefined,
+    beforeScreening: undefined,
+    afterScreening: undefined,
   });
-  const [positiveReview, setPositiveReview] = useState<{[key: string]: string}>(
-    {
-      director: '',
-      art: '',
-      music: '',
-      content: '',
-      actor: '',
-    },
-  );
-  const [negativeReview, setNegativeReview] = useState<{[key: string]: string}>(
-    {
-      director: '',
-      art: '',
-      music: '',
-      content: '',
-      actor: '',
-    },
-  );
+  const [positiveReview, setPositiveReview] = useState<{
+    [key: string]: boolean;
+  }>({
+    // 연출
+    cineMaster: false,
+    greatFilming: false,
+    pom: false,
+    animationIsGood: false,
+    // 미술
+    artIsGood: false,
+    setIsArt: false,
+    custom: false,
+    // 음악
+    music: false,
+    ost: false,
+    // 내용
+    writtenByGod: false,
+    topicIsGood: false,
+    linesAreGood: false,
+    endingIsGood: false,
+    // 배우
+    castingIsGood: false,
+    actingIsGood: false,
+    chemistryIsGood: false,
+  });
+
+  const [negativeReview, setNegativeReview] = useState<{
+    [key: string]: boolean;
+  }>({
+    // 연출
+    iffy: false,
+    badEditing: false,
+    badAngle: false,
+    // 미술
+    badDetail: false,
+    badColor: false,
+    badCustom: false,
+    // 음악
+    badMusic: false,
+    badSound: false,
+    // 내용
+    badEnding: false,
+    endingLoose: false,
+    noDetail: false,
+    badTopic: false,
+    // 배우
+    badActing: false,
+    badCasting: false,
+  });
   const [moreReview, setMoreReview] = useState<string>('');
 
   const scrollViewRef = useRef<ScrollView>(null);
@@ -48,10 +81,14 @@ function WriteReviewScreen() {
   const {stackNavigation} = useNavigator();
 
   const reviewAllSelceted =
-    !!startReview.isWatched &&
-    !!startReview.expectation &&
-    !!startReview.satisfaction;
-  const isSelectedPositive = startReview.satisfaction === '기대만큼 좋았어요.';
+    startReview.hasWatched !== undefined &&
+    startReview.beforeScreening !== undefined &&
+    startReview.afterScreening !== undefined;
+
+  const isSelectedPositive = startReview.afterScreening;
+  const essentialSelected = isSelectedPositive
+    ? Object.values(positiveReview).some(value => value === true)
+    : Object.values(negativeReview).some(value => value === true);
 
   const nextScreen = () => {
     moveScreen({
@@ -116,11 +153,11 @@ function WriteReviewScreen() {
             setReview={
               isSelectedPositive ? setPositiveReview : setNegativeReview
             }
-            isSelectedPositive={isSelectedPositive}
+            isSelectedPositive={isSelectedPositive!}
             screenNumber={1}
             onLeftButtonPress={goBackOrPreviousScreen}
             onRightButtonPress={nextScreen}
-            disabled={reviewAllSelceted}
+            disabled={!essentialSelected}
           />
         </View>
         <View style={writeReviewScreenStyles.commonContainer}>
@@ -133,7 +170,6 @@ function WriteReviewScreen() {
             screenNumber={2}
             onLeftButtonPress={goBackOrPreviousScreen}
             onRightButtonPress={nextScreen}
-            disabled={reviewAllSelceted}
           />
         </View>
         <View style={writeReviewScreenStyles.commonContainer}>
