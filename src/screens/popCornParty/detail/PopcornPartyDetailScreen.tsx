@@ -39,6 +39,7 @@ function PopcornPartyDetailScreen({
   const [currentTabBarNumber, setCurrentTabBarNumber] = useState<number>(0);
   const [isMoreDetailMode, setIsMoreDetailMode] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [viewMoreComment, setViewMoreComment] = useState<boolean>(false);
   const {stackNavigation} = useNavigator();
   const currentFocusState = useIsFocused();
   const queryClient = useQueryClient();
@@ -77,7 +78,10 @@ function PopcornPartyDetailScreen({
   const movieData = popcornPartyDetailData.data?.data;
   const popcornRate = popcornRateData.data?.data;
   const popcornKeyword = popcornKeywordData.data?.data;
-  const popcornReviews = popcornReviewData.data?.data;
+  // 더보기 활성화 시 원래 데이터 모두 보여주기
+  const popcornReviews = viewMoreComment
+    ? popcornReviewData.data?.data
+    : popcornReviewData.data?.data.slice(0, 5);
 
   // tab bar에 필요한 제목들 선언
   const tabBars = [
@@ -147,20 +151,30 @@ function PopcornPartyDetailScreen({
           {popcornReviews === undefined ? (
             <ActivityIndicator />
           ) : (
-            popcornReviews?.map((popcornReview, idx) => (
-              <CommentItem
-                totalComments={popcornReviews.length}
-                userId={popcornReview.userId}
-                nickName={popcornReview.nickName}
-                profileImgNum={(popcornReview.profileImgNum % 3) + 1}
-                popcornId={popcornReview.popcornId}
-                afterScreening={popcornReview.afterScreening}
-                review={popcornReview.review}
-                createdAt={format(popcornReview.createdAt, 'yyyy.MM.dd')}
-                idx={idx}
-                key={popcornReview.createdAt}
-              />
-            ))
+            <>
+              {popcornReviews?.map((popcornReview, idx) => (
+                <CommentItem
+                  totalComments={popcornReviews.length}
+                  userId={popcornReview.userId}
+                  nickName={popcornReview.nickName}
+                  profileImgNum={(popcornReview.profileImgNum % 3) + 1}
+                  popcornId={popcornReview.popcornId}
+                  afterScreening={popcornReview.afterScreening}
+                  review={popcornReview.review}
+                  createdAt={format(popcornReview.createdAt, 'yyyy.MM.dd')}
+                  idx={idx}
+                  key={popcornReview.createdAt}
+                />
+              ))}
+              {!viewMoreComment && popcornReviews.length > 5 && (
+                <BoxButton
+                  onPress={() => setViewMoreComment(true)}
+                  mb={16}
+                  variant="default">
+                  더보기
+                </BoxButton>
+              )}
+            </>
           )}
         </DefaultContainer>
       )}
