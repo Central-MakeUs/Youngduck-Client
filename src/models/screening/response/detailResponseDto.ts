@@ -1,5 +1,9 @@
 import {TEngCategory} from '@/models/enums/category';
 import {TNonNullScreeningBodyRequest} from '../request/screeningRequestDto';
+import {
+  TScreeningNegativeReview,
+  TScreeningPositiveReview,
+} from '@/models/enums/review';
 
 // 스크리닝 디테일 응답 타입
 export interface IScreeningDetail extends TNonNullScreeningBodyRequest {
@@ -31,4 +35,10 @@ export interface IScreeningMyDetailContent
 export interface IScreeningMyDetailResponse
   extends Omit<IScreeningMyDetailContent, 'category'> {
   category: TEngCategory;
+}
+
+// 내가 작성한 스크리닝 댓글 통계 응답 타입
+export interface IScreeningMyStatisticsResponse {
+  positiveCount: TScreeningPositiveReview<number>;
+  negativeCount: TScreeningNegativeReview<number>;
 }
