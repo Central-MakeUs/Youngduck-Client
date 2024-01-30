@@ -80,7 +80,6 @@ const DetailScreen = ({route}: DetailScreenProps) => {
 
   return (
     <>
-      {isLoading && <LoadingPage />}
       <View style={detailScreenStyles.wrapper}>
         {/*관람 신청 팝업 모달*/}
         <Popup
