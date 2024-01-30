@@ -52,7 +52,9 @@ const DetailStatisticScreen = ({id}: IDetailStatisticProp) => {
             />
           ))}
 
-        {positive && <DetailPlusList type="positive" />}
+        {positive && data && (
+          <DetailPlusList type="positive" data={data?.data} />
+        )}
         <BoxButton
           variant="default"
           onPress={() => {
@@ -74,13 +76,15 @@ const DetailStatisticScreen = ({id}: IDetailStatisticProp) => {
             <KeywordItem
               key={item.label}
               keyword={item.label}
-              isPositive={true}
+              isPositive={false}
               totalCount={10}
               count={data?.data.negativeCount[item.value]}
             />
           ))}
 
-        {negative && <DetailPlusList type="negative" />}
+        {negative && data && (
+          <DetailPlusList type="negative" data={data?.data} />
+        )}
         <BoxButton
           variant="default"
           onPress={() => {
