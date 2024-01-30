@@ -28,6 +28,8 @@ import {usePosterImageStore} from '@/stores/posterImage';
 import {getPopcornRecommendData} from '@/apis/popcornParty';
 import {useIsFocused} from '@react-navigation/native';
 import {format} from 'date-fns';
+import Popup from '@/components/popup';
+import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
 
 interface IPopcornPartyDetailScreenProp {
   route: ScreenRouteProp<stackScreens.PopcornPartyDetailScreen>;
@@ -37,14 +39,17 @@ function PopcornPartyDetailScreen({
   route: {params},
 }: IPopcornPartyDetailScreenProp) {
   const [currentTabBarNumber, setCurrentTabBarNumber] = useState<number>(0);
+  const [complainId, setComplainId] = useState<number>(0);
   const [isMoreDetailMode, setIsMoreDetailMode] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [viewMoreComment, setViewMoreComment] = useState<boolean>(false);
+  const [complainPopup, setComplainPopup] = useState<boolean>(false);
   const {stackNavigation} = useNavigator();
   const currentFocusState = useIsFocused();
   const queryClient = useQueryClient();
   const {setPosterImage} = usePosterImageStore();
   const {voteMovieMutate} = useVoteMovieMutation();
+  const {complainUserMutate} = usePopcornPartyMutation();
   const [
     popcornPartyDetailData,
     popcornRateData,
@@ -102,8 +107,21 @@ function PopcornPartyDetailScreen({
 
   const toggleNumberOfLinesState = () => setIsMoreDetailMode(!isMoreDetailMode);
 
+  const handleComplainReview = () => {
+    setComplainPopup(false);
+    complainUserMutate(complainId);
+  };
+
   return (
     <ImageContentScrollContainer>
+      <Popup
+        title="정말 신고하시겠어요?"
+        content={`신고가 누적되면\n해당 유저의 서비스 이용이 제한돼요. `}
+        isVisible={complainPopup}
+        onClose={() => setComplainPopup(false)}
+        onPress={handleComplainReview}
+        type="error"
+      />
       <DefaultContainer>
         <View style={popcornPartyDetailScreenStyles.introduceWrap}>
           <Typography style="Label2">1월 첫째주 팝콘작</Typography>
@@ -158,11 +176,14 @@ function PopcornPartyDetailScreen({
                   userId={popcornReview.userId}
                   nickName={popcornReview.nickName}
                   profileImgNum={(popcornReview.profileImgNum % 3) + 1}
-                  popcornId={popcornReview.popcornId}
                   afterScreening={popcornReview.afterScreening}
                   review={popcornReview.review}
                   createdAt={format(popcornReview.createdAt, 'yyyy.MM.dd')}
                   idx={idx}
+                  complainOnPress={() => {
+                    setComplainId(popcornReview.userId);
+                    setComplainPopup(true);
+                  }}
                   key={popcornReview.createdAt}
                 />
               ))}

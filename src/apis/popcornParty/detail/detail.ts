@@ -34,3 +34,8 @@ export const getPopconrReviewData = async (
   const res = await api.get(`/popcorn/reviews/${popcornId}`);
   return res.data;
 };
+
+export const postComplainUser = async (userId: number) => {
+  const res = await api.post(`/popcorn/review/complain/${userId}`);
+  return res.data;
+};

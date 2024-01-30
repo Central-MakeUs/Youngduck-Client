@@ -37,7 +37,6 @@ export interface IPopcornReviewResponse {
   userId: number;
   nickName: string;
   profileImgNum: number;
-  popcornId: number;
   afterScreening: boolean;
   review: string;
   createdAt: string;

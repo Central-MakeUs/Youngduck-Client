@@ -10,18 +10,18 @@ import {defaultImages} from '@/assets';
 interface ICommentItem extends IPopcornReviewResponse {
   totalComments: number;
   idx: number;
+  complainOnPress: () => void;
 }
 
 const CommentItem = ({
   totalComments,
-  userId,
   nickName,
   profileImgNum,
-  popcornId,
   afterScreening,
   review,
   createdAt,
   idx,
+  complainOnPress,
 }: ICommentItem) => {
   return (
     <View
@@ -39,7 +39,7 @@ const CommentItem = ({
             <Typography style="Label1" color={palette.Text.Strong}>
               {nickName}
             </Typography>
-            <Pressable>
+            <Pressable onPress={complainOnPress}>
               <Typography style="Chips1" color={palette.Text.Alternative}>
                 신고
               </Typography>
