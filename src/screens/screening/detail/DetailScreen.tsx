@@ -79,58 +79,56 @@ const DetailScreen = ({route}: DetailScreenProps) => {
   }
 
   return (
-    <>
-      <View style={detailScreenStyles.wrapper}>
-        {/*관람 신청 팝업 모달*/}
-        <Popup
-          title="관람 예정이신가요?"
-          content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
-          isVisible={buttonType === 'default' && webview.isVisited}
-          onClose={onClosePopupScreening}
-          onPress={handleScreeningPopupPress}
-        />
+    <View style={detailScreenStyles.wrapper}>
+      {/*관람 신청 팝업 모달*/}
+      <Popup
+        title="관람 예정이신가요?"
+        content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
+        isVisible={buttonType === 'default' && webview.isVisited}
+        onClose={onClosePopupScreening}
+        onPress={handleScreeningPopupPress}
+      />
 
-        {/*관람 취소 팝업 모달*/}
-        <Popup
-          title="관람 예정을 취소할까요?"
-          content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
-          isVisible={popupCancel}
-          onClose={onClosePopupCancel}
-          onPress={handleCacelPopupPress}
-        />
+      {/*관람 취소 팝업 모달*/}
+      <Popup
+        title="관람 예정을 취소할까요?"
+        content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
+        isVisible={popupCancel}
+        onClose={onClosePopupCancel}
+        onPress={handleCacelPopupPress}
+      />
 
-        <View style={detailScreenStyles.content}>
-          <ImageContentScrollContainer>
-            {data && (
-              <DetailTitle
-                title={data?.data.screeningTitle}
-                category={data?.data.category}
-              />
-            )}
-            <TabBar
-              currentTabBarNumber={currentTab}
-              setCurrentTabBarNumber={setCurrentTab}
-              tabBars={screeningTabBars}
+      <View style={detailScreenStyles.content}>
+        <ImageContentScrollContainer>
+          {data && (
+            <DetailTitle
+              title={data?.data.screeningTitle}
+              category={data?.data.category}
             />
-
-            <View>
-              {currentTab === 0 && data?.data && (
-                <DetailInfoPage item={data?.data} />
-              )}
-              {currentTab === 1 && <DetailReviewPage id={id} />}
-            </View>
-          </ImageContentScrollContainer>
-        </View>
-
-        <View style={detailScreenStyles.bottom}>
-          <BottomDetailButton
-            type={buttonType}
-            onPress={handleButtonOnPress}
-            onOptionPress={handleOptionOnPress}
+          )}
+          <TabBar
+            currentTabBarNumber={currentTab}
+            setCurrentTabBarNumber={setCurrentTab}
+            tabBars={screeningTabBars}
           />
-        </View>
+
+          <View>
+            {currentTab === 0 && data?.data && (
+              <DetailInfoPage item={data?.data} />
+            )}
+            {currentTab === 1 && <DetailReviewPage id={id} />}
+          </View>
+        </ImageContentScrollContainer>
       </View>
-    </>
+
+      <View style={detailScreenStyles.bottom}>
+        <BottomDetailButton
+          type={buttonType}
+          onPress={handleButtonOnPress}
+          onOptionPress={handleOptionOnPress}
+        />
+      </View>
+    </View>
   );
 };
 export default DetailScreen;

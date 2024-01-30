@@ -6,10 +6,10 @@ import SubTitle from '@/components/title/subTitle';
 import Typography from '@/components/typography';
 import KeywordItem from '@/components/items/keywordItem';
 import BoxButton from '@/components/buttons/boxButton';
-import DetailPositivePlus from '../../components/detailPositivePlus';
+import DetailPlusList from './component/detailPlusList';
 import palette from '@/styles/theme/color';
 
-import {detailStatisticStyles} from './DetailStatisticScreen.style';
+import {detailStatisticStyles} from './DetailStatisticPage.style';
 
 const DetailStatisticScreen = () => {
   const [positive, setPositive] = useState<boolean>(false);
@@ -47,7 +47,7 @@ const DetailStatisticScreen = () => {
           totalCount={100}
           count={84}
         />
-        {positive && <DetailPositivePlus />}
+        {positive && <DetailPlusList />}
         <BoxButton
           variant="default"
           onPress={() => {
@@ -88,7 +88,7 @@ const DetailStatisticScreen = () => {
           totalCount={100}
           count={84}
         />
-        {negative && <DetailPositivePlus />}
+        {negative && <DetailPlusList />}
         <BoxButton
           variant="default"
           onPress={() => {

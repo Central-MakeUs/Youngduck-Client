@@ -1,9 +1,10 @@
+import {View} from 'react-native';
+
 import KeywordItem from '@/components/items/keywordItem';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
-import {View} from 'react-native';
 
-const DetailPositivePlus = () => {
+const DetailPlusList = () => {
   return (
     <View>
       <Typography
@@ -41,4 +42,4 @@ const DetailPositivePlus = () => {
     </View>
   );
 };
-export default DetailPositivePlus;
+export default DetailPlusList;
