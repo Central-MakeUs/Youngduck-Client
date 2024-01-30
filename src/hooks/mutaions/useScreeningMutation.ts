@@ -6,7 +6,6 @@ import {patchScreening, postScreening} from '@/apis/screening/screening';
 import useNavigator from '../useNavigator';
 import stackScreens from '@/constants/stackScreens';
 
-import {postScreeningDetailReview} from '@/apis/screening/review';
 import {
   postScreeningBookmark,
   postScreeningMyPrivate,
@@ -16,7 +15,6 @@ import {
   postScreeningComplainReview,
   postScreeningDetailReview,
 } from '@/apis/screening/review';
-import {postScreeningBookmark} from '@/apis/screening/detail';
 import {ResponseErrorAPI} from '@/models/common/responseDTO';
 import {showSnackBar} from '@/utils/showSnackBar';
 
