@@ -6,11 +6,13 @@ import stackScreens from '@/constants/stackScreens';
 import MyDetailBottomButton from './components/myDetailBottomButton';
 import useNavigator from '@/hooks/useNavigator';
 import {getScreeningMyDetailContent} from '@/apis/screening/detail';
+import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 
 interface IMyDetailScreenProps {
   route: ScreenRouteProp<stackScreens.MyDetailScreen>;
 }
 const MyDetailScreen = ({route: {params}}: IMyDetailScreenProps) => {
+  const {uploadScreeningPrivate} = useScreeningMutation();
   const {data} = useQuery({
     queryKey: ['screeningMyDetail'],
     queryFn: () => getScreeningMyDetailContent(params.id),
@@ -27,12 +29,17 @@ const MyDetailScreen = ({route: {params}}: IMyDetailScreenProps) => {
       });
     }
   };
+  // 나의 작성하기 비공개 및 공개 처리
+  const handlePrivateOption = async () => {
+    await uploadScreeningPrivate.mutateAsync(params.id);
+  };
+
   return (
     <View>
       {data && (
         <MyDetailBottomButton
           type={data.data.private ? 'myClose' : 'myOpen'}
-          onPress={() => {}}
+          onPress={handlePrivateOption}
           optionPress={handleGoToWrite}
         />
       )}
