@@ -51,7 +51,12 @@ type PopcornPartyStackParamList = {
   PopcornPartyDetailScreen: {id: number};
   RecommandListScreen: undefined;
   WriteRecommandScreen: undefined;
-  WriteReviewScreen: undefined;
+  WriteReviewScreen: {
+    id: number;
+    poster: string;
+    title: string;
+    directorname: string;
+  };
 };
 
 // bottomTab route 타입 지정
