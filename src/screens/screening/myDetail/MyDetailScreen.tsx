@@ -67,7 +67,7 @@ const MyDetailScreen = ({route: {params}}: IMyDetailScreenProps) => {
               <DetailInfoPage item={data?.data} />
             )}
             {currentTab === 1 && <DetailReviewPage id={params.id} />}
-            {currentTab === 2 && <DetailStatisticScreen />}
+            {currentTab === 2 && <DetailStatisticScreen id={params.id} />}
           </View>
         </ImageContentScrollContainer>
       </View>

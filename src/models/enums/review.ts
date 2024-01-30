@@ -18,6 +18,9 @@ export type TScreeningPositiveReview<T> = {
   chemistryIsGood: T;
 };
 
+export type TScreeningPositiveReviewKey =
+  keyof TScreeningPositiveReview<number>;
+
 // 스크리닝 부정 리뷰 타입
 export type TScreeningNegativeReview<T> = {
   iffy: T;
@@ -35,3 +38,6 @@ export type TScreeningNegativeReview<T> = {
   badActing: T;
   badCasting: T;
 };
+
+export type TScreeningNegativeReviewKey =
+  keyof TScreeningNegativeReview<number>;

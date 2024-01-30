@@ -1,20 +1,28 @@
 import {
+  TScreeningNegativeReviewKey,
+  TScreeningPositiveReviewKey,
+} from '@/models/enums/review';
+import {
   TScreeningReviewNegative,
   TScreeningReviewPostive,
 } from '@/models/screening/response/reviewResponseDto';
 
-type SelectItem = {
-  value: string;
+type SelectItem<T> = {
+  value: T;
   label: string;
 };
 
-type ReviewCategory = {
+type ReviewCategory<T> = {
   title: string;
-  select: SelectItem[];
+  select: SelectItem<T>[];
 };
 
 type PositiveReviewType = {
-  [key: string]: ReviewCategory;
+  [key: string]: ReviewCategory<TScreeningPositiveReviewKey>;
+};
+
+type NegativeReviewType = {
+  [key: string]: ReviewCategory<TScreeningNegativeReviewKey>;
 };
 
 export const reviewTypes = ['direct', 'art', 'music', 'content', 'actor'];
@@ -126,7 +134,7 @@ export const positiveReview: PositiveReviewType = {
   },
 };
 
-export const negativeReview: PositiveReviewType = {
+export const negativeReview: NegativeReviewType = {
   direct: {
     title: '연출이 아쉬워요',
     select: [

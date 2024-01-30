@@ -10,44 +10,49 @@ import DetailPlusList from './component/detailPlusList';
 import palette from '@/styles/theme/color';
 
 import {detailStatisticStyles} from './DetailStatisticPage.style';
+import {useQuery} from '@tanstack/react-query';
+import {getScreeningMyStatistics} from '@/apis/screening/detail';
+import LoadingPage from '../loadingPage';
+import {negativeReview, positiveReview} from '@/constants/review';
 
-const DetailStatisticScreen = () => {
+interface IDetailStatisticProp {
+  id: number;
+}
+
+const DetailStatisticScreen = ({id}: IDetailStatisticProp) => {
+  const {data, isLoading} = useQuery({
+    queryKey: ['screeningMyStatistic'],
+    queryFn: () => getScreeningMyStatistics(id),
+  });
+
   const [positive, setPositive] = useState<boolean>(false);
   const [negative, setNegative] = useState<boolean>(false);
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
   return (
     <View style={detailStatisticStyles.container}>
       {/*좋았던 리뷰 통계*/}
       <SubTitle text="좋았던 점" mt={24} />
       <DefaultContainer>
         <Typography style="Body2" color={palette.Text.Alternative} mb={12}>
-          연출이 좋았어요
+          {positiveReview.direct.title}
         </Typography>
 
-        <KeywordItem
-          keyword="씨네마의 연출"
-          isPositive={true}
-          totalCount={100}
-          count={84}
-        />
-        <KeywordItem
-          keyword="씨네마의 연출"
-          isPositive={true}
-          totalCount={100}
-          count={84}
-        />
-        <KeywordItem
-          keyword="씨네마의 연출"
-          isPositive={true}
-          totalCount={100}
-          count={84}
-        />
-        <KeywordItem
-          keyword="씨네마의 연출"
-          isPositive={true}
-          totalCount={100}
-          count={84}
-        />
-        {positive && <DetailPlusList />}
+        {data?.data.positiveCount &&
+          positiveReview.direct.select.map(item => (
+            <KeywordItem
+              key={item.label}
+              keyword={item.label}
+              isPositive={true}
+              totalCount={10}
+              count={data?.data.positiveCount[item.value]}
+            />
+          ))}
+
+        {positive && <DetailPlusList type="positive" />}
         <BoxButton
           variant="default"
           onPress={() => {
@@ -61,34 +66,21 @@ const DetailStatisticScreen = () => {
       <SubTitle text="아쉬웠던 점" mt={40} />
       <DefaultContainer>
         <Typography style="Body2" color={palette.Text.Alternative} mb={12}>
-          연출이 좋았어요
+          {negativeReview.direct.title}
         </Typography>
 
-        <KeywordItem
-          keyword="씨네마의 연출"
-          isPositive={false}
-          totalCount={100}
-          count={84}
-        />
-        <KeywordItem
-          keyword="씨네마의 연출"
-          isPositive={false}
-          totalCount={100}
-          count={84}
-        />
-        <KeywordItem
-          keyword="씨네마의 연출"
-          isPositive={false}
-          totalCount={100}
-          count={84}
-        />
-        <KeywordItem
-          keyword="씨네마의 연출"
-          isPositive={false}
-          totalCount={100}
-          count={84}
-        />
-        {negative && <DetailPlusList />}
+        {data?.data.negativeCount &&
+          negativeReview.direct.select.map(item => (
+            <KeywordItem
+              key={item.label}
+              keyword={item.label}
+              isPositive={true}
+              totalCount={10}
+              count={data?.data.negativeCount[item.value]}
+            />
+          ))}
+
+        {negative && <DetailPlusList type="negative" />}
         <BoxButton
           variant="default"
           onPress={() => {

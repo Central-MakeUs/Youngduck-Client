@@ -4,7 +4,10 @@ import KeywordItem from '@/components/items/keywordItem';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 
-const DetailPlusList = () => {
+interface IDetailPlusListProp {
+  type: 'positive' | 'negative';
+}
+const DetailPlusList = ({type}: IDetailPlusListProp) => {
   return (
     <View>
       <Typography
