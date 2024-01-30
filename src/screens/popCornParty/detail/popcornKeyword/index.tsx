@@ -3,13 +3,26 @@ import palette from '@/styles/theme/color';
 import {View} from 'react-native';
 import popcornKeywordStyles from './PopcornKeyword.style';
 import KeywordItem from '@/components/items/keywordItem';
+import {getKeyword} from '@/utils/getKeyword';
 
-const PopcornKeyword = () => {
-  const popcornKeywords = [
-    {keyword: '최고의 촬영', isPositive: true, count: 84},
-    {keyword: '미술이 별로', isPositive: false, count: 47},
-    {keyword: '심금을 울리는 OST', isPositive: true, count: 32},
-  ];
+interface IPopcornKeyword {
+  participatedCount: number;
+  participatedUserCount: number;
+  topThreeKeywords: {[key: string]: number}[];
+}
+
+const PopcornKeyword = ({
+  participatedCount,
+  participatedUserCount,
+  topThreeKeywords,
+}: IPopcornKeyword) => {
+  const {positiveKeywords, negativeKeywords} = getKeyword;
+  const convertKeyToValue = (topThreeKeyword: Object) =>
+    positiveKeywords[Object.keys(topThreeKeyword)[0]] ||
+    negativeKeywords[Object.keys(topThreeKeyword)[0]];
+
+  const isPositive = (topThreeKeyword: Object) =>
+    positiveKeywords[Object.keys(topThreeKeyword)[0]] !== undefined;
   return (
     <>
       <Typography style="Subtitle2" color={palette.Another.Black} mb={8}>
@@ -17,19 +30,19 @@ const PopcornKeyword = () => {
       </Typography>
       <View style={popcornKeywordStyles.participateWrap}>
         <Typography style="Label2" color={palette.Another.Black}>
-          120회
+          {`${participatedCount}회`}
         </Typography>
         <Typography style="Body2" color={palette.Another.Black}>
-          118명 참여
+          {`${participatedUserCount}명 참여`}
         </Typography>
       </View>
-      {popcornKeywords.map(popcornKeyword => (
+      {topThreeKeywords.map(topThreeKeyword => (
         <KeywordItem
-          keyword={popcornKeyword.keyword}
-          isPositive={popcornKeyword.isPositive}
-          totalCount={118}
-          count={popcornKeyword.count}
-          key={popcornKeyword.keyword}
+          keyword={convertKeyToValue(topThreeKeyword)}
+          isPositive={isPositive(topThreeKeyword)}
+          totalCount={participatedCount}
+          count={Object.values(topThreeKeyword)[0]}
+          key={Object.keys(topThreeKeyword)[0]}
         />
       ))}
     </>

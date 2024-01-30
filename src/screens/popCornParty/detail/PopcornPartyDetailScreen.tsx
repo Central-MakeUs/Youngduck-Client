@@ -19,6 +19,7 @@ import useVoteMovieMutation from '@/hooks/mutaions/useRecommendMovie';
 import {ScreenRouteProp} from '@/types/navigator';
 import {useQueries, useQueryClient} from '@tanstack/react-query';
 import {
+  getPopconrKeywordData,
   getPopconrRateData,
   getPopcornPartyDetailData,
 } from '@/apis/popcornParty/detail/detail';
@@ -41,26 +42,35 @@ function PopcornPartyDetailScreen({
   const queryClient = useQueryClient();
   const {setPosterImage} = usePosterImageStore();
   const {voteMovieMutate} = useVoteMovieMutation();
-  const [popcornPartyDetailData, popcornRateData, randomPopcornRecommendData] =
-    useQueries({
-      queries: [
-        {
-          queryKey: ['popcornPartyDetail'],
-          queryFn: () => getPopcornPartyDetailData(params.id),
-        },
-        {
-          queryKey: ['popcornRateData'],
-          queryFn: () => getPopconrRateData(params.id),
-        },
+  const [
+    popcornPartyDetailData,
+    popcornRateData,
+    popcornKeywordData,
+    randomPopcornRecommendData,
+  ] = useQueries({
+    queries: [
+      {
+        queryKey: ['popcornPartyDetail'],
+        queryFn: () => getPopcornPartyDetailData(params.id),
+      },
+      {
+        queryKey: ['popcornRateData'],
+        queryFn: () => getPopconrRateData(params.id),
+      },
+      {
+        queryKey: ['popcornKeywordData'],
+        queryFn: () => getPopconrKeywordData(params.id),
+      },
 
-        {
-          queryKey: ['randomPopcornRecommendData'],
-          queryFn: getPopcornRecommendData,
-        },
-      ],
-    });
+      {
+        queryKey: ['randomPopcornRecommendData'],
+        queryFn: getPopcornRecommendData,
+      },
+    ],
+  });
   const movieData = popcornPartyDetailData.data?.data;
   const popcornRate = popcornRateData.data?.data;
+  const popcornKeyword = popcornKeywordData.data?.data;
 
   // tab bar에 필요한 제목들 선언
   const tabBars = [
@@ -138,7 +148,11 @@ function PopcornPartyDetailScreen({
             score={popcornRate === undefined ? 0 : Number(popcornRate)}>
             <PopcornRate isOpen={isOpen} setIsOpen={setIsOpen} />
           </ScreeningRate>
-          <PopcornKeyword />
+          <PopcornKeyword
+            participatedCount={popcornKeyword?.participatedCount!}
+            participatedUserCount={popcornKeyword?.participatedUserCount!}
+            topThreeKeywords={popcornKeyword?.topThreeKeywords!}
+          />
           <Divider height={8} mt={32} mb={16} />
         </DefaultContainer>
       )}
