@@ -2,7 +2,6 @@ import {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {useQuery} from '@tanstack/react-query';
 
-import DetailTitle from './components/detailTitle';
 import ImageContentScrollContainer from '@/components/container/imageContentScrollContainer';
 import TabBar from '@/components/tabBar';
 import DetailInfoPage from '@/components/pages/detailInfoPage';
@@ -19,6 +18,7 @@ import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import LoadingPage from '@/components/pages/loadingPage';
 
 import {detailScreenStyles} from './DetailScreen.style';
+import ScreeningTitle from '@/components/title/screeningTitle';
 
 type DetailScreenProps = {
   route: ScreenRouteProp<stackScreens.DetailScreen>;
@@ -101,7 +101,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
       <View style={detailScreenStyles.content}>
         <ImageContentScrollContainer>
           {data && (
-            <DetailTitle
+            <ScreeningTitle
               title={data?.data.screeningTitle}
               category={data?.data.category}
             />
