@@ -175,7 +175,12 @@ function PopcornPartyDetailScreen({
         </Pressable>
         <BoxButton
           onPress={() =>
-            stackNavigation.navigate(stackScreens.WriteReviewScreen)
+            stackNavigation.navigate(stackScreens.WriteReviewScreen, {
+              id: movieData?.popcornId!,
+              poster: movieData?.imageUrl!,
+              title: movieData?.movieTitle!,
+              directorname: movieData?.directorName!,
+            })
           }
           mt={22}>
           나도 리뷰쓰기
