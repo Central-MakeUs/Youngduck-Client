@@ -6,7 +6,10 @@ import {postScreening} from '@/apis/screening/screening';
 import useNavigator from '../useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import {postScreeningDetailReview} from '@/apis/screening/review';
-import {postScreeningBookmark} from '@/apis/screening/detail';
+import {
+  postScreeningBookmark,
+  postScreeningMyPrivate,
+} from '@/apis/screening/detail';
 import {ResponseErrorAPI} from '@/models/common/responseDTO';
 import {showSnackBar} from '@/utils/showSnackBar';
 
@@ -59,11 +62,21 @@ const useScreeningMutation = () => {
     },
   });
 
+  // 스크리닝 비공개/공개하기 post
+  const uploadScreeningPrivate = useMutation({
+    mutationFn: postScreeningMyPrivate,
+    onSuccess: () => {
+      showSnackBar('공개 및 비공개 처리가 되었습니다');
+      queryClient.invalidateQueries({queryKey: ['screeningMyDetail']});
+    },
+  });
+
   return {
     uploadImage,
     uploadScreening,
     uploadScreeningReview,
     uploadScreeningBookmark,
+    uploadScreeningPrivate,
   };
 };
 export default useScreeningMutation;

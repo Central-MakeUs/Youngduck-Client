@@ -29,3 +29,11 @@ export const getScreeningMyDetailContent = async (
   const res = await api.get(`/screening/myScreening/${id}`);
   return res.data;
 };
+
+// 내가 작성한 스크리닝 비공개/공개 처리 함수
+export const postScreeningMyPrivate = async (
+  id: number,
+): Promise<ResponseDTO<string>> => {
+  const res = await api.post(`/screening/myScreening/private/${id}`);
+  return res.data;
+};
