@@ -39,9 +39,11 @@ export type ScreeningStackParamList = {
 };
 
 export type ScreeningStackScreensParamList = {
-  WritingScreen:
-    | {type: 'post'; search: string}
-    | {type: 'modified'; search: string; id: number};
+  WritingScreen: {
+    type: 'post' | 'modified';
+    search: string;
+    id?: number;
+  };
   DetailScreen: {id: number};
   MyDetailScreen: {id: number};
   DetailWebviewScreen: {id: number};

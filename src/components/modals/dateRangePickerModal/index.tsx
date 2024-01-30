@@ -4,10 +4,10 @@ import {dateRangleStyles} from './DateRangePickerModal.style';
 import {getScreenSize} from '@/utils/getScreenSize';
 
 interface DateRangePickerProps {
-  startDate: DateParsable | undefined;
-  endDate: DateParsable | undefined;
-  setStartDate: (date: DateParsable | undefined) => void;
-  setEndDate: (date: DateParsable | undefined) => void;
+  startDate: DateParsable | undefined | Date;
+  endDate: DateParsable | undefined | Date;
+  setStartDate: (date: DateParsable | undefined | Date) => void;
+  setEndDate: (date: DateParsable | undefined | Date) => void;
 }
 
 const DateRangePickerModal = ({

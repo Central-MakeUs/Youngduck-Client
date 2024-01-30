@@ -22,17 +22,15 @@ import {KorCategoryValues} from '@/models/enums/category';
 import {IScreeningBodyRequest} from '@/models/screening/request/screeningRequestDto';
 
 import {writingStyles} from './WritingScreen.style';
+import {useQuery} from '@tanstack/react-query';
+import {getScreeningMyDetailContent} from '@/apis/screening/detail';
+import {getCategory} from '@/utils/getCategory';
 
 interface IWritingScreenProps {
   route: ScreenRouteProp<'WritingScreen'>;
 }
 const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
-  const {type, search} = params;
-
-  useEffect(() => {
-    onChangeInput('location', search);
-  }, [search]);
-
+  const {type, search, id} = params;
   const {uploadScreening} = useScreeningMutation();
   const {stackNavigation} = useNavigator();
   const [inputValues, setInputValues] = useState<IScreeningBodyRequest>({
@@ -50,6 +48,43 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
     hostEmail: '',
     hasAgreed: false,
   });
+
+  const {data, status} = useQuery({
+    queryKey: ['screeningMyDetail'],
+    queryFn: () => {
+      if (id) {
+        return getScreeningMyDetailContent(id);
+      }
+    },
+    enabled: type === 'post',
+  });
+
+  useEffect(() => {
+    onChangeInput('location', search);
+  }, [search]);
+
+  useEffect(() => {
+    if (data && id && type === 'modified') {
+      console.log(data.data);
+      setInputValues({
+        ...inputValues,
+        posterImgUrl: data.data.posterImgUrl,
+        screeningTitle: data.data.screeningTitle,
+        hostName: data.data.hostName,
+        category: getCategory(data.data.category),
+        screeningStartDate: new Date(data.data.screeningStartDate),
+        screeningEndDate: new Date(data.data.screeningEndDate),
+        screeningStartTime: new Date(data.data.screeningStartTime),
+        information: data.data.information,
+        formUrl: data.data.formUrl,
+        hostPoneNumber: data.data.hostPoneNumber
+          ? data.data.hostPoneNumber
+          : '',
+        hostEmail: data.data.hostEmail,
+        hasAgreed: data.data.hasAgreed,
+      });
+    }
+  }, [setInputValues]);
 
   const {
     screeningTitle,
