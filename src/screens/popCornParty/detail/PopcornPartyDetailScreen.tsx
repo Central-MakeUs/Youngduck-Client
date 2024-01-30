@@ -101,6 +101,7 @@ function PopcornPartyDetailScreen() {
               date={comment.date}
               idx={idx}
               key={comment.nickname}
+              complainOnPress={() => {}}
             />
           ))}
         </DefaultContainer>
