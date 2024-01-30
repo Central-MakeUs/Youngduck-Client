@@ -39,7 +39,10 @@ const useScreeningMutation = () => {
   const modifyScreening = useMutation({
     mutationFn: patchScreening,
     onSuccess: () => {
+      showSnackBar('스크리닝 수정이 되었습니다');
+      stackNavigation.navigate(stackScreens.BottomTabScreens);
       queryClient.invalidateQueries({queryKey: ['screeningDetail']});
+      queryClient.invalidateQueries({queryKey: ['screeningFilter']});
     },
   });
 

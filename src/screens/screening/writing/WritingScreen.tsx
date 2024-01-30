@@ -31,7 +31,7 @@ interface IWritingScreenProps {
 }
 const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
   const {type, search, id} = params;
-  const {uploadScreening} = useScreeningMutation();
+  const {uploadScreening, modifyScreening} = useScreeningMutation();
   const {stackNavigation} = useNavigator();
   const [inputValues, setInputValues] = useState<IScreeningBodyRequest>({
     posterImgUrl: '',
@@ -49,7 +49,7 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
     hasAgreed: false,
   });
 
-  const {data, status} = useQuery({
+  const {data} = useQuery({
     queryKey: ['screeningMyDetail'],
     queryFn: () => {
       if (id) {
@@ -130,7 +130,13 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
   };
 
   const handleWriteScreening = async () => {
-    await uploadScreening.mutateAsync(inputValues);
+    if (type === 'post') {
+      await uploadScreening.mutateAsync(inputValues);
+    }
+    if (type === 'modified' && data) {
+      const body = {screeningId: data.data.screeningId, ...inputValues};
+      await modifyScreening.mutateAsync(body);
+    }
   };
 
   return (
@@ -288,25 +294,30 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
             textContentType="emailAddress"
           />
         </View>
-        <View style={writingStyles.content}>
-          <Typography style="Label1" color={palette.Text.Normal}>
-            게시글 정책을 확인했어요.
-          </Typography>
-          <CheckBox
-            state={inputValues.hasAgreed ? 'on' : 'off'}
-            onPress={() => {
-              onChangeInput('hasAgreed', !inputValues.hasAgreed);
-            }}
-          />
-        </View>
-        <Typography style="Body2" color={palette.Text.Alternative} mt={4}>
-          상영회는 등록 후 삭제할 수 없어요.
-        </Typography>
-        <Typography style="Body2" color={palette.Text.Alternative} mb={34}>
-          수정이나 비공개 처리는 가능해요.
-        </Typography>
+        {type === 'post' && (
+          <>
+            <View style={writingStyles.content}>
+              <Typography style="Label1" color={palette.Text.Normal}>
+                게시글 정책을 확인했어요.
+              </Typography>
+              <CheckBox
+                state={inputValues.hasAgreed ? 'on' : 'off'}
+                onPress={() => {
+                  onChangeInput('hasAgreed', !inputValues.hasAgreed);
+                }}
+              />
+            </View>
+            <Typography style="Body2" color={palette.Text.Alternative} mt={4}>
+              상영회는 등록 후 삭제할 수 없어요.
+            </Typography>
+            <Typography style="Body2" color={palette.Text.Alternative} mb={34}>
+              수정이나 비공개 처리는 가능해요.
+            </Typography>
+          </>
+        )}
+
         <BoxButton onPress={handleWriteScreening} mb={12} disabled={!canGoNext}>
-          등록하기
+          {type === 'post' ? '등록하기' : '수정하기'}
         </BoxButton>
       </DefaultContainer>
     </DismissKeyboardView>

@@ -42,13 +42,23 @@ const ButtonInput = ({
   const {type, onFocus, onBlur} = useFocus();
   const [timeModal, setTimeModal] = useState(false);
   const [timeString, setTimeString] = useState<number | string | null>(null);
-
   const [selectedStartDate, setSelectedStartDate] = useState<
     DateParsable | undefined
   >(undefined);
   const [selectedEndDate, setSelectedEndDate] = useState<
     DateParsable | undefined
   >(undefined);
+
+  useEffect(() => {
+    if (
+      category === 'date' &&
+      value.screeningStartDate &&
+      value.screeningEndDate
+    ) {
+      setSelectedStartDate(value.screeningStartDate);
+      setSelectedEndDate(value.screeningEndDate);
+    }
+  }, []);
 
   useEffect(() => {
     // 달력 시작일 상태 저장

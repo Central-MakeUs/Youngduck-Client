@@ -23,6 +23,6 @@ export type TNonNullScreeningBodyRequest = {
 };
 
 // 스크리닝 수정하기 요청 body 타입
-export interface IScreeningModifyBodyRequest {
+export interface IScreeningModifyBodyRequest extends IScreeningBodyRequest {
   screeningId: number;
 }
