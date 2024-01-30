@@ -6,7 +6,7 @@ import DetailTitle from './components/detailTitle';
 import ImageContentScrollContainer from '@/components/container/imageContentScrollContainer';
 import TabBar from '@/components/tabBar';
 import DetailInfoPage from '@/components/pages/detailInfoPage';
-import DetailReviewScreen from './tabs/detailReviewScreen/DetailReviewScreen';
+import DetailReviewPage from '@/components/pages/detailReviewPage';
 import stackScreens from '@/constants/stackScreens';
 import {ScreenRouteProp} from '@/types/navigator';
 import BottomDetailButton from './components/bottomDetailButton';
@@ -117,7 +117,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
               {currentTab === 0 && data?.data && (
                 <DetailInfoPage item={data?.data} />
               )}
-              {currentTab === 1 && <DetailReviewScreen id={id} />}
+              {currentTab === 1 && <DetailReviewPage id={id} />}
             </View>
           </ImageContentScrollContainer>
         </View>

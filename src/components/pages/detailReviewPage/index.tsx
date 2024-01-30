@@ -13,17 +13,18 @@ import {
   getScreeningDetailReview,
   getScreeningRateReview,
 } from '@/apis/screening/review';
-import DetailScreeningRate from './components/detailScreeningRate';
+
 import {getSimpleDate} from '@/utils/getDate';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import Popup from '@/components/popup';
 
-import {reviewScreenStyles} from './DetailReviewScreen.style';
+import {reviewScreenStyles} from './DetailReviewPage.style';
+import ScreeningRateCard from '@/components/cards/screeningRateCard';
 
 interface IDetailReviewProps {
   id: number;
 }
-const DetailReviewScreen = ({id}: IDetailReviewProps) => {
+const DetailReviewPage = ({id}: IDetailReviewProps) => {
   const [complainPopup, setComplainPopup] = useState<boolean>(false);
   const [reviewId, setReviewId] = useState<number>(0);
   const [moreComment, setMoreComment] = useState<boolean>(false);
@@ -86,7 +87,7 @@ const DetailReviewScreen = ({id}: IDetailReviewProps) => {
             type="error"
           />
           {/*상영 지수 아이템*/}
-          {screeningRate && <DetailScreeningRate rates={screeningRate} />}
+          {screeningRate && <ScreeningRateCard rates={screeningRate} />}
 
           <View style={reviewScreenStyles.title}>
             <Typography style="Subtitle2" color={palette.Another.Black}>
@@ -147,4 +148,4 @@ const DetailReviewScreen = ({id}: IDetailReviewProps) => {
     </DefaultContainer>
   );
 };
-export default DetailReviewScreen;
+export default DetailReviewPage;
