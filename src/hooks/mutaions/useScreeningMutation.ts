@@ -2,7 +2,7 @@ import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 
 import {postImageUpload} from '@/apis/image/image';
-import {postScreening} from '@/apis/screening/screening';
+import {patchScreening, postScreening} from '@/apis/screening/screening';
 import useNavigator from '../useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import {postScreeningDetailReview} from '@/apis/screening/review';
@@ -32,6 +32,14 @@ const useScreeningMutation = () => {
       queryClient.invalidateQueries({queryKey: ['recentScreening']});
       queryClient.invalidateQueries({queryKey: ['mostCommentScreening']});
       queryClient.invalidateQueries({queryKey: ['screeningFilter']});
+    },
+  });
+
+  // 스크리닝 수정 patch
+  const modifyScreening = useMutation({
+    mutationFn: patchScreening,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['screeningDetail']});
     },
   });
 
@@ -77,6 +85,7 @@ const useScreeningMutation = () => {
     uploadScreeningReview,
     uploadScreeningBookmark,
     uploadScreeningPrivate,
+    modifyScreening,
   };
 };
 export default useScreeningMutation;
