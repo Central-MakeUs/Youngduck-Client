@@ -16,6 +16,7 @@ import useScreeningType from './hooks/useScreeningType';
 import Popup from '@/components/popup';
 import {useWebviewStore} from '@/stores/webview';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
+import LoadingPage from '@/components/pages/loadingPage';
 
 import {detailScreenStyles} from './DetailScreen.style';
 
@@ -31,8 +32,8 @@ const DetailScreen = ({route}: DetailScreenProps) => {
 
   const {uploadScreeningBookmark} = useScreeningMutation();
 
-  const {data, status} = useQuery({
-    queryKey: ['screeningDetail'],
+  const {data, status, isLoading} = useQuery({
+    queryKey: ['screeningDetail', id],
     queryFn: () => getScreeningDetailContent(id),
   });
 
@@ -57,7 +58,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
         setWebview({uri: data.data.formUrl, isVisited: false});
       }
     }
-  }, [data]);
+  }, [data, setWebview, status, buttonType]);
 
   // 관람 신청 모달 네 클릭 시
   const handleScreeningPopupPress = () => {
@@ -73,57 +74,63 @@ const DetailScreen = ({route}: DetailScreenProps) => {
     onClosePopupCancel();
   };
 
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
   return (
-    <View style={detailScreenStyles.wrapper}>
-      {/*관람 신청 팝업 모달*/}
-      <Popup
-        title="관람 예정이신가요?"
-        content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
-        isVisible={buttonType === 'default' && webview.isVisited}
-        onClose={onClosePopupScreening}
-        onPress={handleScreeningPopupPress}
-      />
-
-      {/*관람 취소 팝업 모달*/}
-      <Popup
-        title="관람 예정을 취소할까요?"
-        content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
-        isVisible={popupCancel}
-        onClose={onClosePopupCancel}
-        onPress={handleCacelPopupPress}
-      />
-
-      <View style={detailScreenStyles.content}>
-        <ImageContentScrollContainer>
-          {data && (
-            <DetailTitle
-              title={data?.data.screeningTitle}
-              category={data?.data.category}
-            />
-          )}
-          <TabBar
-            currentTabBarNumber={currentTab}
-            setCurrentTabBarNumber={setCurrentTab}
-            tabBars={screeningTabBars}
-          />
-
-          <View>
-            {currentTab === 0 && data?.data && (
-              <DetailInfoScreen item={data?.data} />
-            )}
-            {currentTab === 1 && <DetailReviewScreen id={id} />}
-          </View>
-        </ImageContentScrollContainer>
-      </View>
-
-      <View style={detailScreenStyles.bottom}>
-        <BottomDetailButton
-          type={buttonType}
-          onPress={handleButtonOnPress}
-          onOptionPress={handleOptionOnPress}
+    <>
+      <View style={detailScreenStyles.wrapper}>
+        {/*관람 신청 팝업 모달*/}
+        <Popup
+          title="관람 예정이신가요?"
+          content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
+          isVisible={buttonType === 'default' && webview.isVisited}
+          onClose={onClosePopupScreening}
+          onPress={handleScreeningPopupPress}
         />
+
+        {/*관람 취소 팝업 모달*/}
+        <Popup
+          title="관람 예정을 취소할까요?"
+          content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
+          isVisible={popupCancel}
+          onClose={onClosePopupCancel}
+          onPress={handleCacelPopupPress}
+        />
+
+        <View style={detailScreenStyles.content}>
+          <ImageContentScrollContainer>
+            {data && (
+              <DetailTitle
+                title={data?.data.screeningTitle}
+                category={data?.data.category}
+              />
+            )}
+            <TabBar
+              currentTabBarNumber={currentTab}
+              setCurrentTabBarNumber={setCurrentTab}
+              tabBars={screeningTabBars}
+            />
+
+            <View>
+              {currentTab === 0 && data?.data && (
+                <DetailInfoScreen item={data?.data} />
+              )}
+              {currentTab === 1 && <DetailReviewScreen id={id} />}
+            </View>
+          </ImageContentScrollContainer>
+        </View>
+
+        <View style={detailScreenStyles.bottom}>
+          <BottomDetailButton
+            type={buttonType}
+            onPress={handleButtonOnPress}
+            onOptionPress={handleOptionOnPress}
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 };
 export default DetailScreen;

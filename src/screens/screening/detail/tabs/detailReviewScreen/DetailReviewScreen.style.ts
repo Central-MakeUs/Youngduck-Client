@@ -4,8 +4,8 @@ export const reviewScreenStyles = StyleSheet.create({
   title: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 24,
     marginBottom: 8,
+    marginTop: 8,
   },
   bottom: {
     marginBottom: 18,

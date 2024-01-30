@@ -18,12 +18,11 @@ import {
   getRecentScreening,
   getWeekScreening,
 } from '@/apis/screening/screening';
-
+import {IWeekScreeningData} from '@/models/screening/response/screeningResponseDto';
 import EmptyCard from '@/components/cards/emptyCard';
-import Typography from '@/components/typography';
+import LoadingPage from '@/components/pages/loadingPage';
 
 import {screeningHomeStyle} from './HomeScreen.style';
-import {IWeekScreeningData} from '@/models/screening/response/screeningResponseDto';
 
 function HomeScreen() {
   const {stackNavigation} = useNavigator();
@@ -46,8 +45,7 @@ function HomeScreen() {
   });
 
   if (weekScreenings.isLoading) {
-    // TODO: 로딩 스피너 구현
-    return <Typography style="Body1">로딩중</Typography>;
+    return <LoadingPage />;
   }
 
   // 작성하기 페이지로 이동

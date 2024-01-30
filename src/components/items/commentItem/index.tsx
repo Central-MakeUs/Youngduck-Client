@@ -1,8 +1,10 @@
+import {Pressable, View} from 'react-native';
+
 import Chip from '@/components/chip';
 import Profile from '@/components/profile';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
-import {Pressable, View} from 'react-native';
+
 import {commentItemStyles} from './CommentItem.style';
 
 interface ICommentItemProps {
@@ -12,6 +14,8 @@ interface ICommentItemProps {
   review: string;
   date: string;
   idx: number;
+
+  complainOnPress: () => void;
 }
 
 const CommentItem = ({
@@ -21,6 +25,7 @@ const CommentItem = ({
   review,
   date,
   idx,
+  complainOnPress,
 }: ICommentItemProps) => {
   return (
     <View
@@ -35,7 +40,7 @@ const CommentItem = ({
             <Typography style="Label1" color={palette.Text.Strong}>
               {nickname}
             </Typography>
-            <Pressable>
+            <Pressable onPress={complainOnPress}>
               <Typography style="Chips1" color={palette.Text.Alternative}>
                 신고
               </Typography>

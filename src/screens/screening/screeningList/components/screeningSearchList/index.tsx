@@ -1,15 +1,15 @@
-import {ActivityIndicator, FlatList, View} from 'react-native';
+import {FlatList, View} from 'react-native';
 import {useInfiniteQuery} from '@tanstack/react-query';
 
 import DefaultContainer from '@/components/container/defaultContainer';
 import Divider from '@/components/divider';
 import ScreeningItem from '@/components/items/screeningItem';
-
 import {
   getSearchScreeningList,
   getTimeOptionScreeningList,
 } from '@/apis/screening/list';
-
+import {TScreeningContent} from '@/models/screening/response/listResponseDto';
+import Loading from '@/components/loading';
 import EmptyItem from '@/components/items/emptyItem';
 import {TEngCategory} from '@/models/enums/category';
 import {
@@ -17,10 +17,10 @@ import {
   getInfiniteQueryArray,
 } from '@/utils/getInfiniteQueryArray';
 import {TScreeningTimeOption} from '@/models/enums/time';
-import Typography from '@/components/typography';
 
 import {screeningSearchListStyles} from './ScreeningSearchList.style';
-import {TScreeningContent} from '@/models/screening/response/listResponseDto';
+import LoadingPage from '@/components/pages/loadingPage';
+
 interface IScreenFilterListProps {
   category: TEngCategory | '';
   search: string;
@@ -56,7 +56,7 @@ const ScreeningSearchList = ({
   );
 
   if (isLoading) {
-    return <Typography style="Body1">로딩중</Typography>;
+    return <LoadingPage />;
   }
 
   const screeningSearchLists = getInfiniteQueryArray<TScreeningContent>(
@@ -111,7 +111,9 @@ const ScreeningSearchList = ({
         )}
 
         {isFetchingNextPage && (
-          <ActivityIndicator style={screeningSearchListStyles.bottom} />
+          <View style={screeningSearchListStyles.bottom}>
+            <Loading />
+          </View>
         )}
       </DefaultContainer>
     </View>

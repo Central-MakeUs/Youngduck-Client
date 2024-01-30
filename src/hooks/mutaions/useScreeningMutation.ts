@@ -5,11 +5,18 @@ import {postImageUpload} from '@/apis/image/image';
 import {patchScreening, postScreening} from '@/apis/screening/screening';
 import useNavigator from '../useNavigator';
 import stackScreens from '@/constants/stackScreens';
+
 import {postScreeningDetailReview} from '@/apis/screening/review';
 import {
   postScreeningBookmark,
   postScreeningMyPrivate,
 } from '@/apis/screening/detail';
+
+import {
+  postScreeningComplainReview,
+  postScreeningDetailReview,
+} from '@/apis/screening/review';
+import {postScreeningBookmark} from '@/apis/screening/detail';
 import {ResponseErrorAPI} from '@/models/common/responseDTO';
 import {showSnackBar} from '@/utils/showSnackBar';
 
@@ -50,7 +57,6 @@ const useScreeningMutation = () => {
   const uploadScreeningReview = useMutation({
     mutationFn: postScreeningDetailReview,
     onSuccess: () => {
-      console.log('성공');
       queryClient.invalidateQueries({queryKey: ['screeningReview']});
       queryClient.invalidateQueries({queryKey: ['screeningDetail']});
     },
@@ -60,6 +66,7 @@ const useScreeningMutation = () => {
   const uploadScreeningBookmark = useMutation({
     mutationFn: postScreeningBookmark,
     onSuccess: () => {
+      //console.log('신고 성공');
       queryClient.invalidateQueries({queryKey: ['screeningDetail']});
     },
     onError: err => {
@@ -82,6 +89,22 @@ const useScreeningMutation = () => {
     },
   });
 
+  // 스크리닝 신고 post
+  const complainScreeningReview = useMutation({
+    mutationFn: postScreeningComplainReview,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['screeningReview']});
+    },
+    onError: err => {
+      const errorResponse = (err as AxiosError).response;
+      if (errorResponse) {
+        const error = errorResponse.data as ResponseErrorAPI;
+        console.log(error);
+        showSnackBar(error.reason);
+      }
+    },
+  });
+
   return {
     uploadImage,
     uploadScreening,
@@ -89,6 +112,7 @@ const useScreeningMutation = () => {
     uploadScreeningBookmark,
     uploadScreeningPrivate,
     modifyScreening,
+    complainScreeningReview,
   };
 };
 export default useScreeningMutation;
