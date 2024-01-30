@@ -1,3 +1,8 @@
+import {
+  TScreeningReviewNegative,
+  TScreeningReviewPostive,
+} from '@/models/screening/response/reviewResponseDto';
+
 type SelectItem = {
   value: string;
   label: string;
@@ -204,3 +209,27 @@ export const negativeReview: PositiveReviewType = {
     ],
   },
 };
+
+interface IScreeningRate {
+  title: string;
+  negative: keyof TScreeningReviewNegative;
+  positive: keyof TScreeningReviewPostive;
+}
+// 스크리닝 리뷰 상영지수 통계 상수
+export const screeningRateArray: IScreeningRate[] = [
+  {
+    title: '작품 감상',
+    negative: 'serviceCountNeg',
+    positive: 'serviceCountPos',
+  },
+  {
+    title: '상영 장소',
+    negative: 'locationCountNeg',
+    positive: 'locationCountPos',
+  },
+  {
+    title: '운영 방식',
+    negative: 'serviceCountNeg',
+    positive: 'serviceCountPos',
+  },
+];

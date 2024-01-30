@@ -39,8 +39,13 @@ export type ScreeningStackParamList = {
 };
 
 export type ScreeningStackScreensParamList = {
-  WritingScreen: {type: 'modified' | 'post'; search: string}; // 수정할 경우 또는 등록하는 경우 타입 생성
+  WritingScreen: {
+    type: 'post' | 'modified';
+    search: string;
+    id?: number;
+  };
   DetailScreen: {id: number};
+  MyDetailScreen: {id: number};
   DetailWebviewScreen: {id: number};
   ReviewWritingScreen: {id: number};
   KakaoSearchScreen: {type: 'modified' | 'post'};

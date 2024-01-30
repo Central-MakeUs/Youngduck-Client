@@ -32,7 +32,7 @@ const ImageContentScrollContainer = ({
 
   const calculateOpacity = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const value =
-      1 - e.nativeEvent.contentOffset.y / (screenWidth * 1.47 - (top + 60));
+      1 - e.nativeEvent.contentOffset.y / (screenWidth - (top + 60));
     setOpacity(value < 0 ? 0 : value);
   };
 
@@ -70,7 +70,6 @@ const ImageContentScrollContainer = ({
               ]}
             />
           )}
-
           <LinearGradient
             colors={['rgba(0,0,0,0.7)', 'rgba(0,0,0,0)']}
             style={imageContentScrollContainerStyles.imageBlur}

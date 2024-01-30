@@ -22,18 +22,16 @@ import {KorCategoryValues} from '@/models/enums/category';
 import {IScreeningBodyRequest} from '@/models/screening/request/screeningRequestDto';
 
 import {writingStyles} from './WritingScreen.style';
+import {useQuery} from '@tanstack/react-query';
+import {getScreeningMyDetailContent} from '@/apis/screening/detail';
+import {getCategory} from '@/utils/getCategory';
 
 interface IWritingScreenProps {
   route: ScreenRouteProp<'WritingScreen'>;
 }
 const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
-  const {type, search} = params;
-
-  useEffect(() => {
-    onChangeInput('location', search);
-  }, [search]);
-
-  const {uploadScreening} = useScreeningMutation();
+  const {type, search, id} = params;
+  const {uploadScreening, modifyScreening} = useScreeningMutation();
   const {stackNavigation} = useNavigator();
   const [inputValues, setInputValues] = useState<IScreeningBodyRequest>({
     posterImgUrl: '',
@@ -50,6 +48,43 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
     hostEmail: '',
     hasAgreed: false,
   });
+
+  const {data} = useQuery({
+    queryKey: ['screeningMyDetail'],
+    queryFn: () => {
+      if (id) {
+        return getScreeningMyDetailContent(id);
+      }
+    },
+    enabled: type === 'post',
+  });
+
+  useEffect(() => {
+    onChangeInput('location', search);
+  }, [search]);
+
+  useEffect(() => {
+    if (data && id && type === 'modified') {
+      console.log(data.data);
+      setInputValues({
+        ...inputValues,
+        posterImgUrl: data.data.posterImgUrl,
+        screeningTitle: data.data.screeningTitle,
+        hostName: data.data.hostName,
+        category: getCategory(data.data.category),
+        screeningStartDate: new Date(data.data.screeningStartDate),
+        screeningEndDate: new Date(data.data.screeningEndDate),
+        screeningStartTime: new Date(data.data.screeningStartTime),
+        information: data.data.information,
+        formUrl: data.data.formUrl,
+        hostPoneNumber: data.data.hostPoneNumber
+          ? data.data.hostPoneNumber
+          : '',
+        hostEmail: data.data.hostEmail,
+        hasAgreed: data.data.hasAgreed,
+      });
+    }
+  }, [setInputValues]);
 
   const {
     screeningTitle,
@@ -95,7 +130,13 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
   };
 
   const handleWriteScreening = async () => {
-    await uploadScreening.mutateAsync(inputValues);
+    if (type === 'post') {
+      await uploadScreening.mutateAsync(inputValues);
+    }
+    if (type === 'modified' && data) {
+      const body = {screeningId: data.data.screeningId, ...inputValues};
+      await modifyScreening.mutateAsync(body);
+    }
   };
 
   return (
@@ -253,25 +294,30 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
             textContentType="emailAddress"
           />
         </View>
-        <View style={writingStyles.content}>
-          <Typography style="Label1" color={palette.Text.Normal}>
-            게시글 정책을 확인했어요.
-          </Typography>
-          <CheckBox
-            state={inputValues.hasAgreed ? 'on' : 'off'}
-            onPress={() => {
-              onChangeInput('hasAgreed', !inputValues.hasAgreed);
-            }}
-          />
-        </View>
-        <Typography style="Body2" color={palette.Text.Alternative} mt={4}>
-          상영회는 등록 후 삭제할 수 없어요.
-        </Typography>
-        <Typography style="Body2" color={palette.Text.Alternative} mb={34}>
-          수정이나 비공개 처리는 가능해요.
-        </Typography>
+        {type === 'post' && (
+          <>
+            <View style={writingStyles.content}>
+              <Typography style="Label1" color={palette.Text.Normal}>
+                게시글 정책을 확인했어요.
+              </Typography>
+              <CheckBox
+                state={inputValues.hasAgreed ? 'on' : 'off'}
+                onPress={() => {
+                  onChangeInput('hasAgreed', !inputValues.hasAgreed);
+                }}
+              />
+            </View>
+            <Typography style="Body2" color={palette.Text.Alternative} mt={4}>
+              상영회는 등록 후 삭제할 수 없어요.
+            </Typography>
+            <Typography style="Body2" color={palette.Text.Alternative} mb={34}>
+              수정이나 비공개 처리는 가능해요.
+            </Typography>
+          </>
+        )}
+
         <BoxButton onPress={handleWriteScreening} mb={12} disabled={!canGoNext}>
-          등록하기
+          {type === 'post' ? '등록하기' : '수정하기'}
         </BoxButton>
       </DefaultContainer>
     </DismissKeyboardView>

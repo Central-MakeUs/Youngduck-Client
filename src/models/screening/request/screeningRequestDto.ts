@@ -21,3 +21,8 @@ export interface IScreeningBodyRequest {
 export type TNonNullScreeningBodyRequest = {
   [K in keyof IScreeningBodyRequest]-?: NonNullable<IScreeningBodyRequest[K]>;
 };
+
+// 스크리닝 수정하기 요청 body 타입
+export interface IScreeningModifyBodyRequest extends IScreeningBodyRequest {
+  screeningId: number;
+}

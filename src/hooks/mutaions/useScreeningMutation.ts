@@ -2,11 +2,19 @@ import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 
 import {postImageUpload} from '@/apis/image/image';
-import {postScreening} from '@/apis/screening/screening';
+import {patchScreening, postScreening} from '@/apis/screening/screening';
 import useNavigator from '../useNavigator';
 import stackScreens from '@/constants/stackScreens';
-import {postScreeningDetailReview} from '@/apis/screening/review';
-import {postScreeningBookmark} from '@/apis/screening/detail';
+
+import {
+  postScreeningBookmark,
+  postScreeningMyPrivate,
+} from '@/apis/screening/detail';
+
+import {
+  postScreeningComplainReview,
+  postScreeningDetailReview,
+} from '@/apis/screening/review';
 import {ResponseErrorAPI} from '@/models/common/responseDTO';
 import {showSnackBar} from '@/utils/showSnackBar';
 
@@ -32,11 +40,21 @@ const useScreeningMutation = () => {
     },
   });
 
+  // 스크리닝 수정 patch
+  const modifyScreening = useMutation({
+    mutationFn: patchScreening,
+    onSuccess: () => {
+      showSnackBar('스크리닝 수정이 되었습니다');
+      stackNavigation.navigate(stackScreens.BottomTabScreens);
+      queryClient.invalidateQueries({queryKey: ['screeningDetail']});
+      queryClient.invalidateQueries({queryKey: ['screeningFilter']});
+    },
+  });
+
   // 스크리닝 리뷰 업로드 post
   const uploadScreeningReview = useMutation({
     mutationFn: postScreeningDetailReview,
     onSuccess: () => {
-      console.log('성공');
       queryClient.invalidateQueries({queryKey: ['screeningReview']});
       queryClient.invalidateQueries({queryKey: ['screeningDetail']});
     },
@@ -46,6 +64,7 @@ const useScreeningMutation = () => {
   const uploadScreeningBookmark = useMutation({
     mutationFn: postScreeningBookmark,
     onSuccess: () => {
+      //console.log('신고 성공');
       queryClient.invalidateQueries({queryKey: ['screeningDetail']});
     },
     onError: err => {
@@ -59,11 +78,39 @@ const useScreeningMutation = () => {
     },
   });
 
+  // 스크리닝 비공개/공개하기 post
+  const uploadScreeningPrivate = useMutation({
+    mutationFn: postScreeningMyPrivate,
+    onSuccess: () => {
+      showSnackBar('공개 및 비공개 처리가 되었습니다');
+      queryClient.invalidateQueries({queryKey: ['screeningMyDetail']});
+    },
+  });
+
+  // 스크리닝 신고 post
+  const complainScreeningReview = useMutation({
+    mutationFn: postScreeningComplainReview,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['screeningReview']});
+    },
+    onError: err => {
+      const errorResponse = (err as AxiosError).response;
+      if (errorResponse) {
+        const error = errorResponse.data as ResponseErrorAPI;
+        console.log(error);
+        showSnackBar(error.reason);
+      }
+    },
+  });
+
   return {
     uploadImage,
     uploadScreening,
     uploadScreeningReview,
     uploadScreeningBookmark,
+    uploadScreeningPrivate,
+    modifyScreening,
+    complainScreeningReview,
   };
 };
 export default useScreeningMutation;

@@ -30,6 +30,7 @@ import ManageScreeningScreen from '@/screens/myPage/manageScreening/ManageScreen
 import ManageReviewScreen from '@/screens/myPage/manageReview/ManageReviewScreen';
 import MyScreeningScreen from '@/screens/myPage/myScreening/MyScreeningScreen';
 import DetailWebviewScreen from '@/screens/screening/detailWebview/DetailWebviewScreen';
+import MyDetailScreen from '@/screens/screening/myDetail/MyDetailScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -155,6 +156,12 @@ function StackNavigator() {
       <Stack.Screen
         name={stackScreens.DetailScreen}
         component={DetailScreen}
+        options={{headerShown: false}}
+      />
+      {/*내가 작성한 상세 페이지*/}
+      <Stack.Screen
+        name={stackScreens.MyDetailScreen}
+        component={MyDetailScreen}
         options={{headerShown: false}}
       />
       {/*상세 웹뷰 페이지*/}

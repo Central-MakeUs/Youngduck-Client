@@ -1,11 +1,24 @@
 import {api} from '@/apis';
 import {ResponseDTO} from '@/models/common/responseDTO';
-import {IScreeningBodyRequest} from '@/models/screening/request/screeningRequestDto';
+import {
+  IScreeningBodyRequest,
+  IScreeningModifyBodyRequest,
+} from '@/models/screening/request/screeningRequestDto';
 import {TWeekScreeningResponse} from '@/models/screening/response/screeningResponseDto';
 
 // 스크리닝 업로드 함수
 export const postScreening = async (body: IScreeningBodyRequest) => {
   const res = await api.post('/screening/upload-screening', body);
+  return res.data;
+};
+
+// 스크리닝 수정 함수
+export const patchScreening = async (body: IScreeningModifyBodyRequest) => {
+  const {screeningId, ...modifyBody} = body;
+  const res = await api.patch(
+    `/screening/screening/${screeningId}`,
+    modifyBody,
+  );
   return res.data;
 };
 

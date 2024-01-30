@@ -1,8 +1,10 @@
+import {Pressable, View} from 'react-native';
+
 import Chip from '@/components/chip';
 import Profile from '@/components/profile';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
-import {Pressable, View} from 'react-native';
+
 import {commentItemStyles} from './CommentItem.style';
 import {IPopcornReviewResponse} from '@/models/popcornParty/reponse';
 import {defaultImages} from '@/assets';

@@ -10,12 +10,12 @@ const imageContentScrollContainerStyles = StyleSheet.create({
   topBarWrap: {width: '100%', position: 'absolute', zIndex: 1},
   image: {
     width: screenWidth,
-    height: screenWidth * 1.47,
+    height: screenWidth,
   },
   imageBlur: {
     zIndex: 1,
     width: screenWidth,
-    height: screenWidth * 1.47,
+    height: screenWidth,
     position: 'absolute',
   },
 });
