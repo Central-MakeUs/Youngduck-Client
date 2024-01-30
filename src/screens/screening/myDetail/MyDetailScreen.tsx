@@ -17,6 +17,7 @@ const MyDetailScreen = ({route: {params}}: IMyDetailScreenProps) => {
   });
 
   const {stackNavigation} = useNavigator();
+  // 작성하기 페이지 수정 타입으로 이동
   const handleGoToWrite = () => {
     if (data) {
       stackNavigation.navigate(stackScreens.WritingScreen, {
@@ -28,11 +29,13 @@ const MyDetailScreen = ({route: {params}}: IMyDetailScreenProps) => {
   };
   return (
     <View>
-      <MyDetailBottomButton
-        type="myOpen"
-        onPress={() => {}}
-        optionPress={handleGoToWrite}
-      />
+      {data && (
+        <MyDetailBottomButton
+          type={data.data.private ? 'myClose' : 'myOpen'}
+          onPress={() => {}}
+          optionPress={handleGoToWrite}
+        />
+      )}
     </View>
   );
 };
