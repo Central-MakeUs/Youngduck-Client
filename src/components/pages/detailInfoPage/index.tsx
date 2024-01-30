@@ -5,13 +5,16 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 
 import {getKorDateRange} from '@/utils/getDate';
-import {IScreeningDetailContent} from '@/models/screening/response/detailResponseDto';
+import {
+  IScreeningDetailContent,
+  IScreeningMyDetailResponse,
+} from '@/models/screening/response/detailResponseDto';
 import DetailInfo from './components/detailInfo';
 import DetailContact from './components/detailContact';
 import {detailInfoStyles} from './DetailInfoPage.style';
 
 interface IDetailInfoProps {
-  item: IScreeningDetailContent;
+  item: IScreeningDetailContent | IScreeningMyDetailResponse;
 }
 const DetailInfoPage = ({item}: IDetailInfoProps) => {
   return (
