@@ -1,6 +1,6 @@
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
-import {View} from 'react-native';
+import {ActivityIndicator, View} from 'react-native';
 import popcornKeywordStyles from './PopcornKeyword.style';
 import KeywordItem from '@/components/items/keywordItem';
 import {getKeyword} from '@/utils/getKeyword';
@@ -36,15 +36,19 @@ const PopcornKeyword = ({
           {`${participatedUserCount}명 참여`}
         </Typography>
       </View>
-      {topThreeKeywords.map(topThreeKeyword => (
-        <KeywordItem
-          keyword={convertKeyToValue(topThreeKeyword)}
-          isPositive={isPositive(topThreeKeyword)}
-          totalCount={participatedCount}
-          count={Object.values(topThreeKeyword)[0]}
-          key={Object.keys(topThreeKeyword)[0]}
-        />
-      ))}
+      {topThreeKeywords === undefined ? (
+        <ActivityIndicator />
+      ) : (
+        topThreeKeywords.map(topThreeKeyword => (
+          <KeywordItem
+            keyword={convertKeyToValue(topThreeKeyword)}
+            isPositive={isPositive(topThreeKeyword)}
+            totalCount={participatedCount}
+            count={Object.values(topThreeKeyword)[0]}
+            key={Object.keys(topThreeKeyword)[0]}
+          />
+        ))
+      )}
     </>
   );
 };

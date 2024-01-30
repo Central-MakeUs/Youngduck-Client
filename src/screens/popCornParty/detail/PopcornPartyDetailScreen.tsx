@@ -1,4 +1,4 @@
-import {Pressable, View} from 'react-native';
+import {ActivityIndicator, Pressable, View} from 'react-native';
 import popcornPartyDetailScreenStyles from './popcornPartyDetailScreen.style';
 import useNavigator from '@/hooks/useNavigator';
 import {useEffect, useState} from 'react';
@@ -21,11 +21,13 @@ import {useQueries, useQueryClient} from '@tanstack/react-query';
 import {
   getPopconrKeywordData,
   getPopconrRateData,
+  getPopconrReviewData,
   getPopcornPartyDetailData,
 } from '@/apis/popcornParty/detail/detail';
 import {usePosterImageStore} from '@/stores/posterImage';
 import {getPopcornRecommendData} from '@/apis/popcornParty';
 import {useIsFocused} from '@react-navigation/native';
+import {format} from 'date-fns';
 
 interface IPopcornPartyDetailScreenProp {
   route: ScreenRouteProp<stackScreens.PopcornPartyDetailScreen>;
@@ -46,6 +48,7 @@ function PopcornPartyDetailScreen({
     popcornPartyDetailData,
     popcornRateData,
     popcornKeywordData,
+    popcornReviewData,
     randomPopcornRecommendData,
   ] = useQueries({
     queries: [
@@ -61,7 +64,10 @@ function PopcornPartyDetailScreen({
         queryKey: ['popcornKeywordData'],
         queryFn: () => getPopconrKeywordData(params.id),
       },
-
+      {
+        queryKey: ['popcornReviewData'],
+        queryFn: () => getPopconrReviewData(params.id),
+      },
       {
         queryKey: ['randomPopcornRecommendData'],
         queryFn: getPopcornRecommendData,
@@ -71,6 +77,7 @@ function PopcornPartyDetailScreen({
   const movieData = popcornPartyDetailData.data?.data;
   const popcornRate = popcornRateData.data?.data;
   const popcornKeyword = popcornKeywordData.data?.data;
+  const popcornReviews = popcornReviewData.data?.data;
 
   // tab bar에 필요한 제목들 선언
   const tabBars = [
@@ -89,29 +96,8 @@ function PopcornPartyDetailScreen({
     }
   }, [currentFocusState]);
 
-  const comments = [
-    {
-      nickname: '팝코니',
-      isSatisfied: true,
-      review: '내가 쓴 리뷰는 리스트 최상단에 고정될꼬얌',
-      date: '2024. 01. 10',
-    },
-    {
-      nickname: '파파콘',
-      isSatisfied: false,
-      review:
-        '오늘은 홍익대학교 영화동아리 Dromapic의 상영회를 방문했다. 상영회를 방문했는데 뭐랄까... 되게 오묘하고 메타포가 심오해서 상영회가 끝나고 나서도 계속 생각했다.. 주인공이 만진 작은 상자의 의미는 희망이였을까..? 아니면 절망이였을까..?\n적어도 절망은 아닐거라고 생각한다. 주인공이 상자를 쥐고나서 일이 잘 풀려나갔고 결말에서도 희망적인 부분을 많이 보여줬다.',
-      date: '2024. 01. 10',
-    },
-    {
-      nickname: '파콩이',
-      isSatisfied: true,
-      review: '인상적인 작품과 쾌적한 상영관',
-      date: '2024. 01. 10',
-    },
-  ];
-
   const toggleNumberOfLinesState = () => setIsMoreDetailMode(!isMoreDetailMode);
+
   return (
     <ImageContentScrollContainer>
       <DefaultContainer>
@@ -158,17 +144,24 @@ function PopcornPartyDetailScreen({
       )}
       {currentTabBarNumber === 1 && (
         <DefaultContainer>
-          {comments.map((comment, idx) => (
-            <CommentItem
-              totalComments={comments.length}
-              nickname={comment.nickname}
-              isSatisfied={comment.isSatisfied}
-              review={comment.review}
-              date={comment.date}
-              idx={idx}
-              key={comment.nickname}
-            />
-          ))}
+          {popcornReviews === undefined ? (
+            <ActivityIndicator />
+          ) : (
+            popcornReviews?.map((popcornReview, idx) => (
+              <CommentItem
+                totalComments={popcornReviews.length}
+                userId={popcornReview.userId}
+                nickName={popcornReview.nickName}
+                profileImgNum={(popcornReview.profileImgNum % 3) + 1}
+                popcornId={popcornReview.popcornId}
+                afterScreening={popcornReview.afterScreening}
+                review={popcornReview.review}
+                createdAt={format(popcornReview.createdAt, 'yyyy.MM.dd')}
+                idx={idx}
+                key={popcornReview.createdAt}
+              />
+            ))
+          )}
         </DefaultContainer>
       )}
       <VoteNextPopcorn
