@@ -22,8 +22,13 @@ export interface IScreeningBookMarkResponse {
 }
 
 // 내가 작성한 스크리닝 디테일 응답 타입
-export interface IScreeningMyDetailResponse
+export interface IScreeningMyDetailContent
   extends TNonNullScreeningBodyRequest {
   screeningId: number;
   private: boolean;
+}
+
+export interface IScreeningMyDetailResponse
+  extends Omit<IScreeningMyDetailContent, 'category'> {
+  category: TEngCategory;
 }
