@@ -1,5 +1,5 @@
 import Typography from '@/components/typography';
-import keywordItemStyles from '@/screens/popCornParty/detail/popcornKeyword/PopcornKeyword.style';
+import keywordItemStyles from '@/components/popcornKeyword/PopcornKeyword.style';
 import palette from '@/styles/theme/color';
 import {View} from 'react-native';
 

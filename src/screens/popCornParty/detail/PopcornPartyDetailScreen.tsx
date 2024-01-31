@@ -7,7 +7,7 @@ import Typography from '@/components/typography';
 import Divider from '@/components/divider';
 import BoxButton from '@/components/buttons/boxButton';
 import TabBar from '@/components/tabBar';
-import PopcornKeyword from './popcornKeyword';
+import PopcornKeyword from '../../../components/popcornKeyword';
 import VoteNextPopcorn from '../home/components/voteNextPopcorn';
 import palette from '@/styles/theme/color';
 import stackScreens from '@/constants/stackScreens';
