@@ -1,15 +1,11 @@
-import {ActivityIndicator, Pressable} from 'react-native';
-import popcornPartyDetailScreenStyles from './popcornPartyDetailScreen.style';
-import useNavigator from '@/hooks/useNavigator';
+import {ActivityIndicator} from 'react-native';
 import {useEffect, useState} from 'react';
 import DefaultContainer from '@/components/container/defaultContainer';
-import Typography from '@/components/typography';
 import Divider from '@/components/divider';
 import BoxButton from '@/components/buttons/boxButton';
 import TabBar from '@/components/tabBar';
 import PopcornKeyword from '../../../components/popcornKeyword';
 import VoteNextPopcorn from '../home/components/voteNextPopcorn';
-import palette from '@/styles/theme/color';
 import stackScreens from '@/constants/stackScreens';
 import CommentItem from '@/components/items/commentItem';
 import ImageContentScrollContainer from '@/components/container/imageContentScrollContainer';
@@ -30,7 +26,8 @@ import {useIsFocused} from '@react-navigation/native';
 import {format} from 'date-fns';
 import Popup from '@/components/popup';
 import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
-import DetailMovie from './components/detailMovie/DetailMovie';
+import DetailPopcorn from './components/detailMovie/DetailPopcorn';
+import DetailBottomButtons from './components/detailBottomButtons/DetailBottomButtons';
 
 interface IPopcornPartyDetailScreenProp {
   route: ScreenRouteProp<stackScreens.PopcornPartyDetailScreen>;
@@ -45,7 +42,6 @@ function PopcornPartyDetailScreen({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [viewMoreComment, setViewMoreComment] = useState<boolean>(false);
   const [complainPopup, setComplainPopup] = useState<boolean>(false);
-  const {stackNavigation} = useNavigator();
   const currentFocusState = useIsFocused();
   const queryClient = useQueryClient();
   const {setPosterImage} = usePosterImageStore();
@@ -123,7 +119,7 @@ function PopcornPartyDetailScreen({
         onPress={handleComplainReview}
         type="error"
       />
-      <DetailMovie
+      <DetailPopcorn
         movieTitle={movieData?.movieTitle!}
         directorName={movieData?.directorName!}
         isMoreDetailMode={isMoreDetailMode}
@@ -192,29 +188,12 @@ function PopcornPartyDetailScreen({
         isLoading={false}
         voteMovieMutate={voteMovieMutate}
       />
-      <DefaultContainer>
-        <Pressable
-          onPress={() =>
-            stackNavigation.navigate(stackScreens.WriteRecommandScreen)
-          }
-          style={popcornPartyDetailScreenStyles.recommandOtherButton}>
-          <Typography style="Label1" color={palette.Primary.Dark}>
-            다른 작품 추천하기
-          </Typography>
-        </Pressable>
-        <BoxButton
-          onPress={() =>
-            stackNavigation.navigate(stackScreens.WriteReviewScreen, {
-              id: movieData?.popcornId!,
-              poster: movieData?.imageUrl!,
-              title: movieData?.movieTitle!,
-              directorname: movieData?.directorName!,
-            })
-          }
-          mt={22}>
-          나도 리뷰쓰기
-        </BoxButton>
-      </DefaultContainer>
+      <DetailBottomButtons
+        id={movieData?.popcornId!}
+        poster={movieData?.imageUrl!}
+        title={movieData?.movieTitle!}
+        directorname={movieData?.directorName!}
+      />
     </ImageContentScrollContainer>
   );
 }

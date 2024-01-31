@@ -3,9 +3,9 @@ import DefaultContainer from '@/components/container/defaultContainer';
 import Divider from '@/components/divider';
 import Typography from '@/components/typography';
 import {View} from 'react-native';
-import detailMovieStyles from './DetailMovie.style';
+import detailMovieStyles from './DetailPopcorn.style';
 
-interface IDetailMovieProps {
+interface IDetailPopcornProps {
   movieTitle: string;
   directorName: string;
   detail: string;
@@ -13,13 +13,13 @@ interface IDetailMovieProps {
   toggleNumberOfLinesState: () => void;
 }
 
-const DetailMovie = ({
+const DetailPopcorn = ({
   movieTitle,
   directorName,
   isMoreDetailMode,
   detail,
   toggleNumberOfLinesState,
-}: IDetailMovieProps) => {
+}: IDetailPopcornProps) => {
   return (
     <DefaultContainer>
       <View style={detailMovieStyles.introduceWrap}>
@@ -42,4 +42,4 @@ const DetailMovie = ({
   );
 };
 
-export default DetailMovie;
+export default DetailPopcorn;
