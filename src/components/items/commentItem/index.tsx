@@ -6,24 +6,27 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 
 import {commentItemStyles} from './CommentItem.style';
+import {defaultImages} from '@/assets';
 
 interface ICommentItemProps {
-  totalComments: number;
-  nickname: string;
-  isSatisfied: boolean;
+  userId: number;
+  nickName: string;
+  profileImgNum: number;
+  afterScreening: boolean;
   review: string;
-  date: string;
+  createdAt: string;
+  totalComments: number;
   idx: number;
-
   complainOnPress: () => void;
 }
 
 const CommentItem = ({
   totalComments,
-  nickname,
-  isSatisfied,
+  nickName,
+  profileImgNum,
+  afterScreening,
   review,
-  date,
+  createdAt,
   idx,
   complainOnPress,
 }: ICommentItemProps) => {
@@ -34,11 +37,14 @@ const CommentItem = ({
         {borderBottomWidth: idx === totalComments - 1 ? 0 : 1},
       ]}>
       <View style={commentItemStyles.profileContentWrap}>
-        <Profile size="large" />
+        <Profile
+          size="large"
+          profile={defaultImages[`profile${profileImgNum}`]}
+        />
         <View style={commentItemStyles.label}>
           <View style={commentItemStyles.name}>
             <Typography style="Label1" color={palette.Text.Strong}>
-              {nickname}
+              {nickName}
             </Typography>
             <Pressable onPress={complainOnPress}>
               <Typography style="Chips1" color={palette.Text.Alternative}>
@@ -47,8 +53,8 @@ const CommentItem = ({
             </Pressable>
           </View>
           <Chip
-            text={isSatisfied ? '기대만큼 좋았어요' : '기대보다 아쉬웠어요'}
-            state={isSatisfied ? 'primary' : 'default'}
+            text={afterScreening ? '기대만큼 좋았어요' : '기대보다 아쉬웠어요'}
+            state={afterScreening ? 'primary' : 'default'}
           />
         </View>
       </View>
@@ -57,7 +63,7 @@ const CommentItem = ({
         {review}
       </Typography>
       <Typography style="Body2" color={palette.Text.Alternative} mt={12}>
-        {date}
+        {createdAt}
       </Typography>
     </View>
   );

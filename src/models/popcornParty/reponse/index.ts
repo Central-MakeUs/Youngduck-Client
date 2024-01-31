@@ -15,6 +15,33 @@ export interface ISearchMovieDataResponse {
   movieSeq: string;
 }
 
+export interface IPopcornPartyDetailResponse {
+  popcornId: number;
+  movieTitle: string;
+  directorName: string;
+  imageUrl: string;
+  detail: string;
+}
+
+export interface IPopcornRateResponse {
+  data: number;
+}
+
+export interface IPopcornKeywordResponse {
+  participatedCount: number;
+  participatedUserCount: number;
+  topThreeKeywords: {[key: string]: number}[];
+}
+
+export interface IPopcornReviewResponse {
+  userId: number;
+  nickName: string;
+  profileImgNum: number;
+  afterScreening: boolean;
+  review: string;
+  createdAt: string;
+}
+
 export type TTrendingMovieData = Omit<ITrendingData, 'popcornId'>;
 export type TTrendingPopcornData = Omit<ITrendingData, 'movieId' | 'rank'>;
 export type TPopcornRecommendData = {

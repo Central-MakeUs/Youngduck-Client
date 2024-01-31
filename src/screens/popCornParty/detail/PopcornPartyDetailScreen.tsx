@@ -1,80 +1,127 @@
-import {Pressable, View} from 'react-native';
-import popcornPartyDetailScreenStyles from './popcornPartyDetailScreen.style';
-import useNavigator from '@/hooks/useNavigator';
-import {useState} from 'react';
+import {ActivityIndicator} from 'react-native';
+import {useEffect, useState} from 'react';
 import DefaultContainer from '@/components/container/defaultContainer';
-import Typography from '@/components/typography';
 import Divider from '@/components/divider';
 import BoxButton from '@/components/buttons/boxButton';
 import TabBar from '@/components/tabBar';
-import PopcornKeyword from './popcornKeyword';
+import PopcornKeyword from '../../../components/popcornKeyword';
 import VoteNextPopcorn from '../home/components/voteNextPopcorn';
-import palette from '@/styles/theme/color';
 import stackScreens from '@/constants/stackScreens';
 import CommentItem from '@/components/items/commentItem';
 import ImageContentScrollContainer from '@/components/container/imageContentScrollContainer';
 import ScreeningRate from '@/components/rates/screeningRate';
 import PopcornRate from '@/components/rates/popcornRate';
 import useVoteMovieMutation from '@/hooks/mutaions/useRecommendMovie';
+import {ScreenRouteProp} from '@/types/navigator';
+import {useQueries, useQueryClient} from '@tanstack/react-query';
+import {
+  getPopconrKeywordData,
+  getPopconrRateData,
+  getPopconrReviewData,
+  getPopcornPartyDetailData,
+} from '@/apis/popcornParty/detail/detail';
+import {getPopcornRecommendData} from '@/apis/popcornParty';
+import {useIsFocused} from '@react-navigation/native';
+import {format} from 'date-fns';
+import Popup from '@/components/popup';
+import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
+import DetailPopcorn from './components/detailMovie/DetailPopcorn';
+import DetailBottomButtons from './components/detailBottomButtons/DetailBottomButtons';
+import {getWeekOfMonthString} from '@/utils/getWeekOfMonth';
 
-function PopcornPartyDetailScreen() {
-  const {stackNavigation} = useNavigator();
-  const {voteMovieMutate} = useVoteMovieMutation();
+interface IPopcornPartyDetailScreenProp {
+  route: ScreenRouteProp<stackScreens.PopcornPartyDetailScreen>;
+}
 
+function PopcornPartyDetailScreen({
+  route: {params},
+}: IPopcornPartyDetailScreenProp) {
   const [currentTabBarNumber, setCurrentTabBarNumber] = useState<number>(0);
+  const [complainId, setComplainId] = useState<number>(0);
+  const [isMoreDetailMode, setIsMoreDetailMode] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [viewMoreComment, setViewMoreComment] = useState<boolean>(false);
+  const [complainPopup, setComplainPopup] = useState<boolean>(false);
+  const currentFocusState = useIsFocused();
+  const queryClient = useQueryClient();
+  const {voteMovieMutate} = useVoteMovieMutation();
+  const {complainUserMutate} = usePopcornPartyMutation();
+  const [
+    popcornPartyDetailData,
+    popcornRateData,
+    popcornKeywordData,
+    popcornReviewData,
+    randomPopcornRecommendData,
+  ] = useQueries({
+    queries: [
+      {
+        queryKey: ['popcornPartyDetail'],
+        queryFn: () => getPopcornPartyDetailData(params.id),
+      },
+      {
+        queryKey: ['popcornRateData'],
+        queryFn: () => getPopconrRateData(params.id),
+      },
+      {
+        queryKey: ['popcornKeywordData'],
+        queryFn: () => getPopconrKeywordData(params.id),
+      },
+      {
+        queryKey: ['popcornReviewData'],
+        queryFn: () => getPopconrReviewData(params.id),
+      },
+      {
+        queryKey: ['randomPopcornRecommendData'],
+        queryFn: getPopcornRecommendData,
+      },
+    ],
+  });
+  const movieData = popcornPartyDetailData.data?.data;
+  const popcornRate = popcornRateData.data?.data;
+  const popcornKeyword = popcornKeywordData.data?.data;
+  // 더보기 활성화 시 원래 데이터 모두 보여주기
+  const popcornReviews = viewMoreComment
+    ? popcornReviewData.data?.data
+    : popcornReviewData.data?.data.slice(0, 5);
+
   // tab bar에 필요한 제목들 선언
   const tabBars = [
     {title: '팝콘 지수', tabNumber: 0},
     {title: '팝콘들의 리뷰', tabNumber: 1},
   ];
 
-  const comments = [
-    {
-      nickname: '팝코니',
-      isSatisfied: true,
-      review: '내가 쓴 리뷰는 리스트 최상단에 고정될꼬얌',
-      date: '2024. 01. 10',
-    },
-    {
-      nickname: '파파콘',
-      isSatisfied: false,
-      review:
-        '오늘은 홍익대학교 영화동아리 Dromapic의 상영회를 방문했다. 상영회를 방문했는데 뭐랄까... 되게 오묘하고 메타포가 심오해서 상영회가 끝나고 나서도 계속 생각했다.. 주인공이 만진 작은 상자의 의미는 희망이였을까..? 아니면 절망이였을까..?\n적어도 절망은 아닐거라고 생각한다. 주인공이 상자를 쥐고나서 일이 잘 풀려나갔고 결말에서도 희망적인 부분을 많이 보여줬다.',
-      date: '2024. 01. 10',
-    },
-    {
-      nickname: '파콩이',
-      isSatisfied: true,
-      review: '인상적인 작품과 쾌적한 상영관',
-      date: '2024. 01. 10',
-    },
-  ];
+  useEffect(() => {
+    if (currentFocusState && randomPopcornRecommendData.status === 'success') {
+      queryClient.removeQueries({queryKey: ['randomPopcornRecommendData']});
+      randomPopcornRecommendData.refetch();
+    }
+  }, [currentFocusState]);
 
+  const toggleNumberOfLinesState = () => setIsMoreDetailMode(!isMoreDetailMode);
+
+  const handleComplainReview = () => {
+    setComplainPopup(false);
+    complainUserMutate(complainId);
+  };
   return (
-    <ImageContentScrollContainer>
-      <DefaultContainer>
-        <View style={popcornPartyDetailScreenStyles.introduceWrap}>
-          <Typography style="Label2">1월 첫째주 팝콘작</Typography>
-          <Typography style="Title2">괴물</Typography>
-          <Typography style="Body2">고레에다 히로카즈</Typography>
-          <Divider height={1} mb={16} mt={16} />
-          <Typography style="Body1">
-            제76회 칸 국제영화제에서 각본상 수상, 한국에서는 지난 10월 제28회
-            부산국제영화제를 통해 첫선을 보이며 뜨거운 반응을 얻은 작품이죠.
-            괴물은 세계적인 거장 고레에다 히로카즈 감독과 일본 최고의 각본가
-            사카모토 유지가 처음으로 협업한 작품이자, 아시아 최초 아카데미 수상
-            음악가 고(故) 사카모토 류이치의 유작이기도 합니다. 하나의 사건을
-            다양한 시선으로 담아낸 놀라운 스토리텔링과 섬세한 연출력, 우리
-            사회에 던지는 묵직한 화두까지! 작품을 온전히 즐기기 위해서는 ‘최대한
-            아무것도 모르고 가라’ 는 평이 많았던 이번 작품, 팝코니들은 어떻게
-            보셨나요? 이 주의 팝콘작, 괴물입니다.
-          </Typography>
-          <BoxButton onPress={() => {}} disabled mt={16}>
-            설명 더 보기
-          </BoxButton>
-        </View>
-      </DefaultContainer>
+    <ImageContentScrollContainer
+      title={getWeekOfMonthString()!}
+      posterImage={movieData?.imageUrl!}>
+      <Popup
+        title="정말 신고하시겠어요?"
+        content={`신고가 누적되면\n해당 유저의 서비스 이용이 제한돼요. `}
+        isVisible={complainPopup}
+        onClose={() => setComplainPopup(false)}
+        onPress={handleComplainReview}
+        type="error"
+      />
+      <DetailPopcorn
+        movieTitle={movieData?.movieTitle!}
+        directorName={movieData?.directorName!}
+        isMoreDetailMode={isMoreDetailMode}
+        detail={movieData?.detail!}
+        toggleNumberOfLinesState={toggleNumberOfLinesState}
+      />
       <TabBar
         currentTabBarNumber={currentTabBarNumber}
         setCurrentTabBarNumber={setCurrentTabBarNumber}
@@ -83,53 +130,66 @@ function PopcornPartyDetailScreen() {
       {/* 현재 tab bar에 맞는 컴포넌트 보여주기 */}
       {currentTabBarNumber === 0 && (
         <DefaultContainer>
-          <ScreeningRate mode="popcornRate" score={90}>
+          <ScreeningRate
+            mode="popcornRate"
+            score={popcornRate === undefined ? 0 : Number(popcornRate)}>
             <PopcornRate isOpen={isOpen} setIsOpen={setIsOpen} />
           </ScreeningRate>
-          <PopcornKeyword />
+          <PopcornKeyword
+            participatedCount={popcornKeyword?.participatedCount!}
+            participatedUserCount={popcornKeyword?.participatedUserCount!}
+            topThreeKeywords={popcornKeyword?.topThreeKeywords!}
+          />
           <Divider height={8} mt={32} mb={16} />
         </DefaultContainer>
       )}
       {currentTabBarNumber === 1 && (
         <DefaultContainer>
-          {comments.map((comment, idx) => (
-            <CommentItem
-              totalComments={comments.length}
-              nickname={comment.nickname}
-              isSatisfied={comment.isSatisfied}
-              review={comment.review}
-              date={comment.date}
-              idx={idx}
-              key={comment.nickname}
-              complainOnPress={() => {}}
-            />
-          ))}
+          {popcornReviews === undefined ? (
+            <ActivityIndicator />
+          ) : (
+            <>
+              {popcornReviews?.map((popcornReview, idx) => (
+                <CommentItem
+                  totalComments={popcornReviews.length}
+                  userId={popcornReview.userId}
+                  nickName={popcornReview.nickName}
+                  profileImgNum={(popcornReview.profileImgNum % 3) + 1}
+                  afterScreening={popcornReview.afterScreening}
+                  review={popcornReview.review}
+                  createdAt={format(popcornReview.createdAt, 'yyyy.MM.dd')}
+                  idx={idx}
+                  complainOnPress={() => {
+                    setComplainId(popcornReview.userId);
+                    setComplainPopup(true);
+                  }}
+                  key={popcornReview.createdAt}
+                />
+              ))}
+              {!viewMoreComment && popcornReviews.length > 5 && (
+                <BoxButton
+                  onPress={() => setViewMoreComment(true)}
+                  mb={16}
+                  variant="default">
+                  더보기
+                </BoxButton>
+              )}
+            </>
+          )}
         </DefaultContainer>
       )}
       <VoteNextPopcorn
-        popcornRecommendData={[]}
+        popcornRecommendData={randomPopcornRecommendData.data?.data!}
         title="팝콘 튀기고 싶은 다른 영화가 있다면?"
         isLoading={false}
         voteMovieMutate={voteMovieMutate}
       />
-      <DefaultContainer>
-        <Pressable
-          onPress={() =>
-            stackNavigation.navigate(stackScreens.WriteRecommandScreen)
-          }
-          style={popcornPartyDetailScreenStyles.recommandOtherButton}>
-          <Typography style="Label1" color={palette.Primary.Dark}>
-            다른 작품 추천하기
-          </Typography>
-        </Pressable>
-        <BoxButton
-          onPress={() =>
-            stackNavigation.navigate(stackScreens.WriteReviewScreen)
-          }
-          mt={22}>
-          나도 리뷰쓰기
-        </BoxButton>
-      </DefaultContainer>
+      <DetailBottomButtons
+        id={movieData?.popcornId!}
+        poster={movieData?.imageUrl!}
+        title={movieData?.movieTitle!}
+        directorname={movieData?.directorName!}
+      />
     </ImageContentScrollContainer>
   );
 }
