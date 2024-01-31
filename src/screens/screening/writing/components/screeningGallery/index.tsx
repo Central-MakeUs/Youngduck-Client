@@ -1,17 +1,16 @@
 import ImageCropPicker from 'react-native-image-crop-picker';
-import {Alert, Image, Linking, TouchableOpacity, View} from 'react-native';
+import {Image, TouchableOpacity, View} from 'react-native';
 
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import Gallery from '@/assets/icons/gallery.svg';
-import {checkPermission} from '@/utils/checkPermission';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import {IImageRequest} from '@/models/image/request';
-
-import {galleryStyles} from './ScreeningGallery.style';
 import {checkAndRequestPermission} from '@/services/permissionService';
 import {Permissions} from '@/models/enums/permission';
 import permissionAlert from '@/services/permissionAlert';
+
+import {galleryStyles} from './ScreeningGallery.style';
 
 interface ScreeningGaleeryProps {
   image: string;
@@ -32,7 +31,7 @@ const ScreeningGallery = ({image, setImage}: ScreeningGaleeryProps) => {
       const responseData = await uploadImage.mutateAsync(image);
       setImage(responseData.data);
     } catch (err) {
-      console.error(err);
+      //console.error(err);
     }
   };
 
