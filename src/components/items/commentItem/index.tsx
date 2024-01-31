@@ -6,10 +6,15 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 
 import {commentItemStyles} from './CommentItem.style';
-import {IPopcornReviewResponse} from '@/models/popcornParty/reponse';
 import {defaultImages} from '@/assets';
 
-interface ICommentItem extends IPopcornReviewResponse {
+interface ICommentItemProps {
+  userId: number;
+  nickName: string;
+  profileImgNum: number;
+  afterScreening: boolean;
+  review: string;
+  createdAt: string;
   totalComments: number;
   idx: number;
   complainOnPress: () => void;
@@ -24,7 +29,7 @@ const CommentItem = ({
   createdAt,
   idx,
   complainOnPress,
-}: ICommentItem) => {
+}: ICommentItemProps) => {
   return (
     <View
       style={[
