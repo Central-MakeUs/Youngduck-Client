@@ -10,6 +10,7 @@ import {
 } from 'react-native-permissions';
 
 import {Permissions} from '@/models/enums/permission';
+import {setIsAlarm} from './localStorage/localStorage';
 
 export const checkAndRequestPermission = async (type: Permissions) => {
   const key = permissionFactory(type);
@@ -52,6 +53,4 @@ export const checkAlarmPermission = async () => {
   if (res.status === 'denied') {
     await requestNotifications(['alert', 'sound']);
   }
-
-  return res.status;
 };

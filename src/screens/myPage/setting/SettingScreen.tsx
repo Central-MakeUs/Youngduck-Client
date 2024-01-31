@@ -4,7 +4,7 @@ import SubTitle from '@/components/title/subTitle';
 import SubTitleDescription from '@/components/title/subTitleDescription';
 import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
 import useNavigator from '@/hooks/useNavigator';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Pressable, View} from 'react-native';
 import settingScreenStyles from './SettingScreen.style';
 import SubMenu from '@/components/subMenu';
@@ -13,13 +13,20 @@ import palette from '@/styles/theme/color';
 import stackScreens from '@/constants/stackScreens';
 import Config from 'react-native-config';
 import Popup from '@/components/popup';
-import {removeTokens} from '@/services/localStorage/localStorage';
+import {getIsAlarm, removeTokens} from '@/services/localStorage/localStorage';
 
 const SettingScreen = () => {
   const {stackNavigation} = useNavigator();
   const [isServiceAlarmOn, setIsServiceAlarmOn] = useState<boolean>(false);
   const [isAdBenefitAlarmOn, setIsAdBenefitAlarmOn] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
+
+  // 권한 알람 여부를 받아오기
+  useEffect(() => {
+    getIsAlarm().then(res => {
+      setIsServiceAlarmOn(res);
+    });
+  }, []);
 
   const onCloseModal = async () => setIsVisible(false);
 
