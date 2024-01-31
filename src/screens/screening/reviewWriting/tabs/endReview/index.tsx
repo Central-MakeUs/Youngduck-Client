@@ -9,6 +9,8 @@ import {IScreeningReviewBodyRequest} from '@/models/screening/request/reviewRequ
 
 import {screeningReviewStyle} from '../ScreeningReview.style';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
+import useNavigator from '@/hooks/useNavigator';
+import stackScreens from '@/constants/stackScreens';
 
 interface IEndReviewProps {
   setValue: (value: boolean | string, option: string) => void;
@@ -17,6 +19,7 @@ interface IEndReviewProps {
 }
 
 const EndReview = ({setValue, value, id}: IEndReviewProps) => {
+  const {stackNavigation} = useNavigator();
   const {uploadScreeningReview} = useScreeningMutation();
   const handleChangeAgree = () => {
     setValue(!value.hasAgreed, 'hasAgreed');
@@ -24,8 +27,9 @@ const EndReview = ({setValue, value, id}: IEndReviewProps) => {
 
   const handleReviewComplete = async () => {
     const body = {...value, id};
-    console.log(body);
+    //console.log(body);
     await uploadScreeningReview.mutateAsync(body);
+    stackNavigation.navigate(stackScreens.DetailScreen, {id});
   };
   return (
     <ScrollView style={screeningReviewStyle.container}>
