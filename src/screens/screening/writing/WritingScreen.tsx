@@ -44,7 +44,7 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
     location: search,
     information: '',
     formUrl: '',
-    hostPoneNumber: '',
+    hostPhoneNumber: '',
     hostEmail: '',
     hasAgreed: false,
   });
@@ -77,8 +77,8 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
         screeningStartTime: new Date(data.data.screeningStartTime),
         information: data.data.information,
         formUrl: data.data.formUrl,
-        hostPoneNumber: data.data.hostPoneNumber
-          ? data.data.hostPoneNumber
+        hostPhoneNumber: data.data.hostPhoneNumber
+          ? data.data.hostPhoneNumber
           : '',
         hostEmail: data.data.hostEmail,
         hasAgreed: data.data.hasAgreed,
@@ -266,10 +266,10 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
         {/*주최 연락처*/}
         <View style={writingStyles.container}>
           <Input
-            value={inputValues.hostPoneNumber}
+            value={inputValues.hostPhoneNumber}
             title="주최 연락처"
             placeholder="주최 연락처를 입력해주세요"
-            onChangeInput={value => onChangeInput('hostPoneNumber', value)}
+            onChangeInput={value => onChangeInput('hostPhoneNumber', value)}
             keyBoardType="phone"
             maxLength={13}
             errorContent="전화번호 형식을 맞춰주세요"

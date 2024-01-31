@@ -13,7 +13,7 @@ export interface IScreeningBodyRequest {
   location: string;
   information: string;
   formUrl: string;
-  hostPoneNumber: string;
+  hostPhoneNumber: string;
   hostEmail: string;
   hasAgreed: boolean;
 }

@@ -38,13 +38,13 @@ const DetailInfoPage = ({item}: IDetailInfoProps) => {
           <DetailInfo title="추가 설명" content={item.information} />
         )}
 
-        {(item.hostEmail || item.hostPoneNumber) && (
+        {(item.hostEmail || item.hostPhoneNumber) && (
           <Typography mt={24} style="Title2" color={palette.Text.Normal}>
             주최 연락처
           </Typography>
         )}
-        {item.hostPoneNumber && (
-          <DetailContact type="call" content={item.hostPoneNumber} />
+        {item.hostPhoneNumber && (
+          <DetailContact type="call" content={item.hostPhoneNumber} />
         )}
         {item.hostEmail && (
           <DetailContact type="mail" content={item.hostEmail} />
