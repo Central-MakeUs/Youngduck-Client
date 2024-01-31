@@ -12,6 +12,8 @@ import ScreeningStackNavigator from '../stackNavigator/ScreeningStackNavigator';
 
 import PopcornPartyHomeScreen from '@/screens/popCornParty/home/PopcornPartyHomeScreen';
 import MyPageScreen from '@/screens/myPage/MyPageScreen';
+import {useEffect} from 'react';
+import {checkAlarmPermission} from '@/services/permissionService';
 
 export const getTabBarIcon = (routeName: string, focused: boolean) => {
   const iconColor = focused ? palette.Primary.Normal : palette.Text.Disable;
@@ -31,7 +33,12 @@ export const getTabBarIcon = (routeName: string, focused: boolean) => {
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
-function BottomTabNavigator() {
+const BottomTabNavigator = () => {
+  useEffect(() => {
+    checkAlarmPermission().then(res => {
+      console.log(res);
+    });
+  }, []);
   return (
     <BottomTab.Navigator
       screenOptions={bottomTabScreenOptions}
@@ -62,6 +69,6 @@ function BottomTabNavigator() {
       />
     </BottomTab.Navigator>
   );
-}
+};
 
 export default BottomTabNavigator;

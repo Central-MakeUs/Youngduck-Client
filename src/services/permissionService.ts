@@ -1,4 +1,3 @@
-import {Permissions} from '@/models/enums/permission';
 import {Platform} from 'react-native';
 import {
   PERMISSIONS,
@@ -6,7 +5,12 @@ import {
   RESULTS,
   check,
   request,
+  checkNotifications,
+  requestNotifications,
 } from 'react-native-permissions';
+
+import {Permissions} from '@/models/enums/permission';
+import PushNotification from 'react-native-push-notification';
 
 export const checkAndRequestPermission = async (type: Permissions) => {
   const key = permissionFactory(type);
@@ -29,8 +33,6 @@ const permissionFactory = (type: string) => {
   switch (type) {
     case Permissions.PhotoLibrary:
       return getPhotoLibraryPermissionKey();
-    case Permissions.Alarm:
-      return getAlarmPermissionKey();
     default:
       return null;
   }
@@ -45,4 +47,12 @@ const getPhotoLibraryPermissionKey = (): Permission | null => {
   });
 };
 
-const getAlarmPermissionKey = () => {};
+export const checkAlarmPermission = async () => {
+  const res = await checkNotifications();
+
+  if (res.status === 'denied') {
+    await requestNotifications(['alert', 'sound']);
+  }
+
+  return res.status;
+};
