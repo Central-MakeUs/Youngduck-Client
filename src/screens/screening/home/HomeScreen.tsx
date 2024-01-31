@@ -91,9 +91,9 @@ function HomeScreen() {
           <EmptyCard text={`최근에 방영했던 스크리닝은\n준비하고 있어요`} />
         )}
         {mostCommentScreenings.status === 'success' &&
-          weekScreenings?.data?.data &&
+          mostCommentScreenings?.data?.data &&
           mostCommentScreenings.data.data.length > 0 && (
-            <ReviewScreeningCarousel item={weekScreenings?.data?.data} />
+            <ReviewScreeningCarousel item={mostCommentScreenings?.data?.data} />
           )}
       </View>
       <Divider height={8} />
