@@ -52,13 +52,13 @@ let lock = false;
 const onRejected = async (error: AxiosError) => {
   const originalConfig = error.config;
   const data = error.response?.data as ResponseErrorAPI;
+  console.log('토큰 만료', data);
   if (
-    originalConfig &&
-    error.response?.status === 401 &&
-    data?.code == 'AUTH_403_1' &&
-    !lock
+    (originalConfig &&
+      error.response?.status === 401 &&
+      data?.code === 'AUTH_401_3') ||
+    (error.response?.status === 500 && data.code === 'GLOBAL_500_1' && !lock)
   ) {
-    console.log('토큰 재발급 실행');
     lock = true;
     try {
       await postAccessToken();

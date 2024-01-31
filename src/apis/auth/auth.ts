@@ -1,9 +1,7 @@
-import {AxiosError} from 'axios';
-
 import {LoginType} from '@/models/auth/entity';
 import {apiWithoutToken} from '@/apis';
 import {IRegisterRequest} from '@/models/auth/request';
-import {ResponseDTO, ResponseErrorAPI} from '@/models/common/responseDTO';
+import {ResponseDTO} from '@/models/common/responseDTO';
 import {ILoginResponse, IRegisterResponse} from '@/models/auth/response';
 import {getRefreshToken, setTokens} from '@/services/localStorage/localStorage';
 
@@ -40,7 +38,7 @@ export const postAccessToken = async (): Promise<boolean> => {
     const res = await apiWithoutToken.post(
       `/auth/token/refresh?refreshToken=${refreshToken}`,
     );
-    console.log('토큰 재발급 응답 성공', res.data);
+    console.log('axios interceptor 토큰 재발급 응답 성공', res.data);
     await setTokens(res.data.data.refreshToken, res.data.data.accessToken);
     return true;
   } catch (e) {
