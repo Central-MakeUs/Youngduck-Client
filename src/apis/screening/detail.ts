@@ -4,6 +4,7 @@ import {
   IScreeningBookMarkResponse,
   IScreeningDetailContent,
   IScreeningMyDetailResponse,
+  IScreeningMyStatisticsResponse,
 } from '@/models/screening/response/detailResponseDto';
 
 // 스크리닝 디테일 id 정보 함수
@@ -27,6 +28,14 @@ export const getScreeningMyDetailContent = async (
   id: number,
 ): Promise<ResponseDTO<IScreeningMyDetailResponse>> => {
   const res = await api.get(`/screening/myScreening/${id}`);
+  return res.data;
+};
+
+// 내가 작성한 스크리닝 댓글 통계 가져오는 함수
+export const getScreeningMyStatistics = async (
+  id: number,
+): Promise<ResponseDTO<IScreeningMyStatisticsResponse>> => {
+  const res = await api.get(`/screening/my/statistics/${id}`);
   return res.data;
 };
 

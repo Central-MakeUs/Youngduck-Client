@@ -3,17 +3,20 @@ import {View} from 'react-native';
 import DefaultContainer from '@/components/container/defaultContainer';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
-import DetailInfo from '../../components/detailInfo';
-import DetailInfoPhone from '../../components/detailInfoPhone';
-import {getKorDateRange} from '@/utils/getDate';
-import {IScreeningDetailContent} from '@/models/screening/response/detailResponseDto';
 
-import {detailInfoStyles} from './DetailInfoScreen.style';
+import {getKorDateRange} from '@/utils/getDate';
+import {
+  IScreeningDetailContent,
+  IScreeningMyDetailResponse,
+} from '@/models/screening/response/detailResponseDto';
+import DetailInfo from './components/detailInfo';
+import DetailContact from './components/detailContact';
+import {detailInfoStyles} from './DetailInfoPage.style';
 
 interface IDetailInfoProps {
-  item: IScreeningDetailContent;
+  item: IScreeningDetailContent | IScreeningMyDetailResponse;
 }
-const DetailInfoScreen = ({item}: IDetailInfoProps) => {
+const DetailInfoPage = ({item}: IDetailInfoProps) => {
   return (
     <View>
       <DefaultContainer>
@@ -41,14 +44,14 @@ const DetailInfoScreen = ({item}: IDetailInfoProps) => {
           </Typography>
         )}
         {item.hostPoneNumber && (
-          <DetailInfoPhone type="call" content={item.hostPoneNumber} />
+          <DetailContact type="call" content={item.hostPoneNumber} />
         )}
         {item.hostEmail && (
-          <DetailInfoPhone type="mail" content={item.hostEmail} />
+          <DetailContact type="mail" content={item.hostEmail} />
         )}
         <View style={detailInfoStyles.bottom} />
       </DefaultContainer>
     </View>
   );
 };
-export default DetailInfoScreen;
+export default DetailInfoPage;

@@ -4,16 +4,15 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import {TEngCategory} from '@/models/enums/category';
 import {getCategory} from '@/utils/getCategory';
-
-import {detailTitleStyles} from './DetailTitle.style';
+import {ScreeningTitleStyles} from './ScreeningTitle';
 
 interface IDetailTitleProps {
   title: string;
   category: TEngCategory;
 }
-const DetailTitle = ({title, category}: IDetailTitleProps) => {
+const ScreeningTitle = ({title, category}: IDetailTitleProps) => {
   return (
-    <View style={detailTitleStyles.container}>
+    <View style={ScreeningTitleStyles.container}>
       <Typography style="Label2" color={palette.Text.Normal}>
         {getCategory(category)}
       </Typography>
@@ -23,4 +22,4 @@ const DetailTitle = ({title, category}: IDetailTitleProps) => {
     </View>
   );
 };
-export default DetailTitle;
+export default ScreeningTitle;

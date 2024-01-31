@@ -71,7 +71,7 @@ const MyManagementItem = ({
       <Pressable
         style={myManagementItemStyles.wrap}
         onPress={() =>
-          stackNavigation.navigate(stackScreens.DetailScreen, {id})
+          stackNavigation.navigate(stackScreens.MyDetailScreen, {id})
         }>
         <Image source={{uri: imageURI}} style={myManagementItemStyles.image} />
         <View style={myManagementItemStyles.contentContainer}>

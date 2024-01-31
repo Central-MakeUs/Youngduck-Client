@@ -6,7 +6,7 @@ import {TScreeningReviewCountResponse} from '@/models/screening/response/reviewR
 interface IDetailScreeningRate {
   rates: TScreeningReviewCountResponse;
 }
-const DetailScreeningRate = ({rates}: IDetailScreeningRate) => {
+const ScreeningRateCard = ({rates}: IDetailScreeningRate) => {
   return (
     <ScreeningRate score={rates?.screeningRate} mode="screeningRate">
       {screeningRateArray.map(rateLabel => (
@@ -20,4 +20,4 @@ const DetailScreeningRate = ({rates}: IDetailScreeningRate) => {
     </ScreeningRate>
   );
 };
-export default DetailScreeningRate;
+export default ScreeningRateCard;
