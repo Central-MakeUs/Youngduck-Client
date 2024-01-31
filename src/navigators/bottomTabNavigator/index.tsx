@@ -14,6 +14,8 @@ import palette from '@/styles/theme/color';
 import {BottomTabParamList} from '@/types/navigator';
 
 import {bottomTabScreenOptions} from './BottomTabNavigator.style';
+import {getIsAlarm, setIsAlarm} from '@/services/localStorage/localStorage';
+import {checkNotifications} from 'react-native-permissions';
 
 export const getTabBarIcon = (routeName: string, focused: boolean) => {
   const iconColor = focused ? palette.Primary.Normal : palette.Text.Disable;
@@ -35,13 +37,10 @@ const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 const BottomTabNavigator = () => {
   useEffect(() => {
-    checkAlarmPermission().then(res => {
-      if (res === 'denied') {
-        console.log('알람 권한 거부함');
-      }
-      if (res === 'granted') {
-        console.log('알람 권한 성공함');
-      }
+    checkAlarmPermission().then(async () => {
+      const res = await checkNotifications();
+      console.log(res.status);
+      await setIsAlarm(res.status === 'granted');
     });
   }, []);
   return (
