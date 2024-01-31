@@ -1,5 +1,5 @@
 import ImageCropPicker from 'react-native-image-crop-picker';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {Alert, Image, Linking, TouchableOpacity, View} from 'react-native';
 
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
@@ -9,6 +9,9 @@ import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import {IImageRequest} from '@/models/image/request';
 
 import {galleryStyles} from './ScreeningGallery.style';
+import {checkAndRequestPermission} from '@/services/permissionService';
+import {Permissions} from '@/models/enums/permission';
+import permissionAlert from '@/services/permissionAlert';
 
 interface ScreeningGaleeryProps {
   image: string;
@@ -34,12 +37,12 @@ const ScreeningGallery = ({image, setImage}: ScreeningGaleeryProps) => {
   };
 
   const handleClickGallery = async () => {
-    // 갤러리 이미지 접근 권한 허용
-    const res = await checkPermission(() => {
+    const result = await checkAndRequestPermission(Permissions.PhotoLibrary);
+    if (result === 'granted') {
       handleImageUpload();
-    });
-    if (res) {
-      handleImageUpload();
+    }
+    if (result === 'blocked') {
+      permissionAlert();
     }
   };
   return (
