@@ -1,4 +1,4 @@
-import {ActivityIndicator, Pressable, View} from 'react-native';
+import {ActivityIndicator, Pressable} from 'react-native';
 import popcornPartyDetailScreenStyles from './popcornPartyDetailScreen.style';
 import useNavigator from '@/hooks/useNavigator';
 import {useEffect, useState} from 'react';
@@ -30,6 +30,7 @@ import {useIsFocused} from '@react-navigation/native';
 import {format} from 'date-fns';
 import Popup from '@/components/popup';
 import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
+import DetailMovie from './components/detailMovie/DetailMovie';
 
 interface IPopcornPartyDetailScreenProp {
   route: ScreenRouteProp<stackScreens.PopcornPartyDetailScreen>;
@@ -122,27 +123,13 @@ function PopcornPartyDetailScreen({
         onPress={handleComplainReview}
         type="error"
       />
-      <DefaultContainer>
-        <View style={popcornPartyDetailScreenStyles.introduceWrap}>
-          <Typography style="Label2">1월 첫째주 팝콘작</Typography>
-          <Typography style="Title2">
-            {movieData === undefined ? '' : movieData.movieTitle}
-          </Typography>
-          <Typography style="Body2">
-            {movieData === undefined ? '' : movieData.directorName}
-          </Typography>
-          <Divider height={1} mb={16} mt={16} />
-          <Typography style="Body1" numberOfLines={isMoreDetailMode ? -1 : 3}>
-            {movieData === undefined ? '' : movieData.detail}
-          </Typography>
-          <BoxButton
-            onPress={toggleNumberOfLinesState}
-            variant="default"
-            mt={16}>
-            {isMoreDetailMode ? '접기' : '설명 더 보기'}
-          </BoxButton>
-        </View>
-      </DefaultContainer>
+      <DetailMovie
+        movieTitle={movieData?.movieTitle!}
+        directorName={movieData?.directorName!}
+        isMoreDetailMode={isMoreDetailMode}
+        detail={movieData?.detail!}
+        toggleNumberOfLinesState={toggleNumberOfLinesState}
+      />
       <TabBar
         currentTabBarNumber={currentTabBarNumber}
         setCurrentTabBarNumber={setCurrentTabBarNumber}
