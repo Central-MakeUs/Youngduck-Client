@@ -38,7 +38,7 @@ export const postAccessToken = async (): Promise<boolean> => {
     const res = await apiWithoutToken.post(
       `/auth/token/refresh?refreshToken=${refreshToken}`,
     );
-    console.log('axios interceptor 토큰 재발급 응답 성공', res.data);
+    console.log('access token 재발급 실행');
     await setTokens(res.data.data.refreshToken, res.data.data.accessToken);
     return true;
   } catch (e) {
