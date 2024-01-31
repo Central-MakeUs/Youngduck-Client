@@ -10,7 +10,6 @@ import {
 } from 'react-native-permissions';
 
 import {Permissions} from '@/models/enums/permission';
-import PushNotification from 'react-native-push-notification';
 
 export const checkAndRequestPermission = async (type: Permissions) => {
   const key = permissionFactory(type);

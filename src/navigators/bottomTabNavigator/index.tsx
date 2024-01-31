@@ -1,19 +1,19 @@
+import {useEffect} from 'react';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+
+import PopcornPartyHomeScreen from '@/screens/popCornParty/home/PopcornPartyHomeScreen';
+import MyPageScreen from '@/screens/myPage/MyPageScreen';
+import {checkAlarmPermission} from '@/services/permissionService';
+import TitleTopBar from '@/components/topBar/titleTopBar';
+import ScreeningStackNavigator from '../stackNavigator/ScreeningStackNavigator';
 import SvgIcons from '@/assets/svgIcons';
 import bottomTabScreens, {
   bottomTabBarLabel,
 } from '@/constants/bottomTabScreens';
 import palette from '@/styles/theme/color';
 import {BottomTabParamList} from '@/types/navigator';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+
 import {bottomTabScreenOptions} from './BottomTabNavigator.style';
-import TitleTopBar from '@/components/topBar/titleTopBar';
-
-import ScreeningStackNavigator from '../stackNavigator/ScreeningStackNavigator';
-
-import PopcornPartyHomeScreen from '@/screens/popCornParty/home/PopcornPartyHomeScreen';
-import MyPageScreen from '@/screens/myPage/MyPageScreen';
-import {useEffect} from 'react';
-import {checkAlarmPermission} from '@/services/permissionService';
 
 export const getTabBarIcon = (routeName: string, focused: boolean) => {
   const iconColor = focused ? palette.Primary.Normal : palette.Text.Disable;
@@ -36,7 +36,12 @@ const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 const BottomTabNavigator = () => {
   useEffect(() => {
     checkAlarmPermission().then(res => {
-      console.log(res);
+      if (res === 'denied') {
+        console.log('알람 권한 거부함');
+      }
+      if (res === 'granted') {
+        console.log('알람 권한 성공함');
+      }
     });
   }, []);
   return (
