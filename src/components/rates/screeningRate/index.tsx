@@ -20,8 +20,10 @@ const ScreeningRate = ({score, mode, children}: IScreeningRate) => {
 
   // 100점 일 때 tooltip width 값인 47.333...을 빼줌
   const screeningIndexLocation =
-    (percentageLength * score) / 100 - TOOLTIP_MAX_LENGTH;
-  const screeningIndex = score.toString();
+    score >= 100
+      ? percentageLength - TOOLTIP_MAX_LENGTH
+      : (percentageLength * score) / 100 - TOOLTIP_MAX_LENGTH;
+  const screeningIndex = score >= 100 ? '100' : score.toString();
 
   const style = screeningRateStyles({tooltipHeight});
 
