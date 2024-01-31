@@ -20,7 +20,6 @@ import {
   getPopconrReviewData,
   getPopcornPartyDetailData,
 } from '@/apis/popcornParty/detail/detail';
-import {usePosterImageStore} from '@/stores/posterImage';
 import {getPopcornRecommendData} from '@/apis/popcornParty';
 import {useIsFocused} from '@react-navigation/native';
 import {format} from 'date-fns';
@@ -28,6 +27,7 @@ import Popup from '@/components/popup';
 import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
 import DetailPopcorn from './components/detailMovie/DetailPopcorn';
 import DetailBottomButtons from './components/detailBottomButtons/DetailBottomButtons';
+import {getWeekOfMonthString} from '@/utils/getWeekOfMonth';
 
 interface IPopcornPartyDetailScreenProp {
   route: ScreenRouteProp<stackScreens.PopcornPartyDetailScreen>;
@@ -44,7 +44,6 @@ function PopcornPartyDetailScreen({
   const [complainPopup, setComplainPopup] = useState<boolean>(false);
   const currentFocusState = useIsFocused();
   const queryClient = useQueryClient();
-  const {setPosterImage} = usePosterImageStore();
   const {voteMovieMutate} = useVoteMovieMutation();
   const {complainUserMutate} = usePopcornPartyMutation();
   const [
@@ -92,10 +91,6 @@ function PopcornPartyDetailScreen({
   ];
 
   useEffect(() => {
-    setPosterImage(movieData?.imageUrl!);
-  }, [movieData?.popcornId]);
-
-  useEffect(() => {
     if (currentFocusState && randomPopcornRecommendData.status === 'success') {
       queryClient.removeQueries({queryKey: ['randomPopcornRecommendData']});
       randomPopcornRecommendData.refetch();
@@ -108,9 +103,10 @@ function PopcornPartyDetailScreen({
     setComplainPopup(false);
     complainUserMutate(complainId);
   };
-
   return (
-    <ImageContentScrollContainer>
+    <ImageContentScrollContainer
+      title={getWeekOfMonthString()!}
+      posterImage={movieData?.imageUrl!}>
       <Popup
         title="정말 신고하시겠어요?"
         content={`신고가 누적되면\n해당 유저의 서비스 이용이 제한돼요. `}

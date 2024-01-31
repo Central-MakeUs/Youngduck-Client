@@ -12,19 +12,21 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import imageContentScrollContainerStyles from './imageContentScrollContainer.style';
-import {usePosterImageStore} from '@/stores/posterImage';
 
 interface IImageContentScrollContainerProp {
   children: React.ReactNode;
+  title: string;
+  posterImage: string;
 }
 
 const ImageContentScrollContainer = ({
   children,
+  title,
+  posterImage,
 }: IImageContentScrollContainerProp) => {
   const {stackNavigation} = useNavigator();
   const {screenWidth} = getScreenSize();
   const {top, bottom} = useSafeAreaInsets();
-  const {posterImage} = usePosterImageStore();
 
   const [opacity, setOpacity] = useState<number>(1);
 
@@ -43,11 +45,7 @@ const ImageContentScrollContainer = ({
         {paddingBottom: bottom},
       ]}>
       <View style={imageContentScrollContainerStyles.topBarWrap}>
-        <BackTitleTopBar
-          opacity={opacity}
-          goBack={handleGoBack}
-          text="1월 첫째주 팝콘작"
-        />
+        <BackTitleTopBar opacity={opacity} goBack={handleGoBack} text={title} />
       </View>
       <ScrollView
         style={imageContentScrollContainerStyles.container}
