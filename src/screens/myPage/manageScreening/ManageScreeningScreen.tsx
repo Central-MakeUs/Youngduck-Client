@@ -15,6 +15,7 @@ import {
   IWatchedScreeningProps,
 } from '@/models/myPage/response';
 import {getDashDateRange} from '@/utils/getDate';
+import EmptyItem from '@/components/items/emptyItem';
 
 interface IManageScreeningProp {
   route: ScreenRouteProp<stackScreens.ManageScreeningScreen>;
@@ -88,11 +89,17 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
         </Typography>
       </View>
       {isWatcedScreening ? (
-        <FlatList
-          data={params.screeningData.watchedScreeningData}
-          renderItem={renderWatchedItem}
-          style={style.screeningListContainer}
-        />
+        params.screeningData.watchedScreeningData?.length === 0 ? (
+          <EmptyItem text="아직 관람한 스크리닝이 없어요." size="large" />
+        ) : (
+          <FlatList
+            data={params.screeningData.watchedScreeningData}
+            renderItem={renderWatchedItem}
+            style={style.screeningListContainer}
+          />
+        )
+      ) : params.screeningData.jjimScreeningData?.length === 0 ? (
+        <EmptyItem text="아직 관심 스크리닝이 없어요." size="large" />
       ) : (
         <FlatList
           data={params.screeningData.jjimScreeningData}
