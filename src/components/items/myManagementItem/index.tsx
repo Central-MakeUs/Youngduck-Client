@@ -20,8 +20,6 @@ interface IMyManagementItemProps {
   posterImgUrl: string;
   title: string;
   id: number;
-  // 스크리닝 관리 props
-  isJjimActivated?: boolean;
   // 팝콘작 리뷰 props
   popcornOfWeek?: string;
   director?: string;
@@ -39,7 +37,6 @@ const MyManagementItem = ({
   posterImgUrl,
   title,
   id,
-  isJjimActivated = undefined,
   popcornOfWeek,
   director,
   dateRange,
@@ -51,13 +48,7 @@ const MyManagementItem = ({
   const {stackNavigation} = useNavigator();
 
   const handleButtonPressed = () => {
-    if (isJjimActivated !== undefined) {
-      if (isJjimActivated) {
-        // 찜 off API 요청
-      } else {
-        // 찜 on API 요청
-      }
-    }
+    // 찜 off API 요청
   };
   return (
     <View style={myManagementItemStyles.container}>
@@ -102,20 +93,12 @@ const MyManagementItem = ({
           )}
           {mode === 'jjim-screening' && (
             <Pressable
-              style={
-                isJjimActivated
-                  ? myManagementItemStyles.activatedButtonWrap
-                  : myManagementItemStyles.deactivatedButtonWrap
-              }
+              style={myManagementItemStyles.activatedButtonWrap}
               onPress={handleButtonPressed}>
               <SvgIcons.Heart
                 width={12}
                 height={12}
-                fill={
-                  isJjimActivated
-                    ? palette.Primary.Deep
-                    : palette.Text.Alternative
-                }
+                fill={palette.Primary.Deep}
               />
             </Pressable>
           )}

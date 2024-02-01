@@ -16,6 +16,8 @@ import {
 } from '@/models/myPage/response';
 import {getDashDateRange} from '@/utils/getDate';
 import EmptyItem from '@/components/items/emptyItem';
+import {useQueries} from '@tanstack/react-query';
+import {getJjimScreeningData, getWatchedScreeningData} from '@/apis/myPage';
 
 interface IManageScreeningProp {
   route: ScreenRouteProp<stackScreens.ManageScreeningScreen>;
@@ -26,9 +28,16 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
   const [isWatcedScreening, setIsWatcedScreening] = useState<boolean>(
     params.isWatcedScreening,
   );
+  const [watchedScreeningData, jjimScreeningData] = useQueries({
+    queries: [
+      {queryKey: ['watchedScreeningData'], queryFn: getWatchedScreeningData},
+      {queryKey: ['jjimScreeningData'], queryFn: getJjimScreeningData},
+    ],
+  });
+
   const dataCount = isWatcedScreening
-    ? params.screeningData.watchedScreeningData?.length
-    : params.screeningData.jjimScreeningData?.length;
+    ? watchedScreeningData?.data?.data.length
+    : jjimScreeningData?.data?.data.length;
 
   const dataCountString = `총 ${dataCount}건`;
 
@@ -89,20 +98,20 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
         </Typography>
       </View>
       {isWatcedScreening ? (
-        params.screeningData.watchedScreeningData?.length === 0 ? (
+        watchedScreeningData?.data?.data.length === 0 ? (
           <EmptyItem text="아직 관람한 스크리닝이 없어요." size="large" />
         ) : (
           <FlatList
-            data={params.screeningData.watchedScreeningData}
+            data={watchedScreeningData.data?.data}
             renderItem={renderWatchedItem}
             style={style.screeningListContainer}
           />
         )
-      ) : params.screeningData.jjimScreeningData?.length === 0 ? (
+      ) : jjimScreeningData?.data?.data.length === 0 ? (
         <EmptyItem text="아직 관심 스크리닝이 없어요." size="large" />
       ) : (
         <FlatList
-          data={params.screeningData.jjimScreeningData}
+          data={jjimScreeningData.data?.data}
           renderItem={renderJjimItem}
           style={style.screeningListContainer}
         />

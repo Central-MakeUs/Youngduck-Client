@@ -30,10 +30,6 @@ const MyPageScreen = () => {
       {queryKey: ['jjimScreeningData'], queryFn: getJjimScreeningData},
     ],
   });
-  const screeningData = {
-    watchedScreeningData: watchedScreeningData.data?.data,
-    jjimScreeningData: jjimScreeningData.data?.data,
-  };
   return (
     <GradientContainer
       colors={[
@@ -63,7 +59,6 @@ const MyPageScreen = () => {
           <View style={myPageScreenStyles.screeningWrap}>
             <MyScreening
               type="관람한 스크리닝"
-              screeningData={screeningData}
               count={
                 watchedScreeningData.data?.data.length
                   ? watchedScreeningData.data?.data.length!
@@ -73,7 +68,6 @@ const MyPageScreen = () => {
             <View style={myPageScreenStyles.divider} />
             <MyScreening
               type="관심 스크리닝"
-              screeningData={screeningData}
               count={
                 jjimScreeningData.data?.data.length
                   ? jjimScreeningData.data?.data.length!
