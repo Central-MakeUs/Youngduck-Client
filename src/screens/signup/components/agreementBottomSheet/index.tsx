@@ -39,6 +39,7 @@ const AgreeBottomSheet = ({bottomDrawerRef}: IAgreementBottomSheetProps) => {
 
   const isAllSelected =
     agreements[0].isAgree && agreements[1].isAgree && agreements[2].isAgree;
+  const isEssentialSelected = agreements[0].isAgree && agreements[1].isAgree;
   const canFinishSignup = agreements[0].isAgree && agreements[1].isAgree;
 
   const toggleAllAgreement = () => {
@@ -72,7 +73,13 @@ const AgreeBottomSheet = ({bottomDrawerRef}: IAgreementBottomSheetProps) => {
           <TextButtonContainer mb={8}>
             <SubTitle text="약관 전체동의" />
             <CheckBox
-              state={isAllSelected ? 'indeterminate' : 'off'}
+              state={
+                isAllSelected
+                  ? 'all'
+                  : isEssentialSelected
+                  ? 'essential'
+                  : 'off'
+              }
               onPress={toggleAllAgreement}
             />
           </TextButtonContainer>
