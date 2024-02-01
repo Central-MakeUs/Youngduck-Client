@@ -27,12 +27,6 @@ export interface IPopcornRateResponse {
   data: number;
 }
 
-export interface IPopcornKeywordResponse {
-  participatedCount: number;
-  participatedUserCount: number;
-  topThreeKeywords: {[key: string]: number}[];
-}
-
 export interface IPopcornReviewResponse {
   userId: number;
   nickName: string;
