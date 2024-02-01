@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import {TextInput, View} from 'react-native';
-import {DateParsable} from 'react-native-calendar-picker';
+import {useQuery} from '@tanstack/react-query';
 
 import DefaultContainer from '@/components/container/defaultContainer';
 import Typography from '@/components/typography';
@@ -13,41 +13,30 @@ import TextArea from '@/components/inputs/textArea';
 import DismissKeyboardView from '@/components/dismissKeyboardView';
 import Input from '@/components/input';
 import BoxButton from '@/components/buttons/boxButton';
-
+import useHandleInput from './hooks/useHandleInput';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import {ScreenRouteProp} from '@/types/navigator';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import {KorCategoryValues} from '@/models/enums/category';
-import {IScreeningBodyRequest} from '@/models/screening/request/screeningRequestDto';
+import {getScreeningMyDetailContent} from '@/apis/screening/detail';
 
 import {writingStyles} from './WritingScreen.style';
-import {useQuery} from '@tanstack/react-query';
-import {getScreeningMyDetailContent} from '@/apis/screening/detail';
-import {getCategory} from '@/utils/getCategory';
 
 interface IWritingScreenProps {
   route: ScreenRouteProp<'WritingScreen'>;
 }
 const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {type, search, id} = params;
   const {uploadScreening, modifyScreening} = useScreeningMutation();
   const {stackNavigation} = useNavigator();
-  const [inputValues, setInputValues] = useState<IScreeningBodyRequest>({
-    posterImgUrl: '',
-    screeningTitle: '',
-    hostName: '',
-    category: '',
-    screeningStartDate: undefined,
-    screeningEndDate: undefined,
-    screeningStartTime: undefined,
-    location: search,
-    information: '',
-    formUrl: '',
-    hostPhoneNumber: '',
-    hostEmail: '',
-    hasAgreed: false,
-  });
+  const {setModify, inputValues, setInputValues, onChangeInput} =
+    useHandleInput();
+
+  useEffect(() => {
+    onChangeInput('location', search);
+  }, [search]);
 
   const {data} = useQuery({
     queryKey: ['screeningMyDetail'],
@@ -56,35 +45,14 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
         return getScreeningMyDetailContent(id);
       }
     },
-    enabled: type === 'post',
+    enabled: id === null,
   });
 
   useEffect(() => {
-    onChangeInput('location', search);
-  }, [search]);
-
-  useEffect(() => {
-    if (data && id && type === 'modified') {
-      console.log(data.data);
-      setInputValues({
-        ...inputValues,
-        posterImgUrl: data.data.posterImgUrl,
-        screeningTitle: data.data.screeningTitle,
-        hostName: data.data.hostName,
-        category: getCategory(data.data.category),
-        screeningStartDate: new Date(data.data.screeningStartDate),
-        screeningEndDate: new Date(data.data.screeningEndDate),
-        screeningStartTime: new Date(data.data.screeningStartTime),
-        information: data.data.information,
-        formUrl: data.data.formUrl,
-        hostPhoneNumber: data.data.hostPhoneNumber
-          ? data.data.hostPhoneNumber
-          : '',
-        hostEmail: data.data.hostEmail,
-        hasAgreed: data.data.hasAgreed,
-      });
+    if (id && type === 'modified' && data) {
+      setModify(data.data);
     }
-  }, [setInputValues]);
+  }, []);
 
   const {
     screeningTitle,
@@ -98,13 +66,6 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
     hasAgreed,
     posterImgUrl,
   } = inputValues;
-
-  const onChangeInput = (
-    inputName: string,
-    value: string | DateParsable | undefined | boolean | Date,
-  ) => {
-    setInputValues({...inputValues, [inputName]: value});
-  };
 
   const canGoNext =
     posterImgUrl &&
@@ -130,12 +91,18 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
   };
 
   const handleWriteScreening = async () => {
+    setIsLoading(true);
     if (type === 'post') {
       await uploadScreening.mutateAsync(inputValues);
+      setIsLoading(false);
     }
     if (type === 'modified' && data) {
       const body = {screeningId: data.data.screeningId, ...inputValues};
       await modifyScreening.mutateAsync(body);
+      stackNavigation.navigate(stackScreens.MyDetailScreen, {
+        id: data.data.screeningId,
+      });
+      setIsLoading(false);
     }
   };
 
@@ -200,14 +167,28 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
 
         {/*날짜*/}
         <View style={writingStyles.container}>
-          <ButtonInput
-            value={inputValues}
-            title="날짜"
-            placeholder="시작일과 종료일을 선택해주세요"
-            category="date"
-            setValue={setInputValues}
-            essential
-          />
+          {type === 'post' && (
+            <ButtonInput
+              value={inputValues}
+              title="날짜"
+              placeholder="시작일과 종료일을 선택해주세요"
+              category="date"
+              setValue={setInputValues}
+              essential
+            />
+          )}
+          {type === 'modified' &&
+            inputValues.screeningStartDate &&
+            inputValues.screeningEndDate && (
+              <ButtonInput
+                value={inputValues}
+                title="날짜"
+                placeholder="시작일과 종료일을 선택해주세요"
+                category="date"
+                setValue={setInputValues}
+                essential
+              />
+            )}
         </View>
 
         {/*시간*/}
@@ -316,8 +297,11 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
           </>
         )}
 
-        <BoxButton onPress={handleWriteScreening} mb={12} disabled={!canGoNext}>
-          {type === 'post' ? '등록하기' : '수정하기'}
+        <BoxButton
+          onPress={handleWriteScreening}
+          mb={12}
+          disabled={!canGoNext || isLoading}>
+          {isLoading ? '로딩 중' : type === 'post' ? '등록하기' : '수정하기'}
         </BoxButton>
       </DefaultContainer>
     </DismissKeyboardView>

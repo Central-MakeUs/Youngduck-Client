@@ -49,27 +49,29 @@ const MyDetailScreen = ({route: {params}}: IMyDetailScreenProps) => {
   return (
     <View style={myDetailScreenStyles.wrapper}>
       <View style={myDetailScreenStyles.content}>
-        <ImageContentScrollContainer>
-          {data && (
-            <ScreeningTitle
-              title={data?.data.screeningTitle}
-              category={data?.data.category}
-            />
-          )}
-          <TabBar
-            currentTabBarNumber={currentTab}
-            setCurrentTabBarNumber={setCurrentTab}
-            tabBars={myScreeningTabBars}
-          />
-
-          <View>
-            {currentTab === 0 && data?.data && (
-              <DetailInfoPage item={data?.data} />
+        {data && (
+          <ImageContentScrollContainer
+            title={data?.data.screeningTitle}
+            posterImage={data?.data.posterImgUrl}>
+            {data && (
+              <ScreeningTitle
+                title={data?.data.screeningTitle}
+                category={data?.data.category}
+              />
             )}
-            {currentTab === 1 && <DetailReviewPage id={params.id} />}
-            {currentTab === 2 && <DetailStatisticScreen id={params.id} />}
-          </View>
-        </ImageContentScrollContainer>
+            <TabBar
+              currentTabBarNumber={currentTab}
+              setCurrentTabBarNumber={setCurrentTab}
+              tabBars={myScreeningTabBars}
+            />
+
+            <View>
+              {currentTab === 0 && <DetailInfoPage item={data?.data} />}
+              {currentTab === 1 && <DetailReviewPage id={params.id} />}
+              {currentTab === 2 && <DetailStatisticScreen id={params.id} />}
+            </View>
+          </ImageContentScrollContainer>
+        )}
       </View>
       <View style={myDetailScreenStyles.bottom}>
         {data && (

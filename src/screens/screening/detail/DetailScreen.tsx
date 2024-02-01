@@ -26,6 +26,7 @@ type DetailScreenProps = {
 
 const DetailScreen = ({route}: DetailScreenProps) => {
   const {id} = route.params;
+  console.log(id);
   const [currentTab, setCurrentTab] = useState<number>(0);
 
   const {webview, setWebview} = useWebviewStore();
@@ -99,26 +100,28 @@ const DetailScreen = ({route}: DetailScreenProps) => {
       />
 
       <View style={detailScreenStyles.content}>
-        <ImageContentScrollContainer>
-          {data && (
-            <ScreeningTitle
-              title={data?.data.screeningTitle}
-              category={data?.data.category}
-            />
-          )}
-          <TabBar
-            currentTabBarNumber={currentTab}
-            setCurrentTabBarNumber={setCurrentTab}
-            tabBars={screeningTabBars}
-          />
-
-          <View>
-            {currentTab === 0 && data?.data && (
-              <DetailInfoPage item={data?.data} />
+        {data && (
+          <ImageContentScrollContainer
+            posterImage={data?.data.posterImgUrl}
+            title={data?.data.screeningTitle}>
+            {data && (
+              <ScreeningTitle
+                title={data?.data.screeningTitle}
+                category={data?.data.category}
+              />
             )}
-            {currentTab === 1 && <DetailReviewPage id={id} />}
-          </View>
-        </ImageContentScrollContainer>
+            <TabBar
+              currentTabBarNumber={currentTab}
+              setCurrentTabBarNumber={setCurrentTab}
+              tabBars={screeningTabBars}
+            />
+
+            <View>
+              {currentTab === 0 && <DetailInfoPage item={data?.data} />}
+              {currentTab === 1 && <DetailReviewPage id={id} />}
+            </View>
+          </ImageContentScrollContainer>
+        )}
       </View>
 
       <View style={detailScreenStyles.bottom}>
