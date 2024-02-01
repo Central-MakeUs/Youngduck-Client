@@ -24,24 +24,24 @@ const SettingScreen = () => {
   const [isAdBenefitAlarmOn, setIsAdBenefitAlarmOn] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
-  // 권한 알람 여부를 받아오기
   useEffect(() => {
+    // 권한 알람 여부 받아와 바로 초기화
     checkAlarmPermission().then(res => {
       if (res) {
         setIsServiceAlarmOn(res);
       }
     });
-  }, []);
-
-  // 설정에서 알람 후 받아오기
-  useEffect(() => {
+    // 앱 상태가 active 가 될 때 바로 permission 체크해 상태 초기화
     const handleCheckAlarm = (nextAppState: string): void => {
       if (nextAppState === 'active') {
         checkAlarmPermission().then(async res => {
           if (res) {
             await setIsAlarm(res);
             setIsServiceAlarmOn(res);
+            return;
           }
+          setIsAlarm(false);
+          setIsServiceAlarmOn(false);
         });
       }
     };
