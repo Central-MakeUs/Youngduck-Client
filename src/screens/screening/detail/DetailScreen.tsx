@@ -18,6 +18,7 @@ import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import LoadingPage from '@/components/pages/loadingPage';
 import ScreeningTitle from '@/components/title/screeningTitle';
 import Tooltip from '@/components/tooltip';
+import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
 
 import {detailScreenStyles} from './DetailScreen.style';
 
@@ -83,64 +84,64 @@ const DetailScreen = ({route}: DetailScreenProps) => {
   }
 
   return (
-    <View style={detailScreenStyles.wrapper}>
-      {/*관람 신청 팝업 모달*/}
-      <Popup
-        title="관람 예정이신가요?"
-        content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
-        isVisible={buttonType === 'default' && webview.isVisited}
-        onClose={onClosePopupScreening}
-        onPress={handleScreeningPopupPress}
-      />
+    <>
+      <View>
+        {/*관람 신청 팝업 모달*/}
+        <DefaultScrollContainer>
+          <Popup
+            title="관람 예정이신가요?"
+            content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
+            isVisible={buttonType === 'default' && webview.isVisited}
+            onClose={onClosePopupScreening}
+            onPress={handleScreeningPopupPress}
+          />
 
-      {/*관람 취소 팝업 모달*/}
-      <Popup
-        title="관람 예정을 취소할까요?"
-        content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
-        isVisible={popupCancel}
-        onClose={onClosePopupCancel}
-        onPress={handleCacelPopupPress}
-      />
+          {/*관람 취소 팝업 모달*/}
+          <Popup
+            title="관람 예정을 취소할까요?"
+            content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
+            isVisible={popupCancel}
+            onClose={onClosePopupCancel}
+            onPress={handleCacelPopupPress}
+          />
 
-      <View style={detailScreenStyles.content}>
-        {data && (
-          <ImageContentScrollContainer
-            posterImage={data?.data.posterImgUrl}
-            title={data?.data.screeningTitle}>
-            {data && (
-              <ScreeningTitle
-                title={data?.data.screeningTitle}
-                category={data?.data.category}
-              />
-            )}
-            <TabBar
-              currentTabBarNumber={currentTab}
-              setCurrentTabBarNumber={setCurrentTab}
-              tabBars={screeningTabBars}
-            />
+          {data && (
+            <>
+              <ImageContentScrollContainer
+                posterImage={data?.data.posterImgUrl}
+                title={data?.data.screeningTitle}>
+                {data && (
+                  <ScreeningTitle
+                    title={data?.data.screeningTitle}
+                    category={data?.data.category}
+                  />
+                )}
+                <TabBar
+                  currentTabBarNumber={currentTab}
+                  setCurrentTabBarNumber={setCurrentTab}
+                  tabBars={screeningTabBars}
+                />
+              </ImageContentScrollContainer>
 
-            <View>
               {currentTab === 0 && <DetailInfoPage item={data?.data} />}
               {currentTab === 1 && <DetailReviewPage id={id} />}
-            </View>
-          </ImageContentScrollContainer>
-        )}
+            </>
+          )}
+        </DefaultScrollContainer>
       </View>
 
-      <View style={detailScreenStyles.bottom}>
-        {currentTab === 0 && tooltipeShow && (
-          <View style={detailScreenStyles.tooltip}>
-            <Tooltip text="상영회 하루 전에 알람으로 알려드려요" hide={true} />
-          </View>
-        )}
+      {currentTab === 0 && tooltipeShow && (
+        <View style={detailScreenStyles.tooltip}>
+          <Tooltip text="상영회 하루 전에 알람으로 알려드려요" hide={true} />
+        </View>
+      )}
 
-        <BottomDetailButton
-          type={'complete'}
-          onPress={handleButtonOnPress}
-          onOptionPress={handleOptionOnPress}
-        />
-      </View>
-    </View>
+      <BottomDetailButton
+        type={buttonType}
+        onPress={handleButtonOnPress}
+        onOptionPress={handleOptionOnPress}
+      />
+    </>
   );
 };
 export default DetailScreen;
