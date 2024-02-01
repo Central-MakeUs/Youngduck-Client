@@ -3,7 +3,10 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import PopcornPartyHomeScreen from '@/screens/popCornParty/home/PopcornPartyHomeScreen';
 import MyPageScreen from '@/screens/myPage/MyPageScreen';
-import {checkAlarmPermission} from '@/services/permissionService';
+import {
+  checkAlarmPermission,
+  requestAlarmPermission,
+} from '@/services/permissionService';
 import TitleTopBar from '@/components/topBar/titleTopBar';
 import ScreeningStackNavigator from '../stackNavigator/ScreeningStackNavigator';
 import SvgIcons from '@/assets/svgIcons';
@@ -12,10 +15,9 @@ import bottomTabScreens, {
 } from '@/constants/bottomTabScreens';
 import palette from '@/styles/theme/color';
 import {BottomTabParamList} from '@/types/navigator';
+import {setIsAlarm} from '@/services/localStorage/localStorage';
 
 import {bottomTabScreenOptions} from './BottomTabNavigator.style';
-import {getIsAlarm, setIsAlarm} from '@/services/localStorage/localStorage';
-import {checkNotifications} from 'react-native-permissions';
 
 export const getTabBarIcon = (routeName: string, focused: boolean) => {
   const iconColor = focused ? palette.Primary.Normal : palette.Text.Disable;
@@ -37,10 +39,9 @@ const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 const BottomTabNavigator = () => {
   useEffect(() => {
-    checkAlarmPermission().then(async () => {
-      const res = await checkNotifications();
-      console.log(res.status);
-      await setIsAlarm(res.status === 'granted');
+    requestAlarmPermission();
+    checkAlarmPermission().then(res => {
+      setIsAlarm(res);
     });
   }, []);
   return (

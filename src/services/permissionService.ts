@@ -10,7 +10,7 @@ import {
 } from 'react-native-permissions';
 
 import {Permissions} from '@/models/enums/permission';
-import {setIsAlarm} from './localStorage/localStorage';
+import {getIsAlarm} from './localStorage/localStorage';
 
 export const checkAndRequestPermission = async (type: Permissions) => {
   const key = permissionFactory(type);
@@ -47,10 +47,18 @@ const getPhotoLibraryPermissionKey = (): Permission | null => {
   });
 };
 
-export const checkAlarmPermission = async () => {
+// 알람 권한 여부 확인하는 함수
+export const checkAlarmPermission = async (): Promise<boolean> => {
   const res = await checkNotifications();
+  return res.status === 'granted';
+};
 
-  if (res.status === 'denied') {
-    await requestNotifications(['alert', 'sound']);
-  }
+// 알람 권한 여부에 따라 권한 request 하는 함수
+export const requestAlarmPermission = () => {
+  checkAlarmPermission().then(async status => {
+    const res = await getIsAlarm();
+    if (!status && res === null) {
+      requestNotifications(['alert', 'sound']);
+    }
+  });
 };
