@@ -1,25 +1,59 @@
+import {useEffect, useState} from 'react';
+import {AppState, Linking, Pressable, View} from 'react-native';
+import Config from 'react-native-config';
+
 import Divider from '@/components/divider';
 import Switch from '@/components/switch';
 import SubTitle from '@/components/title/subTitle';
 import SubTitleDescription from '@/components/title/subTitleDescription';
 import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
 import useNavigator from '@/hooks/useNavigator';
-import {useState} from 'react';
-import {Pressable, View} from 'react-native';
-import settingScreenStyles from './SettingScreen.style';
 import SubMenu from '@/components/subMenu';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import stackScreens from '@/constants/stackScreens';
-import Config from 'react-native-config';
 import Popup from '@/components/popup';
-import {removeTokens} from '@/services/localStorage/localStorage';
+import {removeTokens, setIsAlarm} from '@/services/localStorage/localStorage';
+import {checkAlarmPermission} from '@/services/permissionService';
+
+import settingScreenStyles from './SettingScreen.style';
 
 const SettingScreen = () => {
   const {stackNavigation} = useNavigator();
   const [isServiceAlarmOn, setIsServiceAlarmOn] = useState<boolean>(false);
   const [isAdBenefitAlarmOn, setIsAdBenefitAlarmOn] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
+
+  useEffect(() => {
+    // 권한 알람 여부 받아와 바로 초기화
+    checkAlarmPermission().then(res => {
+      if (res) {
+        setIsServiceAlarmOn(res);
+      }
+    });
+    // 앱 상태가 active 가 될 때 바로 permission 체크해 상태 초기화
+    const handleCheckAlarm = (nextAppState: string): void => {
+      if (nextAppState === 'active') {
+        checkAlarmPermission().then(async res => {
+          if (res) {
+            await setIsAlarm(res);
+            setIsServiceAlarmOn(res);
+            return;
+          }
+          setIsAlarm(false);
+          setIsServiceAlarmOn(false);
+        });
+      }
+    };
+    const subscription = AppState.addEventListener('change', handleCheckAlarm);
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
+  const handleOnOffAlarm = async () => {
+    Linking.openSettings();
+  };
 
   const onCloseModal = async () => setIsVisible(false);
 
@@ -47,11 +81,7 @@ const SettingScreen = () => {
             subTitleStyle="Body2"
           />
         </View>
-        <Switch
-          onPress={() => setIsServiceAlarmOn(!isServiceAlarmOn)}
-          isOn={isServiceAlarmOn}
-          mt={16}
-        />
+        <Switch onPress={handleOnOffAlarm} isOn={isServiceAlarmOn} mt={16} />
       </View>
       <View style={settingScreenStyles.alarmWarp}>
         <View>

@@ -65,3 +65,14 @@ export const getIsInstalled = async (): Promise<boolean> => {
 export const setIsInstalled = async (value: boolean) => {
   await setItem<boolean>(LocalStorageKey.IsInstalled, value);
 };
+
+// 알람 권한 여부 저장
+export const setIsAlarm = async (value: boolean) => {
+  await setItem<boolean>(LocalStorageKey.IsAlarm, value);
+};
+
+// 알람 권한 여부 가져옴
+export const getIsAlarm = async (): Promise<boolean | null> => {
+  const res = await getItemOrNull<boolean>(LocalStorageKey.IsAlarm);
+  return res;
+};

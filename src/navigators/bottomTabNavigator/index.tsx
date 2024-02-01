@@ -1,17 +1,23 @@
+import {useEffect} from 'react';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+
+import PopcornPartyHomeScreen from '@/screens/popCornParty/home/PopcornPartyHomeScreen';
+import MyPageScreen from '@/screens/myPage/MyPageScreen';
+import {
+  checkAlarmPermission,
+  requestAlarmPermission,
+} from '@/services/permissionService';
+import TitleTopBar from '@/components/topBar/titleTopBar';
+import ScreeningStackNavigator from '../stackNavigator/ScreeningStackNavigator';
 import SvgIcons from '@/assets/svgIcons';
 import bottomTabScreens, {
   bottomTabBarLabel,
 } from '@/constants/bottomTabScreens';
 import palette from '@/styles/theme/color';
 import {BottomTabParamList} from '@/types/navigator';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {setIsAlarm} from '@/services/localStorage/localStorage';
+
 import {bottomTabScreenOptions} from './BottomTabNavigator.style';
-import TitleTopBar from '@/components/topBar/titleTopBar';
-
-import ScreeningStackNavigator from '../stackNavigator/ScreeningStackNavigator';
-
-import PopcornPartyHomeScreen from '@/screens/popCornParty/home/PopcornPartyHomeScreen';
-import MyPageScreen from '@/screens/myPage/MyPageScreen';
 
 export const getTabBarIcon = (routeName: string, focused: boolean) => {
   const iconColor = focused ? palette.Primary.Normal : palette.Text.Disable;
@@ -31,7 +37,13 @@ export const getTabBarIcon = (routeName: string, focused: boolean) => {
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
-function BottomTabNavigator() {
+const BottomTabNavigator = () => {
+  useEffect(() => {
+    requestAlarmPermission();
+    checkAlarmPermission().then(res => {
+      setIsAlarm(res);
+    });
+  }, []);
   return (
     <BottomTab.Navigator
       screenOptions={bottomTabScreenOptions}
@@ -62,6 +74,6 @@ function BottomTabNavigator() {
       />
     </BottomTab.Navigator>
   );
-}
+};
 
 export default BottomTabNavigator;
