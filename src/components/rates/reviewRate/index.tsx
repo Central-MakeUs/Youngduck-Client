@@ -19,23 +19,48 @@ const ReviewRate = ({category, negative, positive}: IReviewRateProps) => {
         key={`${category}`}>
         {category}
       </Typography>
-      <View style={reviewRateStyles.rateWrap} key={`${category}-rateWrap`}>
+      <View
+        style={[
+          reviewRateStyles.rateWrap,
+          {
+            borderColor: !negative
+              ? palette.Primary.Normal
+              : palette.Text.Assistive,
+          },
+        ]}
+        key={`${category}-rateWrap`}>
         <View
-          style={[reviewRateStyles.negativeWrap, {flex: negative}]}
+          style={[
+            reviewRateStyles.negativeWrap,
+            {
+              flex: negative,
+              backgroundColor: negative
+                ? palette.Fill.Assistive
+                : palette.Primary.Assistive,
+            },
+          ]}
           key={`${category}-negative-wrap`}>
           <Typography
             style="Label1"
-            color={palette.Text.Alternative}
+            color={negative ? palette.Text.Alternative : palette.Primary.Normal}
             key={`${category}-negative`}>
             {negative.toString()}
           </Typography>
         </View>
         <View
-          style={[reviewRateStyles.positiveWrap, {flex: positive}]}
+          style={[
+            reviewRateStyles.positiveWrap,
+            {
+              flex: positive,
+              backgroundColor: positive
+                ? palette.Primary.Assistive
+                : palette.Fill.Assistive,
+            },
+          ]}
           key={`${category}-positive-wrap`}>
           <Typography
             style="Label1"
-            color={palette.Primary.Deep}
+            color={positive ? palette.Primary.Deep : palette.Text.Assistive}
             key={`${category}-positive`}>
             {positive.toString()}
           </Typography>
