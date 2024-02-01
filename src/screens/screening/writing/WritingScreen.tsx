@@ -167,14 +167,28 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
 
         {/*날짜*/}
         <View style={writingStyles.container}>
-          <ButtonInput
-            value={inputValues}
-            title="날짜"
-            placeholder="시작일과 종료일을 선택해주세요"
-            category="date"
-            setValue={setInputValues}
-            essential
-          />
+          {type === 'post' && (
+            <ButtonInput
+              value={inputValues}
+              title="날짜"
+              placeholder="시작일과 종료일을 선택해주세요"
+              category="date"
+              setValue={setInputValues}
+              essential
+            />
+          )}
+          {type === 'modified' &&
+            inputValues.screeningStartDate &&
+            inputValues.screeningEndDate && (
+              <ButtonInput
+                value={inputValues}
+                title="날짜"
+                placeholder="시작일과 종료일을 선택해주세요"
+                category="date"
+                setValue={setInputValues}
+                essential
+              />
+            )}
         </View>
 
         {/*시간*/}

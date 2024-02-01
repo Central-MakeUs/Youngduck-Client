@@ -58,7 +58,7 @@ const ButtonInput = ({
       setSelectedStartDate(value.screeningStartDate);
       setSelectedEndDate(value.screeningEndDate);
     }
-  }, []);
+  }, [category]);
 
   useEffect(() => {
     // 달력 시작일 상태 저장
