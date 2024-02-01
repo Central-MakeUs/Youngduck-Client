@@ -14,7 +14,7 @@ import {useUserStore} from '@/stores/user';
 import SubMenu from '@/components/subMenu';
 import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
 import {useQueries} from '@tanstack/react-query';
-import {getWatchedScreeningData} from '@/apis/myPage';
+import {getJjimScreeningData, getWatchedScreeningData} from '@/apis/myPage';
 
 const MyPageScreen = () => {
   const {user} = useUserStore();
@@ -24,12 +24,12 @@ const MyPageScreen = () => {
     {postName: '나의 스크리닝', count: 1},
   ];
   const {stackNavigation} = useNavigator();
-  const [watchedScreeningData] = useQueries({
+  const [watchedScreeningData, jjimScreeningData] = useQueries({
     queries: [
       {queryKey: ['watchedScreeningData'], queryFn: getWatchedScreeningData},
+      {queryKey: ['jjimScreeningData'], queryFn: getJjimScreeningData},
     ],
   });
-
   return (
     <GradientContainer
       colors={[
@@ -66,7 +66,14 @@ const MyPageScreen = () => {
               }
             />
             <View style={myPageScreenStyles.divider} />
-            <MyScreening type="관심 스크리닝" count={1} />
+            <MyScreening
+              type="관심 스크리닝"
+              count={
+                jjimScreeningData.data?.data.length
+                  ? jjimScreeningData.data?.data.length!
+                  : 0
+              }
+            />
           </View>
           <Typography style="Subtitle2">게시물 관리</Typography>
           <View style={myPageScreenStyles.managePostsContainer}>

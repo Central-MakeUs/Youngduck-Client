@@ -1,57 +1,34 @@
-export interface IWatchedScreeningProps {
+import {
+  TScreeningNegativeReview,
+  TScreeningPositiveReview,
+} from '@/models/enums/review';
+
+interface ICommonScreeningProps {
+  posterImgUrl: string;
+  category: string;
+  screeningStartDate: string;
+  screeningEndDate: string;
+  screeningStartTime: string;
+  location: string;
+  information: string;
+  hasAgreed: boolean;
+  private: boolean;
+}
+
+export interface IWatchedScreeningProps extends ICommonScreeningProps {
   createdAt: string;
   updatedAt: string;
   id: number;
   title: string;
-  posterImgUrl: string;
   hostInfo: {
     hostName: string;
     hostPhoneNumber: string;
     hostEmail: string;
   };
-  positiveCount: {
-    cineMaster: number;
-    greatFilming: number;
-    pom: number;
-    animationIsGood: number;
-    artIsGood: number;
-    setIsArt: number;
-    custom: number;
-    music: number;
-    ost: number;
-    writtenByGod: number;
-    topicIsGood: number;
-    linesAreGood: number;
-    endingIsGood: number;
-    castingIsGood: number;
-    actingIsGood: number;
-    chemistryIsGood: number;
-  };
-  negativeCount: {
-    iffy: number;
-    badEditing: number;
-    badAngle: number;
-    badDetail: number;
-    badColor: number;
-    badCustom: number;
-    badMusic: number;
-    badSound: number;
-    badEnding: number;
-    endingLoose: number;
-    noDetail: number;
-    badTopic: number;
-    badActing: number;
-    badCasting: number;
-  };
+  positiveCount: TScreeningPositiveReview<number>;
+  negativeCount: TScreeningNegativeReview<number>;
   month: string;
-  screeningStartDate: string;
-  screeningEndDate: string;
-  screeningStartTime: string;
-  location: string;
   participationUrl: string;
-  information: string;
-  hasAgreed: true;
-  category: string;
   screeningRate: number;
   movieReviewCountNeg: number;
   movieReviewCountPos: number;
@@ -59,5 +36,13 @@ export interface IWatchedScreeningProps {
   locationCountPos: number;
   serviceCountNeg: number;
   serviceCountPos: number;
-  private: true;
+}
+
+export interface IJjimScreeningProps extends ICommonScreeningProps {
+  screeningId: number;
+  screeningTitle: string;
+  hostName: string;
+  hostPhoneNumber: string;
+  hostEmail: string;
+  formUrl: string;
 }
