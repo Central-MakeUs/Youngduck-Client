@@ -10,23 +10,11 @@ import manageScreeningScreenStyles from './ManageScreeningScreen.style';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import MyManagementItem from '@/components/items/myManagementItem';
-import {jjimScreenings, watchedScreenings} from './dummy';
-
-interface ICommonScreeningProps {
-  mode: 'review' | 'jjim';
-  imageURI: string;
-  title: string;
-  id: number;
-  dateRange: string;
-}
-
-interface IWatchedScreeningProps extends ICommonScreeningProps {
-  isReviewRequired: boolean;
-}
-
-interface IJjimScreeningProps extends ICommonScreeningProps {
-  isJjimActivated: boolean;
-}
+import {
+  IJjimScreeningProps,
+  IWatchedScreeningProps,
+} from '@/models/myPage/response';
+import {getDashDateRange} from '@/utils/getDate';
 
 interface IManageScreeningProp {
   route: ScreenRouteProp<stackScreens.ManageScreeningScreen>;
@@ -37,6 +25,11 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
   const [isWatcedScreening, setIsWatcedScreening] = useState<boolean>(
     params.isWatcedScreening,
   );
+  const dataCount = isWatcedScreening
+    ? params.screeningData.watchedScreeningData?.length
+    : params.screeningData.jjimScreeningData?.length;
+
+  const dataCountString = `총 ${dataCount}건`;
 
   const {bottom} = useSafeAreaInsets();
   const style = manageScreeningScreenStyles({bottom});
@@ -44,22 +37,26 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
     item,
   }: Record<'item', IWatchedScreeningProps>) => (
     <MyManagementItem
-      mode={item.mode}
-      imageURI={item.imageURI}
+      mode="watched-screening"
+      posterImgUrl={item.posterImgUrl}
       title={item.title}
+      dateRange={getDashDateRange(
+        item.screeningStartDate,
+        item.screeningEndDate,
+      )}
       id={item.id}
-      isReviewRequired={item.isReviewRequired}
-      dateRange={item.dateRange}
     />
   );
   const renderJjimItem = ({item}: Record<'item', IJjimScreeningProps>) => (
     <MyManagementItem
-      mode={item.mode}
-      imageURI={item.imageURI}
-      title={item.title}
-      id={item.id}
-      isJjimActivated={item.isJjimActivated}
-      dateRange={item.dateRange}
+      mode="jjim-screening"
+      posterImgUrl={item.posterImgUrl}
+      title={item.screeningTitle}
+      dateRange={getDashDateRange(
+        item.screeningStartDate,
+        item.screeningEndDate,
+      )}
+      id={item.screeningId}
     />
   );
   return (
@@ -87,18 +84,18 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
           color={palette.Text.Alternative}
           mt={8}
           mb={8}>
-          총 3건
+          {dataCountString}
         </Typography>
       </View>
       {isWatcedScreening ? (
         <FlatList
-          data={watchedScreenings as ArrayLike<IWatchedScreeningProps>}
+          data={params.screeningData.watchedScreeningData}
           renderItem={renderWatchedItem}
           style={style.screeningListContainer}
         />
       ) : (
         <FlatList
-          data={jjimScreenings as ArrayLike<IJjimScreeningProps>}
+          data={params.screeningData.jjimScreeningData}
           renderItem={renderJjimItem}
           style={style.screeningListContainer}
         />

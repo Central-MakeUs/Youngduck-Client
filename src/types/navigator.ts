@@ -1,3 +1,4 @@
+import {IScreeningDataProps} from '@/models/myPage/response';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
@@ -19,7 +20,10 @@ export type RootStackParamList = {
   SettingScreen: undefined;
   AgreementScreen: {uri: string};
   WithdrawScreen: undefined;
-  ManageScreeningScreen: {isWatcedScreening: boolean};
+  ManageScreeningScreen: {
+    isWatcedScreening: boolean;
+    screeningData: IScreeningDataProps;
+  };
   ManageReviewScreen: {isScreeningReview: boolean};
   MyScreeningScreen: undefined;
 } & PopcornPartyStackParamList &

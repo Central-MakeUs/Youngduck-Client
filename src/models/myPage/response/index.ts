@@ -46,3 +46,8 @@ export interface IJjimScreeningProps extends ICommonScreeningProps {
   hostEmail: string;
   formUrl: string;
 }
+
+export interface IScreeningDataProps {
+  watchedScreeningData: IWatchedScreeningProps[] | undefined;
+  jjimScreeningData: IJjimScreeningProps[] | undefined;
+}

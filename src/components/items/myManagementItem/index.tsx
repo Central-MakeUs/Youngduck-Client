@@ -12,16 +12,15 @@ import stackScreens from '@/constants/stackScreens';
 interface IMyManagementItemProps {
   // 필수 props
   mode:
-    | 'review' // 스크리닝 관리 -> 관람한 스크리닝
-    | 'jjim' // 스크리닝 관리 -> 관심 스크리닝
+    | 'watched-screening' // 스크리닝 관리 -> 관람한 스크리닝
+    | 'jjim-screening' // 스크리닝 관리 -> 관심 스크리닝
     | 'screening-review' // 리뷰 관리 -> 스크리닝 리뷰
     | 'popcorn-review' // 리뷰 관리 -> 팝콘작 리뷰
     | 'my-screening'; // 나의 스크리닝
-  imageURI: string;
+  posterImgUrl: string;
   title: string;
   id: number;
   // 스크리닝 관리 props
-  isReviewRequired?: boolean;
   isJjimActivated?: boolean;
   // 팝콘작 리뷰 props
   popcornOfWeek?: string;
@@ -37,10 +36,9 @@ interface IMyManagementItemProps {
 
 const MyManagementItem = ({
   mode,
-  imageURI,
+  posterImgUrl,
   title,
   id,
-  isReviewRequired = undefined,
   isJjimActivated = undefined,
   popcornOfWeek,
   director,
@@ -53,12 +51,7 @@ const MyManagementItem = ({
   const {stackNavigation} = useNavigator();
 
   const handleButtonPressed = () => {
-    if (isReviewRequired !== undefined) {
-      if (!isReviewRequired) {
-        return;
-      }
-      stackNavigation.navigate(stackScreens.ReviewWritingScreen, {id});
-    } else if (isJjimActivated !== undefined) {
+    if (isJjimActivated !== undefined) {
       if (isJjimActivated) {
         // 찜 off API 요청
       } else {
@@ -73,7 +66,10 @@ const MyManagementItem = ({
         onPress={() =>
           stackNavigation.navigate(stackScreens.MyDetailScreen, {id})
         }>
-        <Image source={{uri: imageURI}} style={myManagementItemStyles.image} />
+        <Image
+          source={{uri: posterImgUrl}}
+          style={myManagementItemStyles.image}
+        />
         <View style={myManagementItemStyles.contentContainer}>
           <View style={myManagementItemStyles.contentWrap}>
             {mode !== 'popcorn-review' ? (
@@ -95,39 +91,32 @@ const MyManagementItem = ({
               </>
             )}
           </View>
-          {(mode === 'review' || mode === 'jjim') && (
-            // 스크리닝 관리 -> 관람한 스크리닝 혹은 관심 스크리닝인 경우
+          {mode === 'watched-screening' && (
+            <View style={myManagementItemStyles.deactivatedButtonWrap}>
+              <SvgIcons.Pencil
+                width={12}
+                height={12}
+                fill={palette.Text.Alternative}
+              />
+            </View>
+          )}
+          {mode === 'jjim-screening' && (
             <Pressable
               style={
-                isJjimActivated || isReviewRequired
+                isJjimActivated
                   ? myManagementItemStyles.activatedButtonWrap
                   : myManagementItemStyles.deactivatedButtonWrap
               }
               onPress={handleButtonPressed}>
-              {/* 관람한 스크리닝의 경우 연필 아이콘 */}
-              {mode === 'review' && (
-                <SvgIcons.Pencil
-                  width={12}
-                  height={12}
-                  fill={
-                    isReviewRequired
-                      ? palette.Primary.Deep
-                      : palette.Text.Alternative
-                  }
-                />
-              )}
-              {/* 관심 스크리닝의 경우 하트 아이콘 */}
-              {mode === 'jjim' && (
-                <SvgIcons.Heart
-                  width={12}
-                  height={12}
-                  fill={
-                    isJjimActivated
-                      ? palette.Primary.Deep
-                      : palette.Text.Alternative
-                  }
-                />
-              )}
+              <SvgIcons.Heart
+                width={12}
+                height={12}
+                fill={
+                  isJjimActivated
+                    ? palette.Primary.Deep
+                    : palette.Text.Alternative
+                }
+              />
             </Pressable>
           )}
           {mode === 'my-screening' && (

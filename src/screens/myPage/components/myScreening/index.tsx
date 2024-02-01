@@ -4,13 +4,15 @@ import {Pressable} from 'react-native';
 import myScreeningStyles from './MyScreening.style';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
+import {IScreeningDataProps} from '@/models/myPage/response';
 
 interface IMyScreeningProps {
   type: string;
+  screeningData: IScreeningDataProps;
   count: number;
 }
 
-const MyScreening = ({type, count}: IMyScreeningProps) => {
+const MyScreening = ({type, screeningData, count}: IMyScreeningProps) => {
   const {stackNavigation} = useNavigator();
   return (
     <Pressable
@@ -18,6 +20,7 @@ const MyScreening = ({type, count}: IMyScreeningProps) => {
       onPress={() =>
         stackNavigation.navigate(stackScreens.ManageScreeningScreen, {
           isWatcedScreening: type === '관람한 스크리닝',
+          screeningData: screeningData,
         })
       }>
       <Typography style="Label2" color={palette.Text.Strong}>
