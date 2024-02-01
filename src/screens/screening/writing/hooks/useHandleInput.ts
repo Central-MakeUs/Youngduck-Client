@@ -1,11 +1,11 @@
-import {getScreeningMyDetailContent} from '@/apis/screening/detail';
-import {IScreeningBodyRequest} from '@/models/screening/request/screeningRequestDto';
-import {getCategory} from '@/utils/getCategory';
-import {useQuery} from '@tanstack/react-query';
 import {useState} from 'react';
 import {DateParsable} from 'react-native-calendar-picker';
 
-const useHandleInput = (search: string, id?: number) => {
+import {IScreeningBodyRequest} from '@/models/screening/request/screeningRequestDto';
+import {IScreeningMyDetailResponse} from '@/models/screening/response/detailResponseDto';
+import {getCategory} from '@/utils/getCategory';
+
+const useHandleInput = () => {
   const [inputValues, setInputValues] = useState<IScreeningBodyRequest>({
     posterImgUrl: '',
     screeningTitle: '',
@@ -22,31 +22,23 @@ const useHandleInput = (search: string, id?: number) => {
     hasAgreed: false,
   });
 
-  const setModify = () => {
-    const {data} = useQuery({
-      queryKey: ['screeningMyDetail'],
-      queryFn: () => {
-        if (id) {
-          return getScreeningMyDetailContent(id);
-        }
-      },
-    });
-
+  const setModify = (data: IScreeningMyDetailResponse) => {
     if (data) {
       setInputValues({
         ...inputValues,
-        posterImgUrl: data.data.posterImgUrl,
-        screeningTitle: data.data.screeningTitle,
-        hostName: data.data.hostName,
-        category: getCategory(data.data.category),
-        screeningStartDate: new Date(data.data.screeningStartDate),
-        screeningEndDate: new Date(data.data.screeningEndDate),
-        screeningStartTime: new Date(data.data.screeningStartTime),
-        information: data.data.information,
-        formUrl: data.data.formUrl,
-        hostPhoneNumber: data.data.hostPhoneNumber,
-        hostEmail: data.data.hostEmail,
-        hasAgreed: data.data.hasAgreed,
+        posterImgUrl: data.posterImgUrl,
+        screeningTitle: data.screeningTitle,
+        hostName: data.hostName,
+        category: getCategory(data.category),
+        screeningStartDate: new Date(data.screeningStartDate),
+        screeningEndDate: new Date(data.screeningEndDate),
+        screeningStartTime: new Date(data.screeningStartTime),
+        information: data.information,
+        formUrl: data.formUrl,
+        hostPhoneNumber: data.hostPhoneNumber ? data.hostPhoneNumber : '',
+        hostEmail: data.hostEmail,
+        hasAgreed: data.hasAgreed,
+        location: data.location,
       });
     }
   };

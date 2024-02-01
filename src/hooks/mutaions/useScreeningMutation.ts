@@ -31,8 +31,6 @@ const useScreeningMutation = () => {
   const uploadScreening = useMutation({
     mutationFn: postScreening,
     onSuccess: () => {
-      stackNavigation.navigate(stackScreens.ScreeningListScreen);
-
       queryClient.invalidateQueries({queryKey: ['weekScreening']});
       queryClient.invalidateQueries({queryKey: ['recentScreening']});
       queryClient.invalidateQueries({queryKey: ['mostCommentScreening']});

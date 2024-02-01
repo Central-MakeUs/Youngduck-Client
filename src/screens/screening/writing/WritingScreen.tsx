@@ -1,5 +1,6 @@
 import {useEffect, useRef} from 'react';
 import {TextInput, View} from 'react-native';
+import {useQuery} from '@tanstack/react-query';
 
 import DefaultContainer from '@/components/container/defaultContainer';
 import Typography from '@/components/typography';
@@ -18,6 +19,7 @@ import {ScreenRouteProp} from '@/types/navigator';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import {KorCategoryValues} from '@/models/enums/category';
+import {getScreeningMyDetailContent} from '@/apis/screening/detail';
 
 import {writingStyles} from './WritingScreen.style';
 
@@ -29,11 +31,27 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
   const {uploadScreening, modifyScreening} = useScreeningMutation();
   const {stackNavigation} = useNavigator();
   const {setModify, inputValues, setInputValues, onChangeInput} =
-    useHandleInput(search, id);
+    useHandleInput();
 
   useEffect(() => {
     onChangeInput('location', search);
   }, [search]);
+
+  const {data} = useQuery({
+    queryKey: ['screeningMyDetail'],
+    queryFn: () => {
+      if (id) {
+        return getScreeningMyDetailContent(id);
+      }
+    },
+    enabled: id === null,
+  });
+
+  useEffect(() => {
+    if (id && type === 'modified' && data) {
+      setModify(data.data);
+    }
+  }, []);
 
   const {
     screeningTitle,
@@ -75,10 +93,13 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
     if (type === 'post') {
       await uploadScreening.mutateAsync(inputValues);
     }
-    //if (type === 'modified' && data) {
-    //  const body = {screeningId: data.data.screeningId, ...inputValues};
-    //  await modifyScreening.mutateAsync(body);
-    //}
+    if (type === 'modified' && data) {
+      const body = {screeningId: data.data.screeningId, ...inputValues};
+      await modifyScreening.mutateAsync(body);
+      stackNavigation.navigate(stackScreens.MyDetailScreen, {
+        id: data.data.screeningId,
+      });
+    }
   };
 
   return (
