@@ -8,6 +8,7 @@ import {useState} from 'react';
 import SvgIcons from '@/assets/svgIcons';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
+import Popup from '@/components/popup';
 
 interface IMyManagementItemProps {
   // 필수 props
@@ -30,6 +31,7 @@ interface IMyManagementItemProps {
   review?: string;
   // 나의 스크리닝 공개 여부 prop
   isPrivate?: boolean;
+  jjimOffMutate?: (screeningId: number) => void;
 }
 
 const MyManagementItem = ({
@@ -43,15 +45,28 @@ const MyManagementItem = ({
   chips,
   review,
   isPrivate,
+  jjimOffMutate,
 }: IMyManagementItemProps) => {
   const [isOpenedUp, setIsOpenedUp] = useState<boolean>(false);
+  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
   const {stackNavigation} = useNavigator();
 
-  const handleButtonPressed = () => {
-    // 찜 off API 요청
+  const onClosePopupPress = () => setIsPopupOpen(false);
+
+  const onJjimOffPress = () => {
+    onClosePopupPress();
+    jjimOffMutate && jjimOffMutate(id);
   };
+
   return (
     <View style={myManagementItemStyles.container}>
+      <Popup
+        title="관람 예정을 취소할까요?"
+        content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
+        isVisible={isPopupOpen}
+        onClose={onClosePopupPress}
+        onPress={onJjimOffPress}
+      />
       <Pressable
         style={myManagementItemStyles.wrap}
         onPress={() =>
@@ -94,7 +109,7 @@ const MyManagementItem = ({
           {mode === 'jjim-screening' && (
             <Pressable
               style={myManagementItemStyles.activatedButtonWrap}
-              onPress={handleButtonPressed}>
+              onPress={() => setIsPopupOpen(true)}>
               <SvgIcons.Heart
                 width={12}
                 height={12}

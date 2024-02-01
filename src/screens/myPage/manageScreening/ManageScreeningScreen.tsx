@@ -18,16 +18,18 @@ import {getDashDateRange} from '@/utils/getDate';
 import EmptyItem from '@/components/items/emptyItem';
 import {useQueries} from '@tanstack/react-query';
 import {getJjimScreeningData, getWatchedScreeningData} from '@/apis/myPage';
+import useManageScreeningMutation from '@/hooks/mutaions/useManageScreeningMutation';
 
 interface IManageScreeningProp {
   route: ScreenRouteProp<stackScreens.ManageScreeningScreen>;
 }
 
 const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
-  const {stackNavigation} = useNavigator();
   const [isWatcedScreening, setIsWatcedScreening] = useState<boolean>(
     params.isWatcedScreening,
   );
+  const {stackNavigation} = useNavigator();
+  const {jjimOffMutate} = useManageScreeningMutation();
   const [watchedScreeningData, jjimScreeningData] = useQueries({
     queries: [
       {queryKey: ['watchedScreeningData'], queryFn: getWatchedScreeningData},
@@ -67,6 +69,7 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
         item.screeningEndDate,
       )}
       id={item.screeningId}
+      jjimOffMutate={jjimOffMutate}
     />
   );
   return (

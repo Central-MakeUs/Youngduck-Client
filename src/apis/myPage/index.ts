@@ -18,3 +18,8 @@ export const getJjimScreeningData = async (): Promise<
   const res = await api.get('/screening/bookmarked');
   return res.data;
 };
+
+export const postJjimOff = async (screeningId: number) => {
+  const res = await api.post(`/screening/bookMark/${screeningId}`);
+  return res.data;
+};
