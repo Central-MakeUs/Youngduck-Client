@@ -158,7 +158,7 @@ const ButtonInput = ({
       )}
       {/*달력 Bottom Sheet 컴포넌트*/}
       {category === 'date' && (
-        <BottomSheet drawerRef={bottomDrawerRef} height={350}>
+        <BottomSheet drawerRef={bottomDrawerRef} height={300}>
           <DateRangePickerModal
             startDate={selectedStartDate}
             endDate={selectedEndDate}
