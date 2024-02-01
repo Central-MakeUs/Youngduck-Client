@@ -17,6 +17,7 @@ prepare_react_native_project!
 
 setup_permissions([
   'PhotoLibrary',
+  'Notifications',
 ])
 
 # If you are using a `react-native-flipper` your iOS build will fail when `NO_FLIPPER=1` is set.
