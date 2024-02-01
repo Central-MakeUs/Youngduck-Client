@@ -26,6 +26,7 @@ type DetailScreenProps = {
 
 const DetailScreen = ({route}: DetailScreenProps) => {
   const {id} = route.params;
+  console.log(id);
   const [currentTab, setCurrentTab] = useState<number>(0);
 
   const {webview, setWebview} = useWebviewStore();

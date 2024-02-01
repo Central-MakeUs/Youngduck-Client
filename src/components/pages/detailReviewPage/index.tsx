@@ -101,13 +101,14 @@ const DetailReviewPage = ({id}: IDetailReviewProps) => {
             .slice(0, reviewList.length > 4 ? 5 : reviewList.length)
             .map((comment, idx) => (
               <CommentItem
-                totalComments={reviewList.length}
-                nickname={comment.nickname}
-                isSatisfied={comment.afterScreening}
+                userId={comment.userId}
+                nickName={comment.nickname}
+                profileImgNum={comment.profileImageNumber}
+                afterScreening={comment.afterScreening}
                 review={comment.review}
-                date={getSimpleDate(comment.createdAt)}
+                createdAt={getSimpleDate(comment.createdAt)}
+                totalComments={reviewList.length}
                 idx={idx}
-                key={idx}
                 complainOnPress={() => {
                   setReviewId(comment.reviewId);
                   setComplainPopup(true);
@@ -128,13 +129,14 @@ const DetailReviewPage = ({id}: IDetailReviewProps) => {
             <>
               {reviewList.slice(5).map((comment, idx) => (
                 <CommentItem
-                  totalComments={reviewList.length}
-                  nickname={comment.nickname}
-                  isSatisfied={comment.afterScreening}
+                  userId={comment.userId}
+                  nickName={comment.nickname}
+                  profileImgNum={comment.profileImageNumber}
+                  afterScreening={comment.afterScreening}
                   review={comment.review}
-                  date={getSimpleDate(comment.createdAt)}
+                  createdAt={getSimpleDate(comment.createdAt)}
+                  totalComments={reviewList.length}
                   idx={idx}
-                  key={idx}
                   complainOnPress={() => {
                     setReviewId(comment.reviewId);
                     setComplainPopup(true);
