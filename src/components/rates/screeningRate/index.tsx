@@ -58,7 +58,7 @@ const ScreeningRate = ({score, mode, children}: IScreeningRate) => {
         <Animated.View
           style={[style.tooltip, {marginLeft}]}
           onLayout={e => setTooltipHeight(e.nativeEvent.layout.height)}>
-          <Tooltip screeningIndex={screeningIndex} />
+          <Tooltip text={`${screeningIndex}점`} />
           <View style={style.screeningIndex} />
         </Animated.View>
       </View>
