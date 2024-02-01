@@ -13,6 +13,8 @@ import MyScreening from './components/myScreening';
 import {useUserStore} from '@/stores/user';
 import SubMenu from '@/components/subMenu';
 import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
+import {useQueries} from '@tanstack/react-query';
+import {getWatchedScreeningData} from '@/apis/myPage';
 
 const MyPageScreen = () => {
   const {user} = useUserStore();
@@ -22,6 +24,12 @@ const MyPageScreen = () => {
     {postName: '나의 스크리닝', count: 1},
   ];
   const {stackNavigation} = useNavigator();
+  const [watchedScreeningData] = useQueries({
+    queries: [
+      {queryKey: ['watchedScreeningData'], queryFn: getWatchedScreeningData},
+    ],
+  });
+
   return (
     <GradientContainer
       colors={[
@@ -49,7 +57,14 @@ const MyPageScreen = () => {
             style={myPageScreenStyles.image}
           />
           <View style={myPageScreenStyles.screeningWrap}>
-            <MyScreening type="관람한 스크리닝" count={1} />
+            <MyScreening
+              type="관람한 스크리닝"
+              count={
+                watchedScreeningData.data?.data.length
+                  ? watchedScreeningData.data?.data.length!
+                  : 0
+              }
+            />
             <View style={myPageScreenStyles.divider} />
             <MyScreening type="관심 스크리닝" count={1} />
           </View>

@@ -1,0 +1,63 @@
+export interface IWatchedScreeningProps {
+  createdAt: string;
+  updatedAt: string;
+  id: number;
+  title: string;
+  posterImgUrl: string;
+  hostInfo: {
+    hostName: string;
+    hostPhoneNumber: string;
+    hostEmail: string;
+  };
+  positiveCount: {
+    cineMaster: number;
+    greatFilming: number;
+    pom: number;
+    animationIsGood: number;
+    artIsGood: number;
+    setIsArt: number;
+    custom: number;
+    music: number;
+    ost: number;
+    writtenByGod: number;
+    topicIsGood: number;
+    linesAreGood: number;
+    endingIsGood: number;
+    castingIsGood: number;
+    actingIsGood: number;
+    chemistryIsGood: number;
+  };
+  negativeCount: {
+    iffy: number;
+    badEditing: number;
+    badAngle: number;
+    badDetail: number;
+    badColor: number;
+    badCustom: number;
+    badMusic: number;
+    badSound: number;
+    badEnding: number;
+    endingLoose: number;
+    noDetail: number;
+    badTopic: number;
+    badActing: number;
+    badCasting: number;
+  };
+  month: string;
+  screeningStartDate: string;
+  screeningEndDate: string;
+  screeningStartTime: string;
+  location: string;
+  participationUrl: string;
+  information: string;
+  hasAgreed: true;
+  category: string;
+  screeningRate: number;
+  movieReviewCountNeg: number;
+  movieReviewCountPos: number;
+  locationCountNeg: number;
+  locationCountPos: number;
+  serviceCountNeg: number;
+  serviceCountPos: number;
+  private: true;
+}
