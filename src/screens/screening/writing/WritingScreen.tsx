@@ -1,4 +1,4 @@
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {TextInput, View} from 'react-native';
 import {useQuery} from '@tanstack/react-query';
 
@@ -27,6 +27,7 @@ interface IWritingScreenProps {
   route: ScreenRouteProp<'WritingScreen'>;
 }
 const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {type, search, id} = params;
   const {uploadScreening, modifyScreening} = useScreeningMutation();
   const {stackNavigation} = useNavigator();
@@ -90,8 +91,10 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
   };
 
   const handleWriteScreening = async () => {
+    setIsLoading(true);
     if (type === 'post') {
       await uploadScreening.mutateAsync(inputValues);
+      setIsLoading(false);
     }
     if (type === 'modified' && data) {
       const body = {screeningId: data.data.screeningId, ...inputValues};
@@ -99,6 +102,7 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
       stackNavigation.navigate(stackScreens.MyDetailScreen, {
         id: data.data.screeningId,
       });
+      setIsLoading(false);
     }
   };
 
@@ -279,8 +283,11 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
           </>
         )}
 
-        <BoxButton onPress={handleWriteScreening} mb={12} disabled={!canGoNext}>
-          {type === 'post' ? '등록하기' : '수정하기'}
+        <BoxButton
+          onPress={handleWriteScreening}
+          mb={12}
+          disabled={!canGoNext || isLoading}>
+          {isLoading ? '로딩 중' : type === 'post' ? '등록하기' : '수정하기'}
         </BoxButton>
       </DefaultContainer>
     </DismissKeyboardView>
