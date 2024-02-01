@@ -16,4 +16,10 @@ export const detailScreenStyles = StyleSheet.create({
     height: 80,
     width: '100%',
   },
+  tooltip: {
+    position: 'absolute',
+    bottom: 70,
+    right: 16,
+    zIndex: 9,
+  },
 });

@@ -16,9 +16,10 @@ import Popup from '@/components/popup';
 import {useWebviewStore} from '@/stores/webview';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import LoadingPage from '@/components/pages/loadingPage';
+import ScreeningTitle from '@/components/title/screeningTitle';
+import Tooltip from '@/components/tooltip';
 
 import {detailScreenStyles} from './DetailScreen.style';
-import ScreeningTitle from '@/components/title/screeningTitle';
 
 type DetailScreenProps = {
   route: ScreenRouteProp<stackScreens.DetailScreen>;
@@ -28,6 +29,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
   const {id} = route.params;
   console.log(id);
   const [currentTab, setCurrentTab] = useState<number>(0);
+  const [tooltipeShow, setTooltipShow] = useState<boolean>(false);
 
   const {webview, setWebview} = useWebviewStore();
 
@@ -66,6 +68,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
     // 찜하기 api 실행
     uploadScreeningBookmark.mutate(id);
     onClosePopupScreening();
+    setTooltipShow(true);
   };
 
   // 관람 취소 모달 네 클릭 시
@@ -125,8 +128,14 @@ const DetailScreen = ({route}: DetailScreenProps) => {
       </View>
 
       <View style={detailScreenStyles.bottom}>
+        {currentTab === 0 && tooltipeShow && (
+          <View style={detailScreenStyles.tooltip}>
+            <Tooltip text="상영회 하루 전에 알람으로 알려드려요" hide={true} />
+          </View>
+        )}
+
         <BottomDetailButton
-          type={buttonType}
+          type={'complete'}
           onPress={handleButtonOnPress}
           onOptionPress={handleOptionOnPress}
         />

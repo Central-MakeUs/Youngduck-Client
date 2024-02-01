@@ -7,20 +7,39 @@ import {useEffect, useRef} from 'react';
 
 interface ITooltipProp {
   text: string;
+  hide?: boolean;
 }
 
-const Tooltip = ({text}: ITooltipProp) => {
+const Tooltip = ({text, hide}: ITooltipProp) => {
   const opacityAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const showTooltip = () => {
       Animated.timing(opacityAnim, {
         toValue: 1,
         duration: 1000,
         useNativeDriver: true,
       }).start();
-      clearTimeout(timer);
-    }, 2000);
+    };
+    const hideTooltip = () => {
+      Animated.timing(opacityAnim, {
+        toValue: 0,
+        duration: 1000,
+        useNativeDriver: true,
+      }).start();
+    };
+    const showTimeout = setTimeout(() => {
+      showTooltip();
+    }, 1000);
+
+    if (hide) {
+      setTimeout(() => {
+        hideTooltip();
+      }, 4000);
+    }
+    return () => {
+      clearTimeout(showTimeout);
+    };
   }, [opacityAnim]);
 
   return (
@@ -30,7 +49,7 @@ const Tooltip = ({text}: ITooltipProp) => {
           {text}
         </Typography>
       </View>
-      <TooltipSvg />
+      {!hide && <TooltipSvg />}
     </Animated.View>
   );
 };
