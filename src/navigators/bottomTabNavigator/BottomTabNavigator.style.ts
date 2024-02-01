@@ -24,4 +24,5 @@ export const bottomTabScreenOptions = ({
     fontFamily: 'Pretendard Variable',
     marginTop: 7,
   },
+  tabBarHideOnKeyboard: true,
 });
