@@ -1,9 +1,8 @@
 import {useState} from 'react';
-import {Keyboard, Pressable, View} from 'react-native';
+import {Keyboard, Pressable, ScrollView, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import CheckBox from '@/components/checkBox';
-import DefaultContainer from '@/components/container/defaultContainer';
 import ButtonInput from '@/components/inputs/buttonInput';
 import TextArea from '@/components/inputs/textArea';
 import SubTitleDescription from '@/components/title/subTitleDescription';
@@ -15,7 +14,6 @@ import {getVoteDateRange} from '@/utils/getDate';
 import writeRecommandScreenStyles from './WriteRecommandScreen.style';
 import {IRecommendMovieProps} from '@/types/popcornParty';
 import useRecommendMovieMutation from '@/hooks/mutaions/useRecommendMovieMutation';
-import CancelTopBar from '@/components/topBar/cancelTopBar';
 import {useQueryClient} from '@tanstack/react-query';
 
 function WriteRecommandScreen() {
@@ -58,8 +56,7 @@ function WriteRecommandScreen() {
   };
 
   return (
-    <DefaultContainer>
-      <CancelTopBar text="팝콘작 추천하기" onPress={handleGoBack} />
+    <ScrollView bounces={false}>
       <Pressable style={styles.container} onPress={Keyboard.dismiss}>
         <SubTitleDescription
           text="다음 주의 팝콘작을 추천해 주세요"
@@ -111,7 +108,7 @@ function WriteRecommandScreen() {
         onClose={toggleIsVisibleState}
         onPress={goToRecommandListScreen}
       />
-    </DefaultContainer>
+    </ScrollView>
   );
 }
 
