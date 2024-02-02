@@ -15,13 +15,13 @@ import {
 } from '@/apis/popcornParty';
 import {useEffect} from 'react';
 import {useIsFocused} from '@react-navigation/native';
-import useVoteMovieMutation from '@/hooks/mutaions/useRecommendMovie';
+import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
 
 function PopcornPartyHomeScreen() {
   const {stackNavigation} = useNavigator();
   const currentFocusState = useIsFocused();
   const queryClient = useQueryClient();
-  const {voteMovieMutate} = useVoteMovieMutation();
+  const {voteMovieMutate} = usePopcornPartyMutation();
 
   const [trendingPopcornData, trendingMovieData, randomPopcornRecommendData] =
     useQueries({
