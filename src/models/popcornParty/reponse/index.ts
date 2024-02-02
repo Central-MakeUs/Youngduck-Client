@@ -1,4 +1,4 @@
-export interface ITrendingData {
+export interface TTrendingData {
   popcornId?: number;
   movieId?: number;
   index: number;
@@ -36,8 +36,8 @@ export interface IPopcornReviewResponse {
   createdAt: string;
 }
 
-export type TTrendingMovieData = Omit<ITrendingData, 'popcornId'>;
-export type TTrendingPopcornData = Omit<ITrendingData, 'movieId' | 'rank'>;
+export type TTrendingMovieData = Omit<TTrendingData, 'popcornId'>;
+export type TTrendingPopcornData = Omit<TTrendingData, 'movieId' | 'rank'>;
 export type TPopcornRecommendData = {
   id: number;
   movieTitle: string;
