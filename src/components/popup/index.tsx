@@ -9,7 +9,7 @@ import {popupStyles} from './Popup.style';
 
 interface ModalProps {
   title: string;
-  content: string;
+  content?: string;
   isVisible: boolean;
   onClose: () => void;
   onPress: () => void;
@@ -25,7 +25,10 @@ const Popup = ({
   type,
 }: ModalProps) => {
   return (
-    <ModalContainer isVisible={isVisible} onBackdropPress={onClose}>
+    <ModalContainer
+      style={popupStyles.wrapper}
+      isVisible={isVisible}
+      onBackdropPress={onClose}>
       <View
         style={{
           ...popupStyles.modal,
@@ -35,17 +38,20 @@ const Popup = ({
         <Typography style="Subtitle2" color={palette.Text.Strong}>
           {title}
         </Typography>
-        <Typography style="Body1" mt={8} mb={16}>
-          {content}
-        </Typography>
+        {content && (
+          <Typography style="Body1" mt={8}>
+            {content}
+          </Typography>
+        )}
+
         <View style={popupStyles.container}>
-          <BoxButton variant="default" onPress={onClose} width="50%">
+          <BoxButton variant="default" onPress={onClose} width="35%">
             아니오
           </BoxButton>
           <BoxButton
             onPress={onPress}
             variant={type === 'error' ? 'highlight' : 'primary'}
-            width="50%">
+            width="35%">
             네
           </BoxButton>
         </View>

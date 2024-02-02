@@ -60,12 +60,19 @@ const SettingScreen = () => {
   const onLogout = async () => {
     onCloseModal();
     await removeTokens();
+
     // 로그아웃 후 이동하는 navigtion 설정하기
     // stackNavigation.popToTop();
   };
 
   return (
     <>
+      <Popup
+        isVisible={isVisible}
+        title={'로그아웃할까요?'}
+        onClose={onCloseModal}
+        onPress={onLogout}
+      />
       <BackTitleTopBar
         text="설정"
         goBack={stackNavigation.goBack}
@@ -145,13 +152,6 @@ const SettingScreen = () => {
         onPress={() => stackNavigation.navigate(stackScreens.WithdrawScreen)}>
         <Typography style="Body1">탈퇴하기</Typography>
       </Pressable>
-      <Popup
-        isVisible={isVisible}
-        title={'로그아웃할까요?'}
-        content={''}
-        onClose={onCloseModal}
-        onPress={onLogout}
-      />
     </>
   );
 };
