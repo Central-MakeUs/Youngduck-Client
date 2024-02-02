@@ -6,10 +6,10 @@ export const popcornTrendingCardStyles = StyleSheet.create({
   },
   container: {
     marginRight: 16,
-    width: 120,
+    width: 108,
   },
   image: {
-    width: 120,
+    width: 108,
     height: 160,
     borderRadius: 16,
     marginBottom: 4,

@@ -5,6 +5,7 @@ import Chip from '@/components/chip';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import {TTrendingData} from '@/models/popcornParty/reponse';
+import {defaultImages} from '@/assets';
 
 const PopcornTrendingCard = ({
   popcornId,
@@ -28,7 +29,10 @@ const PopcornTrendingCard = ({
           : popcornTrendingCardStyles.firstContainer
       }
       onPress={goToPopcornPartyDetail}>
-      <Image source={{uri: imageUrl}} style={popcornTrendingCardStyles.image} />
+      <Image
+        source={imageUrl ? {uri: imageUrl} : defaultImages.emptyLarge}
+        style={popcornTrendingCardStyles.image}
+      />
       {mode === 'with-ranking' && <Chip text={`${rank}위`} mt={4} mb={4} />}
       <Typography style="Label1" numberOfLines={1}>
         {movieTitle}
