@@ -53,34 +53,24 @@ export interface IScreeningDataProps {
 }
 
 export interface IScreeningReviewProps {
-  posterImgUrl: string;
   afterScreening: boolean;
-  screeningReview: boolean;
-  locationReview: boolean;
-  serviceReview: boolean;
   review: string;
-  hasAgreed: boolean;
   screeningId: number;
   screeningTitle: string;
   startDate: string;
   endDate: string;
-  profileImg: string;
+  posterImgUrl: string;
 }
 
 export interface IPopcornReviewProps {
-  posterImgUrl: string;
-  title: string;
-  directorName: string;
-  popcornOfWeek: string;
-  userId: number;
-  nickName: string;
-  profileImgNum: number;
-  popcornId: number;
-  hasWatched: true;
-  beforeScreening: true;
-  afterScreening: true;
-  review: string;
-  hasAgreed: true;
+  popcorn: {
+    directorName: string;
+    id: number;
+    imageUrl: string;
+    movieTitle: string;
+    recommendationReason: string;
+    updatedAt: string;
+  };
   popcornPositive: TScreeningPositiveReview<boolean>;
   popcornNegative: TScreeningNegativeReview<boolean>;
 }

@@ -9,11 +9,7 @@ import SvgIcons from '@/assets/svgIcons';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import Popup from '@/components/popup';
-
-interface IChipProps {
-  text: string;
-  isPositive: boolean;
-}
+import {IChipProps} from '@/types/myPage';
 
 interface IMyManagementItemProps {
   // 필수 props

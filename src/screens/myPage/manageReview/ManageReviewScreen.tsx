@@ -16,6 +16,9 @@ import {
   IPopcornReviewProps,
   IScreeningReviewProps,
 } from '@/models/myPage/response';
+import {getDashDateRange, getWeekOfMonthString} from '@/utils/getDate';
+import {getReviewChips} from '@/utils/getReviewChips';
+import EmptyItem from '@/components/items/emptyItem';
 
 interface IManageReviewScreenProp {
   route: ScreenRouteProp<stackScreens.ManageReviewScreen>;
@@ -48,7 +51,7 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
       posterImgUrl={item.posterImgUrl}
       title={item.screeningTitle}
       id={item.screeningId}
-      dateRange={item.dateRange}
+      dateRange={getDashDateRange(item.startDate, item.endDate)}
       chips={[
         {
           text: item.afterScreening
@@ -62,37 +65,18 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
   );
   const renderPopcornReviewItem = ({
     item,
-  }: Record<'item', IPopcornReviewProps>) => {
-    const positiveKeys = Object.keys(item.popcornPositive);
-    const positiveChips = Object.values(item.popcornPositive).map(
-      (value, idx) => {
-        if (value) {
-          return {text: positiveKeys[idx], isPositive: true};
-        }
-      },
-    );
-    const negativeKeys = Object.keys(item.popcornNegative);
-    const negativeChips = Object.values(item.popcornNegative).map(
-      (value, idx) => {
-        if (value) {
-          return {text: negativeKeys[idx], isPositive: false};
-        }
-      },
-    );
-    const chips = [...positiveChips, ...negativeChips];
-    return (
-      <MyManagementItem
-        mode="popcorn-review"
-        posterImgUrl={item.posterImgUrl}
-        title={item.title}
-        id={item.popcornId}
-        director={item.directorName}
-        popcornOfWeek={item.popcornOfWeek}
-        chips={chips}
-        review={item.review}
-      />
-    );
-  };
+  }: Record<'item', IPopcornReviewProps>) => (
+    <MyManagementItem
+      mode="popcorn-review"
+      posterImgUrl={item.popcorn.imageUrl}
+      title={item.popcorn.movieTitle}
+      id={item.popcorn.id}
+      director={item.popcorn.directorName}
+      popcornOfWeek={getWeekOfMonthString(item.popcorn.updatedAt)}
+      chips={getReviewChips(item)}
+      review={item.popcorn.recommendationReason}
+    />
+  );
   return (
     <>
       <BackTitleTopBar
@@ -122,17 +106,31 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
         </Typography>
       </View>
       {isScreeningReview ? (
-        <FlatList
-          data={screeningReviewData.data?.data}
-          renderItem={renderScreeningReviewItem}
-          style={style.screeningListContainer}
-        />
+        <>
+          {screeningReviewData.data?.data.length === 0 && (
+            <EmptyItem text="아직 스크리닝 리뷰를 안 했어요" size="large" />
+          )}
+          {screeningReviewData.data?.data.length! > 0 && (
+            <FlatList
+              data={screeningReviewData.data?.data}
+              renderItem={renderScreeningReviewItem}
+              style={style.screeningListContainer}
+            />
+          )}
+        </>
       ) : (
-        <FlatList
-          data={popcornReviewData.data?.data}
-          renderItem={renderPopcornReviewItem}
-          style={style.screeningListContainer}
-        />
+        <>
+          {popcornReviewData.data?.data.length === 0 && (
+            <EmptyItem text="아직 팝콘작 리뷰를 안 했어요" size="large" />
+          )}
+          {popcornReviewData.data?.data.length! > 0 && (
+            <FlatList
+              data={popcornReviewData.data?.data}
+              renderItem={renderPopcornReviewItem}
+              style={style.screeningListContainer}
+            />
+          )}
+        </>
       )}
     </>
   );

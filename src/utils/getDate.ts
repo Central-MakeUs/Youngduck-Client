@@ -70,7 +70,7 @@ const getOneDayAfter = (endDate: DateParsable) => {
 
 const getDashDateRange = (startDate: DateParsable, endDate: DateParsable) => {
   if (startDate && endDate)
-    return `${format(startDate, 'yyyy년 M월 d일')} ~ ${format(
+    return `${format(startDate, 'yyyy년 M월 d일')} - ${format(
       endDate,
       'yyyy년 M월 d일',
     )}`;
