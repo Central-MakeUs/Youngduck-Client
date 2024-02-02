@@ -31,7 +31,7 @@ export const postRegisterUser = async (
 };
 
 // 로그아웃 api 함수
-export const postLogout = async (): Promise<ResponseDTO<string>> => {
+export const postLogoutUser = async (): Promise<ResponseDTO<string>> => {
   const res = await api.post('/auth/logout');
   return res.data;
 };

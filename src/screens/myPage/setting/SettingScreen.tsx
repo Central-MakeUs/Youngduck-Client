@@ -15,6 +15,7 @@ import stackScreens from '@/constants/stackScreens';
 import Popup from '@/components/popup';
 import {removeTokens, setIsAlarm} from '@/services/localStorage/localStorage';
 import {checkAlarmPermission} from '@/services/permissionService';
+import useUserMutation from '@/hooks/mutaions/useUserMutation';
 
 import settingScreenStyles from './SettingScreen.style';
 
@@ -23,6 +24,8 @@ const SettingScreen = () => {
   const [isServiceAlarmOn, setIsServiceAlarmOn] = useState<boolean>(false);
   const [isAdBenefitAlarmOn, setIsAdBenefitAlarmOn] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
+
+  const {logoutUser} = useUserMutation();
 
   useEffect(() => {
     // 권한 알람 여부 받아와 바로 초기화
@@ -61,8 +64,8 @@ const SettingScreen = () => {
     onCloseModal();
     await removeTokens();
 
-    // 로그아웃 후 이동하는 navigtion 설정하기
-    // stackNavigation.popToTop();
+    // 로그아웃 api 실행
+    logoutUser.mutate();
   };
 
   return (
