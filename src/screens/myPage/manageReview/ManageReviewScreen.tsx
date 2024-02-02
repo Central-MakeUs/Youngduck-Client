@@ -10,24 +10,12 @@ import {FlatList, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import manageReviewScreenStyles from './ManageReviewScreen.style';
 import palette from '@/styles/theme/color';
-import {popcornReviews, screeningReviews} from './dummy';
-interface ICommonReviewProps {
-  mode: 'screening-review' | 'popcorn-review';
-  imageURI: string;
-  title: string;
-  chips: string[];
-  id: number;
-  review: string;
-}
-
-interface IScreeningReviewProps extends ICommonReviewProps {
-  dateRange: string;
-}
-
-interface IPopcornReviewProps extends ICommonReviewProps {
-  director: string;
-  popcornOfWeek: string;
-}
+import {useQueries} from '@tanstack/react-query';
+import {getPopcornReviewData, getScreeningReviewData} from '@/apis/myPage';
+import {
+  IPopcornReviewProps,
+  IScreeningReviewProps,
+} from '@/models/myPage/response';
 
 interface IManageReviewScreenProp {
   route: ScreenRouteProp<stackScreens.ManageReviewScreen>;
@@ -38,6 +26,17 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
   const [isScreeningReview, setIsScreeningReview] = useState<boolean>(
     params.isScreeningReview,
   );
+  const [screeningReviewData, popcornReviewData] = useQueries({
+    queries: [
+      {queryKey: ['screeningReviewData'], queryFn: getScreeningReviewData},
+      {queryKey: ['popcornReviewData'], queryFn: getPopcornReviewData},
+    ],
+  });
+  const dataCount = isScreeningReview
+    ? screeningReviewData?.data?.data.length
+    : popcornReviewData?.data?.data.length;
+
+  const dataCountString = `총 ${dataCount}건`;
 
   const {bottom} = useSafeAreaInsets();
   const style = manageReviewScreenStyles({bottom});
@@ -45,29 +44,55 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
     item,
   }: Record<'item', IScreeningReviewProps>) => (
     <MyManagementItem
-      mode={item.mode}
-      imageURI={item.imageURI}
-      title={item.title}
-      id={item.id}
+      mode="screening-review"
+      posterImgUrl={item.posterImgUrl}
+      title={item.screeningTitle}
+      id={item.screeningId}
       dateRange={item.dateRange}
-      chips={item.chips}
+      chips={[
+        {
+          text: item.afterScreening
+            ? '기대보다 좋았어요'
+            : '기대보다 아쉬웠어요',
+          isPositive: item.afterScreening,
+        },
+      ]}
       review={item.review}
     />
   );
   const renderPopcornReviewItem = ({
     item,
-  }: Record<'item', IPopcornReviewProps>) => (
-    <MyManagementItem
-      mode={item.mode}
-      imageURI={item.imageURI}
-      title={item.title}
-      id={item.id}
-      director={item.director}
-      popcornOfWeek={item.popcornOfWeek}
-      chips={item.chips}
-      review={item.review}
-    />
-  );
+  }: Record<'item', IPopcornReviewProps>) => {
+    const positiveKeys = Object.keys(item.popcornPositive);
+    const positiveChips = Object.values(item.popcornPositive).map(
+      (value, idx) => {
+        if (value) {
+          return {text: positiveKeys[idx], isPositive: true};
+        }
+      },
+    );
+    const negativeKeys = Object.keys(item.popcornNegative);
+    const negativeChips = Object.values(item.popcornNegative).map(
+      (value, idx) => {
+        if (value) {
+          return {text: negativeKeys[idx], isPositive: false};
+        }
+      },
+    );
+    const chips = [...positiveChips, ...negativeChips];
+    return (
+      <MyManagementItem
+        mode="popcorn-review"
+        posterImgUrl={item.posterImgUrl}
+        title={item.title}
+        id={item.popcornId}
+        director={item.directorName}
+        popcornOfWeek={item.popcornOfWeek}
+        chips={chips}
+        review={item.review}
+      />
+    );
+  };
   return (
     <>
       <BackTitleTopBar
@@ -93,18 +118,18 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
           color={palette.Text.Alternative}
           mt={8}
           mb={8}>
-          총 3건
+          {dataCountString}
         </Typography>
       </View>
       {isScreeningReview ? (
         <FlatList
-          data={screeningReviews as ArrayLike<IScreeningReviewProps>}
+          data={screeningReviewData.data?.data}
           renderItem={renderScreeningReviewItem}
           style={style.screeningListContainer}
         />
       ) : (
         <FlatList
-          data={popcornReviews as ArrayLike<IPopcornReviewProps>}
+          data={popcornReviewData.data?.data}
           renderItem={renderPopcornReviewItem}
           style={style.screeningListContainer}
         />

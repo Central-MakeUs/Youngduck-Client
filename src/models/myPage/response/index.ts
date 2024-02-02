@@ -51,3 +51,36 @@ export interface IScreeningDataProps {
   watchedScreeningData: IWatchedScreeningProps[] | undefined;
   jjimScreeningData: IJjimScreeningProps[] | undefined;
 }
+
+export interface IScreeningReviewProps {
+  posterImgUrl: string;
+  afterScreening: boolean;
+  screeningReview: boolean;
+  locationReview: boolean;
+  serviceReview: boolean;
+  review: string;
+  hasAgreed: boolean;
+  screeningId: number;
+  screeningTitle: string;
+  startDate: string;
+  endDate: string;
+  profileImg: string;
+}
+
+export interface IPopcornReviewProps {
+  posterImgUrl: string;
+  title: string;
+  directorName: string;
+  popcornOfWeek: string;
+  userId: number;
+  nickName: string;
+  profileImgNum: number;
+  popcornId: number;
+  hasWatched: true;
+  beforeScreening: true;
+  afterScreening: true;
+  review: string;
+  hasAgreed: true;
+  popcornPositive: TScreeningPositiveReview<boolean>;
+  popcornNegative: TScreeningNegativeReview<boolean>;
+}

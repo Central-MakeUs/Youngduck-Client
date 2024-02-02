@@ -14,22 +14,42 @@ import {useUserStore} from '@/stores/user';
 import SubMenu from '@/components/subMenu';
 import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
 import {useQueries} from '@tanstack/react-query';
-import {getJjimScreeningData, getWatchedScreeningData} from '@/apis/myPage';
+import {
+  getJjimScreeningData,
+  getPopcornReviewData,
+  getScreeningReviewData,
+  getWatchedScreeningData,
+} from '@/apis/myPage';
+import LoadingPage from '@/components/pages/loadingPage';
 
 const MyPageScreen = () => {
   const {user} = useUserStore();
-  const managePosts = [
-    {postName: '스크리닝 리뷰', count: 1},
-    {postName: '팝콘작 리뷰', count: 1},
-    {postName: '나의 스크리닝', count: 1},
-  ];
   const {stackNavigation} = useNavigator();
-  const [watchedScreeningData, jjimScreeningData] = useQueries({
+  const [
+    watchedScreeningData,
+    jjimScreeningData,
+    screeningReviewData,
+    popcornReviewData,
+  ] = useQueries({
     queries: [
       {queryKey: ['watchedScreeningData'], queryFn: getWatchedScreeningData},
       {queryKey: ['jjimScreeningData'], queryFn: getJjimScreeningData},
+      {queryKey: ['screeningReviewData'], queryFn: getScreeningReviewData},
+      {queryKey: ['popcornReviewData'], queryFn: getPopcornReviewData},
     ],
   });
+  const managePosts = [
+    {postName: '스크리닝 리뷰', count: screeningReviewData.data?.data.length},
+    {postName: '팝콘작 리뷰', count: popcornReviewData.data?.data.length},
+    {postName: '나의 스크리닝', count: 1},
+  ];
+  if (
+    watchedScreeningData.isLoading ||
+    jjimScreeningData.isLoading ||
+    screeningReviewData.isLoading ||
+    popcornReviewData.isLoading
+  )
+    return <LoadingPage />;
   return (
     <GradientContainer
       colors={[
@@ -80,7 +100,7 @@ const MyPageScreen = () => {
             {managePosts.map((managePost, idx) => (
               <ManagePost
                 postName={managePost.postName}
-                count={managePost.count}
+                count={managePost.count!}
                 idx={idx}
                 key={managePost.postName}
               />
