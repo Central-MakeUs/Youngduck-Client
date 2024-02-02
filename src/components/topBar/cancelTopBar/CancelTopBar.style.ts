@@ -14,6 +14,7 @@ export const cancelStyles = ({top}: CommonTopProp) =>
       borderBottomWidth: 1,
       borderBottomColor: palette.Fill.Normal,
       paddingTop: top + 16,
+      backgroundColor: palette.Another.White,
     },
     content: {
       flex: 1,

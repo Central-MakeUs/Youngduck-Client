@@ -1,8 +1,9 @@
-import {Image, View} from 'react-native';
+import {View} from 'react-native';
 
-import {defaultImages} from '@/assets';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
+import GrayPopcorn from '@/assets/icons/gray-popcorn.svg';
+import SmallGrayPopcorn from '@/assets/icons/small-gray-popcorn.svg';
 
 import {emptyItemStyles} from './EmptyItem.style';
 
@@ -17,13 +18,8 @@ const EmptyItem = ({text, size = 'small'}: IEmptyItemProp) => {
         ...emptyItemStyles.container,
         ...(size === 'small' ? {paddingTop: 16, paddingBottom: 24} : {flex: 1}),
       }}>
-      <Image
-        source={
-          size === 'small'
-            ? defaultImages.emptyPopcorn
-            : defaultImages.emptyList
-        }
-      />
+      {size === 'small' ? <SmallGrayPopcorn /> : <GrayPopcorn />}
+
       <Typography
         style={size === 'small' ? 'Label2' : 'Label1'}
         color={palette.Text.Alternative}

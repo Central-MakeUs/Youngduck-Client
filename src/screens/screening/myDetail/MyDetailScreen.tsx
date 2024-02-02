@@ -15,8 +15,7 @@ import TabBar from '@/components/tabBar';
 import useNavigator from '@/hooks/useNavigator';
 import {getScreeningMyDetailContent} from '@/apis/screening/detail';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
-
-import {myDetailScreenStyles} from './MyDetailScree.style';
+import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
 
 interface IMyDetailScreenProps {
   route: ScreenRouteProp<stackScreens.MyDetailScreen>;
@@ -47,42 +46,43 @@ const MyDetailScreen = ({route: {params}}: IMyDetailScreenProps) => {
   };
 
   return (
-    <View style={myDetailScreenStyles.wrapper}>
-      <View style={myDetailScreenStyles.content}>
-        {data && (
-          <ImageContentScrollContainer
-            title={data?.data.screeningTitle}
-            posterImage={data?.data.posterImgUrl}>
-            {data && (
-              <ScreeningTitle
-                title={data?.data.screeningTitle}
-                category={data?.data.category}
+    <>
+      <View>
+        <DefaultScrollContainer>
+          {data && (
+            <ImageContentScrollContainer
+              title={data?.data.screeningTitle}
+              posterImage={data?.data.posterImgUrl}>
+              {data && (
+                <ScreeningTitle
+                  title={data?.data.screeningTitle}
+                  category={data?.data.category}
+                />
+              )}
+              <TabBar
+                currentTabBarNumber={currentTab}
+                setCurrentTabBarNumber={setCurrentTab}
+                tabBars={myScreeningTabBars}
               />
-            )}
-            <TabBar
-              currentTabBarNumber={currentTab}
-              setCurrentTabBarNumber={setCurrentTab}
-              tabBars={myScreeningTabBars}
-            />
 
-            <View>
-              {currentTab === 0 && <DetailInfoPage item={data?.data} />}
-              {currentTab === 1 && <DetailReviewPage id={params.id} />}
-              {currentTab === 2 && <DetailStatisticScreen id={params.id} />}
-            </View>
-          </ImageContentScrollContainer>
-        )}
+              <View>
+                {currentTab === 0 && <DetailInfoPage item={data?.data} />}
+                {currentTab === 1 && <DetailReviewPage id={params.id} />}
+                {currentTab === 2 && <DetailStatisticScreen id={params.id} />}
+              </View>
+            </ImageContentScrollContainer>
+          )}
+        </DefaultScrollContainer>
       </View>
-      <View style={myDetailScreenStyles.bottom}>
-        {data && (
-          <MyDetailBottomButton
-            type={data.data.private ? 'myClose' : 'myOpen'}
-            onPress={handlePrivateOption}
-            optionPress={handleGoToWrite}
-          />
-        )}
-      </View>
-    </View>
+
+      {data && (
+        <MyDetailBottomButton
+          type={data.data.private ? 'myClose' : 'myOpen'}
+          onPress={handlePrivateOption}
+          optionPress={handleGoToWrite}
+        />
+      )}
+    </>
   );
 };
 export default MyDetailScreen;

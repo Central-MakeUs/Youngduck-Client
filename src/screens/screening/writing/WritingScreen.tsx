@@ -6,20 +6,21 @@ import DefaultContainer from '@/components/container/defaultContainer';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import ScreeningGallery from './components/screeningGallery';
-import CheckBox from '@/components/checkBox';
 import ButtonInput from '@/components/inputs/buttonInput';
 import Select from '@/components/select';
 import TextArea from '@/components/inputs/textArea';
 import DismissKeyboardView from '@/components/dismissKeyboardView';
 import Input from '@/components/input';
-import BoxButton from '@/components/buttons/boxButton';
 import useHandleInput from './hooks/useHandleInput';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import {ScreenRouteProp} from '@/types/navigator';
 import useNavigator from '@/hooks/useNavigator';
+import AgreeNoticeCard from '@/components/cards/agreeNoticeCard';
 import stackScreens from '@/constants/stackScreens';
 import {KorCategoryValues} from '@/models/enums/category';
 import {getScreeningMyDetailContent} from '@/apis/screening/detail';
+import CancelTopBar from '@/components/topBar/cancelTopBar';
+import BottomBoxButton from '@/components/bottomButton/bottomBoxButton';
 
 import {writingStyles} from './WritingScreen.style';
 
@@ -93,11 +94,13 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
   const handleWriteScreening = async () => {
     setIsLoading(true);
     if (type === 'post') {
+      console.log(inputValues);
       await uploadScreening.mutateAsync(inputValues);
       setIsLoading(false);
     }
     if (type === 'modified' && data) {
       const body = {screeningId: data.data.screeningId, ...inputValues};
+      console.log(inputValues.hostPhoneNumber);
       await modifyScreening.mutateAsync(body);
       stackNavigation.navigate(stackScreens.MyDetailScreen, {
         id: data.data.screeningId,
@@ -106,8 +109,16 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
     }
   };
 
+  const handleGoBack = () => {
+    stackNavigation.goBack();
+  };
+
   return (
     <DismissKeyboardView>
+      <CancelTopBar
+        text={type === 'post' ? '상영회 등록하기' : '상영회 수정하기'}
+        onPress={handleGoBack}
+      />
       <DefaultContainer>
         <Typography
           mt={40}
@@ -275,35 +286,32 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
             textContentType="emailAddress"
           />
         </View>
-        {type === 'post' && (
-          <>
-            <View style={writingStyles.content}>
-              <Typography style="Label1" color={palette.Text.Normal}>
-                게시글 정책을 확인했어요.
-              </Typography>
-              <CheckBox
-                state={inputValues.hasAgreed ? 'on' : 'off'}
-                onPress={() => {
-                  onChangeInput('hasAgreed', !inputValues.hasAgreed);
-                }}
-              />
-            </View>
-            <Typography style="Body2" color={palette.Text.Alternative} mt={4}>
-              상영회는 등록 후 삭제할 수 없어요.
-            </Typography>
-            <Typography style="Body2" color={palette.Text.Alternative} mb={34}>
-              수정이나 비공개 처리는 가능해요.
-            </Typography>
-          </>
-        )}
 
-        <BoxButton
-          onPress={handleWriteScreening}
-          mb={12}
-          disabled={!canGoNext || isLoading}>
-          {isLoading ? '로딩 중' : type === 'post' ? '등록하기' : '수정하기'}
-        </BoxButton>
+        <View style={writingStyles.container}>
+          {type === 'post' && (
+            <AgreeNoticeCard
+              value={inputValues.hasAgreed}
+              onChangeValue={() => {
+                onChangeInput('hasAgreed', !inputValues.hasAgreed);
+              }}
+              content="상영회는 등록 후 삭제할 수 없어요."
+            />
+          )}
+        </View>
       </DefaultContainer>
+      <BottomBoxButton
+        onPress={handleWriteScreening}
+        disabled={!canGoNext || isLoading}>
+        <Typography
+          style="Label1"
+          color={
+            !canGoNext || isLoading
+              ? palette.Another.White
+              : palette.Another.Black
+          }>
+          {isLoading ? '로딩 중' : type === 'post' ? '등록하기' : '수정하기'}
+        </Typography>
+      </BottomBoxButton>
     </DismissKeyboardView>
   );
 };
