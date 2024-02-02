@@ -1,7 +1,7 @@
 import palette from '@/styles/theme/color';
 import text from '@/styles/theme/typography';
 import {ITypography} from '@/types/theme/typography';
-import {Text} from 'react-native';
+import {Platform, Text} from 'react-native';
 
 function Typography({
   style,
@@ -28,7 +28,10 @@ function Typography({
         marginHorizontal: mx ? mx : undefined,
         marginVertical: my ? my : undefined,
         margin: m ? m : undefined,
-        fontFamily: 'Pretendard Variable',
+        fontFamily:
+          Platform.OS === 'android'
+            ? 'Pretendard-SemiBold'
+            : 'Pretendard Variable',
         ...text[style],
       }}
       numberOfLines={numberOfLines === -1 ? undefined : numberOfLines}>

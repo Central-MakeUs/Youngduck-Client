@@ -32,7 +32,7 @@ const ScreeningRate = ({score, mode, children}: IScreeningRate) => {
   useEffect(() => {
     Animated.timing(marginLeftAnim, {
       toValue: screeningIndexLocation,
-      duration: 1500,
+      duration: 500,
       delay: 500,
       easing: Easing.inOut(Easing.quad),
       useNativeDriver: false,
@@ -58,7 +58,7 @@ const ScreeningRate = ({score, mode, children}: IScreeningRate) => {
         <Animated.View
           style={[style.tooltip, {marginLeft}]}
           onLayout={e => setTooltipHeight(e.nativeEvent.layout.height)}>
-          <Tooltip screeningIndex={screeningIndex} />
+          <Tooltip text={`${screeningIndex}점`} />
           <View style={style.screeningIndex} />
         </Animated.View>
       </View>

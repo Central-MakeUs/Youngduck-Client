@@ -17,6 +17,7 @@ interface IDetailInfoProps {
   item: IScreeningDetailContent | IScreeningMyDetailResponse;
 }
 const DetailInfoPage = ({item}: IDetailInfoProps) => {
+  console.log('디테일 정보', item);
   return (
     <View>
       <DefaultContainer>

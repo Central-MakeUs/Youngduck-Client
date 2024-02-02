@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import {View} from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
 import {useQuery} from '@tanstack/react-query';
 
 import ImageContentScrollContainer from '@/components/container/imageContentScrollContainer';
@@ -16,9 +17,11 @@ import Popup from '@/components/popup';
 import {useWebviewStore} from '@/stores/webview';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import LoadingPage from '@/components/pages/loadingPage';
+import ScreeningTitle from '@/components/title/screeningTitle';
+import Tooltip from '@/components/tooltip';
+import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
 
 import {detailScreenStyles} from './DetailScreen.style';
-import ScreeningTitle from '@/components/title/screeningTitle';
 
 type DetailScreenProps = {
   route: ScreenRouteProp<stackScreens.DetailScreen>;
@@ -26,8 +29,8 @@ type DetailScreenProps = {
 
 const DetailScreen = ({route}: DetailScreenProps) => {
   const {id} = route.params;
-  console.log(id);
   const [currentTab, setCurrentTab] = useState<number>(0);
+  const [tooltipeShow, setTooltipShow] = useState<boolean>(false);
 
   const {webview, setWebview} = useWebviewStore();
 
@@ -46,6 +49,8 @@ const DetailScreen = ({route}: DetailScreenProps) => {
     onClosePopupCancel,
     onClosePopupScreening,
     handleOptionOnPress,
+    popupScreening,
+    setPopupScreening,
   } = useScreeningType(id);
 
   useEffect(() => {
@@ -54,6 +59,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
         data?.data.reviewed,
         data?.data.bookmarked,
         data?.data.screeningEndDate,
+        data?.data.screeningStartDate,
       );
       if (buttonType === 'default') {
         setWebview({uri: data.data.formUrl, isVisited: false});
@@ -61,10 +67,22 @@ const DetailScreen = ({route}: DetailScreenProps) => {
     }
   }, [data, setWebview, status, buttonType]);
 
+  // 웹뷰 갔다와 관람 신청 모달 활성화
+  const state = useIsFocused();
+  useEffect(() => {
+    if (webview.isVisited && state && buttonType === 'default') {
+      setPopupScreening(true);
+    }
+  }, [state]);
+
   // 관람 신청 모달 네 클릭 시
   const handleScreeningPopupPress = () => {
     // 찜하기 api 실행
-    uploadScreeningBookmark.mutate(id);
+    uploadScreeningBookmark.mutate(id, {
+      onSuccess: () => {
+        setTooltipShow(true);
+      },
+    });
     onClosePopupScreening();
   };
 
@@ -80,12 +98,12 @@ const DetailScreen = ({route}: DetailScreenProps) => {
   }
 
   return (
-    <View style={detailScreenStyles.wrapper}>
+    <>
       {/*관람 신청 팝업 모달*/}
       <Popup
         title="관람 예정이신가요?"
         content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
-        isVisible={buttonType === 'default' && webview.isVisited}
+        isVisible={popupScreening}
         onClose={onClosePopupScreening}
         onPress={handleScreeningPopupPress}
       />
@@ -98,40 +116,46 @@ const DetailScreen = ({route}: DetailScreenProps) => {
         onClose={onClosePopupCancel}
         onPress={handleCacelPopupPress}
       />
+      <View>
+        {/*관람 신청 팝업 모달*/}
+        <DefaultScrollContainer>
+          {data && (
+            <>
+              <ImageContentScrollContainer
+                posterImage={data?.data.posterImgUrl}
+                title={data?.data.screeningTitle}>
+                {data && (
+                  <ScreeningTitle
+                    title={data?.data.screeningTitle}
+                    category={data?.data.category}
+                  />
+                )}
+                <TabBar
+                  currentTabBarNumber={currentTab}
+                  setCurrentTabBarNumber={setCurrentTab}
+                  tabBars={screeningTabBars}
+                />
+              </ImageContentScrollContainer>
 
-      <View style={detailScreenStyles.content}>
-        {data && (
-          <ImageContentScrollContainer
-            posterImage={data?.data.posterImgUrl}
-            title={data?.data.screeningTitle}>
-            {data && (
-              <ScreeningTitle
-                title={data?.data.screeningTitle}
-                category={data?.data.category}
-              />
-            )}
-            <TabBar
-              currentTabBarNumber={currentTab}
-              setCurrentTabBarNumber={setCurrentTab}
-              tabBars={screeningTabBars}
-            />
-
-            <View>
               {currentTab === 0 && <DetailInfoPage item={data?.data} />}
               {currentTab === 1 && <DetailReviewPage id={id} />}
-            </View>
-          </ImageContentScrollContainer>
-        )}
+            </>
+          )}
+        </DefaultScrollContainer>
       </View>
 
-      <View style={detailScreenStyles.bottom}>
-        <BottomDetailButton
-          type={buttonType}
-          onPress={handleButtonOnPress}
-          onOptionPress={handleOptionOnPress}
-        />
-      </View>
-    </View>
+      {currentTab === 0 && tooltipeShow && (
+        <View style={detailScreenStyles.tooltip}>
+          <Tooltip text="상영회 하루 전에 알람으로 알려드려요" hide={true} />
+        </View>
+      )}
+
+      <BottomDetailButton
+        type={buttonType}
+        onPress={handleButtonOnPress}
+        onOptionPress={handleOptionOnPress}
+      />
+    </>
   );
 };
 export default DetailScreen;

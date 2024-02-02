@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {DateParsable} from 'react-native-calendar-picker';
 
 import {DetailBottomButtonType} from '@/types/ui';
-import {getDatePrevious, getOneDayAfter} from '@/utils/getDate';
+import {getDateAfter, getDatePrevious} from '@/utils/getDate';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import {useWebviewStore} from '@/stores/webview';
@@ -14,20 +14,22 @@ const useScreeningType = (id: number) => {
   // 관람 취소 팝업
   const [popupCancel, setPopupCancel] = useState<boolean>(false);
   // 관람 신청 팝업
+  const [popupScreening, setPopupScreening] = useState<boolean>(false);
   const {setWebview, webview} = useWebviewStore();
 
   const setDetailButtonType = (
     reviewed: boolean,
     bookmarked: boolean,
     endDate: DateParsable,
+    startDate: DateParsable,
   ) => {
     if (reviewed) {
       // 리뷰 완료 상태 반환
       setButtonType('reviewComplete');
     } else {
       if (bookmarked) {
-        // 신청 완료 후 오늘이 상영회 종료일 하루 뒤면 리뷰 시작 상태 반환
-        if (getOneDayAfter(endDate)) {
+        // 신청 완료 후 오늘이 상영회 시작일 이후 이면 리뷰 시작 상태 반환
+        if (getDateAfter(startDate)) {
           setButtonType('reviewStart');
           // 상영신청 완료 상태 반환
         } else {
@@ -52,7 +54,7 @@ const useScreeningType = (id: number) => {
     }
     if (buttonType === 'default') {
       // 관람 신청 웹뷰 열기
-      stackNavigation.navigate(stackScreens.DetailWebviewScreen, {id});
+      stackNavigation.navigate(stackScreens.DetailWebviewScreen);
     }
   };
 
@@ -71,6 +73,7 @@ const useScreeningType = (id: number) => {
   // 관람 신청 모달 닫기
   const onClosePopupScreening = () => {
     setWebview({...webview, isVisited: false});
+    setPopupScreening(false);
   };
 
   return {
@@ -80,7 +83,9 @@ const useScreeningType = (id: number) => {
     handleOptionOnPress,
     popupCancel,
     onClosePopupCancel,
+    popupScreening,
     onClosePopupScreening,
+    setPopupScreening,
   };
 };
 export default useScreeningType;

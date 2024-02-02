@@ -47,7 +47,7 @@ const BoxButton = ({
               style="Label1"
               color={
                 disabled
-                  ? palette.Text.Alternative
+                  ? palette.Another.White
                   : styleButton[variant].textColor
               }>
               {children}
