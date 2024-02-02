@@ -14,6 +14,7 @@ const useScreeningType = (id: number) => {
   // 관람 취소 팝업
   const [popupCancel, setPopupCancel] = useState<boolean>(false);
   // 관람 신청 팝업
+  const [popupScreening, setPopupScreening] = useState<boolean>(false);
   const {setWebview, webview} = useWebviewStore();
 
   const setDetailButtonType = (
@@ -72,6 +73,7 @@ const useScreeningType = (id: number) => {
   // 관람 신청 모달 닫기
   const onClosePopupScreening = () => {
     setWebview({...webview, isVisited: false});
+    setPopupScreening(false);
   };
 
   return {
@@ -81,7 +83,9 @@ const useScreeningType = (id: number) => {
     handleOptionOnPress,
     popupCancel,
     onClosePopupCancel,
+    popupScreening,
     onClosePopupScreening,
+    setPopupScreening,
   };
 };
 export default useScreeningType;

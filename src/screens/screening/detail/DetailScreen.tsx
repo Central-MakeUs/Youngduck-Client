@@ -31,7 +31,6 @@ const DetailScreen = ({route}: DetailScreenProps) => {
   const {id} = route.params;
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [tooltipeShow, setTooltipShow] = useState<boolean>(false);
-  const [popup, setPopup] = useState<boolean>(false);
 
   const {webview, setWebview} = useWebviewStore();
 
@@ -50,6 +49,8 @@ const DetailScreen = ({route}: DetailScreenProps) => {
     onClosePopupCancel,
     onClosePopupScreening,
     handleOptionOnPress,
+    popupScreening,
+    setPopupScreening,
   } = useScreeningType(id);
 
   useEffect(() => {
@@ -70,7 +71,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
   const state = useIsFocused();
   useEffect(() => {
     if (webview.isVisited && state && buttonType === 'default') {
-      setPopup(true);
+      setPopupScreening(true);
     }
   }, [state]);
 
@@ -83,7 +84,6 @@ const DetailScreen = ({route}: DetailScreenProps) => {
       },
     });
     onClosePopupScreening();
-    setPopup(false);
   };
 
   // 관람 취소 모달 네 클릭 시
@@ -91,7 +91,6 @@ const DetailScreen = ({route}: DetailScreenProps) => {
     // 찜하기 api 실행
     uploadScreeningBookmark.mutate(id);
     onClosePopupCancel();
-    setPopup(false);
   };
 
   if (isLoading) {
@@ -106,10 +105,8 @@ const DetailScreen = ({route}: DetailScreenProps) => {
           <Popup
             title="관람 예정이신가요?"
             content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
-            isVisible={popup}
-            onClose={() => {
-              setPopup(false);
-            }}
+            isVisible={popupScreening}
+            onClose={onClosePopupScreening}
             onPress={handleScreeningPopupPress}
           />
 
