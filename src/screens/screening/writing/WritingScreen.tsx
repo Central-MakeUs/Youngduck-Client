@@ -6,7 +6,6 @@ import DefaultContainer from '@/components/container/defaultContainer';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import ScreeningGallery from './components/screeningGallery';
-import CheckBox from '@/components/checkBox';
 import ButtonInput from '@/components/inputs/buttonInput';
 import Select from '@/components/select';
 import TextArea from '@/components/inputs/textArea';
@@ -16,6 +15,7 @@ import useHandleInput from './hooks/useHandleInput';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import {ScreenRouteProp} from '@/types/navigator';
 import useNavigator from '@/hooks/useNavigator';
+import AgreeNoticeCard from '@/components/cards/agreeNoticeCard';
 import stackScreens from '@/constants/stackScreens';
 import {KorCategoryValues} from '@/models/enums/category';
 import {getScreeningMyDetailContent} from '@/apis/screening/detail';
@@ -23,7 +23,6 @@ import CancelTopBar from '@/components/topBar/cancelTopBar';
 import BottomBoxButton from '@/components/bottomButton/bottomBoxButton';
 
 import {writingStyles} from './WritingScreen.style';
-import AgreeNoticeCard from '@/components/cards/agreeNoticeCard';
 
 interface IWritingScreenProps {
   route: ScreenRouteProp<'WritingScreen'>;
