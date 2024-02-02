@@ -1,4 +1,3 @@
-import {ActivityIndicator} from 'react-native';
 import {useEffect, useState} from 'react';
 import DefaultContainer from '@/components/container/defaultContainer';
 import Divider from '@/components/divider';
@@ -27,6 +26,8 @@ import DetailPopcorn from './components/detailMovie/DetailPopcorn';
 import DetailBottomButtons from './components/detailBottomButtons/DetailBottomButtons';
 import {getWeekOfMonthString} from '@/utils/getWeekOfMonth';
 import EmptyItem from '@/components/items/emptyItem';
+import LoadingPage from '@/components/pages/loadingPage';
+import Loading from '@/components/loading';
 
 interface IPopcornPartyDetailScreenProp {
   route: ScreenRouteProp<stackScreens.PopcornPartyDetailScreen>;
@@ -96,6 +97,15 @@ function PopcornPartyDetailScreen({
     setComplainPopup(false);
     complainUserMutate(complainId);
   };
+
+  if (
+    popcornPartyDetailData.isLoading ||
+    popcornRateData.isLoading ||
+    popcornReviewData.isLoading ||
+    randomPopcornRecommendData.isLoading
+  )
+    return <LoadingPage />;
+
   return (
     <ImageContentScrollContainer
       title={getWeekOfMonthString()!}
@@ -134,7 +144,7 @@ function PopcornPartyDetailScreen({
       {currentTabBarNumber === 1 && (
         <DefaultContainer>
           {popcornReviewData.isLoading ? (
-            <ActivityIndicator />
+            <Loading />
           ) : popcornReviews?.length === 0 || !popcornReviewData.isSuccess ? (
             <EmptyItem text="아직 리뷰가 없어요." />
           ) : (
