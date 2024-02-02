@@ -1,8 +1,8 @@
 import DefaultContainer from '@/components/container/defaultContainer';
 import PopcornItem from '@/components/items/popcornItem';
+import Loading from '@/components/loading';
 import SubTitle from '@/components/title/subTitle';
 import {TPopcornRecommendData} from '@/models/popcornParty/reponse';
-import {ActivityIndicator} from 'react-native';
 
 type IVoteNextPopcornProp = Record<
   'popcornRecommendData',
@@ -23,7 +23,7 @@ const VoteNextPopcorn = ({
     <>
       <SubTitle text={title} mb={8} />
       {isLoading ? (
-        <ActivityIndicator />
+        <Loading />
       ) : (
         <DefaultContainer>
           {popcornRecommendData &&
