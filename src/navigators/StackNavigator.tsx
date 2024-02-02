@@ -146,11 +146,7 @@ function StackNavigator() {
       <Stack.Screen
         name={stackScreens.WritingScreen}
         component={WritingScreen}
-        options={{
-          header: () => (
-            <CancelTopBar text="상영회 등록하기" onPress={handleGoBack} />
-          ),
-        }}
+        options={{headerShown: false}}
       />
       {/*상세 페이지*/}
       <Stack.Screen

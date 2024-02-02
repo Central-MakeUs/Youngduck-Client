@@ -22,6 +22,7 @@ import {KorCategoryValues} from '@/models/enums/category';
 import {getScreeningMyDetailContent} from '@/apis/screening/detail';
 
 import {writingStyles} from './WritingScreen.style';
+import CancelTopBar from '@/components/topBar/cancelTopBar';
 
 interface IWritingScreenProps {
   route: ScreenRouteProp<'WritingScreen'>;
@@ -106,8 +107,16 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
     }
   };
 
+  const handleGoBack = () => {
+    stackNavigation.goBack();
+  };
+
   return (
     <DismissKeyboardView>
+      <CancelTopBar
+        text={type === 'post' ? '상영회 등록하기' : '상영회 수정하기'}
+        onPress={handleGoBack}
+      />
       <DefaultContainer>
         <Typography
           mt={40}

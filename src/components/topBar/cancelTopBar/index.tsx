@@ -23,7 +23,7 @@ const CancelTopBar = ({text, onPress, mb, mt}: CancelTopBarProps) => {
         marginBottom: mb ? mb : undefined,
       }}>
       <View style={style.content}>
-        <Typography style="Label1" color={palette.Another.Black}>
+        <Typography style="Label1" color={palette.Another.Black} ml={24}>
           {text}
         </Typography>
       </View>
