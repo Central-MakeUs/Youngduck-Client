@@ -25,13 +25,19 @@ const PopcornTrendingCard = ({
     <Pressable
       style={
         index
-          ? popcornTrendingCardStyles.container
+          ? mode === 'without-ranking'
+            ? popcornTrendingCardStyles.largeContainer
+            : popcornTrendingCardStyles.mediumContainer
           : popcornTrendingCardStyles.firstContainer
       }
       onPress={goToPopcornPartyDetail}>
       <Image
         source={imageUrl ? {uri: imageUrl} : defaultImages.emptyLarge}
-        style={popcornTrendingCardStyles.image}
+        style={
+          mode === 'without-ranking'
+            ? popcornTrendingCardStyles.largeImage
+            : popcornTrendingCardStyles.mediumImage
+        }
       />
       {mode === 'with-ranking' && <Chip text={`${rank}위`} mt={4} mb={4} />}
       <Typography style="Label1" numberOfLines={1}>
