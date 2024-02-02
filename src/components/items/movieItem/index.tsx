@@ -19,9 +19,10 @@ const MovieItem = ({
   directorNm,
   selected,
   movieSeq,
+  movieId,
   setSelected,
 }: IMovieItem) => {
-  const setRecommandMovie = () => setSelected({title, movieSeq});
+  const setRecommandMovie = () => setSelected({title, movieId, movieSeq});
   return (
     <Pressable
       style={

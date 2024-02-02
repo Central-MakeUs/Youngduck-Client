@@ -19,6 +19,7 @@ import {useQueryClient} from '@tanstack/react-query';
 function WriteRecommandScreen() {
   const [selectedMovie, setSelectedMovie] = useState<IRecommendMovieProps>({
     title: '',
+    movieId: 'K',
     movieSeq: '',
   });
   const [reason, setReason] = useState<string>('');
@@ -44,6 +45,7 @@ function WriteRecommandScreen() {
   const goToRecommandListScreen = () => {
     recommendMovieMutate({
       movieId: selectedMovie.movieSeq,
+      movieType: selectedMovie.movieId,
       reason,
       agreed: isAgree,
     });
