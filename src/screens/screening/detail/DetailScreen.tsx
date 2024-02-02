@@ -77,10 +77,13 @@ const DetailScreen = ({route}: DetailScreenProps) => {
   // 관람 신청 모달 네 클릭 시
   const handleScreeningPopupPress = () => {
     // 찜하기 api 실행
-    uploadScreeningBookmark.mutate(id);
+    uploadScreeningBookmark.mutate(id, {
+      onSuccess: () => {
+        setTooltipShow(true);
+      },
+    });
     onClosePopupScreening();
     setPopup(false);
-    setTooltipShow(true);
   };
 
   // 관람 취소 모달 네 클릭 시
