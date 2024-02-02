@@ -66,6 +66,15 @@ const getOneDayAfter = (endDate: DateParsable) => {
   return isSameDay(new Date(), tommorow) || isAfter(new Date(), tommorow);
 };
 
+const getDashDateRange = (startDate: DateParsable, endDate: DateParsable) => {
+  if (startDate && endDate)
+    return `${format(startDate, 'yyyy년 M월 d일')} ~ ${format(
+      endDate,
+      'yyyy년 M월 d일',
+    )}`;
+  else return '';
+};
+
 export {
   getDateRange,
   getTime,
@@ -74,4 +83,5 @@ export {
   getKorDateRange,
   getDatePrevious,
   getOneDayAfter,
+  getDashDateRange,
 };
