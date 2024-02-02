@@ -1,5 +1,5 @@
 import {LoginType} from '@/models/auth/entity';
-import {apiWithoutToken} from '@/apis';
+import {apiWithoutToken, api} from '@/apis';
 import {IRegisterRequest} from '@/models/auth/request';
 import {ResponseDTO} from '@/models/common/responseDTO';
 import {ILoginResponse, IRegisterResponse} from '@/models/auth/response';
@@ -27,6 +27,12 @@ export const postRegisterUser = async (
     `/auth/oauth/register/${type}?idToken=${token}`,
     body,
   );
+  return res.data;
+};
+
+// 로그아웃 api 함수
+export const postLogout = async (): Promise<ResponseDTO<string>> => {
+  const res = await api.post('/auth/logout');
   return res.data;
 };
 
