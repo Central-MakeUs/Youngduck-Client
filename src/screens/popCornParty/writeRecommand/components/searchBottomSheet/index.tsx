@@ -38,7 +38,11 @@ const SearchBottomSheet = ({
   });
   const styles = searchBottomSheetStyles({bottom});
 
-  const {data: searchMovieData, refetch} = useQuery({
+  const {
+    data: searchMovieData,
+    refetch,
+    status,
+  } = useQuery({
     queryKey: ['searchMovie'],
     queryFn: () => getSearchMovieData(movie),
     enabled: false,
@@ -104,11 +108,14 @@ const SearchBottomSheet = ({
           </View>
           <Divider height={1} mb={8} mt={8} />
           <View style={styles.responseWrap}>
-            {searchMovieData === undefined || searchMovieData.length === 0 ? (
-              <EmptyItem text="검색 결과가 나오지 않아요." size="large" />
-            ) : (
+            {searchMovieData?.length === 0 ||
+              (searchMovieData === undefined && (
+                <EmptyItem text="검색 결과가 나오지 않아요." size="large" />
+              ))}
+            {searchMovieData?.length! > 0 && status === 'success' && (
               <FlatList data={searchResults} renderItem={renderItem} />
             )}
+
             <BoxButton onPress={setRecommandMovie}>선택하기</BoxButton>
           </View>
         </DefaultContainer>
