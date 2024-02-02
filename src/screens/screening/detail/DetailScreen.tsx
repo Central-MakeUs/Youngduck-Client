@@ -99,26 +99,26 @@ const DetailScreen = ({route}: DetailScreenProps) => {
 
   return (
     <>
+      {/*관람 신청 팝업 모달*/}
+      <Popup
+        title="관람 예정이신가요?"
+        content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
+        isVisible={popupScreening}
+        onClose={onClosePopupScreening}
+        onPress={handleScreeningPopupPress}
+      />
+
+      {/*관람 취소 팝업 모달*/}
+      <Popup
+        title="관람 예정을 취소할까요?"
+        content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
+        isVisible={popupCancel}
+        onClose={onClosePopupCancel}
+        onPress={handleCacelPopupPress}
+      />
       <View>
         {/*관람 신청 팝업 모달*/}
         <DefaultScrollContainer>
-          <Popup
-            title="관람 예정이신가요?"
-            content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
-            isVisible={popupScreening}
-            onClose={onClosePopupScreening}
-            onPress={handleScreeningPopupPress}
-          />
-
-          {/*관람 취소 팝업 모달*/}
-          <Popup
-            title="관람 예정을 취소할까요?"
-            content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
-            isVisible={popupCancel}
-            onClose={onClosePopupCancel}
-            onPress={handleCacelPopupPress}
-          />
-
           {data && (
             <>
               <ImageContentScrollContainer
