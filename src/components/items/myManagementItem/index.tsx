@@ -10,6 +10,7 @@ import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import Popup from '@/components/popup';
 import {IChipProps} from '@/types/myPage';
+import {defaultImages} from '@/assets';
 
 interface IMyManagementItemProps {
   // 필수 props
@@ -74,7 +75,7 @@ const MyManagementItem = ({
           stackNavigation.navigate(stackScreens.MyDetailScreen, {id})
         }>
         <Image
-          source={{uri: posterImgUrl}}
+          source={posterImgUrl ? {uri: posterImgUrl} : defaultImages.emptySmall}
           style={myManagementItemStyles.image}
         />
         <View style={myManagementItemStyles.contentContainer}>
