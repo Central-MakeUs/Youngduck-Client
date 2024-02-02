@@ -67,7 +67,7 @@ const DetailReviewPage = ({id}: IDetailReviewProps) => {
         style={{
           height: 350,
         }}>
-        <EmptyItem size="large" text="댓글이 아직 없습니다" />
+        <EmptyItem size="large" text="댓글이 아직 없어요" />
       </View>
     );
   }

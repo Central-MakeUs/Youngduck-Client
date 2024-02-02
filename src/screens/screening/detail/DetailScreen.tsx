@@ -57,6 +57,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
         data?.data.reviewed,
         data?.data.bookmarked,
         data?.data.screeningEndDate,
+        data?.data.screeningStartDate,
       );
       if (buttonType === 'default') {
         setWebview({uri: data.data.formUrl, isVisited: false});

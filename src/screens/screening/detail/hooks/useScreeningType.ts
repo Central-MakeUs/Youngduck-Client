@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {DateParsable} from 'react-native-calendar-picker';
 
 import {DetailBottomButtonType} from '@/types/ui';
-import {getDatePrevious, getOneDayAfter} from '@/utils/getDate';
+import {getDateAfter, getDatePrevious} from '@/utils/getDate';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import {useWebviewStore} from '@/stores/webview';
@@ -20,14 +20,15 @@ const useScreeningType = (id: number) => {
     reviewed: boolean,
     bookmarked: boolean,
     endDate: DateParsable,
+    startDate: DateParsable,
   ) => {
     if (reviewed) {
       // 리뷰 완료 상태 반환
       setButtonType('reviewComplete');
     } else {
       if (bookmarked) {
-        // 신청 완료 후 오늘이 상영회 종료일 하루 뒤면 리뷰 시작 상태 반환
-        if (getOneDayAfter(endDate)) {
+        // 신청 완료 후 오늘이 상영회 시작일 이후 이면 리뷰 시작 상태 반환
+        if (getDateAfter(startDate)) {
           setButtonType('reviewStart');
           // 상영신청 완료 상태 반환
         } else {
