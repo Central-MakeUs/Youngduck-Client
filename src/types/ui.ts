@@ -17,7 +17,7 @@ export interface IBannerContent {
 }
 
 // 체크박스 타입 지정
-export type ICheckBox = 'on' | 'off' | 'indeterminate';
+export type ICheckBox = 'on' | 'off' | 'essential' | 'all';
 
 // chip 타입 지정
 export type IChip = 'primary' | 'default';

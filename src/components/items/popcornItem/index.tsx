@@ -43,7 +43,7 @@ const PopcornItem = ({
             ? {
                 uri: imageUrl,
               }
-            : defaultImages.pacong
+            : defaultImages.emptySmall
         }
         style={popcornItemStyles.image}
       />

@@ -1,10 +1,8 @@
-import {ActivityIndicator} from 'react-native';
 import {useEffect, useState} from 'react';
 import DefaultContainer from '@/components/container/defaultContainer';
 import Divider from '@/components/divider';
 import BoxButton from '@/components/buttons/boxButton';
 import TabBar from '@/components/tabBar';
-import PopcornKeyword from '../../../components/popcornKeyword';
 import VoteNextPopcorn from '../home/components/voteNextPopcorn';
 import stackScreens from '@/constants/stackScreens';
 import CommentItem from '@/components/items/commentItem';
@@ -15,7 +13,6 @@ import useVoteMovieMutation from '@/hooks/mutaions/useRecommendMovie';
 import {ScreenRouteProp} from '@/types/navigator';
 import {useQueries, useQueryClient} from '@tanstack/react-query';
 import {
-  getPopconrKeywordData,
   getPopconrRateData,
   getPopconrReviewData,
   getPopcornPartyDetailData,
@@ -28,6 +25,9 @@ import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
 import DetailPopcorn from './components/detailMovie/DetailPopcorn';
 import DetailBottomButtons from './components/detailBottomButtons/DetailBottomButtons';
 import {getWeekOfMonthString} from '@/utils/getWeekOfMonth';
+import EmptyItem from '@/components/items/emptyItem';
+import LoadingPage from '@/components/pages/loadingPage';
+import Loading from '@/components/loading';
 
 interface IPopcornPartyDetailScreenProp {
   route: ScreenRouteProp<stackScreens.PopcornPartyDetailScreen>;
@@ -49,7 +49,6 @@ function PopcornPartyDetailScreen({
   const [
     popcornPartyDetailData,
     popcornRateData,
-    popcornKeywordData,
     popcornReviewData,
     randomPopcornRecommendData,
   ] = useQueries({
@@ -63,10 +62,6 @@ function PopcornPartyDetailScreen({
         queryFn: () => getPopconrRateData(params.id),
       },
       {
-        queryKey: ['popcornKeywordData'],
-        queryFn: () => getPopconrKeywordData(params.id),
-      },
-      {
         queryKey: ['popcornReviewData'],
         queryFn: () => getPopconrReviewData(params.id),
       },
@@ -78,7 +73,6 @@ function PopcornPartyDetailScreen({
   });
   const movieData = popcornPartyDetailData.data?.data;
   const popcornRate = popcornRateData.data?.data;
-  const popcornKeyword = popcornKeywordData.data?.data;
   // 더보기 활성화 시 원래 데이터 모두 보여주기
   const popcornReviews = viewMoreComment
     ? popcornReviewData.data?.data
@@ -103,6 +97,15 @@ function PopcornPartyDetailScreen({
     setComplainPopup(false);
     complainUserMutate(complainId);
   };
+
+  if (
+    popcornPartyDetailData.isLoading ||
+    popcornRateData.isLoading ||
+    popcornReviewData.isLoading ||
+    randomPopcornRecommendData.isLoading
+  )
+    return <LoadingPage />;
+
   return (
     <ImageContentScrollContainer
       title={getWeekOfMonthString()!}
@@ -135,18 +138,15 @@ function PopcornPartyDetailScreen({
             score={popcornRate === undefined ? 0 : Number(popcornRate)}>
             <PopcornRate isOpen={isOpen} setIsOpen={setIsOpen} />
           </ScreeningRate>
-          <PopcornKeyword
-            participatedCount={popcornKeyword?.participatedCount!}
-            participatedUserCount={popcornKeyword?.participatedUserCount!}
-            topThreeKeywords={popcornKeyword?.topThreeKeywords!}
-          />
-          <Divider height={8} mt={32} mb={16} />
+          <Divider height={8} mt={-8} mb={16} />
         </DefaultContainer>
       )}
       {currentTabBarNumber === 1 && (
         <DefaultContainer>
-          {popcornReviews === undefined ? (
-            <ActivityIndicator />
+          {popcornReviewData.isLoading ? (
+            <Loading />
+          ) : popcornReviews?.length === 0 || !popcornReviewData.isSuccess ? (
+            <EmptyItem text="아직 리뷰가 없어요." />
           ) : (
             <>
               {popcornReviews?.map((popcornReview, idx) => (
@@ -166,7 +166,7 @@ function PopcornPartyDetailScreen({
                   key={popcornReview.createdAt}
                 />
               ))}
-              {!viewMoreComment && popcornReviews.length > 5 && (
+              {!viewMoreComment && popcornReviews?.length! > 5 && (
                 <BoxButton
                   onPress={() => setViewMoreComment(true)}
                   mb={16}
@@ -176,6 +176,7 @@ function PopcornPartyDetailScreen({
               )}
             </>
           )}
+          <Divider height={8} mt={8} mb={16} />
         </DefaultContainer>
       )}
       <VoteNextPopcorn

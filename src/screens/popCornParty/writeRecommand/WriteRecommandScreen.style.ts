@@ -8,7 +8,7 @@ const writeRecommandScreenStyles = ({
   bottom,
 }: IWriteRecommandScreenStylesProp) =>
   StyleSheet.create({
-    container: {flex: 1},
+    container: {paddingHorizontal: 16},
     buttonMargin: {
       marginBottom: 24,
     },

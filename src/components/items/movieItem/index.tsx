@@ -6,6 +6,7 @@ import {
   IRecommendMovieProps,
   ISearchMovieDataProps,
 } from '@/types/popcornParty';
+import {defaultImages} from '@/assets';
 
 interface IMovieItem extends ISearchMovieDataProps {
   selected: IRecommendMovieProps;
@@ -30,11 +31,7 @@ const MovieItem = ({
       }
       onPress={setRecommandMovie}>
       <Image
-        source={
-          poster === 'default'
-            ? require('../../../assets/images/pacong.png')
-            : {uri: poster}
-        }
+        source={poster === 'default' ? defaultImages.emptyMovie : {uri: poster}}
         style={movieItemStyles.image}
       />
       <View>
