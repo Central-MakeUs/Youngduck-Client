@@ -53,7 +53,7 @@ const useScreeningType = (id: number) => {
     }
     if (buttonType === 'default') {
       // 관람 신청 웹뷰 열기
-      stackNavigation.navigate(stackScreens.DetailWebviewScreen, {id});
+      stackNavigation.navigate(stackScreens.DetailWebviewScreen);
     }
   };
 

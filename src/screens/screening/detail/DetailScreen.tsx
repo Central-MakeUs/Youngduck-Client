@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import {View} from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
 import {useQuery} from '@tanstack/react-query';
 
 import ImageContentScrollContainer from '@/components/container/imageContentScrollContainer';
@@ -28,9 +29,9 @@ type DetailScreenProps = {
 
 const DetailScreen = ({route}: DetailScreenProps) => {
   const {id} = route.params;
-  console.log(id);
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [tooltipeShow, setTooltipShow] = useState<boolean>(false);
+  const [popup, setPopup] = useState<boolean>(false);
 
   const {webview, setWebview} = useWebviewStore();
 
@@ -65,11 +66,20 @@ const DetailScreen = ({route}: DetailScreenProps) => {
     }
   }, [data, setWebview, status, buttonType]);
 
+  // 웹뷰 갔다와 관람 신청 모달 활성화
+  const state = useIsFocused();
+  useEffect(() => {
+    if (webview.isVisited && state && buttonType === 'default') {
+      setPopup(true);
+    }
+  }, [state]);
+
   // 관람 신청 모달 네 클릭 시
   const handleScreeningPopupPress = () => {
     // 찜하기 api 실행
     uploadScreeningBookmark.mutate(id);
     onClosePopupScreening();
+    setPopup(false);
     setTooltipShow(true);
   };
 
@@ -78,6 +88,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
     // 찜하기 api 실행
     uploadScreeningBookmark.mutate(id);
     onClosePopupCancel();
+    setPopup(false);
   };
 
   if (isLoading) {
@@ -92,8 +103,10 @@ const DetailScreen = ({route}: DetailScreenProps) => {
           <Popup
             title="관람 예정이신가요?"
             content={`관람 예정 설정된 작품(찜)만\n관람 후 리뷰를 작성할 수 있어요.`}
-            isVisible={buttonType === 'default' && webview.isVisited}
-            onClose={onClosePopupScreening}
+            isVisible={popup}
+            onClose={() => {
+              setPopup(false);
+            }}
             onPress={handleScreeningPopupPress}
           />
 

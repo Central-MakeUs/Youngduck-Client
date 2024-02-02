@@ -46,7 +46,7 @@ export type ScreeningStackScreensParamList = {
   };
   DetailScreen: {id: number};
   MyDetailScreen: {id: number};
-  DetailWebviewScreen: {id: number};
+  DetailWebviewScreen: undefined;
   ReviewWritingScreen: {id: number};
   KakaoSearchScreen: {type: 'modified' | 'post'};
 };
