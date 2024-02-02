@@ -24,7 +24,7 @@ import Popup from '@/components/popup';
 import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
 import DetailPopcorn from './components/detailMovie/DetailPopcorn';
 import DetailBottomButtons from './components/detailBottomButtons/DetailBottomButtons';
-import {getWeekOfMonthString} from '@/utils/getWeekOfMonth';
+import {getWeekOfMonthString} from '@/utils/getDate';
 import EmptyItem from '@/components/items/emptyItem';
 import LoadingPage from '@/components/pages/loadingPage';
 import Loading from '@/components/loading';
@@ -108,7 +108,7 @@ function PopcornPartyDetailScreen({
 
   return (
     <ImageContentScrollContainer
-      title={getWeekOfMonthString()!}
+      title={getWeekOfMonthString(null)!}
       posterImage={movieData?.imageUrl!}>
       <Popup
         title="정말 신고하시겠어요?"

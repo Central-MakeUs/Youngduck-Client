@@ -4,7 +4,7 @@ import Divider from '@/components/divider';
 import Typography from '@/components/typography';
 import {View} from 'react-native';
 import detailMovieStyles from './DetailPopcorn.style';
-import {getWeekOfMonthString} from '@/utils/getWeekOfMonth';
+import {getWeekOfMonthString} from '@/utils/getDate';
 
 interface IDetailPopcornProps {
   movieTitle: string;
@@ -24,7 +24,7 @@ const DetailPopcorn = ({
   return (
     <DefaultContainer>
       <View style={detailMovieStyles.introduceWrap}>
-        <Typography style="Label2">{getWeekOfMonthString()!}</Typography>
+        <Typography style="Label2">{getWeekOfMonthString(null)!}</Typography>
         <Typography style="Title2">
           {movieTitle === undefined ? '' : movieTitle}
         </Typography>
