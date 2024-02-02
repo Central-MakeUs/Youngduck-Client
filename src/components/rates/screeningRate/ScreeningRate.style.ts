@@ -19,7 +19,7 @@ const screeningRateStyles = ({tooltipHeight}: IScreeningRateStylesProps) =>
     },
     screeningIndexWrap: {
       borderTopWidth: 0.5,
-      borderColor: palette.Text.Assistive,
+      borderColor: palette.Text.Alternative,
       width: '100%',
       justifyContent: 'flex-end',
       paddingTop: 4,

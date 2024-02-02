@@ -21,8 +21,8 @@ const CheckBox = ({onPress, state}: CheckBoxProps) => {
             }
       }
       onPress={onPress}>
-      {state === 'on' && <SvgIcons.RectangleIcon />}
-      {state === 'indeterminate' && <SvgIcons.LineIcon />}
+      {(state === 'on' || state === 'all') && <SvgIcons.RectangleIcon />}
+      {state === 'essential' && <SvgIcons.LineIcon />}
     </Pressable>
   );
 };

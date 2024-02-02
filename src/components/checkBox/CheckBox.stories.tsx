@@ -24,7 +24,7 @@ Off.args = {
   state: 'off' as ICheckBox,
 };
 
-export const Indeterminate: ComponentStory<typeof CheckBox> = Template.bind({});
-Indeterminate.args = {
-  state: 'indeterminate' as ICheckBox,
+export const All: ComponentStory<typeof CheckBox> = Template.bind({});
+All.args = {
+  state: 'all' as ICheckBox,
 };

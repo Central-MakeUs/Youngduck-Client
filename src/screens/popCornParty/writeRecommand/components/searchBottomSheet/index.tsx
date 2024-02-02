@@ -12,8 +12,6 @@ import palette from '@/styles/theme/color';
 import Divider from '@/components/divider';
 import MovieItem from '@/components/items/movieItem';
 import BoxButton from '@/components/buttons/boxButton';
-import {getScreenSize} from '@/utils/getScreenSize';
-import GrayPopcornSvg from '@/assets/icons/gray-popcorn.svg';
 import {useQuery, useQueryClient} from '@tanstack/react-query';
 import {getSearchMovieData} from '@/apis/popcornParty';
 import {
@@ -21,6 +19,7 @@ import {
   ISearchMovieDataProps,
 } from '@/types/popcornParty';
 import getMovieList from '@/utils/getMovieList';
+import EmptyItem from '@/components/items/emptyItem';
 
 interface ISearchBottomSheetProp {
   bottomDrawerRef: React.RefObject<BottomDrawerMethods>;
@@ -38,9 +37,12 @@ const SearchBottomSheet = ({
     movieSeq: '',
   });
   const styles = searchBottomSheetStyles({bottom});
-  const {screenHeight} = getScreenSize();
 
-  const {data: searchMovieData, refetch} = useQuery({
+  const {
+    data: searchMovieData,
+    refetch,
+    status,
+  } = useQuery({
     queryKey: ['searchMovie'],
     queryFn: () => getSearchMovieData(movie),
     enabled: false,
@@ -78,7 +80,7 @@ const SearchBottomSheet = ({
   };
 
   return (
-    <BottomSheet drawerRef={bottomDrawerRef} height={(screenHeight * 2) / 3}>
+    <BottomSheet drawerRef={bottomDrawerRef} height={530 + bottom}>
       <View style={styles.container}>
         <View style={styles.wrap}>
           <Typography style="Subtitle2">영화 찾기</Typography>
@@ -106,19 +108,14 @@ const SearchBottomSheet = ({
           </View>
           <Divider height={1} mb={8} mt={8} />
           <View style={styles.responseWrap}>
-            {searchMovieData === undefined || searchMovieData.length === 0 ? (
-              <View style={styles.emptyResponseWrap}>
-                <GrayPopcornSvg />
-                <Typography
-                  style="Label1"
-                  color={palette.Text.Alternative}
-                  mt={16}>
-                  검색 결과가 나오지 않아요.
-                </Typography>
-              </View>
-            ) : (
+            {searchMovieData?.length === 0 ||
+              (searchMovieData === undefined && (
+                <EmptyItem text="검색 결과가 나오지 않아요." size="large" />
+              ))}
+            {searchMovieData?.length! > 0 && status === 'success' && (
               <FlatList data={searchResults} renderItem={renderItem} />
             )}
+
             <BoxButton onPress={setRecommandMovie}>선택하기</BoxButton>
           </View>
         </DefaultContainer>

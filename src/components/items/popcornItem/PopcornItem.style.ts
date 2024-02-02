@@ -19,7 +19,7 @@ const popcornItemStyles = StyleSheet.create({
     ...commonContainerStyles,
     borderColor: palette.Line.Normal,
   },
-  image: {width: 88, height: 88, borderRadius: 8, marginRight: 16},
+  image: {width: 68, height: 100, borderRadius: 8, marginRight: 16},
   wrap: {
     flex: 1,
     justifyContent: 'space-between',

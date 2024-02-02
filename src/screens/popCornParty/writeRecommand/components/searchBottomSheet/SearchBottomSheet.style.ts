@@ -9,7 +9,7 @@ interface ISearchBottomSheetStylesProp {
 
 const searchBottomSheetStyles = ({bottom}: ISearchBottomSheetStylesProp) =>
   StyleSheet.create({
-    container: {flex: 1, paddingBottom: screenHeight / 3 + bottom + 16},
+    container: {flex: 1, paddingBottom: screenHeight - (500 + bottom)},
     wrap: {
       flexDirection: 'row',
       justifyContent: 'space-between',

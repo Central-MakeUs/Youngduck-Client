@@ -14,8 +14,8 @@ export const bottomTabScreenOptions = ({
     height: 80,
     borderTopWidth: 1,
     borderTopColor: palette.Primary.Alternative,
-    paddingTop: 15,
-    paddingBottom: 16,
+    paddingTop: 17.5,
+    paddingBottom: 20,
   },
   tabBarLabelStyle: {
     fontWeight: '600',

@@ -10,33 +10,38 @@ import manageScreeningScreenStyles from './ManageScreeningScreen.style';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import MyManagementItem from '@/components/items/myManagementItem';
-import {jjimScreenings, watchedScreenings} from './dummy';
-
-interface ICommonScreeningProps {
-  mode: 'review' | 'jjim';
-  imageURI: string;
-  title: string;
-  id: number;
-  dateRange: string;
-}
-
-interface IWatchedScreeningProps extends ICommonScreeningProps {
-  isReviewRequired: boolean;
-}
-
-interface IJjimScreeningProps extends ICommonScreeningProps {
-  isJjimActivated: boolean;
-}
+import {
+  IJjimScreeningProps,
+  IWatchedScreeningProps,
+} from '@/models/myPage/response';
+import {getDashDateRange} from '@/utils/getDate';
+import EmptyItem from '@/components/items/emptyItem';
+import {useQueries} from '@tanstack/react-query';
+import {getJjimScreeningData, getWatchedScreeningData} from '@/apis/myPage';
+import useManageScreeningMutation from '@/hooks/mutaions/useManageScreeningMutation';
 
 interface IManageScreeningProp {
   route: ScreenRouteProp<stackScreens.ManageScreeningScreen>;
 }
 
 const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
-  const {stackNavigation} = useNavigator();
   const [isWatcedScreening, setIsWatcedScreening] = useState<boolean>(
     params.isWatcedScreening,
   );
+  const {stackNavigation} = useNavigator();
+  const {jjimOffMutate} = useManageScreeningMutation();
+  const [watchedScreeningData, jjimScreeningData] = useQueries({
+    queries: [
+      {queryKey: ['watchedScreeningData'], queryFn: getWatchedScreeningData},
+      {queryKey: ['jjimScreeningData'], queryFn: getJjimScreeningData},
+    ],
+  });
+
+  const dataCount = isWatcedScreening
+    ? watchedScreeningData?.data?.data.length
+    : jjimScreeningData?.data?.data.length;
+
+  const dataCountString = `총 ${dataCount}건`;
 
   const {bottom} = useSafeAreaInsets();
   const style = manageScreeningScreenStyles({bottom});
@@ -44,22 +49,27 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
     item,
   }: Record<'item', IWatchedScreeningProps>) => (
     <MyManagementItem
-      mode={item.mode}
-      imageURI={item.imageURI}
+      mode="watched-screening"
+      posterImgUrl={item.posterImgUrl}
       title={item.title}
+      dateRange={getDashDateRange(
+        item.screeningStartDate,
+        item.screeningEndDate,
+      )}
       id={item.id}
-      isReviewRequired={item.isReviewRequired}
-      dateRange={item.dateRange}
     />
   );
   const renderJjimItem = ({item}: Record<'item', IJjimScreeningProps>) => (
     <MyManagementItem
-      mode={item.mode}
-      imageURI={item.imageURI}
-      title={item.title}
-      id={item.id}
-      isJjimActivated={item.isJjimActivated}
-      dateRange={item.dateRange}
+      mode="jjim-screening"
+      posterImgUrl={item.posterImgUrl}
+      title={item.screeningTitle}
+      dateRange={getDashDateRange(
+        item.screeningStartDate,
+        item.screeningEndDate,
+      )}
+      id={item.screeningId}
+      jjimOffMutate={jjimOffMutate}
     />
   );
   return (
@@ -87,18 +97,24 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
           color={palette.Text.Alternative}
           mt={8}
           mb={8}>
-          총 3건
+          {dataCountString}
         </Typography>
       </View>
       {isWatcedScreening ? (
-        <FlatList
-          data={watchedScreenings as ArrayLike<IWatchedScreeningProps>}
-          renderItem={renderWatchedItem}
-          style={style.screeningListContainer}
-        />
+        watchedScreeningData?.data?.data.length === 0 ? (
+          <EmptyItem text="아직 관람한 스크리닝이 없어요." size="large" />
+        ) : (
+          <FlatList
+            data={watchedScreeningData.data?.data}
+            renderItem={renderWatchedItem}
+            style={style.screeningListContainer}
+          />
+        )
+      ) : jjimScreeningData?.data?.data.length === 0 ? (
+        <EmptyItem text="아직 관심 스크리닝이 없어요." size="large" />
       ) : (
         <FlatList
-          data={jjimScreenings as ArrayLike<IJjimScreeningProps>}
+          data={jjimScreeningData.data?.data}
           renderItem={renderJjimItem}
           style={style.screeningListContainer}
         />
