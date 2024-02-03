@@ -1,44 +1,15 @@
 import {TouchableOpacity} from 'react-native';
-import {useMutation} from '@tanstack/react-query';
-import {AxiosError} from 'axios';
-
 import Typography from '@/components/typography';
 import KakaoLogo from '@/assets/icons/kakao-logo.svg';
-import useNavigator from '@/hooks/useNavigator';
 import {getKakaoIdToken, getKakaoProfile} from '@/apis/auth/social';
-import {postLoginUser} from '@/apis/auth/auth';
 import {useUserStore} from '@/stores/user';
-import {setIsInstalled} from '@/services/localStorage/localStorage';
-import {ResponseErrorAPI} from '@/models/common/responseDTO';
-import stackScreens from '@/constants/stackScreens';
 
 import kakaoLoginStyles from './KakaoLogin.style';
+import useLoginMutation from '@/hooks/mutaions/useLoginMutation';
 
 function KakaoLogin() {
-  const {stackNavigation} = useNavigator();
-
   const {setUser, user} = useUserStore();
-
-  const loginMutate = useMutation({
-    mutationFn: postLoginUser,
-    onSuccess: login => {
-      if (!login.data.canLogin) {
-        stackNavigation.navigate(stackScreens.SignupScreen);
-      } else {
-        setIsInstalled(true);
-        stackNavigation.navigate(stackScreens.BottomTabScreens);
-      }
-    },
-    onError: err => {
-      const errorResponse = (err as AxiosError).response;
-      if (errorResponse) {
-        const error = errorResponse.data as ResponseErrorAPI;
-        if (error.status === 400) {
-          stackNavigation.navigate(stackScreens.SignupScreen);
-        }
-      }
-    },
-  });
+  const {loginMutate} = useLoginMutation();
 
   // 카카오 로그인 함수
   const handleSignInKakao = async (): Promise<void> => {
@@ -53,7 +24,7 @@ function KakaoLogin() {
         type: 'KAKAO',
       });
     }
-    await loginMutate.mutateAsync({
+    loginMutate({
       type: 'KAKAO',
       token: res.idToken,
     });
