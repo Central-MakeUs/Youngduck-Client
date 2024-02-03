@@ -241,3 +241,39 @@ export const screeningRateArray: IScreeningRate[] = [
     positive: 'serviceCountPos',
   },
 ];
+
+export const positiveAnswers: {[key: string]: string} = {
+  cineMaster: '씨네마스터의 연출',
+  greatFilming: '최고의 촬영',
+  pom: '폼 미친 편집',
+  animationIsGood: '애니메이션 - 작화의 힘',
+  artIsGood: '영화미술의 교과서',
+  setIsArt: '세트가 아트다',
+  custom: '의상이 날개옷',
+  music: '가슴뛰는 음악',
+  ost: '영혼을 울리는 OST',
+  writtenByGod: '신이 쓴 각본',
+  topicIsGood: '의미있는 주제',
+  linesAreGood: '말맛 좋은 대사',
+  endingIsGood: '확실한 기승전결',
+  castingIsGood: '찰떡같은 캐스팅',
+  actingIsGood: '연기력 폭발',
+  chemistryIsGood: '케미 맛집',
+};
+
+export const negativeAnswers: {[key: string]: string} = {
+  iffy: '애매한 연출',
+  badEditing: '화면이 잘 안 붙네',
+  badAngle: '정돈 안 된 앵글',
+  badDetail: '아쉬운 디테일',
+  badColor: '칙칙한 색감',
+  badCustom: '어색한 복장',
+  badMusic: '음악이 별로',
+  badSound: '음향이 별로',
+  badEnding: '의문의 결말',
+  endingLoose: '힘빠지는 후반부',
+  noDetail: '회수 안 된 떡밥',
+  badTopic: '공감 불가 주제의식',
+  badActing: '눈물나는 연기력',
+  badCasting: '미스 캐스팅',
+};

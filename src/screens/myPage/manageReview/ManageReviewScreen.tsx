@@ -10,24 +10,15 @@ import {FlatList, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import manageReviewScreenStyles from './ManageReviewScreen.style';
 import palette from '@/styles/theme/color';
-import {popcornReviews, screeningReviews} from './dummy';
-interface ICommonReviewProps {
-  mode: 'screening-review' | 'popcorn-review';
-  imageURI: string;
-  title: string;
-  chips: string[];
-  id: number;
-  review: string;
-}
-
-interface IScreeningReviewProps extends ICommonReviewProps {
-  dateRange: string;
-}
-
-interface IPopcornReviewProps extends ICommonReviewProps {
-  director: string;
-  popcornOfWeek: string;
-}
+import {useQueries} from '@tanstack/react-query';
+import {getPopcornReviewData, getScreeningReviewData} from '@/apis/myPage';
+import {
+  IPopcornReviewProps,
+  IScreeningReviewProps,
+} from '@/models/myPage/response';
+import {getDashDateRange, getWeekOfMonthString} from '@/utils/getDate';
+import {getReviewChips} from '@/utils/getReviewChips';
+import EmptyItem from '@/components/items/emptyItem';
 
 interface IManageReviewScreenProp {
   route: ScreenRouteProp<stackScreens.ManageReviewScreen>;
@@ -38,6 +29,17 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
   const [isScreeningReview, setIsScreeningReview] = useState<boolean>(
     params.isScreeningReview,
   );
+  const [screeningReviewData, popcornReviewData] = useQueries({
+    queries: [
+      {queryKey: ['screeningReviewData'], queryFn: getScreeningReviewData},
+      {queryKey: ['popcornReviewData'], queryFn: getPopcornReviewData},
+    ],
+  });
+  const dataCount = isScreeningReview
+    ? screeningReviewData?.data?.data.length
+    : popcornReviewData?.data?.data.length;
+
+  const dataCountString = `총 ${dataCount}건`;
 
   const {bottom} = useSafeAreaInsets();
   const style = manageReviewScreenStyles({bottom});
@@ -45,12 +47,19 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
     item,
   }: Record<'item', IScreeningReviewProps>) => (
     <MyManagementItem
-      mode={item.mode}
-      imageURI={item.imageURI}
-      title={item.title}
-      id={item.id}
-      dateRange={item.dateRange}
-      chips={item.chips}
+      mode="screening-review"
+      posterImgUrl={item.posterImgUrl}
+      title={item.screeningTitle}
+      id={item.screeningId}
+      dateRange={getDashDateRange(item.startDate, item.endDate)}
+      chips={[
+        {
+          text: item.afterScreening
+            ? '기대보다 좋았어요'
+            : '기대보다 아쉬웠어요',
+          isPositive: item.afterScreening,
+        },
+      ]}
       review={item.review}
     />
   );
@@ -58,14 +67,14 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
     item,
   }: Record<'item', IPopcornReviewProps>) => (
     <MyManagementItem
-      mode={item.mode}
-      imageURI={item.imageURI}
-      title={item.title}
-      id={item.id}
-      director={item.director}
-      popcornOfWeek={item.popcornOfWeek}
-      chips={item.chips}
-      review={item.review}
+      mode="popcorn-review"
+      posterImgUrl={item.popcorn.imageUrl}
+      title={item.popcorn.movieTitle}
+      id={item.popcorn.id}
+      director={item.popcorn.directorName}
+      popcornOfWeek={getWeekOfMonthString(item.popcorn.updatedAt)}
+      chips={getReviewChips(item)}
+      review={item.popcorn.recommendationReason}
     />
   );
   return (
@@ -93,21 +102,35 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
           color={palette.Text.Alternative}
           mt={8}
           mb={8}>
-          총 3건
+          {dataCountString}
         </Typography>
       </View>
       {isScreeningReview ? (
-        <FlatList
-          data={screeningReviews as ArrayLike<IScreeningReviewProps>}
-          renderItem={renderScreeningReviewItem}
-          style={style.screeningListContainer}
-        />
+        <>
+          {screeningReviewData.data?.data.length === 0 && (
+            <EmptyItem text="아직 스크리닝 리뷰를 안 했어요" size="large" />
+          )}
+          {screeningReviewData.data?.data.length! > 0 && (
+            <FlatList
+              data={screeningReviewData.data?.data}
+              renderItem={renderScreeningReviewItem}
+              style={style.screeningListContainer}
+            />
+          )}
+        </>
       ) : (
-        <FlatList
-          data={popcornReviews as ArrayLike<IPopcornReviewProps>}
-          renderItem={renderPopcornReviewItem}
-          style={style.screeningListContainer}
-        />
+        <>
+          {popcornReviewData.data?.data.length === 0 && (
+            <EmptyItem text="아직 팝콘작 리뷰를 안 했어요" size="large" />
+          )}
+          {popcornReviewData.data?.data.length! > 0 && (
+            <FlatList
+              data={popcornReviewData.data?.data}
+              renderItem={renderPopcornReviewItem}
+              style={style.screeningListContainer}
+            />
+          )}
+        </>
       )}
     </>
   );

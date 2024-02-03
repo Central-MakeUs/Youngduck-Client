@@ -8,6 +8,8 @@ import {
   isBefore,
   startOfWeek,
   isSameDay,
+  getMonth,
+  getWeekOfMonth,
 } from 'date-fns';
 
 const today = new Date();
@@ -67,11 +69,30 @@ const getDateAfter = (startDate: DateParsable) => {
 
 const getDashDateRange = (startDate: DateParsable, endDate: DateParsable) => {
   if (startDate && endDate)
-    return `${format(startDate, 'yyyy년 M월 d일')} ~ ${format(
+    return `${format(startDate, 'yyyy년 M월 d일')} - ${format(
       endDate,
       'yyyy년 M월 d일',
     )}`;
   else return '';
+};
+
+const getWeekOfMonthString = (date: string | null) => {
+  const month = getMonth(date === null ? new Date() : new Date(date));
+  const weekOfMonth = getWeekOfMonth(
+    date === null ? new Date() : new Date(date),
+  );
+  switch (weekOfMonth) {
+    case 1:
+      return `${month + 1}월 첫째 주 팝콘작`;
+    case 2:
+      return `${month + 1}월 둘째 주 팝콘작`;
+    case 3:
+      return `${month + 1}월 셋째 주 팝콘작`;
+    case 4:
+      return `${month + 1}월 넷째 주 팝콘작`;
+    case 5:
+      return `${month + 1}월 다섯째 주 팝콘작`;
+  }
 };
 
 export {
@@ -83,4 +104,5 @@ export {
   getDatePrevious,
   getDateAfter,
   getDashDateRange,
+  getWeekOfMonthString,
 };

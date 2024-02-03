@@ -9,6 +9,8 @@ import SvgIcons from '@/assets/svgIcons';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import Popup from '@/components/popup';
+import {IChipProps} from '@/types/myPage';
+import {defaultImages} from '@/assets';
 
 interface IMyManagementItemProps {
   // 필수 props
@@ -27,7 +29,7 @@ interface IMyManagementItemProps {
   // 스크리닝 리뷰 prop
   dateRange?: string;
   // 나의 리뷰 하단 props
-  chips?: string[];
+  chips?: (IChipProps | undefined)[];
   review?: string;
   // 나의 스크리닝 공개 여부 prop
   isPrivate?: boolean;
@@ -73,7 +75,7 @@ const MyManagementItem = ({
           stackNavigation.navigate(stackScreens.MyDetailScreen, {id})
         }>
         <Image
-          source={{uri: posterImgUrl}}
+          source={posterImgUrl ? {uri: posterImgUrl} : defaultImages.emptySmall}
           style={myManagementItemStyles.image}
         />
         <View style={myManagementItemStyles.contentContainer}>
@@ -137,7 +139,12 @@ const MyManagementItem = ({
                 <View
                   style={myManagementItemStyles.reviewChip}
                   key={`${title}-${chip}-wrap`}>
-                  <Chip text={chip} mb={4} key={`${title}-${chip}`} />
+                  <Chip
+                    text={chip?.text!}
+                    state={chip?.isPositive ? 'primary' : 'default'}
+                    mb={4}
+                    key={`${title}-${chip}`}
+                  />
                 </View>
               ))}
           </View>
