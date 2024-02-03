@@ -1,6 +1,6 @@
 import {LoginType} from '@/models/auth/entity';
-import {apiWithoutToken} from '@/apis';
-import {IRegisterRequest} from '@/models/auth/request';
+import {apiWithoutToken, api} from '@/apis';
+import {IDeleteUserRequest, IRegisterRequest} from '@/models/auth/request';
 import {ResponseDTO} from '@/models/common/responseDTO';
 import {ILoginResponse, IRegisterResponse} from '@/models/auth/response';
 import {getRefreshToken, setTokens} from '@/services/localStorage/localStorage';
@@ -26,6 +26,22 @@ export const postRegisterUser = async (
   const res = await apiWithoutToken.post(
     `/auth/oauth/register/${type}?idToken=${token}`,
     body,
+  );
+  return res.data;
+};
+
+// 로그아웃 api 함수
+export const postLogoutUser = async (): Promise<ResponseDTO<string>> => {
+  const res = await api.post('/auth/logout');
+  return res.data;
+};
+
+// 계정 탈퇴 api 함수
+export const deleteUser = async (
+  body: IDeleteUserRequest,
+): Promise<ResponseDTO<string>> => {
+  const res = await api.delete(
+    `/auth/withdraw?appleCode=${body.appleCode}&quitReason=${body.quitReason}`,
   );
   return res.data;
 };

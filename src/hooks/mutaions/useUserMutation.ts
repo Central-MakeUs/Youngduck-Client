@@ -1,10 +1,17 @@
-import {postLoginUser, postRegisterUser} from '@/apis/auth/auth';
+import {
+  postLoginUser,
+  postLogoutUser,
+  postRegisterUser,
+} from '@/apis/auth/auth';
 import {useMutation} from '@tanstack/react-query';
 import useNavigator from '../useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import {setIsInstalled} from '@/services/localStorage/localStorage';
 import {IRegisterMutationProps} from '@/types/user';
 import {useUserStore} from '@/stores/user';
+import {showSnackBar} from '@/utils/showSnackBar';
+import {ResponseErrorAPI} from '@/models/common/responseDTO';
+import {AxiosError} from 'axios';
 
 const useUserMutation = () => {
   const {stackNavigation} = useNavigator();
@@ -37,7 +44,21 @@ const useUserMutation = () => {
     onError: err => console.log(err),
   });
 
-  return {loginMutate, signupMutate};
-};
+  const logoutUser = useMutation({
+    mutationFn: postLogoutUser,
 
+    onError: err => {
+      const errorResponse = (err as AxiosError).response;
+      if (errorResponse) {
+        const error = errorResponse.data as ResponseErrorAPI;
+        if (error.status === 500 && error.code === 'GLOBAL_500_3') {
+          stackNavigation.navigate(stackScreens.LoginScreen);
+          showSnackBar('정상적으로 로그아웃 되었어요');
+        }
+      }
+    },
+  });
+
+  return {loginMutate, signupMutate, logoutUser};
+};
 export default useUserMutation;

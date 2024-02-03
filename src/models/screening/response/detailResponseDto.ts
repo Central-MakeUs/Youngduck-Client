@@ -41,4 +41,5 @@ export interface IScreeningMyDetailResponse
 export interface IScreeningMyStatisticsResponse {
   positiveCount: TScreeningPositiveReview<number>;
   negativeCount: TScreeningNegativeReview<number>;
+  totalCount: number;
 }

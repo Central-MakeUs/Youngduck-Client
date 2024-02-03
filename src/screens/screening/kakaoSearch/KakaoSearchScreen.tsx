@@ -16,7 +16,7 @@ const KakaoSearchScreen = ({route: {params}}: IKakaoSearchScreenProps) => {
   const handleSelected = (data: OnCompleteParams) => {
     stackNavigation.navigate(stackScreens.WritingScreen, {
       type: params.type,
-      search: data.address,
+      search: data.roadAddress + ' ' + data.buildingName,
     });
   };
 

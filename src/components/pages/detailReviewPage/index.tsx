@@ -102,6 +102,7 @@ const DetailReviewPage = ({id}: IDetailReviewProps) => {
             .map((comment, idx) => (
               <CommentItem
                 userId={comment.userId}
+                key={comment.reviewId}
                 nickName={comment.nickname}
                 profileImgNum={comment.profileImageNumber}
                 afterScreening={comment.afterScreening}
@@ -129,6 +130,7 @@ const DetailReviewPage = ({id}: IDetailReviewProps) => {
             <>
               {reviewList.slice(5).map((comment, idx) => (
                 <CommentItem
+                  key={comment.reviewId}
                   userId={comment.userId}
                   nickName={comment.nickname}
                   profileImgNum={comment.profileImageNumber}

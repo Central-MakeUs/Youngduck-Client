@@ -67,12 +67,17 @@ export const setIsInstalled = async (value: boolean) => {
 };
 
 // 알람 권한 여부 저장
-export const setIsAlarm = async (value: boolean) => {
-  await setItem<boolean>(LocalStorageKey.IsAlarm, value);
+export const setIsAlarm = async (value: boolean | null) => {
+  await setItem<boolean | null>(LocalStorageKey.IsAlarm, value);
 };
 
 // 알람 권한 여부 가져옴
 export const getIsAlarm = async (): Promise<boolean | null> => {
   const res = await getItemOrNull<boolean>(LocalStorageKey.IsAlarm);
   return res;
+};
+
+// 알람 권한 여부 제거
+export const removeAlarm = async () => {
+  await setIsAlarm(null);
 };

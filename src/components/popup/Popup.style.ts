@@ -2,6 +2,10 @@ import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
 export const popupStyles = StyleSheet.create({
+  wrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   modal: {
     backgroundColor: palette.Another.White,
     borderRadius: 16,
@@ -10,7 +14,7 @@ export const popupStyles = StyleSheet.create({
     borderColor: palette.Primary.Normal,
     paddingTop: 24,
     paddingBottom: 16,
-    width: '100%',
+    width: '85%',
   },
   container: {
     display: 'flex',
@@ -18,6 +22,7 @@ export const popupStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    marginHorizontal: 32,
+    marginTop: 16,
+    //marginHorizontal: 32,
   },
 });

@@ -6,13 +6,13 @@ export const selectStyles = StyleSheet.create({
     borderWidth: 1,
   },
   modal: {
-    width: '100%',
     alignItems: 'center',
     backgroundColor: palette.Another.White,
+    borderRadius: 16,
   },
   content: {
-    width: '100%',
-    paddingVertical: 20,
+    width: 343,
+    paddingBottom: 16,
   },
   option: {
     width: '100%',
