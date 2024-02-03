@@ -13,6 +13,7 @@ export interface ISearchMovieDataResponse {
   posters: string;
   directors: {director: {directorNm: string}[]};
   movieSeq: string;
+  movieId: 'K' | 'F' | 'B';
 }
 
 export interface IPopcornPartyDetailResponse {

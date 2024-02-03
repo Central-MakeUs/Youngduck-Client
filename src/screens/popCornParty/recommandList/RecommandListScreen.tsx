@@ -7,7 +7,7 @@ import {getVoteDateRange} from '@/utils/getDate';
 import {useQuery} from '@tanstack/react-query';
 import {getPopcornOfNextWeekData} from '@/apis/popcornParty/recommendList/recommendList';
 import {TPopcornRecommendData} from '@/models/popcornParty/reponse';
-import useVoteMovieMutation from '@/hooks/mutaions/useRecommendMovie';
+import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
 
 function RecommandListScreen() {
   const {startDate, endDate} = getVoteDateRange();
@@ -15,7 +15,7 @@ function RecommandListScreen() {
     queryKey: ['popcornOfNextWeek'],
     queryFn: getPopcornOfNextWeekData,
   });
-  const {voteMovieMutate} = useVoteMovieMutation();
+  const {voteMovieMutate} = usePopcornPartyMutation();
 
   const renderPopcornItem = ({item}: Record<'item', TPopcornRecommendData>) => (
     <PopcornItem

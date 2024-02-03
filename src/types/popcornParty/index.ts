@@ -22,6 +22,7 @@ export interface IRenderItemProps<T> {
 export interface IRecommendMovieProps {
   title: string;
   movieSeq: string;
+  movieId: 'K' | 'F' | 'B';
 }
 
 export interface ISearchMovieDataProps extends IRecommendMovieProps {

@@ -34,6 +34,7 @@ const SearchBottomSheet = ({
   const [movie, setMovie] = useState<string>('');
   const [selected, setSelected] = useState<IRecommendMovieProps>({
     title: '',
+    movieId: 'K',
     movieSeq: '',
   });
   const styles = searchBottomSheetStyles({bottom});
@@ -56,6 +57,7 @@ const SearchBottomSheet = ({
       title={item.title}
       directorNm={item.directorNm}
       movieSeq={item.movieSeq}
+      movieId={item.movieId}
       selected={selected}
       setSelected={setSelected}
     />
@@ -75,7 +77,11 @@ const SearchBottomSheet = ({
   };
 
   const setRecommandMovie = () => {
-    setValue({title: selected.title, movieSeq: selected.movieSeq});
+    setValue({
+      title: selected.title,
+      movieId: selected.movieId,
+      movieSeq: selected.movieSeq,
+    });
     closeModal();
   };
 

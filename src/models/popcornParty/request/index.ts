@@ -1,5 +1,6 @@
 export interface IRecommendMovieBodyRequest {
   movieId: string;
+  movieType: 'K' | 'F' | 'B';
   reason: string;
   agreed: boolean;
 }

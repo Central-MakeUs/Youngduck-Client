@@ -9,7 +9,6 @@ import CommentItem from '@/components/items/commentItem';
 import ImageContentScrollContainer from '@/components/container/imageContentScrollContainer';
 import ScreeningRate from '@/components/rates/screeningRate';
 import PopcornRate from '@/components/rates/popcornRate';
-import useVoteMovieMutation from '@/hooks/mutaions/useRecommendMovie';
 import {ScreenRouteProp} from '@/types/navigator';
 import {useQueries, useQueryClient} from '@tanstack/react-query';
 import {
@@ -44,8 +43,7 @@ function PopcornPartyDetailScreen({
   const [complainPopup, setComplainPopup] = useState<boolean>(false);
   const currentFocusState = useIsFocused();
   const queryClient = useQueryClient();
-  const {voteMovieMutate} = useVoteMovieMutation();
-  const {complainUserMutate} = usePopcornPartyMutation();
+  const {complainUserMutate, voteMovieMutate} = usePopcornPartyMutation();
   const [
     popcornPartyDetailData,
     popcornRateData,

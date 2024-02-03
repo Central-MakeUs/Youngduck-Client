@@ -12,6 +12,7 @@ const getMovieList = (
         ? formatString('poster', movie.posters)
         : 'default',
       directorNm: movie.directors.director[0].directorNm,
+      movieId: movie.movieId,
       movieSeq: movie.movieSeq,
     };
   });

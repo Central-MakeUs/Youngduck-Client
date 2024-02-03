@@ -13,12 +13,13 @@ import {getVoteDateRange} from '@/utils/getDate';
 
 import writeRecommandScreenStyles from './WriteRecommandScreen.style';
 import {IRecommendMovieProps} from '@/types/popcornParty';
-import useRecommendMovieMutation from '@/hooks/mutaions/useRecommendMovieMutation';
 import {useQueryClient} from '@tanstack/react-query';
+import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
 
 function WriteRecommandScreen() {
   const [selectedMovie, setSelectedMovie] = useState<IRecommendMovieProps>({
     title: '',
+    movieId: 'K',
     movieSeq: '',
   });
   const [reason, setReason] = useState<string>('');
@@ -30,7 +31,7 @@ function WriteRecommandScreen() {
   const {stackNavigation} = useNavigator();
   const queryClient = useQueryClient();
 
-  const {recommendMovieMutate} = useRecommendMovieMutation();
+  const {recommendMovieMutate} = usePopcornPartyMutation();
 
   const styles = writeRecommandScreenStyles({bottom});
   const canRegister =
@@ -44,6 +45,7 @@ function WriteRecommandScreen() {
   const goToRecommandListScreen = () => {
     recommendMovieMutate({
       movieId: selectedMovie.movieSeq,
+      movieType: selectedMovie.movieId,
       reason,
       agreed: isAgree,
     });
