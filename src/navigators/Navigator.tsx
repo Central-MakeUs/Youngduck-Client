@@ -11,7 +11,7 @@ const navTheme = {
   },
 };
 
-function Navigator() {
+const Navigator = () => {
   return (
     <>
       <NavigationContainer theme={navTheme}>
@@ -20,6 +20,6 @@ function Navigator() {
       <SnackBar />
     </>
   );
-}
+};
 
 export default Navigator;
