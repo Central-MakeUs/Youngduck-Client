@@ -11,7 +11,7 @@ export type StackParamList = RootStackParamList &
 // 전체 페이지 stack param 타입
 export type RootStackParamList = {
   LoginScreen: undefined;
-  SignupScreen: undefined;
+  SignupScreen: {idToken: string};
   SignupCompleteScreen: undefined;
   BottomTabScreens: undefined;
   MyPageScreen: undefined;

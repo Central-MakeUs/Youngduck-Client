@@ -8,13 +8,15 @@ import {View} from 'react-native';
 import inputGenreStyles from './InputGenre.style';
 import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
 import AgreeBottomSheet from '../agreementBottomSheet';
-import {useUserStore} from '@/stores/user';
 
-const InputGenre = () => {
+interface IInputGenreProps {
+  nickname: string;
+  idToken: string;
+}
+
+const InputGenre = ({nickname, idToken}: IInputGenreProps) => {
   const [selectedGenres, setSelectedGenres] = useState<TGenre[]>([]);
   const bottomDrawerRef = useRef<BottomDrawerMethods>(null);
-
-  const {user, setUser} = useUserStore();
 
   const genres: TGenre[] = [
     '멜로',
@@ -55,16 +57,15 @@ const InputGenre = () => {
         </View>
       </View>
       <BoxButton
-        onPress={() => {
-          bottomDrawerRef?.current?.open();
-          setUser({...user, genres: selectedGenres});
-        }}
+        onPress={() => bottomDrawerRef?.current?.open()}
         disabled={!selectedGenres.length}>
         다음
       </BoxButton>
       <AgreeBottomSheet
         bottomDrawerRef={bottomDrawerRef}
         selectedGenres={selectedGenres}
+        nickname={nickname}
+        idToken={idToken}
       />
     </>
   );

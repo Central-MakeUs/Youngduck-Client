@@ -8,8 +8,14 @@ import signupScreenStyles from './SignupScreen.style';
 import InputNickname from './components/inputNickname';
 import InputGenre from './components/inputGenre';
 import {useUserStore} from '@/stores/user';
+import {ScreenRouteProp} from '@/types/navigator';
+import stackScreens from '@/constants/stackScreens';
 
-function SignupScreen() {
+interface ISignupScreenProp {
+  route: ScreenRouteProp<stackScreens.SignupScreen>;
+}
+
+function SignupScreen({route: {params}}: ISignupScreenProp) {
   const [currentScreen, setCurrentScreen] = useState<number>(0);
   const scrollViewRef = useRef<ScrollView>(null);
   const {stackNavigation} = useNavigator();
@@ -60,7 +66,7 @@ function SignupScreen() {
           />
         </View>
         <View style={signupScreenStyles.commonContainer}>
-          <InputGenre />
+          <InputGenre nickname={nickname} idToken={params.idToken} />
         </View>
       </ScrollView>
     </SafeAreaView>
