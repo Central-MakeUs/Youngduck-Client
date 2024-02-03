@@ -5,6 +5,7 @@ interface IUser {
   type: 'KAKAO' | 'APPLE';
   nickname: string;
   profileNumber: number;
+  isLookAround: boolean;
 }
 
 interface IUserStoreState {
@@ -22,6 +23,7 @@ export const useUserStore = create<IUserStoreState & IUserStoreActions>(
       type: 'KAKAO',
       nickname: '',
       profileNumber: 0,
+      isLookAround: false,
     },
     appleUser: {name: '', email: ''},
     setUser: (state: IUser) => set({user: state}),

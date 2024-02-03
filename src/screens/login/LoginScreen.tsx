@@ -6,6 +6,7 @@ import {defaultImages} from '@/assets';
 import AppleLogin from '@/components/auth/apple';
 import GradientContainer from '@/components/container/gradientContainer';
 import {getScreenSize} from '@/utils/getScreenSize';
+import LookAround from './components/lookAround';
 
 function LoginScreen() {
   const platform = Platform.OS;
@@ -24,6 +25,7 @@ function LoginScreen() {
         <View style={style.wrapper}>
           <KakaoLogin />
           {platform === 'ios' && <AppleLogin />}
+          <LookAround />
         </View>
       </View>
     </GradientContainer>
