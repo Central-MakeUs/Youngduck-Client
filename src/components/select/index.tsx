@@ -95,7 +95,9 @@ const Select = ({
                   setValue(option);
                   setOptionVisible(false);
                 }}>
-                <Typography style="Body1">{option}</Typography>
+                <Typography style="Body1" mt={16} color={palette.Text.Normal}>
+                  {option}
+                </Typography>
               </TouchableOpacity>
             ))}
           </View>
