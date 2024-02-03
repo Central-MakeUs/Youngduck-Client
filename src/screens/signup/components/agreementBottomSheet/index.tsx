@@ -39,7 +39,7 @@ const AgreeBottomSheet = ({
   ]);
   const {signupMutate} = useUserMutation();
   const {updateAllAgreement} = useHandleAgreement();
-  const {user, appleUser} = useUserStore();
+  const {user} = useUserStore();
 
   const isAllSelected =
     agreements[0].isAgree && agreements[1].isAgree && agreements[2].isAgree;
@@ -57,21 +57,17 @@ const AgreeBottomSheet = ({
 
   const finishSignup = () => {
     bottomDrawerRef.current?.close();
-    const kakaoBody = {
+    const body = {
       nickname,
       lawAgreement: true,
       genres: selectedGenres,
-    };
-
-    const appleBody = {
-      ...kakaoBody,
-      name: appleUser.name,
-      email: appleUser.email,
+      name: user.name,
+      email: user.email,
     };
     const sendData = {
       type: user.type,
       idToken,
-      body: user.type === 'KAKAO' ? kakaoBody : appleBody,
+      body,
     };
     signupMutate(sendData);
   };

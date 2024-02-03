@@ -5,7 +5,3 @@ export interface IRegisterMutationProps {
   idToken: string;
   body: IRegisterRequest;
 }
-export interface IAppleUser {
-  name: string;
-  email: string;
-}

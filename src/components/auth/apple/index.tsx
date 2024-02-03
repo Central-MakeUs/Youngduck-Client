@@ -9,7 +9,7 @@ import {showSnackBar} from '@/utils/showSnackBar';
 
 function AppleLogin() {
   const {loginMutate} = useUserMutation();
-  const {user, setUser, setAppleUser} = useUserStore();
+  const {user, setUser} = useUserStore();
   async function handleSignInApple() {
     const appleAuthRequestResponse = await appleAuth.performRequest({
       requestedOperation: appleAuth.Operation.LOGIN,
@@ -25,8 +25,9 @@ function AppleLogin() {
         showSnackBar('"설정 > Apple ID 사용 중단" 후 시도해 주세요');
         return;
       }
-      setUser({...user, type: 'APPLE'});
-      setAppleUser({
+      setUser({
+        ...user,
+        type: 'APPLE',
         name:
           appleAuthRequestResponse.fullName?.familyName! +
           appleAuthRequestResponse.fullName?.givenName!,
