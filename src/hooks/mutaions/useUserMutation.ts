@@ -12,6 +12,7 @@ import {useUserStore} from '@/stores/user';
 import {showSnackBar} from '@/utils/showSnackBar';
 import {ResponseErrorAPI} from '@/models/common/responseDTO';
 import {AxiosError} from 'axios';
+import {postNickname, updateNickname} from '@/apis/user/user';
 
 const useUserMutation = () => {
   const {stackNavigation} = useNavigator();
@@ -59,6 +60,24 @@ const useUserMutation = () => {
     },
   });
 
-  return {loginMutate, signupMutate, logoutUser};
+  const checkNicknameDuplication = useMutation({
+    mutationFn: postNickname,
+    onSuccess: res => console.log(res),
+    onError: e => console.log(e),
+  });
+
+  const {mutate: updateNicknameMutate} = useMutation({
+    mutationFn: updateNickname,
+    onSuccess: res => console.log(res),
+    onError: e => console.log(e),
+  });
+
+  return {
+    loginMutate,
+    signupMutate,
+    logoutUser,
+    checkNicknameDuplication,
+    updateNicknameMutate,
+  };
 };
 export default useUserMutation;
