@@ -1,29 +1,30 @@
-import {LoginType} from '@/models/auth/entity';
-import {IRegisterRequest} from '@/models/auth/request';
+import {IAppleUser} from '@/types/user';
 import {create} from 'zustand';
 
-interface IUserContentState extends IRegisterRequest {
-  type: LoginType;
-  idToken: string;
+interface IUser {
+  type: 'KAKAO' | 'APPLE';
+  nickname: string;
+  profileNumber: number;
 }
+
 interface IUserStoreState {
-  user: IUserContentState;
+  user: IUser;
+  appleUser: IAppleUser;
 }
 interface IUserStoreActions {
-  setUser: (state: IUserContentState) => void;
+  setUser: (state: IUser) => void;
+  setAppleUser: (state: IAppleUser) => void;
 }
 
 export const useUserStore = create<IUserStoreState & IUserStoreActions>(
   set => ({
     user: {
       type: 'KAKAO',
-      idToken: '',
       nickname: '',
-      lawAgreement: false,
-      genres: [],
-      name: '',
-      email: '',
+      profileNumber: 0,
     },
-    setUser: (state: IUserContentState) => set({user: state}),
+    appleUser: {name: '', email: ''},
+    setUser: (state: IUser) => set({user: state}),
+    setAppleUser: (state: IAppleUser) => set({appleUser: state}),
   }),
 );

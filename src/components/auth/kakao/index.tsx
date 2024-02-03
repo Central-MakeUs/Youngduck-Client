@@ -5,11 +5,11 @@ import {getKakaoIdToken, getKakaoProfile} from '@/apis/auth/social';
 import {useUserStore} from '@/stores/user';
 
 import kakaoLoginStyles from './KakaoLogin.style';
-import useLoginMutation from '@/hooks/mutaions/useLoginMutation';
+import useUserMutation from '@/hooks/mutaions/useUserMutation';
 
 function KakaoLogin() {
   const {setUser, user} = useUserStore();
-  const {loginMutate} = useLoginMutation();
+  const {loginMutate} = useUserMutation();
 
   // 카카오 로그인 함수
   const handleSignInKakao = async (): Promise<void> => {
@@ -18,9 +18,6 @@ function KakaoLogin() {
     if (profile) {
       setUser({
         ...user,
-        name: profile.nickname,
-        email: profile.email,
-        idToken: res.idToken,
         type: 'KAKAO',
       });
     }

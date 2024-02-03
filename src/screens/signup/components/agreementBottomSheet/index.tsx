@@ -6,36 +6,40 @@ import Divider from '@/components/divider';
 import BoxButton from '@/components/buttons/boxButton';
 import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
 import {TGenre} from '@/types/signup/genre';
-import useNavigator from '@/hooks/useNavigator';
 import {useState} from 'react';
 import useHandleAgreement from '@/hooks/useHandleAgreement';
 import {IAgreementProps} from '@/types/signup/agreement';
 import Agreement from './Agreement';
 import TextButtonContainer from '../inputGenre/TextButtonContainer';
-import stackScreens from '@/constants/stackScreens';
 import {View} from 'react-native';
 import {agreeBottomSheetStyles} from './AgreeBottomSheet.style';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {postRegisterUser} from '@/apis/auth/auth';
 import {useUserStore} from '@/stores/user';
+import useUserMutation from '@/hooks/mutaions/useUserMutation';
 
 interface IAgreementBottomSheetProps {
   bottomDrawerRef: React.RefObject<BottomDrawerMethods>;
   selectedGenres: TGenre[];
+  nickname: string;
+  idToken: string;
 }
 
-const AgreeBottomSheet = ({bottomDrawerRef}: IAgreementBottomSheetProps) => {
+const AgreeBottomSheet = ({
+  bottomDrawerRef,
+  selectedGenres,
+  nickname,
+  idToken,
+}: IAgreementBottomSheetProps) => {
   const {bottom} = useSafeAreaInsets();
   const [allAgreement, setAllAgreement] = useState<boolean>(false);
-  const {stackNavigation} = useNavigator();
   const [agreements, setAgreements] = useState<IAgreementProps[]>([
     {content: '이용 약관동의 (필수)', isAgree: false},
     {content: '개인정보 처리 방침 동의 (필수)', isAgree: false},
     {content: '마케팅 정보 수신 동의 (선택)', isAgree: false},
   ]);
-
+  const {signupMutate} = useUserMutation();
   const {updateAllAgreement} = useHandleAgreement();
-  const {user, setUser} = useUserStore();
+  const {user, appleUser} = useUserStore();
 
   const isAllSelected =
     agreements[0].isAgree && agreements[1].isAgree && agreements[2].isAgree;
@@ -51,13 +55,25 @@ const AgreeBottomSheet = ({bottomDrawerRef}: IAgreementBottomSheetProps) => {
     });
   };
 
-  const finishSignup = async () => {
+  const finishSignup = () => {
     bottomDrawerRef.current?.close();
-    setUser({...user, lawAgreement: allAgreement});
-    const body = (({type, idToken, ...rest}) => rest)(user);
-    // 회원가입 api 실행
-    await postRegisterUser(user.type, user.idToken, body);
-    stackNavigation.navigate(stackScreens.SignupCompleteScreen);
+    const kakaoBody = {
+      nickname,
+      lawAgreement: true,
+      genres: selectedGenres,
+    };
+
+    const appleBody = {
+      ...kakaoBody,
+      name: appleUser.name,
+      email: appleUser.email,
+    };
+    const sendData = {
+      type: user.type,
+      idToken,
+      body: user.type === 'KAKAO' ? kakaoBody : appleBody,
+    };
+    signupMutate(sendData);
   };
 
   return (
