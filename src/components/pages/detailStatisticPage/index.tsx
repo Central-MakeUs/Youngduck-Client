@@ -24,6 +24,7 @@ const DetailStatisticScreen = ({id}: IDetailStatisticProp) => {
     queryKey: ['screeningMyStatistic'],
     queryFn: () => getScreeningMyStatistics(id),
   });
+  console.log('통계 데이터', data?.data);
 
   const [positive, setPositive] = useState<boolean>(false);
   const [negative, setNegative] = useState<boolean>(false);
@@ -47,7 +48,7 @@ const DetailStatisticScreen = ({id}: IDetailStatisticProp) => {
               key={item.label}
               keyword={item.label}
               isPositive={true}
-              totalCount={10}
+              totalCount={data.data.totalCount}
               count={data?.data.positiveCount[item.value]}
             />
           ))}
@@ -77,7 +78,7 @@ const DetailStatisticScreen = ({id}: IDetailStatisticProp) => {
               key={item.label}
               keyword={item.label}
               isPositive={false}
-              totalCount={10}
+              totalCount={data.data.totalCount}
               count={data?.data.negativeCount[item.value]}
             />
           ))}
