@@ -1,6 +1,9 @@
 import {api} from '@/apis';
 import {ResponseDTO} from '@/models/common/responseDTO';
-import {IUserDataResponse} from '@/models/user/response/userResponseDto';
+import {
+  INicknameDuplicationResponse,
+  IUserDataResponse,
+} from '@/models/user/response/userResponseDto';
 
 // 유저 정보 가져오는 api
 export const getUserData = async (): Promise<
@@ -12,7 +15,7 @@ export const getUserData = async (): Promise<
 
 export const postNickname = async (
   nickname: string,
-): Promise<ResponseDTO<{duplicate: boolean}>> => {
+): Promise<ResponseDTO<INicknameDuplicationResponse>> => {
   const res = await api.post('/user/check', {nickname});
   return res.data;
 };
