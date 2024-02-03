@@ -1,14 +1,24 @@
 import {postRecommendMovie, postVoteMovie} from '@/apis/popcornParty';
 import {postComplainUser} from '@/apis/popcornParty/detail/detail';
 import {postMovieReview} from '@/apis/popcornParty/writeReview/writeReview';
+import {ResponseErrorAPI} from '@/models/common/responseDTO';
+import {showSnackBar} from '@/utils/showSnackBar';
 import {useMutation} from '@tanstack/react-query';
+import {AxiosError} from 'axios';
 
 const usePopcornPartyMutation = () => {
   // 팝콘파티 유저 신고 mutation
   const {mutate: complainUserMutate} = useMutation({
     mutationFn: postComplainUser,
     onSuccess: () => console.log('신고 성공'),
-    onError: err => console.log(err),
+    onError: err => {
+      const errorResponse = (err as AxiosError).response;
+      if (errorResponse) {
+        const error = errorResponse.data as ResponseErrorAPI;
+        console.log(error);
+        showSnackBar(error.reason);
+      }
+    },
   });
 
   // 팝콘작 등록하기 mutation
