@@ -7,6 +7,7 @@ import palette from '@/styles/theme/color';
 
 import {commentItemStyles} from './CommentItem.style';
 import {defaultImages} from '@/assets';
+import {useUserStore} from '@/stores/user';
 
 interface ICommentItemProps {
   userId: number;
@@ -30,6 +31,7 @@ const CommentItem = ({
   idx,
   complainOnPress,
 }: ICommentItemProps) => {
+  const {user} = useUserStore();
   return (
     <View
       style={[
@@ -46,11 +48,13 @@ const CommentItem = ({
             <Typography style="Label1" color={palette.Text.Strong}>
               {nickName}
             </Typography>
-            <Pressable onPress={complainOnPress}>
-              <Typography style="Chips1" color={palette.Text.Alternative}>
-                신고
-              </Typography>
-            </Pressable>
+            {user.nickname !== nickName && (
+              <Pressable onPress={complainOnPress}>
+                <Typography style="Chips1" color={palette.Text.Alternative}>
+                  신고
+                </Typography>
+              </Pressable>
+            )}
           </View>
           <Chip
             text={afterScreening ? '기대만큼 좋았어요' : '기대보다 아쉬웠어요'}
