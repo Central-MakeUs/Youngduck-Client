@@ -62,10 +62,9 @@ const SettingScreen = () => {
 
   const onLogout = async () => {
     onCloseModal();
-    await removeTokens();
-
     // 로그아웃 api 실행
     logoutUser.mutate();
+    await removeTokens();
   };
 
   return (
