@@ -23,9 +23,14 @@ import EmptyCard from '@/components/cards/emptyCard';
 import LoadingPage from '@/components/pages/loadingPage';
 
 import {screeningHomeStyle} from './HomeScreen.style';
+import {useUserStore} from '@/stores/user';
+import {useState} from 'react';
+import LoginPopup from '@/components/loginPopup';
 
 function HomeScreen() {
   const {stackNavigation} = useNavigator();
+  const {user} = useUserStore();
+  const [loginPopup, setLoginPopup] = useState<boolean>(false);
 
   const [weekScreenings, recentScreenings, mostCommentScreenings] = useQueries({
     queries: [
@@ -50,10 +55,14 @@ function HomeScreen() {
 
   // 작성하기 페이지로 이동
   const handleGoWriting = () => {
-    stackNavigation.navigate(stackScreens.WritingScreen, {
-      type: 'post',
-      search: '',
-    });
+    if (user.isLookAround) {
+      setLoginPopup(true);
+    } else {
+      stackNavigation.navigate(stackScreens.WritingScreen, {
+        type: 'post',
+        search: '',
+      });
+    }
   };
 
   const handleGoScreeningList = () => {
@@ -62,6 +71,7 @@ function HomeScreen() {
 
   return (
     <DefaultScrollContainer>
+      <LoginPopup loginPopup={loginPopup} setLoginPopup={setLoginPopup} />
       <Banner type="screening" onPress={handleGoWriting} />
       <SubTitle text="이번주 스크리닝" mt={12} />
       {weekScreenings.data?.data.length === 0 && (
