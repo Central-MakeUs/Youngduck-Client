@@ -6,7 +6,6 @@ import useNavigator from '@/hooks/useNavigator';
 import palette from '@/styles/theme/color';
 import {View, Pressable, Image} from 'react-native';
 import myPageScreenStyles from './MyPageScreen.style';
-import {defaultImages} from '@/assets';
 import ManagePost from './components/managePost';
 import Divider from '@/components/divider';
 import MyScreening from './components/myScreening';
@@ -24,6 +23,7 @@ import {
 import LoadingPage from '@/components/pages/loadingPage';
 import {useEffect} from 'react';
 import useCheckLogin from '@/hooks/useCheckLogin';
+import {getProfile} from '@/utils/getProfile';
 
 const MyPageScreen = () => {
   const {user} = useUserStore();
@@ -87,7 +87,7 @@ const MyPageScreen = () => {
             </View>
           </Pressable>
           <Image
-            source={defaultImages.myPage1}
+            source={getProfile(user.profileNumber)}
             style={myPageScreenStyles.image}
           />
           <View style={myPageScreenStyles.screeningWrap}>
