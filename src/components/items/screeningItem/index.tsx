@@ -6,8 +6,7 @@ import palette from '@/styles/theme/color';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import {getKorDateRange} from '@/utils/getDate';
-import {useUserStore} from '@/stores/user';
-import {useLoginPopupStore} from '@/stores/loginPopup';
+import useCheckLogin from '@/hooks/useCheckLogin';
 
 import {screeningItemStyles} from './ScreeningItem.style';
 
@@ -28,14 +27,12 @@ const ScreeningItem = ({
   hostName,
 }: IScreeningItemProps) => {
   const {stackNavigation} = useNavigator();
-  const {user} = useUserStore();
-  const {setLoginPopup} = useLoginPopupStore();
+  const {checkLogin} = useCheckLogin();
+
   const handleGoDetail = () => {
-    if (user.isLookAround) {
-      setLoginPopup(true);
-    } else {
+    checkLogin(() => {
       stackNavigation.navigate(stackScreens.DetailScreen, {id});
-    }
+    });
   };
   return (
     <TouchableOpacity

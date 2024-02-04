@@ -6,8 +6,7 @@ import popcornItemStyles from './PopcornItem.style';
 import {useState} from 'react';
 import {TPopcornRecommendData} from '@/models/popcornParty/reponse';
 import {defaultImages} from '@/assets';
-import {useUserStore} from '@/stores/user';
-import {useLoginPopupStore} from '@/stores/loginPopup';
+import useCheckLogin from '@/hooks/useCheckLogin';
 
 interface IPopcornItem extends TPopcornRecommendData {
   voteMovieMutate: (id: number) => void;
@@ -22,20 +21,17 @@ const PopcornItem = ({
   movieDirector,
   voteMovieMutate,
 }: IPopcornItem) => {
-  const {user} = useUserStore();
-  const {setLoginPopup} = useLoginPopupStore();
+  const {checkLogin} = useCheckLogin();
   const [voteState, setVoteState] = useState(false);
   const [voteCount, setVoteCount] = useState(recommendationCount);
 
   const handleVoteMovie = () => {
-    if (user.isLookAround) {
-      setLoginPopup(true);
-    } else {
+    checkLogin(() => {
       if (voteState) return;
       voteMovieMutate(id);
       setVoteState(true);
       setVoteCount(prev => prev + 1);
-    }
+    });
   };
   return (
     <Pressable

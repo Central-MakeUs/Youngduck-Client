@@ -7,8 +7,7 @@ import palette from '@/styles/theme/color';
 import {getCategory} from '@/utils/getCategory';
 import {TEngCategory} from '@/models/enums/category';
 import {getSimpleDate} from '@/utils/getDate';
-import {useUserStore} from '@/stores/user';
-import {useLoginPopupStore} from '@/stores/loginPopup';
+import useCheckLogin from '@/hooks/useCheckLogin';
 
 import {weeklyStyles} from './WeeklyScreening.style';
 
@@ -27,14 +26,12 @@ const WeeklyScreening = ({
   hostName,
 }: IWeeklyScreeningProps) => {
   const {stackNavigation} = useNavigator();
-  const {setLoginPopup} = useLoginPopupStore();
-  const {user} = useUserStore();
+  const {checkLogin} = useCheckLogin();
+
   const handleGoDetail = () => {
-    if (user.isLookAround) {
-      setLoginPopup(true);
-    } else {
+    checkLogin(() => {
       stackNavigation.navigate('DetailScreen', {id: id});
-    }
+    });
   };
   return (
     <TouchableOpacity

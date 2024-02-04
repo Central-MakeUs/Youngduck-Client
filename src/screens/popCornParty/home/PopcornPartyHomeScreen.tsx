@@ -16,13 +16,11 @@ import {
 import {useEffect} from 'react';
 import {useIsFocused} from '@react-navigation/native';
 import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
-import {useUserStore} from '@/stores/user';
-import {useLoginPopupStore} from '@/stores/loginPopup';
+import useCheckLogin from '@/hooks/useCheckLogin';
 
 function PopcornPartyHomeScreen() {
+  const {checkLogin} = useCheckLogin();
   const {stackNavigation} = useNavigator();
-  const {user} = useUserStore();
-  const {setLoginPopup} = useLoginPopupStore();
   const currentFocusState = useIsFocused();
   const queryClient = useQueryClient();
   const {voteMovieMutate} = usePopcornPartyMutation();
@@ -47,11 +45,9 @@ function PopcornPartyHomeScreen() {
   }, [currentFocusState]);
 
   const handleGoRecommand = () => {
-    if (user.isLookAround) {
-      setLoginPopup(true);
-    } else {
+    checkLogin(() => {
       stackNavigation.navigate(stackScreens.WriteRecommandScreen);
-    }
+    });
   };
 
   return (
