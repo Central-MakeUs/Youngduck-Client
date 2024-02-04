@@ -31,6 +31,7 @@ import ManageReviewScreen from '@/screens/myPage/manageReview/ManageReviewScreen
 import MyScreeningScreen from '@/screens/myPage/myScreening/MyScreeningScreen';
 import DetailWebviewScreen from '@/screens/screening/detailWebview/DetailWebviewScreen';
 import MyDetailScreen from '@/screens/screening/myDetail/MyDetailScreen';
+import LoadingPage from '@/components/pages/loadingPage';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -39,7 +40,7 @@ function StackNavigator() {
 
   const [isSignIn, setIsSignIn] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
-  //const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -52,21 +53,19 @@ function StackNavigator() {
       if (res) {
         postAccessToken().then(res => {
           setIsSignIn(res);
-          //setIsLoading(false);
+          setIsLoading(false);
         });
       } else {
-        //setIsLoading(false);
+        setIsLoading(false);
       }
     });
 
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    if (isSignIn) {
-      stackNavigation.navigate(stackScreens.BottomTabScreens);
-    }
-  }, [isSignIn]);
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   // 스크리닝 화면 뒤로 가기
   const handleGoBack = () => {
@@ -74,7 +73,10 @@ function StackNavigator() {
   };
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      initialRouteName={
+        isSignIn ? stackScreens.BottomTabScreens : stackScreens.LoginScreen
+      }>
       {/*로그인 페이지*/}
       <Stack.Screen
         name={stackScreens.LoginScreen}
