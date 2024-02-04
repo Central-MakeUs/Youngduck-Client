@@ -1,6 +1,7 @@
 import BoxButton from '@/components/buttons/boxButton';
 import Input from '@/components/input';
 import SubTitleDescription from '@/components/title/subTitleDescription';
+import useCheckNicknameDuplication from '@/hooks/useCheckNicknameDuplication';
 import {useState} from 'react';
 import {View} from 'react-native';
 
@@ -16,10 +17,13 @@ const InputNickname = ({
   setNickname,
 }: IInputNickname) => {
   const [isDuplicated, setIsDuplicated] = useState<boolean>(true);
-  const handleChangeNickname = (e: string) => {
-    setNickname(e);
-    setIsDuplicated(true);
-  };
+
+  const {check} = useCheckNicknameDuplication(setIsDuplicated);
+
+  const handleInputNickname = (e: string) => setNickname(e);
+
+  const checkDuplicate = () => check(nickname);
+
   return (
     <>
       <View>
@@ -31,13 +35,13 @@ const InputNickname = ({
         <Input
           value={nickname}
           placeholder="닉네임을 입력해주세요"
-          onChangeInput={handleChangeNickname}
+          onChangeInput={handleInputNickname}
           title="닉네임"
           content="2~10자 입력 가능해요."
           maxLength={10}
           mode="check"
           isDuplicated={isDuplicated}
-          setIsDuplicated={setIsDuplicated}
+          checkDuplicate={checkDuplicate}
         />
       </View>
       <BoxButton

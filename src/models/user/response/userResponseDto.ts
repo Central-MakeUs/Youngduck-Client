@@ -7,3 +7,7 @@ export interface IUserDataResponse {
   profileImgNum: number;
   oauthProvider: LoginType;
 }
+
+export interface INicknameDuplicationResponse {
+  duplicate: boolean;
+}
