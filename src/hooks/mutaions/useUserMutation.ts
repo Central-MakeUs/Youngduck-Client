@@ -1,4 +1,5 @@
 import {
+  deleteUser,
   postLoginUser,
   postLogoutUser,
   postRegisterUser,
@@ -59,6 +60,20 @@ const useUserMutation = () => {
     },
   });
 
-  return {loginMutate, signupMutate, logoutUser};
+  const quitUser = useMutation({
+    mutationFn: deleteUser,
+    onError: err => {
+      const errorResponse = (err as AxiosError).response;
+      if (errorResponse) {
+        const error = errorResponse.data as ResponseErrorAPI;
+        if (error.status === 500 && error.code === 'GLOBAL_500_3') {
+          stackNavigation.navigate(stackScreens.LoginScreen);
+          showSnackBar('정상적으로 계정 탈퇴되었어요');
+        }
+      }
+    },
+  });
+
+  return {loginMutate, signupMutate, logoutUser, quitUser};
 };
 export default useUserMutation;

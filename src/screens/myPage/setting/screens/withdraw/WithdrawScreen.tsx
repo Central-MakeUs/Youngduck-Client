@@ -1,29 +1,46 @@
-import MultiButton from '@/components/buttons/multibutton';
-import Popup from '@/components/popup';
-import SubTitleDescription from '@/components/title/subTitleDescription';
-import TitleCenterTopBar from '@/components/topBar/titleCenterTopBar';
-import useNavigator from '@/hooks/useNavigator';
-import {removeTokens} from '@/services/localStorage/localStorage';
 import {useState} from 'react';
 import {View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
+import MultiButton from '@/components/buttons/multibutton';
+import Popup from '@/components/popup';
+import Select from '@/components/select';
+import SubTitleDescription from '@/components/title/subTitleDescription';
+import TitleCenterTopBar from '@/components/topBar/titleCenterTopBar';
+import useNavigator from '@/hooks/useNavigator';
+import {TKorQuitReason, korQuitReason} from '@/models/enums/user';
+import {removeTokens} from '@/services/localStorage/localStorage';
+import {getQuitReason} from '@/utils/getQuitReason';
+import useUserMutation from '@/hooks/mutaions/useUserMutation';
+
 const WithdrawScreen = () => {
   const {stackNavigation} = useNavigator();
+  const {quitUser} = useUserMutation();
   const {bottom} = useSafeAreaInsets();
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] =
     useState<boolean>(false);
+
+  const [quitReason, setQuitReason] = useState<'' | TKorQuitReason>('');
 
   const onCloseModal = () => setIsWithdrawModalOpen(false);
 
   const onWithdrawClick = async () => {
     onCloseModal();
     await removeTokens();
-    // 회원 탈퇴 후 이동하는 navigtion 설정하기
-    // stackNavigation.popToTop();
+    if (quitReason !== '') {
+      quitUser.mutate({appleCode: '', quitReason: getQuitReason(quitReason)});
+    }
   };
   return (
     <>
+      <Popup
+        title="정말 탈퇴하시겠습니까?"
+        content=""
+        isVisible={isWithdrawModalOpen}
+        onClose={onCloseModal}
+        onPress={onWithdrawClick}
+        type="error"
+      />
       <TitleCenterTopBar title="탈퇴하기" />
       <View
         style={{
@@ -33,25 +50,29 @@ const WithdrawScreen = () => {
           paddingBottom: 16 + bottom,
           justifyContent: 'space-between',
         }}>
-        <SubTitleDescription
-          text="정말 탈퇴하시겠어요?"
-          subTitle={`탈퇴 시 작성한 모든 리뷰와 게시글이 삭제되고\n복구할 수 없어요.`}
-        />
+        <View>
+          <SubTitleDescription
+            text="정말 탈퇴하시겠어요?"
+            subTitle="탈퇴 시 모든 개인 정보는 삭제돼요"
+          />
+          <Select
+            options={korQuitReason}
+            title="탈퇴사유"
+            value={quitReason}
+            placeholder="선택하기"
+            setValue={setQuitReason}
+            essential
+          />
+        </View>
         <MultiButton
           leftButtonText="취소"
           rightButtonText="탈퇴하기"
           onLeftButtonPress={stackNavigation.goBack}
           onRightButtonPress={() => setIsWithdrawModalOpen(true)}
           variant="highlight"
+          disabled={quitReason === ''}
         />
       </View>
-      <Popup
-        title="정말 탈퇴하시겠습니까?"
-        content=""
-        isVisible={isWithdrawModalOpen}
-        onClose={onCloseModal}
-        onPress={onWithdrawClick}
-      />
     </>
   );
 };

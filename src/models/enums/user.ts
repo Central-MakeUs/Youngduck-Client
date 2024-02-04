@@ -1,7 +1,7 @@
 export type TQuitReason =
   | 'NOT_USED'
   | 'UNCONFORTABLE'
-  | 'USER_OTHER_SERVICE'
+  | 'USE_OTHER_SERVICE'
   | 'ETC';
 
 export type TKorQuitReason =
