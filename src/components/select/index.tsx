@@ -11,23 +11,23 @@ import palette from '@/styles/theme/color';
 import {inputStyles, inputTypes} from '@/styles/Input.style';
 import {selectStyles} from './Select.style';
 
-interface ISelectProps {
-  options: string[];
-  value: string;
-  setValue: (value: string) => void;
+interface ISelectProps<T = string> {
+  options: T[];
+  value: T;
+  setValue: (value: T) => void;
   placeholder: string;
   title: string;
 
   essential?: boolean;
 }
-const Select = ({
+const Select = <T extends string>({
   options,
   setValue,
   value,
   placeholder,
   title,
   essential,
-}: ISelectProps) => {
+}: ISelectProps<T>) => {
   const {type, onFocus, onBlur} = useFocus();
 
   const [optionVisible, setOptionVisible] = useState(false);
