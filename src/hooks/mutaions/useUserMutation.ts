@@ -15,11 +15,12 @@ import {postNickname, updateNickname} from '@/apis/user/user';
 
 const useUserMutation = () => {
   const {stackNavigation} = useNavigator();
-  const {user} = useUserStore();
+  const {user, setUser} = useUserStore();
 
   const {mutate: loginMutate} = useMutation({
     mutationFn: postLoginUser,
     onSuccess: login => {
+      setUser({...user, isLookAround: false});
       if (!login.data.canLogin) {
         stackNavigation.navigate(stackScreens.SignupScreen, {
           idToken: login.data.idToken,
