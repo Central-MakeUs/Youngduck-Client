@@ -24,6 +24,9 @@ import LoadingPage from '@/components/pages/loadingPage';
 import {useEffect} from 'react';
 import useCheckLogin from '@/hooks/useCheckLogin';
 import {getProfile} from '@/utils/getProfile';
+import {getUserGenres} from '@/apis/user/user';
+import Chip from '@/components/chip';
+import {TGenre} from '@/types/signup/genre';
 
 const MyPageScreen = () => {
   const {user} = useUserStore();
@@ -42,6 +45,7 @@ const MyPageScreen = () => {
     screeningReviewData,
     popcornReviewData,
     myScreeningData,
+    myPageGenre,
   ] = useQueries({
     queries: [
       {queryKey: ['watchedScreeningData'], queryFn: getWatchedScreeningData},
@@ -49,8 +53,11 @@ const MyPageScreen = () => {
       {queryKey: ['screeningReviewData'], queryFn: getScreeningReviewData},
       {queryKey: ['popcornReviewData'], queryFn: getPopcornReviewData},
       {queryKey: ['myScreeningData'], queryFn: getMyScreeningData},
+      {queryKey: ['myGenre'], queryFn: getUserGenres},
     ],
   });
+
+  console.log(myPageGenre.data?.data);
   const managePosts = [
     {postName: '스크리닝 리뷰', count: screeningReviewData.data?.data.length},
     {postName: '팝콘작 리뷰', count: popcornReviewData.data?.data.length},
@@ -61,7 +68,8 @@ const MyPageScreen = () => {
     jjimScreeningData.isLoading ||
     screeningReviewData.isLoading ||
     popcornReviewData.isLoading ||
-    myScreeningData.isLoading
+    myScreeningData.isLoading ||
+    myPageGenre.isLoading
   )
     return <LoadingPage />;
   return (
@@ -86,6 +94,12 @@ const MyPageScreen = () => {
               <SvgIcons.ModifyIcon />
             </View>
           </Pressable>
+          <View style={myPageScreenStyles.genre}>
+            {myPageGenre.data?.data &&
+              myPageGenre.data?.data.map((genre: TGenre) => (
+                <Chip text={genre} key={genre} state="secondary" />
+              ))}
+          </View>
           <Image
             source={getProfile(user.profileNumber)}
             style={myPageScreenStyles.image}

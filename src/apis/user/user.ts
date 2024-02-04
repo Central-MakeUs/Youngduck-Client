@@ -15,7 +15,7 @@ export const getUserData = async (): Promise<
 };
 
 // 유저 장르 가져오는 api
-export const getUserGenres = async (): Promise<ResponseDTO<TGenre>> => {
+export const getUserGenres = async (): Promise<ResponseDTO<TGenre[]>> => {
   const res = await api.get('/user/genres');
   return res.data;
 };
