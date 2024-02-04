@@ -27,7 +27,7 @@ const WithdrawScreen = () => {
   const onWithdrawClick = async () => {
     onCloseModal();
     await removeTokens();
-    if (quitReason !== '') {
+    if (quitReason) {
       quitUser.mutate({appleCode: '', quitReason: getQuitReason(quitReason)});
     }
   };
