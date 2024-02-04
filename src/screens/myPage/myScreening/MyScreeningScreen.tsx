@@ -6,32 +6,37 @@ import {FlatList, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MyScreeningScreenStyles from './MyScreeningScreen.style';
 import MyManagementItem from '@/components/items/myManagementItem';
-import {myScreenings} from './dummy';
-
-interface IMyScreeningProps {
-  mode: 'my-screening';
-  imageURI: string;
-  title: string;
-  id: number;
-  dateRange: string;
-  isPrivate: boolean;
-}
+import {useQuery} from '@tanstack/react-query';
+import {getMyScreeningData} from '@/apis/myPage';
+import {IMyScreeningProps} from '@/models/myPage/response';
+import {getKorDateRange} from '@/utils/getDate';
+import EmptyItem from '@/components/items/emptyItem';
 
 const MyScreeningScreen = () => {
   const {stackNavigation} = useNavigator();
   const {bottom} = useSafeAreaInsets();
   const style = MyScreeningScreenStyles({bottom});
 
+  const myScreeningData = useQuery({
+    queryKey: ['myScreeningData'],
+    queryFn: getMyScreeningData,
+  });
+
+  const dataCountString = `총 ${myScreeningData.data?.data.length}건`;
+
   const renderScreeningScreenItem = ({
     item,
   }: Record<'item', IMyScreeningProps>) => (
     <MyManagementItem
-      mode={item.mode}
-      imageURI={item.imageURI}
+      mode="my-screening"
+      posterImgUrl={item.posterImgUrl}
       title={item.title}
       id={item.id}
-      dateRange={item.dateRange}
-      isPrivate={item.isPrivate}
+      dateRange={getKorDateRange(
+        item.screeningStartDate,
+        item.screeningEndDate,
+      )}
+      isPrivate={item.private}
     />
   );
   return (
@@ -47,14 +52,18 @@ const MyScreeningScreen = () => {
           color={palette.Text.Alternative}
           mt={8}
           mb={8}>
-          총 3건
+          {dataCountString}
         </Typography>
       </View>
-      <FlatList
-        data={myScreenings as ArrayLike<IMyScreeningProps>}
-        renderItem={renderScreeningScreenItem}
-        style={style.screeningListContainer}
-      />
+      {myScreeningData.data?.data.length === 0 ? (
+        <EmptyItem text="아직 나의 스크리닝이 없어요" size="large" />
+      ) : (
+        <FlatList
+          data={myScreeningData.data?.data!}
+          renderItem={renderScreeningScreenItem}
+          style={style.screeningListContainer}
+        />
+      )}
     </>
   );
 };

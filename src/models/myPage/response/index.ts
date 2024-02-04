@@ -74,3 +74,12 @@ export interface IPopcornReviewProps {
   popcornPositive: TScreeningPositiveReview<boolean>;
   popcornNegative: TScreeningNegativeReview<boolean>;
 }
+
+export interface IMyScreeningProps {
+  id: number;
+  title: string;
+  posterImgUrl: string;
+  screeningStartDate: string;
+  screeningEndDate: string;
+  private: true;
+}

@@ -16,7 +16,7 @@ import {
   IPopcornReviewProps,
   IScreeningReviewProps,
 } from '@/models/myPage/response';
-import {getDashDateRange, getWeekOfMonthString} from '@/utils/getDate';
+import {getKorDateRange, getWeekOfMonthString} from '@/utils/getDate';
 import {getReviewChips} from '@/utils/getReviewChips';
 import EmptyItem from '@/components/items/emptyItem';
 
@@ -51,7 +51,7 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
       posterImgUrl={item.posterImgUrl}
       title={item.screeningTitle}
       id={item.screeningId}
-      dateRange={getDashDateRange(item.startDate, item.endDate)}
+      dateRange={getKorDateRange(item.startDate, item.endDate)}
       chips={[
         {
           text: item.afterScreening

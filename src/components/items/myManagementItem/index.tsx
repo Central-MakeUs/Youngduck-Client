@@ -60,6 +60,19 @@ const MyManagementItem = ({
     jjimOffMutate && jjimOffMutate(id);
   };
 
+  const goToScreen = () => {
+    switch (mode) {
+      case 'my-screening':
+        stackNavigation.navigate(stackScreens.MyDetailScreen, {id});
+        return;
+      case 'popcorn-review':
+        stackNavigation.navigate(stackScreens.PopcornPartyDetailScreen, {id});
+        return;
+      default:
+        stackNavigation.navigate(stackScreens.DetailScreen, {id});
+    }
+  };
+
   return (
     <View style={myManagementItemStyles.container}>
       <Popup
@@ -69,11 +82,7 @@ const MyManagementItem = ({
         onClose={onClosePopupPress}
         onPress={onJjimOffPress}
       />
-      <Pressable
-        style={myManagementItemStyles.wrap}
-        onPress={() =>
-          stackNavigation.navigate(stackScreens.MyDetailScreen, {id})
-        }>
+      <Pressable style={myManagementItemStyles.wrap} onPress={goToScreen}>
         <Image
           source={posterImgUrl ? {uri: posterImgUrl} : defaultImages.emptySmall}
           style={myManagementItemStyles.image}
