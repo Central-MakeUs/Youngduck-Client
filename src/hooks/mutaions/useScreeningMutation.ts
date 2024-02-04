@@ -1,11 +1,9 @@
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {AxiosError} from 'axios';
 
-import {postImageUpload} from '@/apis/image/image';
 import {patchScreening, postScreening} from '@/apis/screening/screening';
 import useNavigator from '../useNavigator';
 import stackScreens from '@/constants/stackScreens';
-
 import {
   postScreeningBookmark,
   postScreeningMyPrivate,
@@ -21,11 +19,6 @@ import {showSnackBar} from '@/utils/showSnackBar';
 const useScreeningMutation = () => {
   const {stackNavigation} = useNavigator();
   const queryClient = useQueryClient();
-
-  // 이미지 업로드 post
-  const uploadImage = useMutation({
-    mutationFn: postImageUpload,
-  });
 
   // 스크리닝 상영회 업로드 post
   const uploadScreening = useMutation({
@@ -103,7 +96,6 @@ const useScreeningMutation = () => {
   });
 
   return {
-    uploadImage,
     uploadScreening,
     uploadScreeningReview,
     uploadScreeningBookmark,
