@@ -32,11 +32,14 @@ import MyScreeningScreen from '@/screens/myPage/myScreening/MyScreeningScreen';
 import DetailWebviewScreen from '@/screens/screening/detailWebview/DetailWebviewScreen';
 import MyDetailScreen from '@/screens/screening/myDetail/MyDetailScreen';
 import LoadingPage from '@/components/pages/loadingPage';
+import {useUserStore} from '@/stores/user';
+import {getUserData} from '@/apis/user/user';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function StackNavigator() {
   const {stackNavigation} = useNavigator();
+  const {user, setUser} = useUserStore();
 
   const [isSignIn, setIsSignIn] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
@@ -59,6 +62,18 @@ function StackNavigator() {
         setIsLoading(false);
       }
     });
+    if (!user.isLookAround) {
+      getUserData().then(user => {
+        setUser({
+          type: user.data.oauthProvider,
+          nickname: user.data.nickname,
+          profileNumber: user.data.profileImgNum,
+          email: user.data.email,
+          isLookAround: false,
+          name: user.data.name,
+        });
+      });
+    }
 
     return () => clearTimeout(timer);
   }, []);

@@ -22,10 +22,20 @@ import {
   getWatchedScreeningData,
 } from '@/apis/myPage';
 import LoadingPage from '@/components/pages/loadingPage';
+import {useEffect} from 'react';
+import useCheckLogin from '@/hooks/useCheckLogin';
 
 const MyPageScreen = () => {
   const {user} = useUserStore();
   const {stackNavigation} = useNavigator();
+  const {checkLogin} = useCheckLogin();
+
+  useEffect(() => {
+    checkLogin(() => {
+      stackNavigation.navigate(stackScreens.BottomTabScreens);
+    });
+  });
+
   const [
     watchedScreeningData,
     jjimScreeningData,
