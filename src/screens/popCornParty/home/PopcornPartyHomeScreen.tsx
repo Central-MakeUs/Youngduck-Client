@@ -16,8 +16,10 @@ import {
 import {useEffect} from 'react';
 import {useIsFocused} from '@react-navigation/native';
 import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
+import useCheckLogin from '@/hooks/useCheckLogin';
 
 function PopcornPartyHomeScreen() {
+  const {checkLogin} = useCheckLogin();
   const {stackNavigation} = useNavigator();
   const currentFocusState = useIsFocused();
   const queryClient = useQueryClient();
@@ -42,14 +44,15 @@ function PopcornPartyHomeScreen() {
     }
   }, [currentFocusState]);
 
+  const handleGoRecommand = () => {
+    checkLogin(() => {
+      stackNavigation.navigate(stackScreens.WriteRecommandScreen);
+    });
+  };
+
   return (
     <DefaultScrollContainer>
-      <Banner
-        type="popcornParty"
-        onPress={() =>
-          stackNavigation.navigate(stackScreens.WriteRecommandScreen)
-        }
-      />
+      <Banner type="popcornParty" onPress={handleGoRecommand} />
       <TrendingPopcorn trendingPopcornData={trendingPopcornData.data?.data!} />
       <TrendingMovie trendingMovieData={trendingMovieData.data?.data!} />
       <Divider height={8} mt={24} mb={16} />

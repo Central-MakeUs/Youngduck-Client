@@ -16,6 +16,9 @@ import bottomTabScreens, {
 import palette from '@/styles/theme/color';
 import {BottomTabParamList} from '@/types/navigator';
 import {setIsAlarm} from '@/services/localStorage/localStorage';
+import {useUserStore} from '@/stores/user';
+import LoginPopup from '@/components/loginPopup';
+import {useLoginPopupStore} from '@/stores/loginPopup';
 
 import {bottomTabScreenOptions} from './BottomTabNavigator.style';
 
@@ -38,41 +41,58 @@ export const getTabBarIcon = (routeName: string, focused: boolean) => {
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 const BottomTabNavigator = () => {
+  const {user} = useUserStore();
+  const {setLoginPopup} = useLoginPopupStore();
+
+  // TODO: 알람 앱 상단으로 이동하기(android 권한 체크)
   useEffect(() => {
-    requestAlarmPermission();
-    checkAlarmPermission().then(res => {
-      setIsAlarm(res);
-    });
+    if (!user.isLookAround) {
+      requestAlarmPermission();
+      checkAlarmPermission().then(res => {
+        setIsAlarm(res);
+      });
+    }
   }, []);
   return (
-    <BottomTab.Navigator
-      screenOptions={bottomTabScreenOptions}
-      initialRouteName={bottomTabScreens.ScreeningScreen}>
-      <BottomTab.Screen
-        name={bottomTabScreens.ScreeningScreen}
-        component={ScreeningStackNavigator}
-        options={{
-          tabBarLabel: bottomTabBarLabel.ScreeningScreen,
-          headerShown: false,
-        }}
-      />
-      <BottomTab.Screen
-        name={bottomTabScreens.PopcornPartyHomeScreen}
-        component={PopcornPartyHomeScreen}
-        options={{
-          tabBarLabel: bottomTabBarLabel.PopcornPartyHomeScreen,
-          header: () => <TitleTopBar text="팝콘 파티" />,
-        }}
-      />
-      <BottomTab.Screen
-        name={bottomTabScreens.MyPageScreen}
-        component={MyPageScreen}
-        options={{
-          tabBarLabel: bottomTabBarLabel.MyPageScreen,
-          headerShown: false,
-        }}
-      />
-    </BottomTab.Navigator>
+    <>
+      <LoginPopup />
+      <BottomTab.Navigator
+        screenOptions={bottomTabScreenOptions}
+        initialRouteName={bottomTabScreens.ScreeningScreen}>
+        <BottomTab.Screen
+          name={bottomTabScreens.ScreeningScreen}
+          component={ScreeningStackNavigator}
+          options={{
+            tabBarLabel: bottomTabBarLabel.ScreeningScreen,
+            headerShown: false,
+          }}
+        />
+        <BottomTab.Screen
+          name={bottomTabScreens.PopcornPartyHomeScreen}
+          component={PopcornPartyHomeScreen}
+          options={{
+            tabBarLabel: bottomTabBarLabel.PopcornPartyHomeScreen,
+            header: () => <TitleTopBar text="팝콘 파티" />,
+          }}
+        />
+        <BottomTab.Screen
+          name={bottomTabScreens.MyPageScreen}
+          component={MyPageScreen}
+          options={{
+            tabBarLabel: bottomTabBarLabel.MyPageScreen,
+            headerShown: false,
+          }}
+          listeners={{
+            tabPress: e => {
+              if (user.isLookAround) {
+                setLoginPopup(true);
+                e.preventDefault();
+              }
+            },
+          }}
+        />
+      </BottomTab.Navigator>
+    </>
   );
 };
 

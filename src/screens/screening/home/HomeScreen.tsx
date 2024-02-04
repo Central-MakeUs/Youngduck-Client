@@ -21,11 +21,13 @@ import {
 import {IWeekScreeningData} from '@/models/screening/response/screeningResponseDto';
 import EmptyCard from '@/components/cards/emptyCard';
 import LoadingPage from '@/components/pages/loadingPage';
+import useCheckLogin from '@/hooks/useCheckLogin';
 
 import {screeningHomeStyle} from './HomeScreen.style';
 
 function HomeScreen() {
   const {stackNavigation} = useNavigator();
+  const {checkLogin} = useCheckLogin();
 
   const [weekScreenings, recentScreenings, mostCommentScreenings] = useQueries({
     queries: [
@@ -50,9 +52,11 @@ function HomeScreen() {
 
   // 작성하기 페이지로 이동
   const handleGoWriting = () => {
-    stackNavigation.navigate(stackScreens.WritingScreen, {
-      type: 'post',
-      search: '',
+    checkLogin(() => {
+      stackNavigation.navigate(stackScreens.WritingScreen, {
+        type: 'post',
+        search: '',
+      });
     });
   };
 

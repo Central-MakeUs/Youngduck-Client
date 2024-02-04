@@ -9,6 +9,7 @@ import stackScreens from '@/constants/stackScreens';
 import {getDateRange} from '@/utils/getDate';
 import {getCategory} from '@/utils/getCategory';
 import {TEngCategory} from '@/models/enums/category';
+import useCheckLogin from '@/hooks/useCheckLogin';
 
 import {reviewItemStyles} from './ReviewItem.style';
 
@@ -31,8 +32,12 @@ const ReviewItem = ({
   chatCount,
 }: IReviewItemProps) => {
   const {stackNavigation} = useNavigator();
+  const {checkLogin} = useCheckLogin();
+
   const handleGoDetail = () => {
-    stackNavigation.navigate(stackScreens.DetailScreen, {id});
+    checkLogin(() => {
+      stackNavigation.navigate(stackScreens.DetailScreen, {id});
+    });
   };
   return (
     <TouchableOpacity

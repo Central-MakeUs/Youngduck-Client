@@ -6,6 +6,7 @@ import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import {TTrendingData} from '@/models/popcornParty/reponse';
 import {defaultImages} from '@/assets';
+import useCheckLogin from '@/hooks/useCheckLogin';
 
 const PopcornTrendingCard = ({
   popcornId,
@@ -16,11 +17,15 @@ const PopcornTrendingCard = ({
   mode,
 }: TTrendingData) => {
   const {stackNavigation} = useNavigator();
-  const goToPopcornPartyDetail = () =>
-    popcornId &&
-    stackNavigation.navigate(stackScreens.PopcornPartyDetailScreen, {
-      id: popcornId,
+  const {checkLogin} = useCheckLogin();
+  const goToPopcornPartyDetail = () => {
+    checkLogin(() => {
+      popcornId &&
+        stackNavigation.navigate(stackScreens.PopcornPartyDetailScreen, {
+          id: popcornId,
+        });
     });
+  };
   return (
     <Pressable
       style={

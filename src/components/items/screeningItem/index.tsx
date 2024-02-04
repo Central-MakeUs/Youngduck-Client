@@ -6,8 +6,10 @@ import palette from '@/styles/theme/color';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import {getKorDateRange} from '@/utils/getDate';
+import useCheckLogin from '@/hooks/useCheckLogin';
 
 import {screeningItemStyles} from './ScreeningItem.style';
+
 interface IScreeningItemProps {
   img: string;
   title: string;
@@ -25,8 +27,12 @@ const ScreeningItem = ({
   hostName,
 }: IScreeningItemProps) => {
   const {stackNavigation} = useNavigator();
+  const {checkLogin} = useCheckLogin();
+
   const handleGoDetail = () => {
-    stackNavigation.navigate(stackScreens.DetailScreen, {id});
+    checkLogin(() => {
+      stackNavigation.navigate(stackScreens.DetailScreen, {id});
+    });
   };
   return (
     <TouchableOpacity
