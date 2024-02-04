@@ -4,12 +4,19 @@ import {
   INicknameDuplicationResponse,
   IUserDataResponse,
 } from '@/models/user/response/userResponseDto';
+import {TGenre} from '@/types/signup/genre';
 
 // 유저 정보 가져오는 api
 export const getUserData = async (): Promise<
   ResponseDTO<IUserDataResponse>
 > => {
   const res = await api.get('/user/info');
+  return res.data;
+};
+
+// 유저 장르 가져오는 api
+export const getUserGenres = async (): Promise<ResponseDTO<TGenre>> => {
+  const res = await api.get('/user/genres');
   return res.data;
 };
 

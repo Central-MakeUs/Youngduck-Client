@@ -11,8 +11,6 @@ import {setIsInstalled} from '@/services/localStorage/localStorage';
 import {IRegisterMutationProps} from '@/types/user';
 import {useUserStore} from '@/stores/user';
 import {showSnackBar} from '@/utils/showSnackBar';
-import {ResponseErrorAPI} from '@/models/common/responseDTO';
-import {AxiosError} from 'axios';
 import {postNickname, updateNickname} from '@/apis/user/user';
 
 const useUserMutation = () => {
@@ -49,30 +47,17 @@ const useUserMutation = () => {
   const logoutUser = useMutation({
     mutationFn: postLogoutUser,
 
-    onError: err => {
-      const errorResponse = (err as AxiosError).response;
-      if (errorResponse) {
-        const error = errorResponse.data as ResponseErrorAPI;
-        if (error.status === 500 && error.code === 'GLOBAL_500_3') {
-          stackNavigation.navigate(stackScreens.LoginScreen);
-          showSnackBar('정상적으로 로그아웃 되었어요');
-        }
-      }
+    onSuccess: () => {
+      stackNavigation.navigate(stackScreens.LoginScreen);
+      showSnackBar('정상적으로 로그아웃 되었어요');
     },
   });
 
-
   const quitUser = useMutation({
     mutationFn: deleteUser,
-    onError: err => {
-      const errorResponse = (err as AxiosError).response;
-      if (errorResponse) {
-        const error = errorResponse.data as ResponseErrorAPI;
-        if (error.status === 500 && error.code === 'GLOBAL_500_3') {
-          stackNavigation.navigate(stackScreens.LoginScreen);
-          showSnackBar('정상적으로 계정 탈퇴되었어요');
-        }
-      }
+    onSuccess: () => {
+      stackNavigation.navigate(stackScreens.LoginScreen);
+      showSnackBar('정상적으로 계정 탈퇴되었어요');
     },
   });
 
@@ -94,8 +79,7 @@ const useUserMutation = () => {
     logoutUser,
     checkNicknameDuplication,
     updateNicknameMutate,
-    quitUser
+    quitUser,
   };
-
 };
 export default useUserMutation;
