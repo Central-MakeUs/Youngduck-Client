@@ -9,6 +9,8 @@ import stackScreens from '@/constants/stackScreens';
 import {getDateRange} from '@/utils/getDate';
 import {getCategory} from '@/utils/getCategory';
 import {TEngCategory} from '@/models/enums/category';
+import {useUserStore} from '@/stores/user';
+import {useLoginPopupStore} from '@/stores/loginPopup';
 
 import {reviewItemStyles} from './ReviewItem.style';
 
@@ -31,8 +33,14 @@ const ReviewItem = ({
   chatCount,
 }: IReviewItemProps) => {
   const {stackNavigation} = useNavigator();
+  const {user} = useUserStore();
+  const {setLoginPopup} = useLoginPopupStore();
   const handleGoDetail = () => {
-    stackNavigation.navigate(stackScreens.DetailScreen, {id});
+    if (user.isLookAround) {
+      setLoginPopup(true);
+    } else {
+      stackNavigation.navigate(stackScreens.DetailScreen, {id});
+    }
   };
   return (
     <TouchableOpacity

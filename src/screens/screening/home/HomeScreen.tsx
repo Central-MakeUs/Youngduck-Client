@@ -21,16 +21,15 @@ import {
 import {IWeekScreeningData} from '@/models/screening/response/screeningResponseDto';
 import EmptyCard from '@/components/cards/emptyCard';
 import LoadingPage from '@/components/pages/loadingPage';
+import {useUserStore} from '@/stores/user';
+import {useLoginPopupStore} from '@/stores/loginPopup';
 
 import {screeningHomeStyle} from './HomeScreen.style';
-import {useUserStore} from '@/stores/user';
-import {useState} from 'react';
-import LoginPopup from '@/components/loginPopup';
 
 function HomeScreen() {
   const {stackNavigation} = useNavigator();
   const {user} = useUserStore();
-  const [loginPopup, setLoginPopup] = useState<boolean>(false);
+  const {setLoginPopup} = useLoginPopupStore();
 
   const [weekScreenings, recentScreenings, mostCommentScreenings] = useQueries({
     queries: [
