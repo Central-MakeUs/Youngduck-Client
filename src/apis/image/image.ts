@@ -1,23 +1,13 @@
-import {api} from '@/apis';
-import {ResponseDTO} from '@/models/common/responseDTO';
-import {IImageRequest} from '@/models/image/request';
 import uuid from 'react-native-uuid';
 
+import {api} from '@/apis';
+import {ResponseDTO} from '@/models/common/responseDTO';
+
 // 이미지 업로드 함수
-export const postImageUpload = async (
-  image: IImageRequest,
-): Promise<ResponseDTO<string>> => {
-  const formData = new FormData();
-  formData.append('file', {
-    uri: image.path,
-    name: `${uuid.v4()}.jpg`,
-    type: image.mime,
-  });
-  const res = await api.post('/screening/image', formData, {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-  return res.data.data;
+export const getImageUpload = async (): Promise<
+  ResponseDTO<ResponseDTO<string>>
+> => {
+  const fileName = uuid.v4().toString();
+  const res = await api.get(`/screening/image/${fileName}`);
+  return res.data;
 };

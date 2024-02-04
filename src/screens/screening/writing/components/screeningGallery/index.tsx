@@ -1,37 +1,27 @@
-import ImageCropPicker from 'react-native-image-crop-picker';
 import {Image, TouchableOpacity, View} from 'react-native';
 
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import Gallery from '@/assets/icons/gallery.svg';
-import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
-import {IImageRequest} from '@/models/image/request';
 import {checkAndRequestPermission} from '@/services/permissionService';
 import {Permissions} from '@/models/enums/permission';
 import permissionAlert from '@/services/permissionAlert';
-
 import {galleryStyles} from './ScreeningGallery.style';
+import {handleImageSelect} from '@/services/imagePicker';
+import {uploadScreeningImage} from '@/services/imageService';
 
 interface ScreeningGaleeryProps {
   image: string;
   setImage: (image: string) => void;
 }
 const ScreeningGallery = ({image, setImage}: ScreeningGaleeryProps) => {
-  const {uploadImage} = useScreeningMutation();
-
   // 갤러리 접근해 이미지 가져오기
   const handleImageUpload = async () => {
-    try {
-      const image: IImageRequest = await ImageCropPicker.openPicker({
-        mediaType: 'photo',
-        includeBase64: true,
-        width: 120,
-        height: 120,
-      });
-      const responseData = await uploadImage.mutateAsync(image);
-      setImage(responseData.data);
-    } catch (err) {
-      //console.error(err);
+    const image = await handleImageSelect();
+
+    if (image?.assets) {
+      const res = await uploadScreeningImage(image?.assets[0].uri || '');
+      setImage(res);
     }
   };
 
