@@ -4,6 +4,7 @@ export type IVariant = 'primary' | 'secondary' | 'default' | 'highlight';
 export type DetailStyle = {
   backgroundColor: string;
   textColor: string;
+  borderColor?: string;
 };
 
 // 배너 타입 지정
@@ -20,7 +21,7 @@ export interface IBannerContent {
 export type ICheckBox = 'on' | 'off' | 'essential' | 'all';
 
 // chip 타입 지정
-export type IChip = 'primary' | 'default';
+export type IChip = 'primary' | 'default' | 'secondary';
 
 // textInput 타입 지정
 export type TextInputType =

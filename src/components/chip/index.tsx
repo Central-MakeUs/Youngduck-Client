@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
 import Typography from '../typography';
 
 import {CommonMarginVerticalProps, CommonTextProps, IChip} from '@/types/ui';
@@ -14,6 +14,8 @@ const Chip = ({state = 'primary', text, mt, mb}: ChipProps) => {
       style={{
         ...chipStyles.container,
         ...chipStyle[state],
+        borderWidth: state === 'secondary' ? 1 : undefined,
+        borderRadius: state === 'secondary' ? 8 : undefined,
         marginTop: mt ? mt : undefined,
         marginBottom: mb ? mb : undefined,
       }}>

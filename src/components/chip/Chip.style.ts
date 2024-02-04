@@ -11,6 +11,11 @@ export const chipStyle: Record<IChip, DetailStyle> = {
     backgroundColor: palette.Fill.Normal,
     textColor: palette.Text.Alternative,
   },
+  secondary: {
+    textColor: palette.Primary.Normal,
+    backgroundColor: palette.Primary.Light,
+    borderColor: palette.Primary.Alternative,
+  },
 };
 
 export const chipStyles = StyleSheet.create({
