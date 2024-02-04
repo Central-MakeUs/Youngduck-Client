@@ -19,7 +19,7 @@ interface InputProps extends TextInputProps {
   // 아이디 중복 체크 필요한 prop
   mode?: 'input' | 'check' | 'search';
   isDuplicated?: boolean;
-  setIsDuplicated?: React.Dispatch<React.SetStateAction<boolean>>;
+  checkDuplicate?: () => void;
   keyBoardType?: 'email' | 'text' | 'phone' | 'url';
 
   // 검색 눌렀을 때 실행되는 함수
@@ -40,7 +40,7 @@ const Input = ({
   content,
   mode = 'input',
   isDuplicated = true,
-  setIsDuplicated,
+  checkDuplicate,
   keyBoardType,
   errorContent,
   inputRef,
@@ -48,7 +48,7 @@ const Input = ({
   essential,
   ...props
 }: InputProps) => {
-  const {type, onFocus, onBlur, onFocusout, onWarning} = useFocus();
+  const {type, onFocus, onBlur, onFocusout} = useFocus();
 
   const errorMessage = errorContent
     ? errorContent
@@ -60,19 +60,6 @@ const Input = ({
       onFocusout(value, maxLength);
     }
   }, [value]);
-
-  // 중복 확인 함수
-  const checkDuplicate = () => {
-    // if (isDuplicated) {
-    // API 요청했을 때 닉네임이 중복된다면
-    // 중복된 닉네임 관련 오류 띄워주기
-    //   onWarning();
-    // } else {
-    // 중복된 닉네임이 아니라면 해당 닉네임을 사용하고
-    // isDuplicated를 false로 바꾸기
-    setIsDuplicated && setIsDuplicated(false);
-    // }
-  };
 
   return (
     <View>
@@ -123,7 +110,7 @@ const Input = ({
           <DuplicatedButton
             value={value}
             isDuplicated={isDuplicated}
-            onPress={checkDuplicate}
+            onPress={checkDuplicate!}
           />
         )}
 
@@ -139,12 +126,6 @@ const Input = ({
       {maxLength && type === 'caution' && (
         <Typography style="Chips1" color={inputTypes[type].contentColor} mt={4}>
           {errorMessage}
-        </Typography>
-      )}
-
-      {type === 'warning' && (
-        <Typography style="Chips1" color={inputTypes[type].contentColor} mt={4}>
-          중복된 닉네임은 안돼요
         </Typography>
       )}
     </View>
