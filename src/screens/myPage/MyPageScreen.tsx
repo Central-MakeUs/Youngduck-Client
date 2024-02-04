@@ -94,11 +94,13 @@ const MyPageScreen = () => {
               <SvgIcons.ModifyIcon />
             </View>
           </Pressable>
-          <View style={myPageScreenStyles.genre}>
-            {myPageGenre.data?.data &&
-              myPageGenre.data?.data.map((genre: TGenre) => (
-                <Chip text={genre} key={genre} state="secondary" />
-              ))}
+          <View style={myPageScreenStyles.chipContainer}>
+            <View style={myPageScreenStyles.genre}>
+              {myPageGenre.data?.data &&
+                myPageGenre.data?.data.map((genre: TGenre) => (
+                  <Chip text={genre} key={genre} state="secondary" />
+                ))}
+            </View>
           </View>
           <Image
             source={getProfile(user.profileNumber)}
