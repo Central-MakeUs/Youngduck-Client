@@ -2,6 +2,7 @@ import {api} from '@/apis';
 import {ResponseDTO} from '@/models/common/responseDTO';
 import {
   IJjimScreeningProps,
+  IMyScreeningProps,
   IPopcornReviewProps,
   IScreeningReviewProps,
   IWatchedScreeningProps,
@@ -37,5 +38,12 @@ export const getPopcornReviewData = async (): Promise<
   ResponseDTO<IPopcornReviewProps[]>
 > => {
   const res = await api.get('/popcorn/my/reviews');
+  return res.data;
+};
+
+export const getMyScreeningData = async (): Promise<
+  ResponseDTO<IMyScreeningProps[]>
+> => {
+  const res = await api.get('/screening/all');
   return res.data;
 };

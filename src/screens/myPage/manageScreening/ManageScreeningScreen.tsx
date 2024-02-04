@@ -14,7 +14,7 @@ import {
   IJjimScreeningProps,
   IWatchedScreeningProps,
 } from '@/models/myPage/response';
-import {getDashDateRange} from '@/utils/getDate';
+import {getKorDateRange} from '@/utils/getDate';
 import EmptyItem from '@/components/items/emptyItem';
 import {useQueries} from '@tanstack/react-query';
 import {getJjimScreeningData, getWatchedScreeningData} from '@/apis/myPage';
@@ -52,7 +52,7 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
       mode="watched-screening"
       posterImgUrl={item.posterImgUrl}
       title={item.title}
-      dateRange={getDashDateRange(
+      dateRange={getKorDateRange(
         item.screeningStartDate,
         item.screeningEndDate,
       )}
@@ -64,7 +64,7 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
       mode="jjim-screening"
       posterImgUrl={item.posterImgUrl}
       title={item.screeningTitle}
-      dateRange={getDashDateRange(
+      dateRange={getKorDateRange(
         item.screeningStartDate,
         item.screeningEndDate,
       )}

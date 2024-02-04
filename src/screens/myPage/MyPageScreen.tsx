@@ -16,6 +16,7 @@ import DefaultScrollContainer from '@/components/container/defaultScrollContaine
 import {useQueries} from '@tanstack/react-query';
 import {
   getJjimScreeningData,
+  getMyScreeningData,
   getPopcornReviewData,
   getScreeningReviewData,
   getWatchedScreeningData,
@@ -30,24 +31,27 @@ const MyPageScreen = () => {
     jjimScreeningData,
     screeningReviewData,
     popcornReviewData,
+    myScreeningData,
   ] = useQueries({
     queries: [
       {queryKey: ['watchedScreeningData'], queryFn: getWatchedScreeningData},
       {queryKey: ['jjimScreeningData'], queryFn: getJjimScreeningData},
       {queryKey: ['screeningReviewData'], queryFn: getScreeningReviewData},
       {queryKey: ['popcornReviewData'], queryFn: getPopcornReviewData},
+      {queryKey: ['myScreeningData'], queryFn: getMyScreeningData},
     ],
   });
   const managePosts = [
     {postName: '스크리닝 리뷰', count: screeningReviewData.data?.data.length},
     {postName: '팝콘작 리뷰', count: popcornReviewData.data?.data.length},
-    {postName: '나의 스크리닝', count: 1},
+    {postName: '나의 스크리닝', count: myScreeningData.data?.data.length},
   ];
   if (
     watchedScreeningData.isLoading ||
     jjimScreeningData.isLoading ||
     screeningReviewData.isLoading ||
-    popcornReviewData.isLoading
+    popcornReviewData.isLoading ||
+    myScreeningData.isLoading
   )
     return <LoadingPage />;
   return (

@@ -25,7 +25,7 @@ const getDateRange = (startDate: DateParsable, endDate: DateParsable) => {
 
 const getKorDateRange = (startDate: DateParsable, endDate: DateParsable) => {
   if (startDate && endDate) {
-    const dateRange = `${format(startDate, 'yyyy년 MM월 dd일')} ~ ${format(
+    const dateRange = `${format(startDate, 'yyyy년 MM월 dd일')} - ${format(
       endDate,
       'yyyy년 MM월 dd일',
     )}`;
@@ -67,15 +67,6 @@ const getDateAfter = (startDate: DateParsable) => {
   return isAfter(today, startDate) || isSameDay(today, startDate);
 };
 
-const getDashDateRange = (startDate: DateParsable, endDate: DateParsable) => {
-  if (startDate && endDate)
-    return `${format(startDate, 'yyyy년 M월 d일')} - ${format(
-      endDate,
-      'yyyy년 M월 d일',
-    )}`;
-  else return '';
-};
-
 const getWeekOfMonthString = (date: string | null) => {
   const month = getMonth(date === null ? new Date() : new Date(date));
   const weekOfMonth = getWeekOfMonth(
@@ -103,6 +94,5 @@ export {
   getKorDateRange,
   getDatePrevious,
   getDateAfter,
-  getDashDateRange,
   getWeekOfMonthString,
 };
