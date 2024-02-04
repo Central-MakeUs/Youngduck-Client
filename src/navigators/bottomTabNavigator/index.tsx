@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import PopcornPartyHomeScreen from '@/screens/popCornParty/home/PopcornPartyHomeScreen';
@@ -18,6 +18,7 @@ import {BottomTabParamList} from '@/types/navigator';
 import {setIsAlarm} from '@/services/localStorage/localStorage';
 import {useUserStore} from '@/stores/user';
 import LoginPopup from '@/components/loginPopup';
+import {useLoginPopupStore} from '@/stores/loginPopup';
 
 import {bottomTabScreenOptions} from './BottomTabNavigator.style';
 
@@ -41,7 +42,7 @@ const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 const BottomTabNavigator = () => {
   const {user} = useUserStore();
-  const [loginPopup, setLoginPopup] = useState<boolean>(false);
+  const {setLoginPopup} = useLoginPopupStore();
 
   // TODO: 알람 앱 상단으로 이동하기(android 권한 체크)
   useEffect(() => {
@@ -54,7 +55,7 @@ const BottomTabNavigator = () => {
   }, []);
   return (
     <>
-      <LoginPopup loginPopup={loginPopup} setLoginPopup={setLoginPopup} />
+      <LoginPopup />
       <BottomTab.Navigator
         screenOptions={bottomTabScreenOptions}
         initialRouteName={bottomTabScreens.ScreeningScreen}>

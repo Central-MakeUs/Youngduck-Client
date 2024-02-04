@@ -71,7 +71,6 @@ function HomeScreen() {
 
   return (
     <DefaultScrollContainer>
-      <LoginPopup loginPopup={loginPopup} setLoginPopup={setLoginPopup} />
       <Banner type="screening" onPress={handleGoWriting} />
       <SubTitle text="이번주 스크리닝" mt={12} />
       {weekScreenings.data?.data.length === 0 && (
