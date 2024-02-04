@@ -4,13 +4,13 @@ import Input from '@/components/input';
 import Typography from '@/components/typography';
 import useNavigator from '@/hooks/useNavigator';
 import {useUserStore} from '@/stores/user';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import changeNicknameScreenStyles from './ChangeNicknameScreen.style';
 import TitleCenterTopBar from '@/components/topBar/titleCenterTopBar';
 import useUserMutation from '@/hooks/mutaions/useUserMutation';
-import {showSnackBar} from '@/utils/showSnackBar';
+import useCheckNicknameDuplication from '@/hooks/useCheckNicknameDuplication';
 
 const ChangeNicknameScreen = () => {
   const {stackNavigation} = useNavigator();
@@ -18,8 +18,9 @@ const ChangeNicknameScreen = () => {
   const {user, setUser} = useUserStore();
   const [isDuplicated, setIsDuplicated] = useState<boolean>(true);
   const [nickname, setNickname] = useState<string>(user.nickname);
-  const {checkNicknameDuplication, updateNicknameMutate} = useUserMutation();
+  const {updateNicknameMutate} = useUserMutation();
   const style = changeNicknameScreenStyles({bottom});
+  const {check} = useCheckNicknameDuplication(setIsDuplicated);
 
   const handleInputNickname = (e: string) => {
     setNickname(e);
@@ -32,16 +33,8 @@ const ChangeNicknameScreen = () => {
     stackNavigation.goBack();
   };
 
-  const checkDuplicate = () => checkNicknameDuplication.mutate(nickname);
+  const checkDuplicate = () => check(nickname);
 
-  useEffect(() => {
-    if (checkNicknameDuplication?.data?.data?.duplicate === undefined) return;
-    if (checkNicknameDuplication?.data?.data.duplicate) {
-      showSnackBar('중복된 닉네임이에요');
-      return;
-    }
-    setIsDuplicated(false);
-  }, [checkNicknameDuplication?.data?.data]);
   return (
     <>
       <TitleCenterTopBar title="닉네임 변경하기" />

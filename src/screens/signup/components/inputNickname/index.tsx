@@ -1,9 +1,8 @@
 import BoxButton from '@/components/buttons/boxButton';
 import Input from '@/components/input';
 import SubTitleDescription from '@/components/title/subTitleDescription';
-import useUserMutation from '@/hooks/mutaions/useUserMutation';
-import {showSnackBar} from '@/utils/showSnackBar';
-import {useEffect, useState} from 'react';
+import useCheckNicknameDuplication from '@/hooks/useCheckNicknameDuplication';
+import {useState} from 'react';
 import {View} from 'react-native';
 
 interface IInputNickname {
@@ -18,20 +17,13 @@ const InputNickname = ({
   setNickname,
 }: IInputNickname) => {
   const [isDuplicated, setIsDuplicated] = useState<boolean>(true);
-  const {checkNicknameDuplication} = useUserMutation();
+
+  const {check} = useCheckNicknameDuplication(setIsDuplicated);
 
   const handleInputNickname = (e: string) => setNickname(e);
 
-  const checkDuplicate = () => checkNicknameDuplication.mutate(nickname);
+  const checkDuplicate = () => check(nickname);
 
-  useEffect(() => {
-    if (checkNicknameDuplication?.data?.data?.duplicate === undefined) return;
-    if (checkNicknameDuplication?.data?.data.duplicate) {
-      showSnackBar('중복된 닉네임이에요');
-      return;
-    }
-    setIsDuplicated(false);
-  }, [checkNicknameDuplication?.data?.data]);
   return (
     <>
       <View>
