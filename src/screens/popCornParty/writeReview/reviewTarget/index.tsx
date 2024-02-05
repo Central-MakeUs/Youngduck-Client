@@ -3,6 +3,7 @@ import {Image} from 'react-native';
 import {View} from 'react-native';
 import reviewTargetStyls from './ReviewTarget.style';
 import Divider from '@/components/divider';
+import EmptyMovie from '@/assets/icons/empty-movie.svg';
 
 interface IReviewTargetProps {
   imageURI: string;
@@ -14,12 +15,17 @@ const ReviewTarget = ({imageURI, title, director}: IReviewTargetProps) => {
   return (
     <>
       <View style={reviewTargetStyls.container}>
-        <Image
-          source={{
-            uri: imageURI,
-          }}
-          style={reviewTargetStyls.image}
-        />
+        {imageURI ? (
+          <Image
+            source={{
+              uri: imageURI,
+            }}
+            style={reviewTargetStyls.image}
+          />
+        ) : (
+          <EmptyMovie width={68} height={68} />
+        )}
+
         <View style={{justifyContent: 'space-between'}}>
           <Typography style="Label2">작성할 리뷰 영화</Typography>
           <Typography style="Title2">{title}</Typography>

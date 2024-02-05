@@ -12,11 +12,6 @@ export const defaultImages: Assets = {
   writePopcorn: require('@/assets/images/bg-writeImage.png'),
   popCornParty: require('@/assets/images/bg-popcornParty.png'),
 
-  emptyMovie: require('@/assets/images/empty-movie.png'),
-  emptyLarge: require('@/assets/images/empty-large.png'),
-  emptyMedium: require('@/assets/images/empty-medium.png'),
-  emptySmall: require('@/assets/images/empty-small.png'),
-
   profile1: require('@/assets/images/profile-1.png'),
   profile2: require('@/assets/images/profile-2.png'),
   profile3: require('@/assets/images/profile-3.png'),
