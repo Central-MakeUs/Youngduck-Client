@@ -10,6 +10,8 @@ import {
   popcornContainerStyles,
   popcornImageStyles,
 } from './PopcornTrendingCard.style';
+import EmptyLarge from '@/assets/icons/empty-large.svg';
+import EmptyMedium from '@/assets/icons/empty-medium.svg';
 
 const PopcornTrendingCard = ({
   popcornId,
@@ -32,10 +34,14 @@ const PopcornTrendingCard = ({
     <Pressable
       style={popcornContainerStyles[mode]}
       onPress={goToPopcornPartyDetail}>
-      <Image
-        source={imageUrl ? {uri: imageUrl} : defaultImages.emptyLarge}
-        style={popcornImageStyles[mode]}
-      />
+      {imageUrl ? (
+        <Image source={{uri: imageUrl}} style={popcornImageStyles[mode]} />
+      ) : mode === 'without-ranking' ? (
+        <EmptyLarge />
+      ) : (
+        <EmptyMedium />
+      )}
+
       {mode === 'with-ranking' && <Chip text={`${rank}위`} mt={4} mb={4} />}
       <Typography style="Label1" numberOfLines={1}>
         {movieTitle}
