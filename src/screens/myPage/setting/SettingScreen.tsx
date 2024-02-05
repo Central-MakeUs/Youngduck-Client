@@ -31,7 +31,7 @@ const SettingScreen = () => {
 
   const {data} = useQuery({
     queryKey: ['userInfo'],
-    queryFn: () => getUserData(),
+    queryFn: getUserData,
   });
 
   useEffect(() => {
