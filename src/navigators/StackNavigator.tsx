@@ -63,6 +63,7 @@ function StackNavigator() {
       }
     });
     if (!user.isLookAround) {
+      console.log('유저 정보 받아오기');
       getUserData().then(user => {
         setUser({
           type: user.data.oauthProvider,

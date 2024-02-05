@@ -18,6 +18,8 @@ import {checkAlarmPermission} from '@/services/permissionService';
 import useUserMutation from '@/hooks/mutaions/useUserMutation';
 
 import settingScreenStyles from './SettingScreen.style';
+import {useQuery} from '@tanstack/react-query';
+import {getUserData} from '@/apis/user/user';
 
 const SettingScreen = () => {
   const {stackNavigation} = useNavigator();
@@ -27,7 +29,17 @@ const SettingScreen = () => {
 
   const {logoutUser} = useUserMutation();
 
+  const {data} = useQuery({
+    queryKey: ['userInfo'],
+    queryFn: () => getUserData(),
+  });
+
   useEffect(() => {
+    // 광고 여부 초기화
+    if (data?.data) {
+      setIsAdBenefitAlarmOn(data?.data.maeketingAgreement);
+    }
+
     // 권한 알람 여부 받아와 바로 초기화
     checkAlarmPermission().then(res => {
       if (res) {

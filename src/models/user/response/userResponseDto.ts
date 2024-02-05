@@ -6,6 +6,7 @@ export interface IUserDataResponse {
   nickname: string;
   profileImgNum: number;
   oauthProvider: LoginType;
+  maeketingAgreement: boolean;
 }
 
 export interface INicknameDuplicationResponse {
