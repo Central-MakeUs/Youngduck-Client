@@ -5,11 +5,11 @@ import Typography from '../../typography';
 import appleLoginStyle from './AppleLogin.style';
 import useUserMutation from '@/hooks/mutaions/useUserMutation';
 import {useUserStore} from '@/stores/user';
-import {showSnackBar} from '@/utils/showSnackBar';
+import {setAppleUser} from '@/services/localStorage/localStorage';
 
 function AppleLogin() {
   const {loginMutate} = useUserMutation();
-  const {user, setUser} = useUserStore();
+  const {user, setUser, setIdToken} = useUserStore();
   async function handleSignInApple() {
     const appleAuthRequestResponse = await appleAuth.performRequest({
       requestedOperation: appleAuth.Operation.LOGIN,
@@ -21,10 +21,7 @@ function AppleLogin() {
     );
 
     if (credentialState === appleAuth.State.AUTHORIZED) {
-      if (appleAuthRequestResponse.email === null) {
-        showSnackBar('"설정 > Apple ID 사용 중단" 후 시도해 주세요');
-        return;
-      }
+      setAppleUser(appleAuthRequestResponse.authorizationCode!);
       setUser({
         ...user,
         type: 'APPLE',
@@ -37,6 +34,7 @@ function AppleLogin() {
         type: 'APPLE',
         token: appleAuthRequestResponse.identityToken!,
       });
+      setIdToken(appleAuthRequestResponse.identityToken!);
     }
   }
 

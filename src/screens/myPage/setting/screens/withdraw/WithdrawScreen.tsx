@@ -9,7 +9,7 @@ import SubTitleDescription from '@/components/title/subTitleDescription';
 import TitleCenterTopBar from '@/components/topBar/titleCenterTopBar';
 import useNavigator from '@/hooks/useNavigator';
 import {TKorQuitReason, korQuitReason} from '@/models/enums/user';
-import {removeTokens} from '@/services/localStorage/localStorage';
+import {getAppleUser} from '@/services/localStorage/localStorage';
 import {getQuitReason} from '@/utils/getQuitReason';
 import useUserMutation from '@/hooks/mutaions/useUserMutation';
 
@@ -28,9 +28,12 @@ const WithdrawScreen = () => {
     onCloseModal();
 
     if (quitReason) {
-      quitUser.mutate({appleCode: '', quitReason: getQuitReason(quitReason)});
+      const appleCode = await getAppleUser();
+      quitUser.mutate({
+        appleCode: appleCode || '',
+        quitReason: getQuitReason(quitReason),
+      });
     }
-    await removeTokens();
   };
   return (
     <>

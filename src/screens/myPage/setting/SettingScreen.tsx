@@ -13,7 +13,7 @@ import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import stackScreens from '@/constants/stackScreens';
 import Popup from '@/components/popup';
-import {removeTokens, setIsAlarm} from '@/services/localStorage/localStorage';
+import {setIsAlarm} from '@/services/localStorage/localStorage';
 import {checkAlarmPermission} from '@/services/permissionService';
 import useUserMutation from '@/hooks/mutaions/useUserMutation';
 
@@ -84,7 +84,6 @@ const SettingScreen = () => {
     onCloseModal();
     // 로그아웃 api 실행
     logoutUser.mutate();
-    await removeTokens();
   };
 
   return (

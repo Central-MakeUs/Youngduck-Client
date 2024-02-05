@@ -7,7 +7,10 @@ import {
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import useNavigator from '../useNavigator';
 import stackScreens from '@/constants/stackScreens';
-import {setIsInstalled} from '@/services/localStorage/localStorage';
+import {
+  removeTokens,
+  setIsInstalled,
+} from '@/services/localStorage/localStorage';
 import {IRegisterMutationProps} from '@/types/user';
 import {useUserStore} from '@/stores/user';
 import {showSnackBar} from '@/utils/showSnackBar';
@@ -23,6 +26,10 @@ const useUserMutation = () => {
     onSuccess: login => {
       setUser({...user, isLookAround: false});
       if (!login.data.canLogin) {
+        if (user.email === null) {
+          showSnackBar('"설정 > Apple ID 사용 중단" 후 시도해 주세요');
+          return;
+        }
         stackNavigation.navigate(stackScreens.SignupScreen, {
           idToken: login.data.idToken,
         });
@@ -39,7 +46,6 @@ const useUserMutation = () => {
       postRegisterUser(sendData.type, sendData.idToken, sendData.body),
     onSuccess: data => {
       console.log('회원가입 성공');
-      loginMutate({type: user.type, token: data.data.accessToken});
       console.log(data);
       stackNavigation.navigate(stackScreens.SignupCompleteScreen);
     },
@@ -49,17 +55,19 @@ const useUserMutation = () => {
   const logoutUser = useMutation({
     mutationFn: postLogoutUser,
 
-    onSuccess: () => {
+    onSuccess: async () => {
       stackNavigation.navigate(stackScreens.LoginScreen);
       showSnackBar('정상적으로 로그아웃 되었어요');
+      await removeTokens();
     },
   });
 
   const quitUser = useMutation({
     mutationFn: deleteUser,
-    onSuccess: () => {
-      stackNavigation.navigate(stackScreens.LoginScreen);
+    onSuccess: async () => {
+      stackNavigation.popToTop();
       showSnackBar('정상적으로 계정 탈퇴되었어요');
+      await removeTokens();
     },
   });
 
