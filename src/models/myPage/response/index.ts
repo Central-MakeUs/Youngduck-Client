@@ -13,18 +13,14 @@ interface ICommonScreeningProps {
   information: string;
   hasAgreed: boolean;
   private: boolean;
+  screeningId: number;
+  screeningTitle: string;
+  hostName: string;
 }
 
 export interface IWatchedScreeningProps extends ICommonScreeningProps {
   createdAt: string;
   updatedAt: string;
-  id: number;
-  title: string;
-  hostInfo: {
-    hostName: string;
-    hostPhoneNumber: string;
-    hostEmail: string;
-  };
   positiveCount: TScreeningPositiveReview<number>;
   negativeCount: TScreeningNegativeReview<number>;
   month: string;
@@ -39,8 +35,6 @@ export interface IWatchedScreeningProps extends ICommonScreeningProps {
 }
 
 export interface IJjimScreeningProps extends ICommonScreeningProps {
-  screeningId: number;
-  screeningTitle: string;
   hostName: string;
   hostPhoneNumber: string;
   hostEmail: string;
@@ -60,6 +54,7 @@ export interface IScreeningReviewProps {
   startDate: string;
   endDate: string;
   posterImgUrl: string;
+  hostName: string;
 }
 
 export interface IPopcornReviewProps {

@@ -7,6 +7,7 @@ const commonButtonWrap: ViewStyle = {
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: 100,
+  marginLeft: 16,
 };
 
 const myManagementItemStyles = StyleSheet.create({
@@ -39,9 +40,8 @@ const myManagementItemStyles = StyleSheet.create({
     borderTopColor: palette.Line.Normal,
     marginTop: 16,
     paddingTop: 8,
-    marginBottom: 12,
   },
-  reviewWrap: {flexDirection: 'row', flexWrap: 'wrap', marginBottom: 12},
+  reviewWrap: {flexDirection: 'row', flexWrap: 'wrap'},
   reviewChip: {marginRight: 4},
 });
 export default myManagementItemStyles;

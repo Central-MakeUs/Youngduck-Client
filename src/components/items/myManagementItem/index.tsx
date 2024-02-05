@@ -28,6 +28,7 @@ interface IMyManagementItemProps {
   director?: string;
   // 스크리닝 리뷰 prop
   dateRange?: string;
+  hostName?: string;
   // 나의 리뷰 하단 props
   chips?: (IChipProps | undefined)[];
   review?: string;
@@ -44,6 +45,7 @@ const MyManagementItem = ({
   popcornOfWeek,
   director,
   dateRange,
+  hostName = '',
   chips,
   review,
   isPrivate,
@@ -92,7 +94,10 @@ const MyManagementItem = ({
             {mode !== 'popcorn-review' ? (
               // 팝콘작 리뷰가 아닌 모든 경우에는 제목과 상영 날짜가 들어감
               <>
-                <Typography style="Label1">{title}</Typography>
+                <Typography style="Label1" numberOfLines={1}>
+                  {title}
+                </Typography>
+                <Typography style="Label1">{hostName!}</Typography>
                 <Typography style="Chips1" color={palette.Text.Alternative}>
                   {dateRange!}
                 </Typography>
@@ -101,7 +106,9 @@ const MyManagementItem = ({
               // 팝콘작 리뷰의 경우 팝콘작 선정 기간, 제목, 감독명이 들어감
               <>
                 <Typography style="Label2">{popcornOfWeek!}</Typography>
-                <Typography style="Title2">{title}</Typography>
+                <Typography style="Title2" numberOfLines={1}>
+                  {title}
+                </Typography>
                 <Typography style="Body2" color={palette.Text.Alternative}>
                   {director!}
                 </Typography>
@@ -141,32 +148,40 @@ const MyManagementItem = ({
       {(mode === 'screening-review' || mode === 'popcorn-review') && (
         // 리뷰 관리 모드에는 하단에 리뷰 칩과 리뷰가 있음
         <View style={myManagementItemStyles.reviewContainer}>
-          <View style={myManagementItemStyles.reviewWrap}>
+          <View
+            style={[
+              myManagementItemStyles.reviewWrap,
+              {marginBottom: review?.length! > 0 ? 12 : 0},
+            ]}>
             {/* 리뷰 후기들에 대해 반복문 해주기 */}
             {chips &&
-              chips.map(chip => (
+              chips.map((chip, index) => (
                 <View
                   style={myManagementItemStyles.reviewChip}
-                  key={`${title}-${chip}-wrap`}>
+                  key={`${title}-${chip?.text}-wrap`}>
                   <Chip
                     text={chip?.text!}
                     state={chip?.isPositive ? 'primary' : 'default'}
-                    mb={4}
-                    key={`${title}-${chip}`}
+                    mb={index === chips.length - 1 ? 0 : 4}
+                    key={`${title}-${chip?.text}`}
                   />
                 </View>
               ))}
           </View>
-          {isOpenedUp && (
-            <Typography style="Body1" numberOfLines={-1} mb={16}>
-              {review!}
-            </Typography>
+          {review?.length! > 0 && (
+            <>
+              {isOpenedUp && (
+                <Typography style="Body1" numberOfLines={-1} mb={16}>
+                  {review!}
+                </Typography>
+              )}
+              <BoxButton
+                onPress={() => setIsOpenedUp(!isOpenedUp)}
+                variant="default">
+                {isOpenedUp ? '접기' : '후기 펼쳐보기'}
+              </BoxButton>
+            </>
           )}
-          <BoxButton
-            onPress={() => setIsOpenedUp(!isOpenedUp)}
-            variant="default">
-            {isOpenedUp ? '접기' : '후기 펼쳐보기'}
-          </BoxButton>
         </View>
       )}
     </View>
