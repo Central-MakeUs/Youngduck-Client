@@ -23,6 +23,7 @@ const TrendingMovie = ({
         data={trendingMovieData}
         renderItem={withRankingItem}
         showsHorizontalScrollIndicator={false}
+        style={{marginRight: 16}}
       />
     </>
   );
