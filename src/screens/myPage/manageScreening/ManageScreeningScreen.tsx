@@ -44,7 +44,7 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
   const dataCountString = `총 ${dataCount}건`;
 
   const {bottom} = useSafeAreaInsets();
-  const style = manageScreeningScreenStyles({bottom});
+
   const renderWatchedItem = ({
     item,
   }: Record<'item', IWatchedScreeningProps>) => (
@@ -81,7 +81,7 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
         goBack={stackNavigation.goBack}
         opacity={0}
       />
-      <View style={style.menuWrap}>
+      <View style={manageScreeningScreenStyles.menuWrap}>
         <SelectButton
           type="관람한 스크리닝"
           onPress={() => setIsWatcedScreening(true)}
@@ -93,7 +93,7 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
           isSelected={!isWatcedScreening}
         />
       </View>
-      <View style={style.paddingWrap}>
+      <View style={manageScreeningScreenStyles.paddingWrap}>
         <Typography
           style="Label3"
           color={palette.Text.Alternative}
@@ -109,7 +109,7 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
           <FlatList
             data={watchedScreeningData.data?.data}
             renderItem={renderWatchedItem}
-            style={style.screeningListContainer}
+            style={manageScreeningScreenStyles.screeningListContainer}
           />
         )
       ) : jjimScreeningData?.data?.data.length === 0 ? (
@@ -118,7 +118,8 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
         <FlatList
           data={jjimScreeningData.data?.data}
           renderItem={renderJjimItem}
-          style={style.screeningListContainer}
+          style={manageScreeningScreenStyles.screeningListContainer}
+          contentContainerStyle={{paddingBottom: bottom + 8}}
         />
       )}
     </>

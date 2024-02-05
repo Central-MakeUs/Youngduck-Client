@@ -20,13 +20,14 @@ const myManagementItemStyles = StyleSheet.create({
   wrap: {
     flexDirection: 'row',
   },
-  image: {width: 70, height: 70, borderRadius: 8, marginRight: 8},
+  image: {width: 70, height: 70, borderRadius: 8},
   contentContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     flex: 1,
   },
   contentWrap: {justifyContent: 'space-between'},
+  content: {marginLeft: 8},
   activatedButtonWrap: {
     ...commonButtonWrap,
     backgroundColor: palette.Primary.Assistive,

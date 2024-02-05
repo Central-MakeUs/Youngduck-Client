@@ -42,7 +42,7 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
   const dataCountString = `총 ${dataCount}건`;
 
   const {bottom} = useSafeAreaInsets();
-  const style = manageReviewScreenStyles({bottom});
+
   const renderScreeningReviewItem = ({
     item,
   }: Record<'item', IScreeningReviewProps>) => (
@@ -85,7 +85,7 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
         goBack={stackNavigation.goBack}
         opacity={0}
       />
-      <View style={style.menuWrap}>
+      <View style={manageReviewScreenStyles.menuWrap}>
         <SelectButton
           type="스크리닝 리뷰"
           onPress={() => setIsScreeningReview(true)}
@@ -97,7 +97,7 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
           isSelected={!isScreeningReview}
         />
       </View>
-      <View style={style.paddingWrap}>
+      <View style={manageReviewScreenStyles.paddingWrap}>
         <Typography
           style="Label3"
           color={palette.Text.Alternative}
@@ -115,7 +115,7 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
             <FlatList
               data={screeningReviewData.data?.data}
               renderItem={renderScreeningReviewItem}
-              style={style.screeningListContainer}
+              style={manageReviewScreenStyles.screeningListContainer}
             />
           )}
         </>
@@ -128,7 +128,8 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
             <FlatList
               data={popcornReviewData.data?.data}
               renderItem={renderPopcornReviewItem}
-              style={style.screeningListContainer}
+              style={manageReviewScreenStyles.screeningListContainer}
+              contentContainerStyle={{paddingBottom: bottom + 8}}
             />
           )}
         </>
