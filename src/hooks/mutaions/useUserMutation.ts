@@ -21,12 +21,12 @@ const useUserMutation = () => {
   const {mutate: loginMutate} = useMutation({
     mutationFn: postLoginUser,
     onSuccess: login => {
-      if (user.email === null) {
-        showSnackBar('"설정 > Apple ID 사용 중단" 후 시도해 주세요');
-        return;
-      }
       setUser({...user, isLookAround: false});
       if (!login.data.canLogin) {
+        if (user.email === null) {
+          showSnackBar('"설정 > Apple ID 사용 중단" 후 시도해 주세요');
+          return;
+        }
         stackNavigation.navigate(stackScreens.SignupScreen, {
           idToken: login.data.idToken,
         });
