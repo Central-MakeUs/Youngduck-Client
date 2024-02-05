@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 import ModalContainer from 'react-native-modal';
 
 import Typography from '../typography';
@@ -6,6 +6,7 @@ import BoxButton from '../buttons/boxButton';
 import palette from '@/styles/theme/color';
 
 import {popupStyles} from './Popup.style';
+import text from '@/styles/theme/typography';
 
 interface ModalProps {
   title: string;
@@ -39,9 +40,7 @@ const Popup = ({
           {title}
         </Typography>
         {content && (
-          <Typography style="Body1" mt={8}>
-            {content}
-          </Typography>
+          <Text style={[text['Body1'], {textAlign: 'center'}]}>{content}</Text>
         )}
 
         <View style={popupStyles.container}>
