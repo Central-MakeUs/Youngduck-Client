@@ -52,8 +52,7 @@ export const setTokens = async (refresh: string, access: string) => {
 
 // 로그아웃 혹은 탈퇴 토큰 제거
 export const removeTokens = async () => {
-  await setRefreshToken('');
-  await setAccessToken('');
+  await EncryptedStorage.clear();
 };
 
 // 회원가입을 해야 할 최초 유저 여부 가져옴
@@ -83,8 +82,8 @@ export const removeAlarm = async () => {
 };
 
 // 애플 로그인 시 유저 정보 저장
-export const setAppleUser = async (user: string) => {
-  await setItem<string>(LocalStorageKey.AppleUser, user);
+export const setAppleUser = async (authorizationCode: string) => {
+  await setItem<string>(LocalStorageKey.AppleUser, authorizationCode);
 };
 
 // 애플 유저 정보 가져옴

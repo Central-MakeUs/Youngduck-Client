@@ -21,7 +21,7 @@ function AppleLogin() {
     );
 
     if (credentialState === appleAuth.State.AUTHORIZED) {
-      setAppleUser(appleAuthRequestResponse.user);
+      setAppleUser(appleAuthRequestResponse.authorizationCode!);
       setUser({
         ...user,
         type: 'APPLE',

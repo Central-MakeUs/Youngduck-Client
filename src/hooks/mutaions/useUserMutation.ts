@@ -7,7 +7,10 @@ import {
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import useNavigator from '../useNavigator';
 import stackScreens from '@/constants/stackScreens';
-import {setIsInstalled} from '@/services/localStorage/localStorage';
+import {
+  removeTokens,
+  setIsInstalled,
+} from '@/services/localStorage/localStorage';
 import {IRegisterMutationProps} from '@/types/user';
 import {useUserStore} from '@/stores/user';
 import {showSnackBar} from '@/utils/showSnackBar';
@@ -53,17 +56,19 @@ const useUserMutation = () => {
   const logoutUser = useMutation({
     mutationFn: postLogoutUser,
 
-    onSuccess: () => {
+    onSuccess: async () => {
       stackNavigation.navigate(stackScreens.LoginScreen);
       showSnackBar('정상적으로 로그아웃 되었어요');
+      await removeTokens();
     },
   });
 
   const quitUser = useMutation({
     mutationFn: deleteUser,
-    onSuccess: () => {
+    onSuccess: async () => {
       stackNavigation.navigate(stackScreens.LoginScreen);
       showSnackBar('정상적으로 계정 탈퇴되었어요');
+      await removeTokens();
     },
   });
 
