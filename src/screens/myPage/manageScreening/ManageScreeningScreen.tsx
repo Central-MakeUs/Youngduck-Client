@@ -51,12 +51,12 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
     <MyManagementItem
       mode="watched-screening"
       posterImgUrl={item.posterImgUrl}
-      title={item.title}
+      title={item.screeningTitle}
       dateRange={getKorDateRange(
         item.screeningStartDate,
         item.screeningEndDate,
       )}
-      id={item.id}
+      id={item.screeningId}
     />
   );
   const renderJjimItem = ({item}: Record<'item', IJjimScreeningProps>) => (

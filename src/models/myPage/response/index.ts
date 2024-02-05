@@ -13,13 +13,14 @@ interface ICommonScreeningProps {
   information: string;
   hasAgreed: boolean;
   private: boolean;
+  screeningId: number;
+  screeningTitle: string;
 }
 
 export interface IWatchedScreeningProps extends ICommonScreeningProps {
   createdAt: string;
   updatedAt: string;
-  id: number;
-  title: string;
+
   hostInfo: {
     hostName: string;
     hostPhoneNumber: string;
@@ -39,8 +40,6 @@ export interface IWatchedScreeningProps extends ICommonScreeningProps {
 }
 
 export interface IJjimScreeningProps extends ICommonScreeningProps {
-  screeningId: number;
-  screeningTitle: string;
   hostName: string;
   hostPhoneNumber: string;
   hostEmail: string;
