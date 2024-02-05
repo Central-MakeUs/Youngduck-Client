@@ -4,7 +4,7 @@ const useInvalidateQueries = () => {
   const queryClient = useQueryClient();
 
   const invalidateSingleQuery = (queryKey: QueryKey) => {
-    queryClient.invalidateQueries({queryKey: [queryKey]});
+    queryClient.invalidateQueries({queryKey: queryKey});
   };
 
   const invalidateMultipleQueries = (queryKeys: QueryKey[]) => {

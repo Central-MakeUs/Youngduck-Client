@@ -2,7 +2,6 @@ import {useCallback, useMemo, useState} from 'react';
 import {QueryKey} from '@tanstack/react-query';
 
 import useInvalidateQueries from './useInvalidateQueries';
-import {isArrayWithNestedArrays} from '@/utils/hasNestedArray';
 import wait from '@/utils/wait';
 
 const useRefreshing = () => {
@@ -11,11 +10,13 @@ const useRefreshing = () => {
 
   const onRefresh = useCallback(
     async (queryKeys: QueryKey[] | QueryKey) => {
-      if (!queryKeys) return;
+      if (!queryKeys) {
+        return;
+      }
       setIsRefresh(true);
       try {
         await wait(200);
-        if (isArrayWithNestedArrays(queryKeys as QueryKey[])) {
+        if (queryKeys.length > 1) {
           invalidateQueries.multiple(queryKeys as QueryKey[]);
         } else {
           invalidateQueries.single(queryKeys);
