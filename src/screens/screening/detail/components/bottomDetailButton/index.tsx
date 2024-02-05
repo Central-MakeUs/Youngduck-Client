@@ -1,7 +1,9 @@
 import {View} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import BottomButton from '@/components/bottomButton/bottomBoxButton';
 import Typography from '@/components/typography';
+import BottomOptionButton from '@/components/bottomButton/bottomOptionButton';
 import palette from '@/styles/theme/color';
 import BlackTicket from '@/assets/icons/black-ticket.svg';
 import WhiteTicket from '@/assets/icons/white-ticket.svg';
@@ -11,7 +13,6 @@ import {
   bottomButtonStyles,
   bottomDetailTypesStyles,
 } from './BottomDetailButton.style';
-import BottomOptionButton from '@/components/bottomButton/bottomOptionButton';
 
 interface IBottomDetailButtonProps {
   onPress: () => void;
@@ -24,11 +25,14 @@ const BottomDetailButton = ({
   onPress,
   onOptionPress,
 }: IBottomDetailButtonProps) => {
+  const {bottom} = useSafeAreaInsets();
+
+  const style = bottomButtonStyles({bottom});
   return (
-    <>
+    <View style={style.container}>
       {type === 'default' || type === 'finish' ? (
         <BottomButton onPress={onPress} disabled={type === 'finish'}>
-          <View style={bottomButtonStyles.content}>
+          <View style={style.content}>
             <Typography
               style="Label1"
               color={
@@ -54,7 +58,7 @@ const BottomDetailButton = ({
           optionType="heart"
         />
       )}
-    </>
+    </View>
   );
 };
 
