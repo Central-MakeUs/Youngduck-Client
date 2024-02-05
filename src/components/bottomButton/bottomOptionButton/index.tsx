@@ -1,4 +1,5 @@
 import {View} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import BoxButton from '@/components/buttons/boxButton';
 import OptionButton from '@/components/buttons/optionButton';
@@ -55,11 +56,13 @@ const BottomOptionButton = ({
   optionDisabled = false,
   iconType,
 }: IBottomOptionButton) => {
+  const {bottom} = useSafeAreaInsets();
+  const style = bottomOptionButtonStyles({bottom});
   return (
-    <View style={bottomOptionButtonStyles.container}>
-      <View style={bottomOptionButtonStyles.left}>
+    <View style={style.container}>
+      <View style={style.left}>
         <BoxButton onPress={onPress!} variant={variant} disabled={disabled}>
-          <View style={bottomOptionButtonStyles.content}>
+          <View style={style.content}>
             <Typography style="Label1" color={textColor} mr={8}>
               {text}
             </Typography>
@@ -67,7 +70,7 @@ const BottomOptionButton = ({
           </View>
         </BoxButton>
       </View>
-      <View style={bottomOptionButtonStyles.right}>
+      <View style={style.right}>
         <OptionButton
           type={optionType}
           isSelected={optionSelected}

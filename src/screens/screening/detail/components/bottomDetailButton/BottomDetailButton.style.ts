@@ -42,14 +42,10 @@ export const bottomDetailTypesStyles: Record<
   },
 };
 
-export const bottomButtonStyles = ({bottom}: {bottom: number}) =>
-  StyleSheet.create({
-    content: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    container: {
-      paddingBottom: bottom,
-    },
-  });
+export const bottomButtonStyles = StyleSheet.create({
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

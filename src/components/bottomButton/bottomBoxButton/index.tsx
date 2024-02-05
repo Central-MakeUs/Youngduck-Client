@@ -4,6 +4,7 @@ import BoxButton from '../../buttons/boxButton';
 import {IVariant} from '@/types/ui';
 
 import {bottomButtonStyles} from './BottomBoxButton.style';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 interface IBottomButtonProps {
   children: string | React.ReactNode;
   onPress: () => void;
@@ -16,8 +17,10 @@ const BottomBoxButton = ({
   disabled,
   variant = 'primary',
 }: IBottomButtonProps) => {
+  const {bottom} = useSafeAreaInsets();
+  const style = bottomButtonStyles({bottom});
   return (
-    <View style={bottomButtonStyles.container}>
+    <View style={style.container}>
       <BoxButton onPress={onPress} variant={variant} disabled={disabled}>
         {children}
       </BoxButton>
