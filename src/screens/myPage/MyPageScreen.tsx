@@ -21,8 +21,6 @@ import {
   getWatchedScreeningData,
 } from '@/apis/myPage';
 import LoadingPage from '@/components/pages/loadingPage';
-import {useEffect} from 'react';
-import useCheckLogin from '@/hooks/useCheckLogin';
 import {getProfile} from '@/utils/getProfile';
 import {getUserGenres} from '@/apis/user/user';
 import Chip from '@/components/chip';
@@ -31,13 +29,6 @@ import {TGenre} from '@/types/signup/genre';
 const MyPageScreen = () => {
   const {user} = useUserStore();
   const {stackNavigation} = useNavigator();
-  const {checkLogin} = useCheckLogin();
-
-  useEffect(() => {
-    checkLogin(() => {
-      stackNavigation.navigate(stackScreens.BottomTabScreens);
-    });
-  });
 
   const [
     watchedScreeningData,
@@ -57,7 +48,6 @@ const MyPageScreen = () => {
     ],
   });
 
-  console.log(myPageGenre.data?.data);
   const managePosts = [
     {postName: '스크리닝 리뷰', count: screeningReviewData.data?.data.length},
     {postName: '팝콘작 리뷰', count: popcornReviewData.data?.data.length},

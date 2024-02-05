@@ -33,13 +33,12 @@ import DetailWebviewScreen from '@/screens/screening/detailWebview/DetailWebview
 import MyDetailScreen from '@/screens/screening/myDetail/MyDetailScreen';
 import LoadingPage from '@/components/pages/loadingPage';
 import {useUserStore} from '@/stores/user';
-import {getUserData} from '@/apis/user/user';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function StackNavigator() {
   const {stackNavigation} = useNavigator();
-  const {user, setUser} = useUserStore();
+  const {user} = useUserStore();
 
   const [isSignIn, setIsSignIn] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
@@ -62,19 +61,6 @@ function StackNavigator() {
         setIsLoading(false);
       }
     });
-    if (!user.isLookAround) {
-      console.log('유저 정보 받아오기');
-      getUserData().then(user => {
-        setUser({
-          type: user.data.oauthProvider,
-          nickname: user.data.nickname,
-          profileNumber: user.data.profileImgNum,
-          email: user.data.email,
-          isLookAround: false,
-          name: user.data.name,
-        });
-      });
-    }
 
     return () => clearTimeout(timer);
   }, []);
@@ -91,7 +77,11 @@ function StackNavigator() {
   return (
     <Stack.Navigator
       initialRouteName={
-        isSignIn ? stackScreens.BottomTabScreens : stackScreens.LoginScreen
+        user.isLookAround
+          ? stackScreens.BottomTabScreens
+          : isSignIn
+          ? stackScreens.BottomTabScreens
+          : stackScreens.LoginScreen
       }>
       {/*로그인 페이지*/}
       <Stack.Screen
