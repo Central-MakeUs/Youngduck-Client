@@ -51,6 +51,7 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
     <MyManagementItem
       mode="watched-screening"
       posterImgUrl={item.posterImgUrl}
+      hostName={item.hostName}
       title={item.screeningTitle}
       dateRange={getKorDateRange(
         item.screeningStartDate,
@@ -63,6 +64,7 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
     <MyManagementItem
       mode="jjim-screening"
       posterImgUrl={item.posterImgUrl}
+      hostName={item.hostName}
       title={item.screeningTitle}
       dateRange={getKorDateRange(
         item.screeningStartDate,

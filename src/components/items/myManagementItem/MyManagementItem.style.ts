@@ -7,6 +7,7 @@ const commonButtonWrap: ViewStyle = {
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: 100,
+  marginLeft: 16,
 };
 
 const myManagementItemStyles = StyleSheet.create({

@@ -94,7 +94,9 @@ const MyManagementItem = ({
             {mode !== 'popcorn-review' ? (
               // 팝콘작 리뷰가 아닌 모든 경우에는 제목과 상영 날짜가 들어감
               <>
-                <Typography style="Label1">{title}</Typography>
+                <Typography style="Label1" numberOfLines={1}>
+                  {title}
+                </Typography>
                 <Typography style="Label1">{hostName!}</Typography>
                 <Typography style="Chips1" color={palette.Text.Alternative}>
                   {dateRange!}

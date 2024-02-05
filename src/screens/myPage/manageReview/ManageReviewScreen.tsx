@@ -49,6 +49,7 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
     <MyManagementItem
       mode="screening-review"
       posterImgUrl={item.posterImgUrl}
+      hostName={item.hostName}
       title={item.screeningTitle}
       id={item.screeningId}
       dateRange={getKorDateRange(item.startDate, item.endDate)}
