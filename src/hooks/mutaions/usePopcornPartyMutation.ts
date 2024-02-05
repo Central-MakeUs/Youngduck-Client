@@ -39,7 +39,11 @@ const usePopcornPartyMutation = () => {
   const {mutate: recommendMovieMutate} = useMutation({
     mutationFn: postRecommendMovie,
     onSuccess: res => console.log(res),
-    onError: err => console.log(err),
+    onError: err => {
+      const errResponse = (err as AxiosError).response;
+      const errData = errResponse?.data as ResponseErrorAPI;
+      if (errData.code === 'MOVIE_409') showSnackBar('중복된 영화가 존재해요');
+    },
   });
 
   return {
