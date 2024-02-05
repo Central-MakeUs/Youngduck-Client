@@ -27,14 +27,14 @@ export const postJjimOff = async (screeningId: number) => {
   return res.data;
 };
 
-export const getScreeningReviewData = async (): Promise<
+export const getMyScreeningReviewData = async (): Promise<
   ResponseDTO<IScreeningReviewProps[]>
 > => {
   const res = await api.get('/screening/review/all');
   return res.data;
 };
 
-export const getPopcornReviewData = async (): Promise<
+export const getMyPopcornReviewData = async (): Promise<
   ResponseDTO<IPopcornReviewProps[]>
 > => {
   const res = await api.get('/popcorn/my/reviews');
