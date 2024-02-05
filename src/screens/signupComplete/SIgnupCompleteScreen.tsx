@@ -7,15 +7,16 @@ import SubTitleDescription from '@/components/title/subTitleDescription';
 import BoxButton from '@/components/buttons/boxButton';
 import useUserMutation from '@/hooks/mutaions/useUserMutation';
 import {useUserStore} from '@/stores/user';
+import PopcornSignup from '@/assets/icons/popcorn-signup.svg';
 
 const SignupCompleteScreen = () => {
   const {top, bottom} = useSafeAreaInsets();
-  const {screenWidth: width, screenHeight: height} = getScreenSize();
-  const style = signupCompleteScreenContainerStyles({
+  const {screenWidth, screenHeight} = getScreenSize();
+  const styles = signupCompleteScreenContainerStyles({
     top,
     bottom,
-    width,
-    height,
+    width: screenWidth,
+    height: screenHeight,
   });
   const {loginMutate} = useUserMutation();
   const {user, idToken} = useUserStore();
@@ -24,12 +25,14 @@ const SignupCompleteScreen = () => {
     loginMutate({type: user.type, token: idToken});
 
   return (
-    <View style={style.container}>
-      <View style={style.pacongWrap}>
-        <Image source={defaultImages.pacong} style={style.pacong} />
+    <View style={styles.container}>
+      <View style={styles.pacongWrap}>
+        <Image source={defaultImages.pacong} style={styles.pacong} />
       </View>
-      <Image source={defaultImages.completeSignupPopcorn} style={style.image} />
-      <View style={style.innerWrap}>
+      <View style={styles.image}>
+        <PopcornSignup width={screenWidth} height={screenHeight} />
+      </View>
+      <View style={styles.innerWrap}>
         <SubTitleDescription
           text="회원가입이 끝났습니다!"
           subTitle="팝콘메이트에 오신걸 환영합니다!"

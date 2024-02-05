@@ -1,28 +1,34 @@
 import KakaoLogin from '@/components/auth/kakao';
 
-import {Image, Platform, Text, View} from 'react-native';
+import {Platform, Text, View} from 'react-native';
 import loginScreenStyles from '@/screens/login/LoginScreen.style';
-import {defaultImages} from '@/assets';
 import AppleLogin from '@/components/auth/apple';
 import GradientContainer from '@/components/container/gradientContainer';
 import {getScreenSize} from '@/utils/getScreenSize';
 import LookAround from './components/lookAround';
+import PopcornMateLogo from '@/assets/icons/popcorn-mate-logo.svg';
+import PopcornLogin from '@/assets/icons/popcorn-login.svg';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 function LoginScreen() {
   const platform = Platform.OS;
-  const {screenWidth: width, screenHeight: height} = getScreenSize();
+  const {screenWidth, screenHeight} = getScreenSize();
+  const {bottom} = useSafeAreaInsets();
 
-  const style = loginScreenStyles({width, height});
+  const styles = loginScreenStyles({bottom});
 
   return (
     <GradientContainer colors={['rgba(255,240,143,1)', 'rgba(255,246,189,1)']}>
-      <View style={style.container}>
-        <Image source={defaultImages.loginPopcorn} style={style.image} />
-        <View style={style.wrapper}>
-          <Text style={style.description}>{`영잘알들의\n영화교류 플랫폼`}</Text>
-          <Image source={defaultImages.popCornMate} />
+      <View style={styles.container}>
+        <View style={styles.image}>
+          <PopcornLogin width={screenWidth} height={screenHeight} />
         </View>
-        <View style={style.wrapper}>
+        <View style={styles.wrapper}>
+          <Text
+            style={styles.description}>{`영잘알들의\n영화교류 플랫폼`}</Text>
+          <PopcornMateLogo />
+        </View>
+        <View style={styles.wrapper}>
           <KakaoLogin />
           {platform === 'ios' && <AppleLogin />}
           <LookAround />

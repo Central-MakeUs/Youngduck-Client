@@ -21,12 +21,7 @@ const signupCompleteScreenContainerStyles = ({
       paddingBottom: bottom,
       backgroundColor: palette.Background.Secondary,
     },
-    image: {
-      width: width,
-      height: height,
-      position: 'absolute',
-      resizeMode: 'stretch',
-    },
+    image: {position: 'absolute', bottom: -bottom},
     pacongWrap: {
       width,
       height,
