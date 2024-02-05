@@ -1,7 +1,6 @@
 export interface TTrendingData {
   popcornId?: number;
   movieId?: number;
-  index: number;
   rank?: string;
   movieTitle: string;
   imageUrl: string;
