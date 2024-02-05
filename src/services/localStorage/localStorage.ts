@@ -81,3 +81,14 @@ export const getIsAlarm = async (): Promise<boolean | null> => {
 export const removeAlarm = async () => {
   await setIsAlarm(null);
 };
+
+// 애플 로그인 시 유저 정보 저장
+export const setAppleUser = async (user: string) => {
+  await setItem<string>(LocalStorageKey.AppleUser, user);
+};
+
+// 애플 유저 정보 가져옴
+export const getAppleUser = async (): Promise<string | null> => {
+  const appleUser = await getItemOrNull<string>(LocalStorageKey.AppleUser);
+  return appleUser;
+};

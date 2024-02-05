@@ -5,7 +5,7 @@ import Typography from '../../typography';
 import appleLoginStyle from './AppleLogin.style';
 import useUserMutation from '@/hooks/mutaions/useUserMutation';
 import {useUserStore} from '@/stores/user';
-import {showSnackBar} from '@/utils/showSnackBar';
+import {setAppleUser} from '@/services/localStorage/localStorage';
 
 function AppleLogin() {
   const {loginMutate} = useUserMutation();
@@ -21,10 +21,7 @@ function AppleLogin() {
     );
 
     if (credentialState === appleAuth.State.AUTHORIZED) {
-      if (appleAuthRequestResponse.email === null) {
-        showSnackBar('"설정 > Apple ID 사용 중단" 후 시도해 주세요');
-        return;
-      }
+      setAppleUser(appleAuthRequestResponse.user);
       setUser({
         ...user,
         type: 'APPLE',

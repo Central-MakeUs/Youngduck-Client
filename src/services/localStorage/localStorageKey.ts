@@ -3,5 +3,6 @@ const enum LocalStorageKey {
   AccessToken = 'AccessToken',
   IsInstalled = 'IsInstalled',
   IsAlarm = 'IsAlarm',
+  AppleUser = 'AppleUser',
 }
 export default LocalStorageKey;
