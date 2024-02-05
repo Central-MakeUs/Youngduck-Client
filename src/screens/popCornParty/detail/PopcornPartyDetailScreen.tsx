@@ -102,8 +102,7 @@ function PopcornPartyDetailScreen({
   if (
     popcornPartyDetailData.isLoading ||
     popcornRateData.isLoading ||
-    popcornReviewData.isLoading ||
-    randomPopcornRecommendData.isLoading
+    popcornReviewData.isLoading
   )
     return <LoadingPage />;
 

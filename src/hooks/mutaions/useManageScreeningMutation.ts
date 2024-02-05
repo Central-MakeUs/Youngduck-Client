@@ -6,8 +6,8 @@ const useManageScreeningMutation = () => {
   const {mutate: jjimOffMutate} = useMutation({
     mutationFn: postJjimOff,
     onSuccess: () => {
-      queryClient.removeQueries({queryKey: ['watchedScreeningData']});
-      queryClient.removeQueries({queryKey: ['jjimScreeningData']});
+      queryClient.invalidateQueries({queryKey: ['watchedScreeningData']});
+      queryClient.invalidateQueries({queryKey: ['jjimScreeningData']});
     },
     onError: err => console.log(err),
   });

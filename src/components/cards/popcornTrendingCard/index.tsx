@@ -4,7 +4,6 @@ import Chip from '@/components/chip';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import {TTrendingData} from '@/models/popcornParty/reponse';
-import {defaultImages} from '@/assets';
 import useCheckLogin from '@/hooks/useCheckLogin';
 import {
   popcornContainerStyles,

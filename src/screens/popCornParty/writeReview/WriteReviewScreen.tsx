@@ -15,7 +15,6 @@ import CheckBox from '@/components/checkBox';
 import BoxButton from '@/components/buttons/boxButton';
 import {ScreenRouteProp} from '@/types/navigator';
 import stackScreens from '@/constants/stackScreens';
-import {useQueryClient} from '@tanstack/react-query';
 import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
 
 interface IWriteReviewScreenProps {
@@ -26,7 +25,6 @@ function WriteReviewScreen({route: {params}}: IWriteReviewScreenProps) {
   const [currentScreen, setCurrentScreen] = useState<number>(0);
   const [isAgree, setIsAgree] = useState<boolean>(false);
   const {movieReviewMutate} = usePopcornPartyMutation();
-  const queryclient = useQueryClient();
   const [startReview, setStartReview] = useState<{
     [key: string]: boolean | undefined;
   }>({
@@ -139,7 +137,6 @@ function WriteReviewScreen({route: {params}}: IWriteReviewScreenProps) {
   const onClickCompleteReview = () => {
     stackNavigation.goBack();
     movieReviewMutate({popcornId: params.id, body});
-    queryclient.removeQueries({queryKey: ['popcornReviewData']});
   };
   return (
     <View style={writeReviewScreenStyles.container}>

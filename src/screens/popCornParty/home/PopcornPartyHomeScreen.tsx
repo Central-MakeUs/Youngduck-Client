@@ -51,11 +51,7 @@ function PopcornPartyHomeScreen() {
     });
   };
 
-  if (
-    trendingPopcornData.isLoading ||
-    trendingMovieData.isLoading ||
-    randomPopcornRecommendData.isLoading
-  ) {
+  if (trendingPopcornData.isLoading || trendingMovieData.isLoading) {
     return <LoadingPage />;
   }
 
