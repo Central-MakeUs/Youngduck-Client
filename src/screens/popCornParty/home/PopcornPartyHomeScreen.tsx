@@ -17,6 +17,7 @@ import {useEffect} from 'react';
 import {useIsFocused} from '@react-navigation/native';
 import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
 import useCheckLogin from '@/hooks/useCheckLogin';
+import LoadingPage from '@/components/pages/loadingPage';
 
 function PopcornPartyHomeScreen() {
   const {checkLogin} = useCheckLogin();
@@ -49,6 +50,14 @@ function PopcornPartyHomeScreen() {
       stackNavigation.navigate(stackScreens.WriteRecommandScreen);
     });
   };
+
+  if (
+    trendingPopcornData.isLoading ||
+    trendingMovieData.isLoading ||
+    randomPopcornRecommendData.isLoading
+  ) {
+    return <LoadingPage />;
+  }
 
   return (
     <DefaultScrollContainer
