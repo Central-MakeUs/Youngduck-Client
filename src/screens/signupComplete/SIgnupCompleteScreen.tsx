@@ -3,10 +3,10 @@ import signupCompleteScreenContainerStyles from './SignupCompleteScreen.style';
 import {getScreenSize} from '@/utils/getScreenSize';
 import {Image, View} from 'react-native';
 import {defaultImages} from '@/assets';
-import CancelTopBar from '@/components/topBar/cancelTopBar';
 import SubTitleDescription from '@/components/title/subTitleDescription';
-import useNavigator from '@/hooks/useNavigator';
 import BoxButton from '@/components/buttons/boxButton';
+import useUserMutation from '@/hooks/mutaions/useUserMutation';
+import {useUserStore} from '@/stores/user';
 
 const SignupCompleteScreen = () => {
   const {top, bottom} = useSafeAreaInsets();
@@ -17,7 +17,11 @@ const SignupCompleteScreen = () => {
     width,
     height,
   });
-  const {stackNavigation} = useNavigator();
+  const {loginMutate} = useUserMutation();
+  const {user, idToken} = useUserStore();
+
+  const startPopcornMate = async () =>
+    loginMutate({type: user.type, token: idToken});
 
   return (
     <View style={style.container}>
@@ -25,15 +29,12 @@ const SignupCompleteScreen = () => {
         <Image source={defaultImages.pacong} style={style.pacong} />
       </View>
       <Image source={defaultImages.completeSignupPopcorn} style={style.image} />
-      <CancelTopBar onPress={() => stackNavigation.popToTop()} text="" />
       <View style={style.innerWrap}>
         <SubTitleDescription
           text="회원가입이 끝났습니다!"
           subTitle="팝콘메이트에 오신걸 환영합니다!"
         />
-        <BoxButton onPress={() => stackNavigation.popToTop()}>
-          팝콘메이트 시작하기
-        </BoxButton>
+        <BoxButton onPress={startPopcornMate}>팝콘메이트 시작하기</BoxButton>
       </View>
     </View>
   );

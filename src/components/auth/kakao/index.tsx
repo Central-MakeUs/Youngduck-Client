@@ -8,7 +8,7 @@ import kakaoLoginStyles from './KakaoLogin.style';
 import useUserMutation from '@/hooks/mutaions/useUserMutation';
 
 function KakaoLogin() {
-  const {setUser, user} = useUserStore();
+  const {user, setUser, setIdToken} = useUserStore();
   const {loginMutate} = useUserMutation();
 
   // 카카오 로그인 함수
@@ -25,6 +25,7 @@ function KakaoLogin() {
       type: 'KAKAO',
       token: res.idToken,
     });
+    setIdToken(res.idToken);
   };
 
   return (

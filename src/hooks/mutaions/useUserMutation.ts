@@ -46,7 +46,6 @@ const useUserMutation = () => {
       postRegisterUser(sendData.type, sendData.idToken, sendData.body),
     onSuccess: data => {
       console.log('회원가입 성공');
-      loginMutate({type: user.type, token: data.data.accessToken});
       console.log(data);
       stackNavigation.navigate(stackScreens.SignupCompleteScreen);
     },
@@ -66,7 +65,7 @@ const useUserMutation = () => {
   const quitUser = useMutation({
     mutationFn: deleteUser,
     onSuccess: async () => {
-      stackNavigation.navigate(stackScreens.LoginScreen);
+      stackNavigation.popToTop();
       showSnackBar('정상적으로 계정 탈퇴되었어요');
       await removeTokens();
     },

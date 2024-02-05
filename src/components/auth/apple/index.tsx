@@ -9,7 +9,7 @@ import {setAppleUser} from '@/services/localStorage/localStorage';
 
 function AppleLogin() {
   const {loginMutate} = useUserMutation();
-  const {user, setUser} = useUserStore();
+  const {user, setUser, setIdToken} = useUserStore();
   async function handleSignInApple() {
     const appleAuthRequestResponse = await appleAuth.performRequest({
       requestedOperation: appleAuth.Operation.LOGIN,
@@ -34,6 +34,7 @@ function AppleLogin() {
         type: 'APPLE',
         token: appleAuthRequestResponse.identityToken!,
       });
+      setIdToken(appleAuthRequestResponse.identityToken!);
     }
   }
 

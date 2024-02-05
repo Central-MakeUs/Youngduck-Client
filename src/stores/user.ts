@@ -11,9 +11,11 @@ interface IUser {
 
 interface IUserStoreState {
   user: IUser;
+  idToken: string;
 }
 interface IUserStoreActions {
   setUser: (state: IUser) => void;
+  setIdToken: (state: string) => void;
 }
 
 export const useUserStore = create<IUserStoreState & IUserStoreActions>(
@@ -26,6 +28,8 @@ export const useUserStore = create<IUserStoreState & IUserStoreActions>(
       name: '',
       isLookAround: false,
     },
+    idToken: '',
     setUser: (state: IUser) => set({user: state}),
+    setIdToken: (state: string) => set({idToken: state}),
   }),
 );
