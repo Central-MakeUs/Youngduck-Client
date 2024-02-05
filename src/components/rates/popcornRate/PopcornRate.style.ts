@@ -25,6 +25,11 @@ const popcornRateStyles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: palette.Primary.Normal,
   },
+  manualDesc: {
+    color: palette.Primary.Dark,
+    textAlign: 'center',
+    fontFamily: 'Pretendard Variable',
+  },
   manual: {
     marginTop: 16,
     marginBottom: 12,
