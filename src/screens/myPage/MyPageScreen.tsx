@@ -16,8 +16,8 @@ import {useQueries} from '@tanstack/react-query';
 import {
   getJjimScreeningData,
   getMyScreeningData,
-  getPopcornReviewData,
-  getScreeningReviewData,
+  getMyPopcornReviewData,
+  getMyScreeningReviewData,
   getWatchedScreeningData,
 } from '@/apis/myPage';
 import LoadingPage from '@/components/pages/loadingPage';
@@ -33,31 +33,31 @@ const MyPageScreen = () => {
   const [
     watchedScreeningData,
     jjimScreeningData,
-    screeningReviewData,
-    popcornReviewData,
+    myScreeningReviewData,
+    myPopcornReviewData,
     myScreeningData,
     myPageGenre,
   ] = useQueries({
     queries: [
       {queryKey: ['watchedScreeningData'], queryFn: getWatchedScreeningData},
       {queryKey: ['jjimScreeningData'], queryFn: getJjimScreeningData},
-      {queryKey: ['screeningReviewData'], queryFn: getScreeningReviewData},
-      {queryKey: ['popcornReviewData'], queryFn: getPopcornReviewData},
+      {queryKey: ['myScreeningReviewData'], queryFn: getMyScreeningReviewData},
+      {queryKey: ['myPopcornReviewData'], queryFn: getMyPopcornReviewData},
       {queryKey: ['myScreeningData'], queryFn: getMyScreeningData},
       {queryKey: ['myGenre'], queryFn: getUserGenres},
     ],
   });
 
   const managePosts = [
-    {postName: '스크리닝 리뷰', count: screeningReviewData.data?.data.length},
-    {postName: '팝콘작 리뷰', count: popcornReviewData.data?.data.length},
+    {postName: '스크리닝 리뷰', count: myScreeningReviewData.data?.data.length},
+    {postName: '팝콘작 리뷰', count: myPopcornReviewData.data?.data.length},
     {postName: '나의 스크리닝', count: myScreeningData.data?.data.length},
   ];
   if (
     watchedScreeningData.isLoading ||
     jjimScreeningData.isLoading ||
-    screeningReviewData.isLoading ||
-    popcornReviewData.isLoading ||
+    myScreeningReviewData.isLoading ||
+    myPopcornReviewData.isLoading ||
     myScreeningData.isLoading ||
     myPageGenre.isLoading
   )
