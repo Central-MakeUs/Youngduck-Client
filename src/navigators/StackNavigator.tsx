@@ -97,14 +97,14 @@ function StackNavigator() {
         options={{headerShown: false, gestureEnabled: false}}
       />
       {/*BottomTab 3개 페이지*/}
-      {/* <Stack.Screen
+      <Stack.Screen
         name={stackScreens.BottomTabScreens}
         component={BottomTabNavigator}
         options={{
           headerShown: false,
           gestureEnabled: false,
         }}
-      /> */}
+      />
       {/*닉네임 수정 페이지*/}
       <Stack.Screen
         name={stackScreens.ChangeNicknameScreen}
