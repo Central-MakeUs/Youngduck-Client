@@ -31,7 +31,7 @@ const useFocus = () => {
    * Focus out 처리합니다.
    */
 
-  const onFocusout = (value: string, maxLength: number) => {
+  const onFocusout = (value: string, maxLength?: number) => {
     onBlur(value);
     if (maxLength && value.length > maxLength) {
       onError();
