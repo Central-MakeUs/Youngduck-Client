@@ -62,10 +62,12 @@ const CommentItem = ({
           />
         </View>
       </View>
+      {review && (
+        <Typography style="Body1" color={palette.Text.Normal} mt={8}>
+          {review}
+        </Typography>
+      )}
 
-      <Typography style="Body1" color={palette.Text.Normal} mt={8}>
-        {review}
-      </Typography>
       <Typography style="Body2" color={palette.Text.Alternative} mt={12}>
         {createdAt}
       </Typography>
