@@ -16,7 +16,6 @@ import WriteRecommandScreen from '@/screens/popCornParty/writeRecommand/WriteRec
 import WriteReviewScreen from '@/screens/popCornParty/writeReview/WriteReviewScreen';
 
 import {RootStackParamList} from '@/types/navigator';
-import TitleTopBar from '@/components/topBar/titleTopBar';
 import CancelTopBar from '@/components/topBar/cancelTopBar';
 import useNavigator from '@/hooks/useNavigator';
 import {postAccessToken} from '@/apis/auth/auth';
@@ -33,6 +32,7 @@ import DetailWebviewScreen from '@/screens/screening/detailWebview/DetailWebview
 import MyDetailScreen from '@/screens/screening/myDetail/MyDetailScreen';
 import LoadingPage from '@/components/pages/loadingPage';
 import {useUserStore} from '@/stores/user';
+import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -41,7 +41,6 @@ function StackNavigator() {
   const {user} = useUserStore();
 
   const [isSignIn, setIsSignIn] = useState(false);
-  const [isInstalled, setIsInstalled] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -50,8 +49,6 @@ function StackNavigator() {
     }, 1000); //스플래시 활성화 시간
 
     getIsInstalled().then((res: boolean) => {
-      setIsInstalled(res);
-
       if (res) {
         postAccessToken().then(res => {
           setIsSignIn(res);
@@ -92,12 +89,12 @@ function StackNavigator() {
       <Stack.Screen
         name={stackScreens.SignupScreen}
         component={SignupScreen}
-        options={{headerShown: false}}
+        options={{headerShown: false, gestureEnabled: false}}
       />
       <Stack.Screen
         name={stackScreens.SignupCompleteScreen}
         component={SignupCompleteScreen}
-        options={{headerShown: false}}
+        options={{headerShown: false, gestureEnabled: false}}
       />
       {/*BottomTab 3개 페이지*/}
       <Stack.Screen
@@ -105,6 +102,7 @@ function StackNavigator() {
         component={BottomTabNavigator}
         options={{
           headerShown: false,
+          gestureEnabled: false,
         }}
       />
       {/*닉네임 수정 페이지*/}
@@ -206,7 +204,13 @@ function StackNavigator() {
         component={RecommandListScreen}
         options={{
           headerShown: true,
-          header: () => <TitleTopBar text="팝콘 파티" />,
+          header: () => (
+            <BackTitleTopBar
+              opacity={0}
+              text="팝콘파티"
+              goBack={handleGoBack}
+            />
+          ),
         }}
       />
       <Stack.Screen

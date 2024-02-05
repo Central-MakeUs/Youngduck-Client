@@ -2,7 +2,7 @@ import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
 const myPageScreenStyles = StyleSheet.create({
-  paddingWrap: {paddingHorizontal: 16},
+  paddingWrap: {paddingHorizontal: 16, paddingTop: 16},
   nicknameContainer: {
     alignItems: 'center',
     marginTop: 24,

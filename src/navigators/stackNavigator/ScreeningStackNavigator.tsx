@@ -1,12 +1,11 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
-import ProfileBackTitleTopBar from '@/components/topBar/profileBackTitleTopBar';
 import TitleTopBar from '@/components/topBar/titleTopBar';
 import ScreeningStackScreen from '@/constants/screeningStackScreen';
 import useNavigator from '@/hooks/useNavigator';
 import HomeScreen from '@/screens/screening/home/HomeScreen';
 import ScreeningListScreen from '@/screens/screening/screeningList/ScreeningList';
 import {ScreeningStackParamList} from '@/types/navigator';
+import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
 
 const Stack = createNativeStackNavigator<ScreeningStackParamList>();
 
@@ -31,7 +30,11 @@ const ScreeningStackNavigator = () => {
         component={ScreeningListScreen}
         options={{
           header: () => (
-            <ProfileBackTitleTopBar text="스크리닝" goBack={handleGoBack} />
+            <BackTitleTopBar
+              opacity={0}
+              text="스크리닝"
+              goBack={handleGoBack}
+            />
           ),
         }}
       />
