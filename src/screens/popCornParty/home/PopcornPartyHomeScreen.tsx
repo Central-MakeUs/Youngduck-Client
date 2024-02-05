@@ -51,7 +51,12 @@ function PopcornPartyHomeScreen() {
   };
 
   return (
-    <DefaultScrollContainer>
+    <DefaultScrollContainer
+      queryKey={[
+        'trendingPopcorn',
+        'trendingMovieData',
+        'randomPopcornRecommendData',
+      ]}>
       <Banner type="popcornParty" onPress={handleGoRecommand} />
       <TrendingPopcorn trendingPopcornData={trendingPopcornData.data?.data!} />
       <TrendingMovie trendingMovieData={trendingMovieData.data?.data!} />
