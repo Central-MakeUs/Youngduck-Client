@@ -13,6 +13,7 @@ import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 
 import {screeningReviewStyle} from '../ScreeningReview.style';
+import {useState} from 'react';
 
 interface IEndReviewProps {
   setValue: (value: boolean | string, option: string) => void;
@@ -23,14 +24,17 @@ interface IEndReviewProps {
 const EndReview = ({setValue, value, id}: IEndReviewProps) => {
   const {stackNavigation} = useNavigator();
   const {uploadScreeningReview} = useScreeningMutation();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const handleChangeAgree = () => {
     setValue(!value.hasAgreed, 'hasAgreed');
   };
 
   const handleReviewComplete = async () => {
+    setIsLoading(true);
     const body = {...value, id};
     //console.log(body);
     await uploadScreeningReview.mutateAsync(body);
+    setIsLoading(false);
     stackNavigation.navigate(stackScreens.DetailScreen, {id});
   };
 
@@ -63,8 +67,10 @@ const EndReview = ({setValue, value, id}: IEndReviewProps) => {
           </View>
         </DefaultScrollContainer>
         <View style={style.bottom}>
-          <BoxButton disabled={!value.hasAgreed} onPress={handleReviewComplete}>
-            리뷰 작성하기
+          <BoxButton
+            disabled={!value.hasAgreed || isLoading}
+            onPress={handleReviewComplete}>
+            {isLoading ? '로딩 중..' : '리뷰 작성하기'}
           </BoxButton>
         </View>
       </DefaultContainer>
