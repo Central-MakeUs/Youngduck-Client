@@ -20,6 +20,12 @@ export const getUserGenres = async (): Promise<ResponseDTO<TGenre[]>> => {
   return res.data;
 };
 
+// 유저 마케팅 여부 on/off api
+export const patchMarketing = async () => {
+  const res = await api.patch('/user/marketing-agreemnet');
+  return res.data;
+};
+
 export const postNickname = async (
   nickname: string,
 ): Promise<ResponseDTO<INicknameDuplicationResponse>> => {

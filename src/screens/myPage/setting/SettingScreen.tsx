@@ -27,7 +27,7 @@ const SettingScreen = () => {
   const [isAdBenefitAlarmOn, setIsAdBenefitAlarmOn] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
-  const {logoutUser} = useUserMutation();
+  const {logoutUser, patchAgreement} = useUserMutation();
 
   const {data} = useQuery({
     queryKey: ['userInfo'],
@@ -39,7 +39,9 @@ const SettingScreen = () => {
     if (data?.data) {
       setIsAdBenefitAlarmOn(data?.data.maeketingAgreement);
     }
+  }, [data]);
 
+  useEffect(() => {
     // 권한 알람 여부 받아와 바로 초기화
     checkAlarmPermission().then(res => {
       if (res) {
@@ -66,8 +68,14 @@ const SettingScreen = () => {
     };
   }, []);
 
+  // 알림 switch 클릭
   const handleOnOffAlarm = async () => {
     Linking.openSettings();
+  };
+
+  // 마케팅 수신 여부 클릭
+  const handleOnOffMarketing = async () => {
+    patchAgreement.mutate();
   };
 
   const onCloseModal = async () => setIsVisible(false);
@@ -114,7 +122,7 @@ const SettingScreen = () => {
           />
         </View>
         <Switch
-          onPress={() => setIsAdBenefitAlarmOn(!isAdBenefitAlarmOn)}
+          onPress={handleOnOffMarketing}
           isOn={isAdBenefitAlarmOn}
           mt={16}
         />
