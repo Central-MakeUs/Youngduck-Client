@@ -1,4 +1,4 @@
-import {ActivityIndicator, FlatList} from 'react-native';
+import {ActivityIndicator, FlatList, RefreshControl} from 'react-native';
 
 import DefaultContainer from '@/components/container/defaultContainer';
 import PopcornItem from '@/components/items/popcornItem';
@@ -8,6 +8,7 @@ import {useQuery} from '@tanstack/react-query';
 import {getPopcornOfNextWeekData} from '@/apis/popcornParty/recommendList/recommendList';
 import {TPopcornRecommendData} from '@/models/popcornParty/reponse';
 import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
+import useRefreshing from '@/hooks/useRefresh';
 
 function RecommandListScreen() {
   const {startDate, endDate} = getVoteDateRange();
@@ -15,6 +16,7 @@ function RecommandListScreen() {
     queryKey: ['popcornOfNextWeek'],
     queryFn: getPopcornOfNextWeekData,
   });
+  const {onRefresh, isRefresh} = useRefreshing();
   const {voteMovieMutate} = usePopcornPartyMutation();
 
   const renderPopcornItem = ({item}: Record<'item', TPopcornRecommendData>) => (
@@ -42,6 +44,12 @@ function RecommandListScreen() {
           data={popcornOfNextWeekData?.data}
           renderItem={renderPopcornItem}
           keyExtractor={(item: TPopcornRecommendData) => item.id.toString()}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefresh}
+              onRefresh={() => onRefresh(['popcornOfNextWeek'])}
+            />
+          }
         />
       )}
 
