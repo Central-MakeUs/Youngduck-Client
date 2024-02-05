@@ -1,19 +1,27 @@
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
 import Typography from '../typography';
 
-import {CommonMarginVerticalProps, CommonTextProps, IChip} from '@/types/ui';
+import {CommonMarginVerticalProps, IChip} from '@/types/ui';
 import {chipStyle, chipStyles} from './Chip.style';
 
-interface ChipProps extends CommonTextProps, CommonMarginVerticalProps {
+interface ChipProps<T = string> extends CommonMarginVerticalProps {
   state?: IChip;
+  text: T;
 }
 
-const Chip = ({state = 'primary', text, mt, mb}: ChipProps) => {
+const Chip = <T extends string>({
+  state = 'primary',
+  text,
+  mt,
+  mb,
+}: ChipProps<T>) => {
   return (
     <View
       style={{
         ...chipStyles.container,
         ...chipStyle[state],
+        borderWidth: state === 'secondary' ? 1 : undefined,
+        borderRadius: state === 'secondary' ? 8 : undefined,
         marginTop: mt ? mt : undefined,
         marginBottom: mb ? mb : undefined,
       }}>

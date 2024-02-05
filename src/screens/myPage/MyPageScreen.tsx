@@ -6,7 +6,6 @@ import useNavigator from '@/hooks/useNavigator';
 import palette from '@/styles/theme/color';
 import {View, Pressable, Image} from 'react-native';
 import myPageScreenStyles from './MyPageScreen.style';
-import {defaultImages} from '@/assets';
 import ManagePost from './components/managePost';
 import Divider from '@/components/divider';
 import MyScreening from './components/myScreening';
@@ -22,16 +21,22 @@ import {
   getWatchedScreeningData,
 } from '@/apis/myPage';
 import LoadingPage from '@/components/pages/loadingPage';
+import {getProfile} from '@/utils/getProfile';
+import {getUserGenres} from '@/apis/user/user';
+import Chip from '@/components/chip';
+import {TGenre} from '@/types/signup/genre';
 
 const MyPageScreen = () => {
   const {user} = useUserStore();
   const {stackNavigation} = useNavigator();
+
   const [
     watchedScreeningData,
     jjimScreeningData,
     screeningReviewData,
     popcornReviewData,
     myScreeningData,
+    myPageGenre,
   ] = useQueries({
     queries: [
       {queryKey: ['watchedScreeningData'], queryFn: getWatchedScreeningData},
@@ -39,8 +44,10 @@ const MyPageScreen = () => {
       {queryKey: ['screeningReviewData'], queryFn: getScreeningReviewData},
       {queryKey: ['popcornReviewData'], queryFn: getPopcornReviewData},
       {queryKey: ['myScreeningData'], queryFn: getMyScreeningData},
+      {queryKey: ['myGenre'], queryFn: getUserGenres},
     ],
   });
+
   const managePosts = [
     {postName: '스크리닝 리뷰', count: screeningReviewData.data?.data.length},
     {postName: '팝콘작 리뷰', count: popcornReviewData.data?.data.length},
@@ -51,7 +58,8 @@ const MyPageScreen = () => {
     jjimScreeningData.isLoading ||
     screeningReviewData.isLoading ||
     popcornReviewData.isLoading ||
-    myScreeningData.isLoading
+    myScreeningData.isLoading ||
+    myPageGenre.isLoading
   )
     return <LoadingPage />;
   return (
@@ -76,8 +84,16 @@ const MyPageScreen = () => {
               <SvgIcons.ModifyIcon />
             </View>
           </Pressable>
+          <View style={myPageScreenStyles.chipContainer}>
+            <View style={myPageScreenStyles.genre}>
+              {myPageGenre.data?.data &&
+                myPageGenre.data?.data.map((genre: TGenre) => (
+                  <Chip text={genre} key={genre} state="secondary" />
+                ))}
+            </View>
+          </View>
           <Image
-            source={defaultImages.myPage1}
+            source={getProfile(user.profileNumber)}
             style={myPageScreenStyles.image}
           />
           <View style={myPageScreenStyles.screeningWrap}>

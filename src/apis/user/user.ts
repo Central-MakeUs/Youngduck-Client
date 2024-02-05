@@ -15,8 +15,14 @@ export const getUserData = async (): Promise<
 };
 
 // 유저 장르 가져오는 api
-export const getUserGenres = async (): Promise<ResponseDTO<TGenre>> => {
+export const getUserGenres = async (): Promise<ResponseDTO<TGenre[]>> => {
   const res = await api.get('/user/genres');
+  return res.data;
+};
+
+// 유저 마케팅 여부 on/off api
+export const patchMarketing = async () => {
+  const res = await api.patch('/user/marketing-agreemnet');
   return res.data;
 };
 

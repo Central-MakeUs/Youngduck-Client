@@ -8,6 +8,21 @@ const myPageScreenStyles = StyleSheet.create({
     marginTop: 24,
     marginBottom: 8,
   },
+  chipContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+  },
+  genre: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginBottom: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    flexWrap: 'wrap',
+    width: '70%',
+  },
   nicknameWrap: {
     flexDirection: 'row',
     gap: 8,

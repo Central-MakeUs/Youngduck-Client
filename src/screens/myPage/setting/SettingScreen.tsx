@@ -18,6 +18,8 @@ import {checkAlarmPermission} from '@/services/permissionService';
 import useUserMutation from '@/hooks/mutaions/useUserMutation';
 
 import settingScreenStyles from './SettingScreen.style';
+import {useQuery} from '@tanstack/react-query';
+import {getUserData} from '@/apis/user/user';
 
 const SettingScreen = () => {
   const {stackNavigation} = useNavigator();
@@ -25,7 +27,19 @@ const SettingScreen = () => {
   const [isAdBenefitAlarmOn, setIsAdBenefitAlarmOn] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
-  const {logoutUser} = useUserMutation();
+  const {logoutUser, patchAgreement} = useUserMutation();
+
+  const {data} = useQuery({
+    queryKey: ['userInfo'],
+    queryFn: getUserData,
+  });
+
+  useEffect(() => {
+    // 광고 여부 초기화
+    if (data?.data) {
+      setIsAdBenefitAlarmOn(data?.data.maeketingAgreement);
+    }
+  }, [data]);
 
   useEffect(() => {
     // 권한 알람 여부 받아와 바로 초기화
@@ -54,8 +68,14 @@ const SettingScreen = () => {
     };
   }, []);
 
+  // 알림 switch 클릭
   const handleOnOffAlarm = async () => {
     Linking.openSettings();
+  };
+
+  // 마케팅 수신 여부 클릭
+  const handleOnOffMarketing = async () => {
+    patchAgreement.mutate();
   };
 
   const onCloseModal = async () => setIsVisible(false);
@@ -102,7 +122,7 @@ const SettingScreen = () => {
           />
         </View>
         <Switch
-          onPress={() => setIsAdBenefitAlarmOn(!isAdBenefitAlarmOn)}
+          onPress={handleOnOffMarketing}
           isOn={isAdBenefitAlarmOn}
           mt={16}
         />

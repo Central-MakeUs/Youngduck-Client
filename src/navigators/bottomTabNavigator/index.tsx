@@ -21,6 +21,7 @@ import LoginPopup from '@/components/loginPopup';
 import {useLoginPopupStore} from '@/stores/loginPopup';
 
 import {bottomTabScreenOptions} from './BottomTabNavigator.style';
+import {getUserData} from '@/apis/user/user';
 
 export const getTabBarIcon = (routeName: string, focused: boolean) => {
   const iconColor = focused ? palette.Primary.Normal : palette.Text.Disable;
@@ -41,7 +42,7 @@ export const getTabBarIcon = (routeName: string, focused: boolean) => {
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 const BottomTabNavigator = () => {
-  const {user} = useUserStore();
+  const {user, setUser} = useUserStore();
   const {setLoginPopup} = useLoginPopupStore();
 
   // TODO: 알람 앱 상단으로 이동하기(android 권한 체크)
@@ -50,6 +51,18 @@ const BottomTabNavigator = () => {
       requestAlarmPermission();
       checkAlarmPermission().then(res => {
         setIsAlarm(res);
+      });
+
+      getUserData().then(user => {
+        console.log('유저 정보 받아오기');
+        setUser({
+          type: user.data.oauthProvider,
+          nickname: user.data.nickname,
+          profileNumber: user.data.profileImgNum,
+          email: user.data.email,
+          isLookAround: false,
+          name: user.data.name,
+        });
       });
     }
   }, []);

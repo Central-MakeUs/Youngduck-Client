@@ -4,18 +4,19 @@ import {
   postLogoutUser,
   postRegisterUser,
 } from '@/apis/auth/auth';
-import {useMutation} from '@tanstack/react-query';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 import useNavigator from '../useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import {setIsInstalled} from '@/services/localStorage/localStorage';
 import {IRegisterMutationProps} from '@/types/user';
 import {useUserStore} from '@/stores/user';
 import {showSnackBar} from '@/utils/showSnackBar';
-import {postNickname, updateNickname} from '@/apis/user/user';
+import {patchMarketing, postNickname, updateNickname} from '@/apis/user/user';
 
 const useUserMutation = () => {
   const {stackNavigation} = useNavigator();
   const {user, setUser} = useUserStore();
+  const queryClient = useQueryClient();
 
   const {mutate: loginMutate} = useMutation({
     mutationFn: postLoginUser,
@@ -62,6 +63,13 @@ const useUserMutation = () => {
     },
   });
 
+  const patchAgreement = useMutation({
+    mutationFn: patchMarketing,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['userInfo']});
+    },
+  });
+
   const checkNicknameDuplication = useMutation({
     mutationFn: postNickname,
     onSuccess: res => console.log(res),
@@ -81,6 +89,7 @@ const useUserMutation = () => {
     checkNicknameDuplication,
     updateNicknameMutate,
     quitUser,
+    patchAgreement,
   };
 };
 export default useUserMutation;
