@@ -1,4 +1,4 @@
-import {View, TextInput, Pressable} from 'react-native';
+import {View, Pressable} from 'react-native';
 import {useEffect, useRef, useState} from 'react';
 import {DateParsable} from 'react-native-calendar-picker';
 import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
@@ -16,7 +16,6 @@ import BottomSheet from '@/components/bottomSheet';
 import SearchBottomSheet from '@/screens/popCornParty/writeRecommand/components/searchBottomSheet';
 import {getDateRange, getTime} from '@/utils/getDate';
 
-import {buttonInputStyle} from './ButtonInput.style';
 import {inputStyles, inputTypes} from '@/styles/Input.style';
 
 interface TypeInputProps {
@@ -105,7 +104,9 @@ const ButtonInput = ({
   const onCancelTime = () => {
     setTimeModal(false);
   };
-
+  const isValueExist = category === 'date' ? value.screeningStartDate : value;
+  const inputValue =
+    category === 'date' || category === 'time' ? timeString : value;
   return (
     <View>
       <Typography
@@ -116,33 +117,20 @@ const ButtonInput = ({
         {title}
       </Typography>
       <Pressable
-        style={[
-          {borderColor: inputTypes[type].borderColor},
-          buttonInputStyle.button,
-        ]}
+        style={inputStyles.buntton}
         onPress={onPress ? onPress : showModal}
         onPressIn={() => onFocus()}
         onPressOut={() => onBlur(value)}>
-        <TextInput
-          style={[
-            inputStyles.input,
-            {borderColor: inputTypes[type].borderColor},
-            {color: palette.Text.Normal},
-          ]}
-          placeholder={placeholder}
-          value={
-            category === 'date' || category === 'time' ? timeString : value
-          }
-          editable={false}
-          placeholderTextColor={palette.Text.Assistive}
-        />
+        <Typography
+          style="Body1"
+          color={isValueExist ? palette.Text.Normal : palette.Text.Assistive}>
+          {isValueExist ? inputValue : placeholder}
+        </Typography>
 
-        <View style={inputStyles.logo}>
-          {category === 'date' && <Calendar />}
-          {category === 'location' && <Location />}
-          {category === 'time' && <Time />}
-          {category === 'search' && <Search />}
-        </View>
+        {category === 'date' && <Calendar />}
+        {category === 'location' && <Location />}
+        {category === 'time' && <Time />}
+        {category === 'search' && <Search />}
       </Pressable>
 
       {category === 'time' && (
