@@ -62,6 +62,10 @@ function StackNavigator() {
       }
     });
 
+    if (user.isLookAround) {
+      stackNavigation.navigate(stackScreens.BottomTabScreens);
+    }
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -77,11 +81,7 @@ function StackNavigator() {
   return (
     <Stack.Navigator
       initialRouteName={
-        user.isLookAround
-          ? stackScreens.BottomTabScreens
-          : isSignIn
-          ? stackScreens.BottomTabScreens
-          : stackScreens.LoginScreen
+        isSignIn ? stackScreens.BottomTabScreens : stackScreens.LoginScreen
       }>
       {/*로그인 페이지*/}
       <Stack.Screen

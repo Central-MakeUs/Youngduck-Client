@@ -1,4 +1,4 @@
-import {FlatList, View} from 'react-native';
+import {FlatList, RefreshControl, View} from 'react-native';
 import {useInfiniteQuery} from '@tanstack/react-query';
 
 import DefaultContainer from '@/components/container/defaultContainer';
@@ -20,6 +20,7 @@ import {TScreeningTimeOption} from '@/models/enums/time';
 
 import {screeningSearchListStyles} from './ScreeningSearchList.style';
 import LoadingPage from '@/components/pages/loadingPage';
+import useRefreshing from '@/hooks/useRefresh';
 
 interface IScreenFilterListProps {
   category: TEngCategory | '';
@@ -31,6 +32,7 @@ const ScreeningSearchList = ({
   search,
   sortBy,
 }: IScreenFilterListProps) => {
+  const {onRefresh, isRefresh} = useRefreshing();
   const {data, isFetchingNextPage, fetchNextPage, isLoading} = useInfiniteQuery(
     {
       queryKey: ['screeningSearch', search, category, sortBy],
@@ -107,6 +109,12 @@ const ScreeningSearchList = ({
             renderItem={screeningListItem}
             keyExtractor={item => item.id.toString()}
             onEndReachedThreshold={0.6}
+            refreshControl={
+              <RefreshControl
+                refreshing={isRefresh}
+                onRefresh={() => onRefresh(['screeningSearch'])}
+              />
+            }
           />
         )}
 

@@ -11,7 +11,6 @@ export const getScreeningDetailReview = async (
   id: number,
 ): Promise<ResponseDTO<TScreeningReviewContent[]>> => {
   const res = await api.get(`/screening/screening-review/${id}`);
-  //console.log('리뷰 실행', res.data);
   return res.data;
 };
 

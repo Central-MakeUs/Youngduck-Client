@@ -118,7 +118,12 @@ const DetailScreen = ({route}: DetailScreenProps) => {
       />
       <View>
         {/*관람 신청 팝업 모달*/}
-        <DefaultScrollContainer>
+        <DefaultScrollContainer
+          queryKey={
+            currentTab === 0
+              ? ['screeningDetail']
+              : ['screeningReview', 'screeningRate']
+          }>
           {data && (
             <>
               <ImageContentScrollContainer
@@ -130,12 +135,12 @@ const DetailScreen = ({route}: DetailScreenProps) => {
                     category={data?.data.category}
                   />
                 )}
-                <TabBar
-                  currentTabBarNumber={currentTab}
-                  setCurrentTabBarNumber={setCurrentTab}
-                  tabBars={screeningTabBars}
-                />
               </ImageContentScrollContainer>
+              <TabBar
+                currentTabBarNumber={currentTab}
+                setCurrentTabBarNumber={setCurrentTab}
+                tabBars={screeningTabBars}
+              />
 
               {currentTab === 0 && <DetailInfoPage item={data?.data} />}
               {currentTab === 1 && <DetailReviewPage id={id} />}

@@ -46,7 +46,11 @@ function HomeScreen() {
     ],
   });
 
-  if (weekScreenings.isLoading) {
+  if (
+    weekScreenings.isLoading ||
+    recentScreenings.isLoading ||
+    mostCommentScreenings.isLoading
+  ) {
     return <LoadingPage />;
   }
 
@@ -65,7 +69,8 @@ function HomeScreen() {
   };
 
   return (
-    <DefaultScrollContainer>
+    <DefaultScrollContainer
+      queryKey={['weekScreening', 'recentScreening', 'mostCommentScreening']}>
       <Banner type="screening" onPress={handleGoWriting} />
       <SubTitle text="이번주 스크리닝" mt={12} />
       {weekScreenings.data?.data.length === 0 && (

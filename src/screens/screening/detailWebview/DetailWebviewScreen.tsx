@@ -2,6 +2,7 @@ import {useEffect} from 'react';
 import WebView from 'react-native-webview';
 
 import {useWebviewStore} from '@/stores/webview';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const DetailWebviewScreen = () => {
   const {setWebview, webview} = useWebviewStore();
@@ -10,6 +11,10 @@ const DetailWebviewScreen = () => {
     setWebview({...webview, isVisited: true});
   }, []);
 
-  return <WebView source={{uri: webview.uri}} style={{flex: 1}} />;
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <WebView source={{uri: webview.uri}} style={{flex: 1}} />
+    </SafeAreaView>
+  );
 };
 export default DetailWebviewScreen;
