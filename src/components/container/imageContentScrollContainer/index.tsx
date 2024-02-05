@@ -1,4 +1,5 @@
 import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
+import EmptyPoster from '@/assets/icons/empty-poster.svg';
 import useNavigator from '@/hooks/useNavigator';
 import {getScreenSize} from '@/utils/getScreenSize';
 import {useState} from 'react';
@@ -17,12 +18,14 @@ interface IImageContentScrollContainerProp {
   children: React.ReactNode;
   title: string;
   posterImage: string;
+  imageSize: {width: number; height: number};
 }
 
 const ImageContentScrollContainer = ({
   children,
   title,
   posterImage,
+  imageSize,
 }: IImageContentScrollContainerProp) => {
   const {stackNavigation} = useNavigator();
   const {screenWidth} = getScreenSize();
@@ -37,18 +40,17 @@ const ImageContentScrollContainer = ({
       1 - e.nativeEvent.contentOffset.y / (screenWidth - (top + 60));
     setOpacity(value < 0 ? 0 : value);
   };
-
+  const styles = imageContentScrollContainerStyles({
+    width: imageSize.width,
+    height: imageSize.height,
+  });
   return (
-    <View
-      style={[
-        imageContentScrollContainerStyles.container,
-        {paddingBottom: bottom},
-      ]}>
-      <View style={imageContentScrollContainerStyles.topBarWrap}>
+    <View style={[styles.container, {paddingBottom: bottom}]}>
+      <View style={styles.topBarWrap}>
         <BackTitleTopBar opacity={opacity} goBack={handleGoBack} text={title} />
       </View>
       <ScrollView
-        style={imageContentScrollContainerStyles.container}
+        style={styles.container}
         scrollEventThrottle={16}
         onScroll={calculateOpacity}
         bounces={false}>
@@ -58,22 +60,17 @@ const ImageContentScrollContainer = ({
               source={{
                 uri: posterImage,
               }}
-              style={imageContentScrollContainerStyles.image}
+              style={styles.image}
             />
           ) : (
-            <View
-              style={[
-                imageContentScrollContainerStyles.image,
-                {backgroundColor: 'white'},
-              ]}
-            />
+            <EmptyPoster width={screenWidth} height={screenWidth * 1.48} />
           )}
           <LinearGradient
             colors={['rgba(0,0,0,0.7)', 'rgba(0,0,0,0)']}
-            style={imageContentScrollContainerStyles.imageBlur}
+            style={styles.imageBlur}
           />
         </View>
-        <ScrollView style={imageContentScrollContainerStyles.container}>
+        <ScrollView bounces={false} style={styles.container}>
           {children}
         </ScrollView>
       </ScrollView>
