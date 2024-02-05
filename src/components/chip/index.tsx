@@ -21,7 +21,7 @@ const Chip = <T extends string>({
         ...chipStyles.container,
         ...chipStyle[state],
         borderWidth: state === 'secondary' ? 1 : undefined,
-        borderRadius: state === 'secondary' ? 8 : undefined,
+        borderRadius: state === 'secondary' ? 8 : 4,
         marginTop: mt ? mt : undefined,
         marginBottom: mb ? mb : undefined,
       }}>
