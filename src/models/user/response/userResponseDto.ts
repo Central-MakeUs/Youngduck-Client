@@ -7,6 +7,7 @@ export interface IUserDataResponse {
   profileImgNum: number;
   oauthProvider: LoginType;
   maeketingAgreement: boolean;
+  userId: number;
 }
 
 export interface INicknameDuplicationResponse {
