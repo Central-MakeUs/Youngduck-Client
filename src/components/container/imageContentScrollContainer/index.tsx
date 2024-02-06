@@ -9,16 +9,20 @@ import {
   Image,
   NativeScrollEvent,
   NativeSyntheticEvent,
+  RefreshControl,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import imageContentScrollContainerStyles from './imageContentScrollContainer.style';
+import {QueryKey} from '@tanstack/react-query';
+import useRefreshing from '@/hooks/useRefresh';
 
 interface IImageContentScrollContainerProp {
   children: React.ReactNode;
   title: string;
   posterImage: string;
   imageSize: {width: number; height: number};
+  queryKey?: QueryKey[] | QueryKey;
 }
 
 const ImageContentScrollContainer = ({
@@ -26,7 +30,9 @@ const ImageContentScrollContainer = ({
   title,
   posterImage,
   imageSize,
+  queryKey,
 }: IImageContentScrollContainerProp) => {
+  const {onRefresh, isRefresh} = useRefreshing();
   const {stackNavigation} = useNavigator();
   const {screenWidth} = getScreenSize();
   const {top, bottom} = useSafeAreaInsets();
@@ -38,7 +44,10 @@ const ImageContentScrollContainer = ({
   const calculateOpacity = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const value =
       1 - e.nativeEvent.contentOffset.y / (screenWidth - (top + 60));
-    setOpacity(value < 0 ? 0 : value);
+
+    if (value > 1) return setOpacity(2 - value);
+    if (value < 0) return setOpacity(0);
+    setOpacity(value);
   };
   const styles = imageContentScrollContainerStyles({
     width: imageSize.width,
@@ -53,7 +62,12 @@ const ImageContentScrollContainer = ({
         style={styles.container}
         scrollEventThrottle={16}
         onScroll={calculateOpacity}
-        bounces={false}>
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefresh}
+            onRefresh={() => onRefresh(queryKey!!)}
+          />
+        }>
         <View style={{opacity: opacity}}>
           {!!posterImage ? (
             <Image
@@ -70,9 +84,7 @@ const ImageContentScrollContainer = ({
             style={styles.imageBlur}
           />
         </View>
-        <ScrollView bounces={false} style={styles.container}>
-          {children}
-        </ScrollView>
+        <ScrollView style={styles.container}>{children}</ScrollView>
       </ScrollView>
     </View>
   );

@@ -1,6 +1,6 @@
 export type TQuitReason =
   | 'NOT_USED'
-  | 'UNCONFORTABLE'
+  | 'UNCOMFORTABLE'
   | 'USE_OTHER_SERVICE'
   | 'ETC';
 

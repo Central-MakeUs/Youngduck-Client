@@ -19,7 +19,6 @@ import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import LoadingPage from '@/components/pages/loadingPage';
 import ScreeningTitle from '@/components/title/screeningTitle';
 import Tooltip from '@/components/tooltip';
-import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
 
 import {detailScreenStyles} from './DetailScreen.style';
 import {getScreenSize} from '@/utils/getScreenSize';
@@ -130,39 +129,33 @@ const DetailScreen = ({route}: DetailScreenProps) => {
         onClose={onClosePopupCancel}
         onPress={handleCacelPopupPress}
       />
-      <View>
-        {/*관람 신청 팝업 모달*/}
-        <DefaultScrollContainer
+
+      {data && (
+        <ImageContentScrollContainer
+          posterImage={data?.data.posterImgUrl}
+          title={data?.data.screeningTitle}
+          imageSize={imageSize}
           queryKey={
             currentTab === 0
               ? ['screeningDetail']
               : ['screeningReview', 'screeningRate']
           }>
           {data && (
-            <>
-              <ImageContentScrollContainer
-                posterImage={data?.data.posterImgUrl}
-                title={data?.data.screeningTitle}
-                imageSize={imageSize}>
-                {data && (
-                  <ScreeningTitle
-                    title={data?.data.screeningTitle}
-                    category={data?.data.category}
-                  />
-                )}
-                <TabBar
-                  currentTabBarNumber={currentTab}
-                  setCurrentTabBarNumber={setCurrentTab}
-                  tabBars={screeningTabBars}
-                />
-
-                {currentTab === 0 && <DetailInfoPage item={data?.data} />}
-                {currentTab === 1 && <DetailReviewPage id={id} />}
-              </ImageContentScrollContainer>
-            </>
+            <ScreeningTitle
+              title={data?.data.screeningTitle}
+              category={data?.data.category}
+            />
           )}
-        </DefaultScrollContainer>
-      </View>
+          <TabBar
+            currentTabBarNumber={currentTab}
+            setCurrentTabBarNumber={setCurrentTab}
+            tabBars={screeningTabBars}
+          />
+
+          {currentTab === 0 && <DetailInfoPage item={data?.data} />}
+          {currentTab === 1 && <DetailReviewPage id={id} />}
+        </ImageContentScrollContainer>
+      )}
 
       {currentTab === 0 && tooltipeShow && (
         <View style={detailScreenStyles.tooltip}>
