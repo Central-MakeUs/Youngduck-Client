@@ -27,7 +27,7 @@ const InputGenre = ({nickname, idToken}: IInputGenreProps) => {
     '갱스터',
     '누와르',
     '모험',
-    '미스테리',
+    '미스터리',
     '스릴러',
     '공포',
     '전쟁',
