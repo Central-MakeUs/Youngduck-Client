@@ -73,54 +73,46 @@ const Input = ({
         </Typography>
       )}
 
-      <View style={{justifyContent: 'center'}}>
-        <TextInput
-          {...props}
-          style={[
-            inputStyles.input,
-            {
-              borderColor: inputTypes[type].borderColor,
-              color: palette.Text.Normal,
-            },
-          ]}
-          placeholder={placeholder}
-          onChangeText={onChangeInput}
-          value={maxLength ? value.slice(0, maxLength) : value}
-          ref={inputRef ? inputRef : null}
-          onFocus={onFocus}
-          onBlur={() => {
-            if (maxLength) {
-              onFocusout(value, maxLength);
-            } else {
-              onFocusout(value);
-            }
-          }}
-          placeholderTextColor={palette.Text.Assistive}
-          importantForAutofill="yes"
-          blurOnSubmit={false}
-          clearButtonMode={mode !== 'input' ? 'never' : 'while-editing'}
-          keyboardType={
-            keyBoardType === 'email'
-              ? 'email-address'
-              : keyBoardType === 'phone'
-              ? 'phone-pad'
-              : keyBoardType === 'url'
-              ? 'url'
-              : 'default'
+      <TextInput
+        {...props}
+        style={[inputStyles.input, {borderColor: inputTypes[type].borderColor}]}
+        placeholder={placeholder}
+        onChangeText={onChangeInput}
+        value={maxLength ? value.slice(0, maxLength) : value}
+        ref={inputRef ? inputRef : null}
+        onFocus={onFocus}
+        onBlur={() => {
+          if (maxLength) {
+            onFocusout(value, maxLength);
+          } else {
+            onFocusout(value);
           }
+        }}
+        placeholderTextColor={palette.Text.Assistive}
+        importantForAutofill="yes"
+        blurOnSubmit={false}
+        clearButtonMode={mode !== 'input' ? 'never' : 'while-editing'}
+        keyboardType={
+          keyBoardType === 'email'
+            ? 'email-address'
+            : keyBoardType === 'phone'
+            ? 'phone-pad'
+            : keyBoardType === 'url'
+            ? 'url'
+            : 'default'
+        }
+      />
+      {/*중복 확인 버튼*/}
+      {mode === 'check' && (
+        <DuplicatedButton
+          value={value}
+          isDuplicated={isDuplicated}
+          onPress={checkDuplicate!}
         />
-        {/*중복 확인 버튼*/}
-        {mode === 'check' && (
-          <DuplicatedButton
-            value={value}
-            isDuplicated={isDuplicated}
-            onPress={checkDuplicate!}
-          />
-        )}
+      )}
 
-        {/* 팝콘작 추천하기 -> 영화 검색 버튼 */}
-        {mode === 'search' && <SearchButton onPress={onSearchPress!} />}
-      </View>
+      {/* 팝콘작 추천하기 -> 영화 검색 버튼 */}
+      {mode === 'search' && <SearchButton onPress={onSearchPress!} />}
 
       {content && type === 'active' && (
         <Typography style="Chips1" color={inputTypes[type].contentColor} mt={4}>

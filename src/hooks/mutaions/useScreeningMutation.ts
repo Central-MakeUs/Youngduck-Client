@@ -38,8 +38,11 @@ const useScreeningMutation = () => {
     onSuccess: () => {
       showSnackBar('스크리닝 수정이 되었습니다');
       stackNavigation.navigate(stackScreens.BottomTabScreens);
+
       queryClient.invalidateQueries({queryKey: ['screeningDetail']});
       queryClient.invalidateQueries({queryKey: ['screeningFilter']});
+      queryClient.invalidateQueries({queryKey: ['watchedScreeningData']});
+      queryClient.invalidateQueries({queryKey: ['myScreeningReviewData']});
     },
   });
 
@@ -58,6 +61,7 @@ const useScreeningMutation = () => {
     mutationFn: postScreeningBookmark,
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: ['screeningDetail']});
+      queryClient.invalidateQueries({queryKey: ['jjimScreeningData']});
     },
     onError: err => {
       const errorResponse = (err as AxiosError).response;

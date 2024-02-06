@@ -2,6 +2,12 @@ import {TextInputStyle, TextInputType} from '@/types/ui';
 import palette from './theme/color';
 import {StyleSheet, ViewStyle} from 'react-native';
 
+const commonInputStyles = {
+  paddingHorizontal: 16,
+  borderWidth: 1,
+  borderRadius: 8,
+};
+
 // 공통 input styles
 export const inputTypes: Record<TextInputType, TextInputStyle> = {
   default: {
@@ -33,18 +39,14 @@ export const inputTypes: Record<TextInputType, TextInputStyle> = {
 
 export const inputStyles = StyleSheet.create({
   input: {
-    width: '100%',
-    height: 40,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    borderWidth: 1,
+    ...commonInputStyles,
+    fontSize: 16,
+    paddingVertical: 10,
+    textAlignVertical: 'center',
   },
   buntton: {
+    ...commonInputStyles,
     paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderWidth: 1,
-    borderRadius: 8,
     borderColor: palette.Line.Normal,
     flexDirection: 'row',
     alignItems: 'center',
