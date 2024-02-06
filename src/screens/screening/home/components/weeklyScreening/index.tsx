@@ -48,7 +48,9 @@ const WeeklyScreening = ({
         {getCategory(category)}
       </Typography>
       <Typography style="Label1">{hostName}</Typography>
-      <Typography style="Chips2">{getSimpleDate(date)}</Typography>
+      <Typography style="Chips2" color={palette.Text.Alternative}>
+        {getSimpleDate(date)}
+      </Typography>
     </TouchableOpacity>
   );
 };

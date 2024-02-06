@@ -16,9 +16,9 @@ import {
 const today = new Date();
 
 const getDateRange = (startDate: DateParsable, endDate: DateParsable) => {
-  const dateRange = `${format(startDate, 'yyyy-MM-dd')} ~ ${format(
+  const dateRange = `${format(startDate, 'yyyy.MM.dd')} - ${format(
     endDate,
-    'yyyy-MM-dd',
+    'yyyy.MM.dd',
   )}`;
 
   return dateRange;

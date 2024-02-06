@@ -47,11 +47,11 @@ const ScreeningItem = ({
       />
       <View style={screeningItemStyles.content}>
         <Typography style="Label1">{title}</Typography>
-        <Typography style="Chips1" color={palette.Text.Alternative} mt={4}>
-          {getKorDateRange(startDate, endDate)}
-        </Typography>
         <Typography style="Chips1" color={palette.Text.Alternative}>
           {hostName}
+        </Typography>
+        <Typography style="Chips1" color={palette.Text.Alternative}>
+          {getKorDateRange(startDate, endDate)}
         </Typography>
       </View>
     </TouchableOpacity>

@@ -3,11 +3,15 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import 'react-native-svg';
 
 import Navigator from './navigators/Navigator';
-import {setupAlarm} from './services/alarmService';
+import {alarmTest, setupAlarm} from './services/alarmService';
+import {useEffect} from 'react';
 
 setupAlarm();
 
 function App() {
+  useEffect(() => {
+    alarmTest();
+  }, []);
   const queryClient = new QueryClient();
 
   return (

@@ -1,4 +1,4 @@
-import {api} from '@/apis';
+import {api, apiWithoutToken} from '@/apis';
 import {ResponseDTO} from '@/models/common/responseDTO';
 import {
   IScreeningBodyRequest,
@@ -26,7 +26,7 @@ export const patchScreening = async (body: IScreeningModifyBodyRequest) => {
 export const getWeekScreening = async (): Promise<
   ResponseDTO<TWeekScreeningResponse>
 > => {
-  const res = await api.get('/screening/upcoming-Screening');
+  const res = await apiWithoutToken.get('/screening/upcoming-Screening');
   return res.data;
 };
 
@@ -34,7 +34,7 @@ export const getWeekScreening = async (): Promise<
 export const getRecentScreening = async (): Promise<
   ResponseDTO<TWeekScreeningResponse>
 > => {
-  const res = await api.get('/screening/recent-Screening');
+  const res = await apiWithoutToken.get('/screening/recent-Screening');
   return res.data;
 };
 
@@ -42,6 +42,6 @@ export const getRecentScreening = async (): Promise<
 export const getMostCommentScreening = async (): Promise<
   ResponseDTO<TWeekScreeningResponse>
 > => {
-  const res = await api.get('/screening/most-reviewed');
+  const res = await apiWithoutToken.get('/screening/most-reviewed');
   return res.data;
 };

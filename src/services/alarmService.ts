@@ -69,4 +69,18 @@ const getDeviceToken = async (userId: number) => {
     console.error(error);
   }
 };
-export {setupAlarm, getDeviceToken};
+
+const alarmTest = async () => {
+  try {
+    if (!messaging().isDeviceRegisteredForRemoteMessages) {
+      // 기기 등록
+      await messaging().registerDeviceForRemoteMessages();
+    }
+    const token = await messaging().getToken();
+    console.log('phone token', token);
+    // 서버로 부터 토큰 api로 보내줌
+  } catch (error) {
+    console.error(error);
+  }
+};
+export {setupAlarm, getDeviceToken, alarmTest};

@@ -103,8 +103,8 @@ const SettingScreen = () => {
       <View style={settingScreenStyles.alarmWarp}>
         <View>
           <SubTitleDescription
-            text="서비스 이용 알림"
-            subTitle={`관심 스크리닝 스케줄 알림 등\n이용 편의를 위한 알림을 드려요.`}
+            text="PUSH 알림"
+            subTitle={`관심 스크리닝 스케줄 알림 등\n이용 편의를 위한 알림을 드려요`}
             textStyle="Label1"
             subTitleStyle="Body2"
           />
@@ -114,8 +114,8 @@ const SettingScreen = () => {
       <View style={settingScreenStyles.alarmWarp}>
         <View>
           <SubTitleDescription
-            text="광고성/혜택 정보 알림"
-            subTitle={`이벤트, 혜택 알림 등 마케팅 알림을 드려요.`}
+            text="마케팅 정보 수신 동의"
+            subTitle={`언제든 동의를 철회할 수 있어요`}
             textStyle="Label1"
             subTitleStyle="Body2"
           />
