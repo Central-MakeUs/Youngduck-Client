@@ -2,7 +2,6 @@ import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
 const popcornKeywordStyles = StyleSheet.create({
-  participateWrap: {flexDirection: 'row', gap: 8, marginBottom: 12},
   keywordWrap: {
     width: '100%',
     borderRadius: 12,

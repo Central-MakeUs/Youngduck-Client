@@ -84,7 +84,7 @@ function PopcornPartyDetailScreen({
 
   // tab bar에 필요한 제목들 선언
   const tabBars = [
-    {title: '팝콘 지수', tabNumber: 0},
+    {title: '팝콘지수', tabNumber: 0},
     {title: '팝콘들의 리뷰', tabNumber: 1},
   ];
 
@@ -152,7 +152,6 @@ function PopcornPartyDetailScreen({
               score={popcornRate === undefined ? 0 : Number(popcornRate)}>
               <PopcornRate isOpen={isOpen} setIsOpen={setIsOpen} />
             </ScreeningRate>
-            <Divider height={8} mt={-8} mb={16} />
           </DefaultContainer>
         )}
         {currentTabBarNumber === 1 && (
@@ -190,9 +189,9 @@ function PopcornPartyDetailScreen({
                 )}
               </>
             )}
-            <Divider height={8} mt={8} mb={16} />
           </DefaultContainer>
         )}
+        <Divider height={8} mt={currentTabBarNumber ? 8 : -8} mb={16} />
         <VoteNextPopcorn
           popcornRecommendData={randomPopcornRecommendData.data?.data!}
           title="팝콘 튀기고 싶은 다른 영화가 있다면?"
