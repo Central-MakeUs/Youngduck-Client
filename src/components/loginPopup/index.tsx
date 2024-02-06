@@ -20,8 +20,8 @@ const LoginPopup = () => {
             setLoginPopup(false);
             stackNavigation.navigate(stackScreens.LoginScreen);
           }}
-          leftText="가입하기"
-          rigthText="둘러보기"
+          leftText="둘러보기"
+          rigthText="가입하기"
         />
       )}
     </>
