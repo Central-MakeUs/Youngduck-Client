@@ -5,7 +5,7 @@ import Typography from '@/components/typography';
 import useNavigator from '@/hooks/useNavigator';
 import {useUserStore} from '@/stores/user';
 import {useState} from 'react';
-import {View} from 'react-native';
+import {Keyboard, Pressable, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import changeNicknameScreenStyles from './ChangeNicknameScreen.style';
 import TitleCenterTopBar from '@/components/topBar/titleCenterTopBar';
@@ -36,13 +36,13 @@ const ChangeNicknameScreen = () => {
   const checkDuplicate = () => check(nickname);
 
   return (
-    <>
+    <Pressable style={{flex: 1}} onPress={Keyboard.dismiss}>
       <TitleCenterTopBar title="닉네임 변경하기" />
       <DefaultContainer>
         <View style={style.inputWrap}>
           <View>
             <Typography style="Subtitle2" mt={24} mb={40}>
-              수정할 닉네임
+              변경할 닉네임을 입력해 주세요
             </Typography>
             <Input
               value={nickname}
@@ -61,7 +61,7 @@ const ChangeNicknameScreen = () => {
           </BoxButton>
         </View>
       </DefaultContainer>
-    </>
+    </Pressable>
   );
 };
 

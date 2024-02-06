@@ -7,11 +7,21 @@ interface BottomSheetProps {
   children: React.ReactNode;
   drawerRef: React.RefObject<BottomDrawerMethods> | null;
   height?: number;
+  onBackdropPress?: () => void;
 }
 
-const BottomSheet = ({children, drawerRef, height}: BottomSheetProps) => {
+const BottomSheet = ({
+  children,
+  drawerRef,
+  height,
+  onBackdropPress,
+}: BottomSheetProps) => {
   return (
-    <BottomDrawer ref={drawerRef} openOnMount={false} initialHeight={height}>
+    <BottomDrawer
+      onBackdropPress={onBackdropPress}
+      ref={drawerRef}
+      openOnMount={false}
+      initialHeight={height}>
       {children}
     </BottomDrawer>
   );

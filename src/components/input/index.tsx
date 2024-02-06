@@ -113,9 +113,9 @@ const Input = ({
             onPress={checkDuplicate!}
           />
         )}
+        {/* 팝콘작 추천하기 -> 영화 검색 버튼 */}
+        {mode === 'search' && <SearchButton onPress={onSearchPress!} />}
       </View>
-      {/* 팝콘작 추천하기 -> 영화 검색 버튼 */}
-      {mode === 'search' && <SearchButton onPress={onSearchPress!} />}
 
       {content && type === 'active' && (
         <Typography style="Chips1" color={inputTypes[type].contentColor} mt={4}>
