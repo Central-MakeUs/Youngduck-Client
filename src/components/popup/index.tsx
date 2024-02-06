@@ -15,6 +15,8 @@ interface ModalProps {
   onClose: () => void;
   onPress: () => void;
   type?: 'error' | 'default';
+  leftText?: string;
+  rigthText?: string;
 }
 
 const Popup = ({
@@ -24,6 +26,8 @@ const Popup = ({
   onClose,
   onPress,
   type,
+  leftText = '아니요',
+  rigthText = '네',
 }: ModalProps) => {
   return (
     <ModalContainer
@@ -45,13 +49,13 @@ const Popup = ({
 
         <View style={popupStyles.container}>
           <BoxButton variant="default" onPress={onClose} width="35%">
-            아니오
+            {leftText}
           </BoxButton>
           <BoxButton
             onPress={onPress}
             variant={type === 'error' ? 'highlight' : 'primary'}
             width="35%">
-            네
+            {rigthText}
           </BoxButton>
         </View>
       </View>
