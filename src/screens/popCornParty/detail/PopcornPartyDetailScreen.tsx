@@ -207,14 +207,15 @@ function PopcornPartyDetailScreen({
                     key={popcornReview.createdAt}
                   />
                 ))}
-                {popcornReviewData?.data.data.length! > 5 && (
-                  <BoxButton
-                    onPress={() => setViewMoreComment(true)}
-                    mb={16}
-                    variant="default">
-                    더보기
-                  </BoxButton>
-                )}
+                {popcornReviewData?.data.data.length! > 5 &&
+                  !viewMoreComment && (
+                    <BoxButton
+                      onPress={() => setViewMoreComment(true)}
+                      mb={16}
+                      variant="default">
+                      더보기
+                    </BoxButton>
+                  )}
               </>
             )}
           </DefaultContainer>

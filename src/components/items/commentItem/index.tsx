@@ -32,6 +32,7 @@ const CommentItem = ({
   complainOnPress,
 }: ICommentItemProps) => {
   const {user} = useUserStore();
+  const isWithdrawUser = nickName.includes('삭제한 유저');
   return (
     <View
       style={[
@@ -45,8 +46,12 @@ const CommentItem = ({
         />
         <View style={commentItemStyles.label}>
           <View style={commentItemStyles.name}>
-            <Typography style="Label1" color={palette.Text.Strong}>
-              {nickName}
+            <Typography
+              style="Label1"
+              color={
+                isWithdrawUser ? palette.Text.Assistive : palette.Text.Strong
+              }>
+              {isWithdrawUser ? '탈퇴한 유저' : nickName}
             </Typography>
             {user.nickname !== nickName && (
               <Pressable onPress={complainOnPress}>
