@@ -1,4 +1,4 @@
-import {Pressable, View, TextInput, TouchableOpacity} from 'react-native';
+import {Pressable, View, TouchableOpacity} from 'react-native';
 import ModalContainer from 'react-native-modal';
 import {useEffect, useState} from 'react';
 
@@ -32,9 +32,7 @@ const Select = <T extends string>({
 
   const [optionVisible, setOptionVisible] = useState(false);
 
-  const showOptions = () => {
-    setOptionVisible(prev => !prev);
-  };
+  const showOptions = () => setOptionVisible(prev => !prev);
 
   useEffect(() => {
     onBlur(value);
@@ -48,39 +46,19 @@ const Select = <T extends string>({
         essential={essential}>
         {title}
       </Typography>
-      <View>
-        <Pressable
-          style={[
-            {borderColor: inputTypes[type].borderColor},
-            inputStyles.button,
-          ]}
-          onPress={showOptions}
-          onPressIn={() => onFocus()}
-          onPressOut={() => onBlur(value)}>
-          <TextInput
-            style={[
-              inputStyles.input,
-              {borderColor: inputTypes[type].borderColor},
-              {color: palette.Text.Normal},
-            ]}
-            onFocus={onFocus}
-            placeholder={placeholder}
-            value={value}
-            editable={false}
-            placeholderTextColor={palette.Text.Assistive}
-          />
-          {optionVisible && (
-            <View style={inputStyles.logo}>
-              <TopArrow />
-            </View>
-          )}
-          {!optionVisible && (
-            <View style={inputStyles.logo}>
-              <DownArrow />
-            </View>
-          )}
-        </Pressable>
-      </View>
+      <Pressable
+        style={inputStyles.buntton}
+        onPress={showOptions}
+        onPressIn={() => onFocus()}
+        onPressOut={() => onBlur(value)}>
+        <Typography
+          style="Body1"
+          color={value ? palette.Text.Normal : palette.Text.Assistive}>
+          {value ? value : placeholder}
+        </Typography>
+        {optionVisible && <TopArrow />}
+        {!optionVisible && <DownArrow />}
+      </Pressable>
       {/*select 컴포넌트 options 리스트*/}
       <ModalContainer
         isVisible={optionVisible}

@@ -2,11 +2,10 @@ import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
 interface ILoginScreenStylesProps {
-  width: number;
-  height: number;
+  bottom: number;
 }
 
-const loginScreenStyles = ({width, height}: ILoginScreenStylesProps) =>
+const loginScreenStyles = ({bottom}: ILoginScreenStylesProps) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -24,12 +23,7 @@ const loginScreenStyles = ({width, height}: ILoginScreenStylesProps) =>
       marginBottom: 8,
       fontFamily: 'Pretendard Variable',
     },
-    image: {
-      width: width,
-      height: height,
-      position: 'absolute',
-      resizeMode: 'stretch',
-    },
+    image: {position: 'absolute', bottom: -bottom},
   });
 
 export default loginScreenStyles;

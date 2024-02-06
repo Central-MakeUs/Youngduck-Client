@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import {View} from 'react-native';
+import {useEffect, useState} from 'react';
+import {Image, View} from 'react-native';
 import {useQuery} from '@tanstack/react-query';
 
 import {ScreenRouteProp} from '@/types/navigator';
@@ -16,16 +16,20 @@ import useNavigator from '@/hooks/useNavigator';
 import {getScreeningMyDetailContent} from '@/apis/screening/detail';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
+import LoadingPage from '@/components/pages/loadingPage';
+import {getScreenSize} from '@/utils/getScreenSize';
 
 interface IMyDetailScreenProps {
   route: ScreenRouteProp<stackScreens.MyDetailScreen>;
 }
 const MyDetailScreen = ({route: {params}}: IMyDetailScreenProps) => {
   const [currentTab, setCurrentTab] = useState<number>(0);
+  const [imageSize, setImageSize] = useState({width: 0, height: 0});
+  const {screenWidth} = getScreenSize();
   const {stackNavigation} = useNavigator();
   const {uploadScreeningPrivate} = useScreeningMutation();
 
-  const {data} = useQuery({
+  const {data, isLoading} = useQuery({
     queryKey: ['screeningMyDetail'],
     queryFn: () => getScreeningMyDetailContent(params.id),
   });
@@ -45,6 +49,18 @@ const MyDetailScreen = ({route: {params}}: IMyDetailScreenProps) => {
     await uploadScreeningPrivate.mutateAsync(params.id);
   };
 
+  // 포스터의 비율을 구하고 크기를 조정하여 배경 이미지로 사용
+  useEffect(() => {
+    if (!isLoading)
+      Image.getSize(data?.data.posterImgUrl!, (width, height) =>
+        setImageSize({
+          width: screenWidth,
+          height: (height * screenWidth) / width,
+        }),
+      );
+  }, [isLoading]);
+  if (isLoading) return <LoadingPage />;
+
   return (
     <>
       <View>
@@ -52,7 +68,8 @@ const MyDetailScreen = ({route: {params}}: IMyDetailScreenProps) => {
           {data && (
             <ImageContentScrollContainer
               title={data?.data.screeningTitle}
-              posterImage={data?.data.posterImgUrl}>
+              posterImage={data?.data.posterImgUrl}
+              imageSize={imageSize}>
               {data && (
                 <ScreeningTitle
                   title={data?.data.screeningTitle}

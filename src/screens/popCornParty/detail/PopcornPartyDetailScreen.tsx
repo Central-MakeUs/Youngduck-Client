@@ -27,6 +27,7 @@ import {getWeekOfMonthString} from '@/utils/getDate';
 import EmptyItem from '@/components/items/emptyItem';
 import LoadingPage from '@/components/pages/loadingPage';
 import Loading from '@/components/loading';
+import {getScreenSize} from '@/utils/getScreenSize';
 
 interface IPopcornPartyDetailScreenProp {
   route: ScreenRouteProp<stackScreens.PopcornPartyDetailScreen>;
@@ -41,6 +42,8 @@ function PopcornPartyDetailScreen({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [viewMoreComment, setViewMoreComment] = useState<boolean>(false);
   const [complainPopup, setComplainPopup] = useState<boolean>(false);
+  const {screenWidth} = getScreenSize();
+  const imageSize = {width: screenWidth, height: screenWidth * 1.48};
   const currentFocusState = useIsFocused();
   const queryClient = useQueryClient();
   const {complainUserMutate, voteMovieMutate} = usePopcornPartyMutation();
@@ -99,15 +102,15 @@ function PopcornPartyDetailScreen({
   if (
     popcornPartyDetailData.isLoading ||
     popcornRateData.isLoading ||
-    popcornReviewData.isLoading ||
-    randomPopcornRecommendData.isLoading
+    popcornReviewData.isLoading
   )
     return <LoadingPage />;
 
   return (
     <ImageContentScrollContainer
       title={getWeekOfMonthString(null)!}
-      posterImage={movieData?.imageUrl!}>
+      posterImage={movieData?.imageUrl!}
+      imageSize={imageSize}>
       <Popup
         title="정말 신고하시겠어요?"
         content={`신고가 누적되면\n해당 유저의 서비스 이용이 제한돼요. `}

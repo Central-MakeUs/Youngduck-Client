@@ -10,7 +10,7 @@ import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import Popup from '@/components/popup';
 import {IChipProps} from '@/types/myPage';
-import {defaultImages} from '@/assets';
+import EmptyMovie from '@/assets/icons/empty-movie.svg';
 
 interface IMyManagementItemProps {
   // 필수 props
@@ -85,15 +85,20 @@ const MyManagementItem = ({
         onPress={onJjimOffPress}
       />
       <Pressable style={myManagementItemStyles.wrap} onPress={goToScreen}>
-        <Image
-          source={posterImgUrl ? {uri: posterImgUrl} : defaultImages.emptySmall}
-          style={myManagementItemStyles.image}
-        />
+        {posterImgUrl ? (
+          <Image
+            source={{uri: posterImgUrl}}
+            style={myManagementItemStyles.image}
+          />
+        ) : (
+          <EmptyMovie width={70} height={70} />
+        )}
+
         <View style={myManagementItemStyles.contentContainer}>
           <View style={myManagementItemStyles.contentWrap}>
             {mode !== 'popcorn-review' ? (
               // 팝콘작 리뷰가 아닌 모든 경우에는 제목과 상영 날짜가 들어감
-              <>
+              <View style={myManagementItemStyles.content}>
                 <Typography style="Label1" numberOfLines={1}>
                   {title}
                 </Typography>
@@ -101,10 +106,10 @@ const MyManagementItem = ({
                 <Typography style="Chips1" color={palette.Text.Alternative}>
                   {dateRange!}
                 </Typography>
-              </>
+              </View>
             ) : (
               // 팝콘작 리뷰의 경우 팝콘작 선정 기간, 제목, 감독명이 들어감
-              <>
+              <View style={myManagementItemStyles.content}>
                 <Typography style="Label2">{popcornOfWeek!}</Typography>
                 <Typography style="Title2" numberOfLines={1}>
                   {title}
@@ -112,7 +117,7 @@ const MyManagementItem = ({
                 <Typography style="Body2" color={palette.Text.Alternative}>
                   {director!}
                 </Typography>
-              </>
+              </View>
             )}
           </View>
           {mode === 'watched-screening' && (

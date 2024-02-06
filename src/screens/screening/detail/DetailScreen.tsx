@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {View} from 'react-native';
+import {Image, View} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 import {useQuery} from '@tanstack/react-query';
 
@@ -22,6 +22,7 @@ import Tooltip from '@/components/tooltip';
 import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
 
 import {detailScreenStyles} from './DetailScreen.style';
+import {getScreenSize} from '@/utils/getScreenSize';
 
 type DetailScreenProps = {
   route: ScreenRouteProp<stackScreens.DetailScreen>;
@@ -31,6 +32,8 @@ const DetailScreen = ({route}: DetailScreenProps) => {
   const {id} = route.params;
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [tooltipeShow, setTooltipShow] = useState<boolean>(false);
+  const [imageSize, setImageSize] = useState({width: 0, height: 0});
+  const {screenWidth} = getScreenSize();
 
   const {webview, setWebview} = useWebviewStore();
 
@@ -93,6 +96,17 @@ const DetailScreen = ({route}: DetailScreenProps) => {
     onClosePopupCancel();
   };
 
+  // 포스터의 비율을 구하고 크기를 조정하여 배경 이미지로 사용
+  useEffect(() => {
+    if (!isLoading)
+      Image.getSize(data?.data.posterImgUrl!, (width, height) =>
+        setImageSize({
+          width: screenWidth,
+          height: (height * screenWidth) / width,
+        }),
+      );
+  }, [isLoading]);
+
   if (isLoading) {
     return <LoadingPage />;
   }
@@ -128,22 +142,23 @@ const DetailScreen = ({route}: DetailScreenProps) => {
             <>
               <ImageContentScrollContainer
                 posterImage={data?.data.posterImgUrl}
-                title={data?.data.screeningTitle}>
+                title={data?.data.screeningTitle}
+                imageSize={imageSize}>
                 {data && (
                   <ScreeningTitle
                     title={data?.data.screeningTitle}
                     category={data?.data.category}
                   />
                 )}
-              </ImageContentScrollContainer>
-              <TabBar
-                currentTabBarNumber={currentTab}
-                setCurrentTabBarNumber={setCurrentTab}
-                tabBars={screeningTabBars}
-              />
+                <TabBar
+                  currentTabBarNumber={currentTab}
+                  setCurrentTabBarNumber={setCurrentTab}
+                  tabBars={screeningTabBars}
+                />
 
-              {currentTab === 0 && <DetailInfoPage item={data?.data} />}
-              {currentTab === 1 && <DetailReviewPage id={id} />}
+                {currentTab === 0 && <DetailInfoPage item={data?.data} />}
+                {currentTab === 1 && <DetailReviewPage id={id} />}
+              </ImageContentScrollContainer>
             </>
           )}
         </DefaultScrollContainer>

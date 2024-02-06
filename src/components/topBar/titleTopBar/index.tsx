@@ -4,7 +4,6 @@ import palette from '@/styles/theme/color';
 import {CommonMarginVerticalProps} from '@/types/ui';
 import {View} from 'react-native';
 import {titleStyles} from './TitleTopBar.style';
-import Profile from '@/components/profile';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface TitleTopBarProps extends CommonMarginVerticalProps {
@@ -23,7 +22,6 @@ const TitleTopBar = ({text, mb, mt}: TitleTopBarProps) => {
       <Typography style="Title1" color={palette.Another.Black}>
         {text}
       </Typography>
-      <Profile />
     </View>
   );
 };

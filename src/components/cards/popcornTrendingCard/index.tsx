@@ -1,18 +1,21 @@
 import Typography from '@/components/typography';
 import {Image, Pressable} from 'react-native';
-import {popcornTrendingCardStyles} from './PopcornTrendingCard.style';
 import Chip from '@/components/chip';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
 import {TTrendingData} from '@/models/popcornParty/reponse';
-import {defaultImages} from '@/assets';
 import useCheckLogin from '@/hooks/useCheckLogin';
+import {
+  popcornContainerStyles,
+  popcornImageStyles,
+} from './PopcornTrendingCard.style';
+import EmptyLarge from '@/assets/icons/empty-large.svg';
+import EmptyMedium from '@/assets/icons/empty-medium.svg';
 
 const PopcornTrendingCard = ({
   popcornId,
   movieTitle,
   imageUrl,
-  index,
   rank,
   mode,
 }: TTrendingData) => {
@@ -28,22 +31,16 @@ const PopcornTrendingCard = ({
   };
   return (
     <Pressable
-      style={
-        index
-          ? mode === 'without-ranking'
-            ? popcornTrendingCardStyles.largeContainer
-            : popcornTrendingCardStyles.mediumContainer
-          : popcornTrendingCardStyles.firstContainer
-      }
+      style={popcornContainerStyles[mode]}
       onPress={goToPopcornPartyDetail}>
-      <Image
-        source={imageUrl ? {uri: imageUrl} : defaultImages.emptyLarge}
-        style={
-          mode === 'without-ranking'
-            ? popcornTrendingCardStyles.largeImage
-            : popcornTrendingCardStyles.mediumImage
-        }
-      />
+      {imageUrl ? (
+        <Image source={{uri: imageUrl}} style={popcornImageStyles[mode]} />
+      ) : mode === 'without-ranking' ? (
+        <EmptyLarge />
+      ) : (
+        <EmptyMedium />
+      )}
+
       {mode === 'with-ranking' && <Chip text={`${rank}위`} mt={4} mb={4} />}
       <Typography style="Label1" numberOfLines={1}>
         {movieTitle}

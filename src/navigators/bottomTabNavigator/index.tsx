@@ -85,7 +85,7 @@ const BottomTabNavigator = () => {
           component={PopcornPartyHomeScreen}
           options={{
             tabBarLabel: bottomTabBarLabel.PopcornPartyHomeScreen,
-            header: () => <TitleTopBar text="팝콘 파티" />,
+            header: () => <TitleTopBar text="팝콘파티" />,
           }}
         />
         <BottomTab.Screen

@@ -5,24 +5,24 @@ const commonImageProps = {
   marginBottom: 4,
 };
 
-export const popcornTrendingCardStyles = StyleSheet.create({
-  firstContainer: {
-    marginHorizontal: 16,
-  },
-  largeContainer: {
+export const popcornContainerStyles = StyleSheet.create({
+  'without-ranking': {
     width: 108,
-    marginRight: 16,
+    marginLeft: 16,
   },
-  mediumContainer: {
+  'with-ranking': {
     width: 92,
-    marginRight: 16,
+    marginLeft: 16,
   },
-  largeImage: {
+});
+
+export const popcornImageStyles = StyleSheet.create({
+  'without-ranking': {
     ...commonImageProps,
     width: 108,
     height: 160,
   },
-  mediumImage: {
+  'with-ranking': {
     ...commonImageProps,
     width: 92,
     height: 136,

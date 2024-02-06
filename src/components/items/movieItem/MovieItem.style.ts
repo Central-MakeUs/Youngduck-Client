@@ -18,7 +18,7 @@ const movieItemStyles = StyleSheet.create({
     ...commonContainerStyles,
     borderColor: palette.Line.Normal,
   },
-  image: {width: 44, height: 44, marginRight: 8, borderRadius: 4},
+  image: {width: 44, height: 44, borderRadius: 4},
 });
 
 export default movieItemStyles;

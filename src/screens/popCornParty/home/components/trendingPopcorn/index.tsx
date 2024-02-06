@@ -3,19 +3,14 @@ import SubTitle from '@/components/title/subTitle';
 import {FlatList} from 'react-native';
 import {TTrendingPopcornData} from '@/models/popcornParty/reponse';
 
-interface ITrendingPopcornProps extends Record<'item', TTrendingPopcornData> {
-  index: number;
-}
-
 const TrendingPopcorn = ({
   trendingPopcornData,
 }: Record<'trendingPopcornData', TTrendingPopcornData[]>) => {
-  const withoutRankingItem = ({item, index}: ITrendingPopcornProps) => (
+  const withoutRankingItem = ({item}: Record<'item', TTrendingPopcornData>) => (
     <PopcornTrendingCard
       popcornId={item.popcornId}
       movieTitle={item.movieTitle}
       imageUrl={item.imageUrl}
-      index={index}
       mode="without-ranking"
     />
   );

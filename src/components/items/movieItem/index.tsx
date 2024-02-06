@@ -6,7 +6,7 @@ import {
   IRecommendMovieProps,
   ISearchMovieDataProps,
 } from '@/types/popcornParty';
-import {defaultImages} from '@/assets';
+import EmptyMovie from '@/assets/icons/empty-movie.svg';
 
 interface IMovieItem extends ISearchMovieDataProps {
   selected: IRecommendMovieProps;
@@ -31,11 +31,13 @@ const MovieItem = ({
           : movieItemStyles.defaultContainer
       }
       onPress={setRecommandMovie}>
-      <Image
-        source={poster === 'default' ? defaultImages.emptyMovie : {uri: poster}}
-        style={movieItemStyles.image}
-      />
-      <View>
+      {poster === 'default' ? (
+        <EmptyMovie width={44} height={44} />
+      ) : (
+        <Image source={{uri: poster}} style={movieItemStyles.image} />
+      )}
+
+      <View style={{marginLeft: 8}}>
         <Typography style="Label1" color={palette.Text.Strong}>
           {title}
         </Typography>

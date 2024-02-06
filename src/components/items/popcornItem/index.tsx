@@ -5,8 +5,8 @@ import Vote from '../../vote';
 import popcornItemStyles from './PopcornItem.style';
 import {useState} from 'react';
 import {TPopcornRecommendData} from '@/models/popcornParty/reponse';
-import {defaultImages} from '@/assets';
 import useCheckLogin from '@/hooks/useCheckLogin';
+import EmptySmall from '@/assets/icons/empty-small.svg';
 
 interface IPopcornItem extends TPopcornRecommendData {
   voteMovieMutate: (id: number) => void;
@@ -41,28 +41,30 @@ const PopcornItem = ({
           : popcornItemStyles.notVotedContainer
       }
       onPress={handleVoteMovie}>
-      <Image
-        source={
-          !!imageUrl
-            ? {
-                uri: imageUrl,
-              }
-            : defaultImages.emptySmall
-        }
-        style={popcornItemStyles.image}
-      />
+      {!!imageUrl ? (
+        <Image
+          source={{
+            uri: imageUrl,
+          }}
+          style={popcornItemStyles.image}
+        />
+      ) : (
+        <EmptySmall />
+      )}
       <View style={popcornItemStyles.wrap}>
-        <View style={popcornItemStyles.contentWrap}>
-          <View style={popcornItemStyles.typoWrap}>
-            <Typography style="Label1" numberOfLines={1}>
-              {movieTitle}
-            </Typography>
-          </View>
+        <View style={{marginBottom: 4}}>
           <View style={popcornItemStyles.contentWrap}>
-            <Vote isVoted={voteState} voteCount={voteCount} />
+            <View style={popcornItemStyles.typoWrap}>
+              <Typography style="Label1" numberOfLines={1}>
+                {movieTitle}
+              </Typography>
+            </View>
+            <View style={popcornItemStyles.contentWrap}>
+              <Vote isVoted={voteState} voteCount={voteCount} />
+            </View>
           </View>
+          <Typography style="Body2">{movieDirector}</Typography>
         </View>
-        <Typography style="Body2">{movieDirector}</Typography>
         <Typography style="Chips1" color={palette.Text.Alternative}>
           {recommendationReason}
         </Typography>

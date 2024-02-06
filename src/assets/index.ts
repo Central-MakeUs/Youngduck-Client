@@ -5,17 +5,10 @@ export interface Assets {
 }
 
 export const defaultImages: Assets = {
-  loginPopcorn: require('@/assets/images/Bg-login.png'),
-  completeSignupPopcorn: require('@/assets/images/Bg-fin.png'),
   pacong: require('@/assets/images/pacong.png'),
   popCornMate: require('@/assets/images/popcornmate.png'),
   writePopcorn: require('@/assets/images/bg-writeImage.png'),
   popCornParty: require('@/assets/images/bg-popcornParty.png'),
-
-  emptyMovie: require('@/assets/images/empty-movie.png'),
-  emptyLarge: require('@/assets/images/empty-large.png'),
-  emptyMedium: require('@/assets/images/empty-medium.png'),
-  emptySmall: require('@/assets/images/empty-small.png'),
 
   profile1: require('@/assets/images/profile-1.png'),
   profile2: require('@/assets/images/profile-2.png'),

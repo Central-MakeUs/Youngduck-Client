@@ -4,7 +4,7 @@ import useNavigator from '@/hooks/useNavigator';
 import palette from '@/styles/theme/color';
 import {FlatList, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import MyScreeningScreenStyles from './MyScreeningScreen.style';
+import myScreeningScreenStyles from './MyScreeningScreen.style';
 import MyManagementItem from '@/components/items/myManagementItem';
 import {useQuery} from '@tanstack/react-query';
 import {getMyScreeningData} from '@/apis/myPage';
@@ -15,7 +15,6 @@ import EmptyItem from '@/components/items/emptyItem';
 const MyScreeningScreen = () => {
   const {stackNavigation} = useNavigator();
   const {bottom} = useSafeAreaInsets();
-  const style = MyScreeningScreenStyles({bottom});
 
   const myScreeningData = useQuery({
     queryKey: ['myScreeningData'],
@@ -46,7 +45,7 @@ const MyScreeningScreen = () => {
         goBack={stackNavigation.goBack}
         opacity={0}
       />
-      <View style={style.paddingWrap}>
+      <View style={myScreeningScreenStyles.paddingWrap}>
         <Typography
           style="Label3"
           color={palette.Text.Alternative}
@@ -61,7 +60,8 @@ const MyScreeningScreen = () => {
         <FlatList
           data={myScreeningData.data?.data!}
           renderItem={renderScreeningScreenItem}
-          style={style.screeningListContainer}
+          style={myScreeningScreenStyles.screeningListContainer}
+          contentContainerStyle={{paddingBottom: bottom + 8}}
         />
       )}
     </>

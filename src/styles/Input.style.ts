@@ -40,13 +40,15 @@ export const inputStyles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
   },
-  button: {
-    position: 'relative',
-    justifyContent: 'center',
-  },
-  logo: {
-    position: 'absolute',
-    right: 16,
+  buntton: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderWidth: 1,
+    borderRadius: 8,
+    borderColor: palette.Line.Normal,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });
 

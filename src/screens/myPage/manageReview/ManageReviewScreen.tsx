@@ -11,7 +11,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import manageReviewScreenStyles from './ManageReviewScreen.style';
 import palette from '@/styles/theme/color';
 import {useQueries} from '@tanstack/react-query';
-import {getPopcornReviewData, getScreeningReviewData} from '@/apis/myPage';
+import {getMyScreeningReviewData, getMyPopcornReviewData} from '@/apis/myPage';
 import {
   IPopcornReviewProps,
   IScreeningReviewProps,
@@ -29,20 +29,20 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
   const [isScreeningReview, setIsScreeningReview] = useState<boolean>(
     params.isScreeningReview,
   );
-  const [screeningReviewData, popcornReviewData] = useQueries({
+  const [myScreeningReviewData, myPopcornReviewData] = useQueries({
     queries: [
-      {queryKey: ['screeningReviewData'], queryFn: getScreeningReviewData},
-      {queryKey: ['popcornReviewData'], queryFn: getPopcornReviewData},
+      {queryKey: ['myScreeningReviewData'], queryFn: getMyScreeningReviewData},
+      {queryKey: ['myPopcornReviewData'], queryFn: getMyPopcornReviewData},
     ],
   });
   const dataCount = isScreeningReview
-    ? screeningReviewData?.data?.data.length
-    : popcornReviewData?.data?.data.length;
+    ? myScreeningReviewData?.data?.data.length
+    : myPopcornReviewData?.data?.data.length;
 
   const dataCountString = `총 ${dataCount}건`;
 
   const {bottom} = useSafeAreaInsets();
-  const style = manageReviewScreenStyles({bottom});
+
   const renderScreeningReviewItem = ({
     item,
   }: Record<'item', IScreeningReviewProps>) => (
@@ -85,7 +85,7 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
         goBack={stackNavigation.goBack}
         opacity={0}
       />
-      <View style={style.menuWrap}>
+      <View style={manageReviewScreenStyles.menuWrap}>
         <SelectButton
           type="스크리닝 리뷰"
           onPress={() => setIsScreeningReview(true)}
@@ -97,7 +97,7 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
           isSelected={!isScreeningReview}
         />
       </View>
-      <View style={style.paddingWrap}>
+      <View style={manageReviewScreenStyles.paddingWrap}>
         <Typography
           style="Label3"
           color={palette.Text.Alternative}
@@ -108,27 +108,28 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
       </View>
       {isScreeningReview ? (
         <>
-          {screeningReviewData.data?.data.length === 0 && (
+          {myScreeningReviewData.data?.data.length === 0 && (
             <EmptyItem text="아직 스크리닝 리뷰를 안 했어요" size="large" />
           )}
-          {screeningReviewData.data?.data.length! > 0 && (
+          {myScreeningReviewData.data?.data.length! > 0 && (
             <FlatList
-              data={screeningReviewData.data?.data}
+              data={myScreeningReviewData.data?.data}
               renderItem={renderScreeningReviewItem}
-              style={style.screeningListContainer}
+              style={manageReviewScreenStyles.screeningListContainer}
             />
           )}
         </>
       ) : (
         <>
-          {popcornReviewData.data?.data.length === 0 && (
+          {myPopcornReviewData.data?.data.length === 0 && (
             <EmptyItem text="아직 팝콘작 리뷰를 안 했어요" size="large" />
           )}
-          {popcornReviewData.data?.data.length! > 0 && (
+          {myPopcornReviewData.data?.data.length! > 0 && (
             <FlatList
-              data={popcornReviewData.data?.data}
+              data={myPopcornReviewData.data?.data}
               renderItem={renderPopcornReviewItem}
-              style={style.screeningListContainer}
+              style={manageReviewScreenStyles.screeningListContainer}
+              contentContainerStyle={{paddingBottom: bottom + 8}}
             />
           )}
         </>

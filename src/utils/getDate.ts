@@ -10,6 +10,7 @@ import {
   isSameDay,
   getMonth,
   getWeekOfMonth,
+  addWeeks,
 } from 'date-fns';
 
 const today = new Date();
@@ -43,8 +44,8 @@ const getTime = (date: Date) => {
 };
 
 const getVoteDateRange = () => {
-  const startDate = format(startOfWeek(new Date()), 'M월 dd일');
-  const endDate = format(endOfWeek(new Date()), 'M월 dd일');
+  const startDate = format(addWeeks(startOfWeek(new Date()), 1), 'M월 dd일');
+  const endDate = format(addWeeks(endOfWeek(new Date()), 1), 'M월 dd일');
 
   return {startDate, endDate};
 };
