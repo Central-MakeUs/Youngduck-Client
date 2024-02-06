@@ -141,7 +141,7 @@ function WriteReviewScreen({route: {params}}: IWriteReviewScreenProps) {
     setIsLoading(true);
     movieReviewMutate({popcornId: params.id, body});
   };
-
+  const notWatched = startReview.hasWatched === false;
   const {bottom} = useSafeAreaInsets();
   return (
     <View style={writeReviewScreenStyles.container}>
@@ -165,16 +165,19 @@ function WriteReviewScreen({route: {params}}: IWriteReviewScreenProps) {
             <StartReview
               startReview={startReview}
               setStartReview={setStartReview}
+              notWatched={notWatched}
             />
           </DefaultScrollContainer>
           <View
             style={{marginBottom: 0, paddingTop: 10, paddingBottom: bottom}}>
             <MultiButton
               leftButtonText="이전"
-              rightButtonText="다음"
+              rightButtonText={notWatched ? '닫기' : '다음'}
               onLeftButtonPress={goBackOrPreviousScreen}
-              onRightButtonPress={nextScreen}
-              disabled={!reviewAllSelceted}
+              onRightButtonPress={
+                notWatched ? goBackOrPreviousScreen : nextScreen
+              }
+              disabled={!reviewAllSelceted && !notWatched}
             />
           </View>
         </View>

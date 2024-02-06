@@ -8,10 +8,15 @@ interface IStartReviewProps {
   setStartReview: React.Dispatch<
     React.SetStateAction<{[key: string]: boolean | undefined}>
   >;
+  notWatched: boolean;
 }
 
-const StartReview = ({startReview, setStartReview}: IStartReviewProps) => {
-  const questions = [
+const StartReview = ({
+  startReview,
+  setStartReview,
+  notWatched,
+}: IStartReviewProps) => {
+  const questionList = [
     {
       category: 'hasWatched',
       question: '영화는 관람하셨나요?',
@@ -28,6 +33,7 @@ const StartReview = ({startReview, setStartReview}: IStartReviewProps) => {
       answers: ['기대만큼 좋았어요.', '기대보다 아쉬웠어요.'],
     },
   ];
+  const questions = notWatched ? [questionList[0]] : questionList;
   const selectButton = (category: string, index: number) => {
     if (
       (startReview[category] === true && index === 0) ||
@@ -62,6 +68,9 @@ const StartReview = ({startReview, setStartReview}: IStartReviewProps) => {
           </View>
         </View>
       ))}
+      {notWatched && (
+        <Typography style="Title1">관람한 영화만 리뷰가 가능해요 :)</Typography>
+      )}
     </View>
   );
 };
