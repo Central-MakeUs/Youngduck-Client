@@ -151,7 +151,12 @@ const DetailScreen = ({route}: DetailScreenProps) => {
 
       {currentTab === 0 && tooltipeShow && (
         <View style={detailScreenStyles.tooltip}>
-          <Tooltip text="상영회 하루 전에 알람으로 알려드려요" hide={true} />
+          <Tooltip
+            text="관람 예정으로 등록되었어요!"
+            hide={true}
+            type="secondary"
+            side="right"
+          />
         </View>
       )}
 

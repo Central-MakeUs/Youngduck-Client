@@ -1,16 +1,25 @@
-import palette from '@/styles/theme/color';
+import {useEffect, useRef} from 'react';
 import {Animated, View} from 'react-native';
+
 import Typography from '../typography';
 import TooltipSvg from '@/assets/icons/tooltip.svg';
-import tooltipStyles from './Tooltip.style';
-import {useEffect, useRef} from 'react';
+import BlueTooltipSvg from '@/assets/icons/blue-tooltip.svg';
+
+import tooltipStyles, {tooltipTypeStyles} from './Tooltip.style';
 
 interface ITooltipProp {
   text: string;
   hide?: boolean;
+  type?: 'primary' | 'secondary';
+  side?: 'center' | 'right';
 }
 
-const Tooltip = ({text, hide}: ITooltipProp) => {
+const Tooltip = ({
+  text,
+  hide,
+  type = 'primary',
+  side = 'center',
+}: ITooltipProp) => {
   const opacityAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -43,13 +52,24 @@ const Tooltip = ({text, hide}: ITooltipProp) => {
   }, [opacityAnim]);
 
   return (
-    <Animated.View style={[tooltipStyles.container, {opacity: opacityAnim}]}>
-      <View style={tooltipStyles.typographyWrap}>
-        <Typography style="Label3" color={palette.Primary.Dark}>
+    <Animated.View
+      style={[
+        tooltipStyles.container,
+        {
+          alignItems: side === 'center' ? 'center' : 'flex-end',
+        },
+        {opacity: opacityAnim},
+      ]}>
+      <View style={[tooltipStyles.typographyWrap, tooltipTypeStyles[type]]}>
+        <Typography
+          style={tooltipTypeStyles[type].font}
+          color={tooltipTypeStyles[type].textColor}>
           {text}
         </Typography>
       </View>
-      {!hide && <TooltipSvg />}
+      <View style={{marginRight: side === 'right' ? 15 : undefined}}>
+        {type === 'primary' ? <TooltipSvg /> : <BlueTooltipSvg />}
+      </View>
     </Animated.View>
   );
 };

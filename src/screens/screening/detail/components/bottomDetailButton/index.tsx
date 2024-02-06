@@ -2,6 +2,7 @@ import {View} from 'react-native';
 
 import BottomButton from '@/components/bottomButton/bottomBoxButton';
 import Typography from '@/components/typography';
+import BottomOptionButton from '@/components/bottomButton/bottomOptionButton';
 import palette from '@/styles/theme/color';
 import BlackTicket from '@/assets/icons/black-ticket.svg';
 import WhiteTicket from '@/assets/icons/white-ticket.svg';
@@ -11,7 +12,6 @@ import {
   bottomButtonStyles,
   bottomDetailTypesStyles,
 } from './BottomDetailButton.style';
-import BottomOptionButton from '@/components/bottomButton/bottomOptionButton';
 
 interface IBottomDetailButtonProps {
   onPress: () => void;

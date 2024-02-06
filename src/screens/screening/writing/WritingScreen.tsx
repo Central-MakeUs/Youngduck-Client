@@ -287,7 +287,7 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
           />
         </View>
 
-        <View style={writingStyles.container}>
+        <View style={writingStyles.bottom}>
           {type === 'post' && (
             <AgreeNoticeCard
               value={inputValues.hasAgreed}

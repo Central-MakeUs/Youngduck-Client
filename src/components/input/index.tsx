@@ -89,7 +89,11 @@ const Input = ({
           ref={inputRef ? inputRef : null}
           onFocus={onFocus}
           onBlur={() => {
-            if (maxLength) onFocusout(value, maxLength);
+            if (maxLength) {
+              onFocusout(value, maxLength);
+            } else {
+              onFocusout(value);
+            }
           }}
           placeholderTextColor={palette.Text.Assistive}
           importantForAutofill="yes"

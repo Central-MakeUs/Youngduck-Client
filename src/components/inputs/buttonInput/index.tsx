@@ -18,6 +18,7 @@ import {getDateRange, getTime} from '@/utils/getDate';
 
 import {buttonInputStyle} from './ButtonInput.style';
 import {inputStyles, inputTypes} from '@/styles/Input.style';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface TypeInputProps {
   value?: any; // TODO: 백엔드 통신에 따른 타입 추가 예정
@@ -40,6 +41,7 @@ const ButtonInput = ({
   onPress,
 }: TypeInputProps) => {
   const {type, onFocus, onBlur} = useFocus();
+  const {bottom} = useSafeAreaInsets();
   const [timeModal, setTimeModal] = useState(false);
   const [timeString, setTimeString] = useState<number | string | null>(null);
   const [selectedStartDate, setSelectedStartDate] = useState<
@@ -158,7 +160,7 @@ const ButtonInput = ({
       )}
       {/*달력 Bottom Sheet 컴포넌트*/}
       {category === 'date' && (
-        <BottomSheet drawerRef={bottomDrawerRef} height={300}>
+        <BottomSheet drawerRef={bottomDrawerRef} height={310 + bottom}>
           <DateRangePickerModal
             startDate={selectedStartDate}
             endDate={selectedEndDate}

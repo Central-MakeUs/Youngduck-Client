@@ -1,4 +1,4 @@
-import {ScrollView, View} from 'react-native';
+import {View} from 'react-native';
 
 import MultiButton from '@/components/buttons/multibutton';
 import SubTitle from '@/components/title/subTitle';
@@ -7,6 +7,8 @@ import {labels, reaction, reviewOptions} from '@/constants/review';
 
 import {screeningReviewStyle} from '../ScreeningReview.style';
 import {IScreeningReviewBodyRequest} from '@/models/screening/request/reviewRequestDto';
+import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface IFirstReviewProps {
   goNext: () => void;
@@ -27,9 +29,13 @@ const FirstReview = ({
     review.screeningReview !== undefined &&
     review.afterScreening !== undefined;
 
+  const {bottom} = useSafeAreaInsets();
+
+  const style = screeningReviewStyle({bottom});
+
   return (
-    <View style={screeningReviewStyle.container}>
-      <ScrollView>
+    <View style={style.container}>
+      <DefaultScrollContainer>
         <SelectTwoButton
           title={`상영회 관람 후,\n 이 상영회의 만족도는 어땠나요?`}
           labels={labels}
@@ -52,17 +58,16 @@ const FirstReview = ({
             mt={index === 0 ? undefined : 12}
           />
         ))}
-
-        <View style={screeningReviewStyle.bottom}>
-          <MultiButton
-            leftButtonText="이전"
-            rightButtonText="다음"
-            onLeftButtonPress={goPrevious}
-            onRightButtonPress={goNext}
-            disabled={!canGoNext}
-          />
-        </View>
-      </ScrollView>
+      </DefaultScrollContainer>
+      <View style={style.bottom}>
+        <MultiButton
+          leftButtonText="이전"
+          rightButtonText="다음"
+          onLeftButtonPress={goPrevious}
+          onRightButtonPress={goNext}
+          disabled={!canGoNext}
+        />
+      </View>
     </View>
   );
 };
