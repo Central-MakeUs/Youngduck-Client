@@ -30,6 +30,8 @@ import {getScreenSize} from '@/utils/getScreenSize';
 import {View} from 'react-native';
 import useNavigator from '@/hooks/useNavigator';
 import popcornPartyDetailScreenStyles from './popcornPartyDetailScreen.style';
+import Typography from '@/components/typography';
+import palette from '@/styles/theme/color';
 
 interface IPopcornPartyDetailScreenProp {
   route: ScreenRouteProp<stackScreens.PopcornPartyDetailScreen>;
@@ -162,6 +164,17 @@ function PopcornPartyDetailScreen({
               <EmptyItem text="아직 리뷰가 없어요." />
             ) : (
               <>
+                <View style={popcornPartyDetailScreenStyles.reviewTitle}>
+                  <Typography style="Subtitle2" color={palette.Another.Black}>
+                    관객 리뷰
+                  </Typography>
+                  <Typography
+                    style="Label1"
+                    color={palette.Primary.Deep}
+                    ml={8}>
+                    {popcornReviewData.data?.data.length.toString()}
+                  </Typography>
+                </View>
                 {popcornReviews?.map((popcornReview, idx) => (
                   <CommentItem
                     totalComments={popcornReviews.length}
@@ -179,7 +192,7 @@ function PopcornPartyDetailScreen({
                     key={popcornReview.createdAt}
                   />
                 ))}
-                {!viewMoreComment && popcornReviews?.length! > 5 && (
+                {popcornReviewData?.data.data.length! > 5 && (
                   <BoxButton
                     onPress={() => setViewMoreComment(true)}
                     mb={16}
