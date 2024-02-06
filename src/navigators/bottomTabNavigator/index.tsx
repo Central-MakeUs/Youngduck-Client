@@ -19,9 +19,10 @@ import {setIsAlarm} from '@/services/localStorage/localStorage';
 import {useUserStore} from '@/stores/user';
 import LoginPopup from '@/components/loginPopup';
 import {useLoginPopupStore} from '@/stores/loginPopup';
+import {getUserData} from '@/apis/user/user';
+import {getDeviceToken} from '@/services/alarmService';
 
 import {bottomTabScreenOptions} from './BottomTabNavigator.style';
-import {getUserData} from '@/apis/user/user';
 
 export const getTabBarIcon = (routeName: string, focused: boolean) => {
   const iconColor = focused ? palette.Primary.Normal : palette.Text.Disable;
@@ -63,6 +64,9 @@ const BottomTabNavigator = () => {
           isLookAround: false,
           name: user.data.name,
         });
+        if (user.data) {
+          getDeviceToken(user.data.userId);
+        }
       });
     }
   }, []);

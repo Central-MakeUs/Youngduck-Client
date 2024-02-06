@@ -1,6 +1,7 @@
 import messaging from '@react-native-firebase/messaging';
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
+import {postFcmAlarm} from '@/apis/fcm/alarm';
 
 const setupAlarm = () => {
   messaging().setBackgroundMessageHandler(async remoteMessage => {
@@ -53,14 +54,16 @@ const setupAlarm = () => {
   );
 };
 
-const getDeviceToken = async () => {
+const getDeviceToken = async (userId: number) => {
   try {
     if (!messaging().isDeviceRegisteredForRemoteMessages) {
       // 기기 등록
       await messaging().registerDeviceForRemoteMessages();
     }
     const token = await messaging().getToken();
-    console.log('phone token', token);
+    postFcmAlarm({userId, fcmToken: token});
+    return token;
+
     // 서버로 부터 토큰 api로 보내줌
   } catch (error) {
     console.error(error);
