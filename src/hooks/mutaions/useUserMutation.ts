@@ -56,7 +56,7 @@ const useUserMutation = () => {
     mutationFn: postLogoutUser,
 
     onSuccess: async () => {
-      stackNavigation.navigate(stackScreens.LoginScreen);
+      stackNavigation.popToTop();
       showSnackBar('정상적으로 로그아웃 되었어요');
       await removeTokens();
     },

@@ -16,7 +16,6 @@ const DefaultScrollContainer = ({
   const {onRefresh, isRefresh} = useRefreshing();
   return (
     <ScrollView
-      bounces={false}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
       style={scrollStyles.container}

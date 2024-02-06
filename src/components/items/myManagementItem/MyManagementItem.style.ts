@@ -27,7 +27,11 @@ const myManagementItemStyles = StyleSheet.create({
     flex: 1,
   },
   contentWrap: {justifyContent: 'space-between'},
-  content: {marginLeft: 8},
+  content: {
+    marginLeft: 8,
+    justifyContent: 'center',
+    flex: 1,
+  },
   activatedButtonWrap: {
     ...commonButtonWrap,
     backgroundColor: palette.Primary.Assistive,

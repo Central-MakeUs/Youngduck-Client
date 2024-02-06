@@ -69,7 +69,14 @@ const MyDetailScreen = ({route: {params}}: IMyDetailScreenProps) => {
             <ImageContentScrollContainer
               title={data?.data.screeningTitle}
               posterImage={data?.data.posterImgUrl}
-              imageSize={imageSize}>
+              imageSize={imageSize}
+              queryKey={
+                currentTab === 1
+                  ? ['screeningReview', 'screeningRate']
+                  : currentTab === 2
+                  ? ['screeningMyStatistic']
+                  : []
+              }>
               {data && (
                 <ScreeningTitle
                   title={data?.data.screeningTitle}

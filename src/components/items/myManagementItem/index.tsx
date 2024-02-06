@@ -102,7 +102,9 @@ const MyManagementItem = ({
                 <Typography style="Label1" numberOfLines={1}>
                   {title}
                 </Typography>
-                <Typography style="Label1">{hostName!}</Typography>
+                <Typography style="Label2" color={palette.Text.Alternative}>
+                  {hostName!}
+                </Typography>
                 <Typography style="Chips1" color={palette.Text.Alternative}>
                   {dateRange!}
                 </Typography>

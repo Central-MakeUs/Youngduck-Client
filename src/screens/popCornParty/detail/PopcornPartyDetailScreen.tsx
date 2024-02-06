@@ -55,7 +55,7 @@ function PopcornPartyDetailScreen({
   ] = useQueries({
     queries: [
       {
-        queryKey: ['popcornPartyDetail'],
+        queryKey: ['popcornPartyDetailData'],
         queryFn: () => getPopcornPartyDetailData(params.id),
       },
       {
@@ -110,7 +110,16 @@ function PopcornPartyDetailScreen({
     <ImageContentScrollContainer
       title={getWeekOfMonthString(null)!}
       posterImage={movieData?.imageUrl!}
-      imageSize={imageSize}>
+      imageSize={imageSize}
+      queryKey={
+        currentTabBarNumber === 0
+          ? [
+              'popcornPartyDetailData',
+              'popcornRateData',
+              'randomPopcornRecommendData',
+            ]
+          : ['popcornReviewData', 'randomPopcornRecommendData']
+      }>
       <Popup
         title="정말 신고하시겠어요?"
         content={`신고가 누적되면\n해당 유저의 서비스 이용이 제한돼요. `}
