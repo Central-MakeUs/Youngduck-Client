@@ -11,8 +11,7 @@ export type DetailStyle = {
 export type BannerType = 'screening' | 'popcornParty';
 export interface IBannerContent {
   source: any;
-  title1: string;
-  title2: string;
+  title: string;
   content: string;
   button: string;
 }

@@ -18,10 +18,7 @@ const Banner = ({type, onPress}: BannerProp) => {
       />
       <View style={bannerStyles.container}>
         <Typography style="Subtitle1" color={palette.Primary.Dark}>
-          {bannerContentStyles[type].title1}
-        </Typography>
-        <Typography style="Subtitle1" color={palette.Primary.Dark}>
-          {bannerContentStyles[type].title2}
+          {bannerContentStyles[type].title}
         </Typography>
         <Typography style="Chips1" mt={24} mb={4} color={palette.Primary.Dark}>
           {bannerContentStyles[type].content}
