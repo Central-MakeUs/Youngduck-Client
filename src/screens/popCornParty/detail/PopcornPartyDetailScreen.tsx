@@ -22,12 +22,14 @@ import {format} from 'date-fns';
 import Popup from '@/components/popup';
 import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
 import DetailPopcorn from './components/detailMovie/DetailPopcorn';
-import DetailBottomButtons from './components/detailBottomButtons/DetailBottomButtons';
 import {getWeekOfMonthString} from '@/utils/getDate';
 import EmptyItem from '@/components/items/emptyItem';
 import LoadingPage from '@/components/pages/loadingPage';
 import Loading from '@/components/loading';
 import {getScreenSize} from '@/utils/getScreenSize';
+import {View} from 'react-native';
+import useNavigator from '@/hooks/useNavigator';
+import popcornPartyDetailScreenStyles from './popcornPartyDetailScreen.style';
 
 interface IPopcornPartyDetailScreenProp {
   route: ScreenRouteProp<stackScreens.PopcornPartyDetailScreen>;
@@ -47,6 +49,7 @@ function PopcornPartyDetailScreen({
   const currentFocusState = useIsFocused();
   const queryClient = useQueryClient();
   const {complainUserMutate, voteMovieMutate} = usePopcornPartyMutation();
+  const {stackNavigation} = useNavigator();
   const [
     popcornPartyDetailData,
     popcornRateData,
@@ -107,101 +110,120 @@ function PopcornPartyDetailScreen({
     return <LoadingPage />;
 
   return (
-    <ImageContentScrollContainer
-      title={getWeekOfMonthString(null)!}
-      posterImage={movieData?.imageUrl!}
-      imageSize={imageSize}
-      queryKey={
-        currentTabBarNumber === 0
-          ? [
-              'popcornPartyDetailData',
-              'popcornRateData',
-              'randomPopcornRecommendData',
-            ]
-          : ['popcornReviewData', 'randomPopcornRecommendData']
-      }>
-      <Popup
-        title="정말 신고하시겠어요?"
-        content={`신고가 누적되면\n해당 유저의 서비스 이용이 제한돼요. `}
-        isVisible={complainPopup}
-        onClose={() => setComplainPopup(false)}
-        onPress={handleComplainReview}
-        type="error"
-      />
-      <DetailPopcorn
-        movieTitle={movieData?.movieTitle!}
-        directorName={movieData?.directorName!}
-        isMoreDetailMode={isMoreDetailMode}
-        detail={movieData?.detail!}
-        toggleNumberOfLinesState={toggleNumberOfLinesState}
-      />
-      <TabBar
-        currentTabBarNumber={currentTabBarNumber}
-        setCurrentTabBarNumber={setCurrentTabBarNumber}
-        tabBars={tabBars}
-      />
-      {/* 현재 tab bar에 맞는 컴포넌트 보여주기 */}
-      {currentTabBarNumber === 0 && (
-        <DefaultContainer>
-          <ScreeningRate
-            mode="popcornRate"
-            score={popcornRate === undefined ? 0 : Number(popcornRate)}>
-            <PopcornRate isOpen={isOpen} setIsOpen={setIsOpen} />
-          </ScreeningRate>
-          <Divider height={8} mt={-8} mb={16} />
-        </DefaultContainer>
-      )}
-      {currentTabBarNumber === 1 && (
-        <DefaultContainer>
-          {popcornReviewData.isLoading ? (
-            <Loading />
-          ) : popcornReviews?.length === 0 || !popcornReviewData.isSuccess ? (
-            <EmptyItem text="아직 리뷰가 없어요." />
-          ) : (
-            <>
-              {popcornReviews?.map((popcornReview, idx) => (
-                <CommentItem
-                  totalComments={popcornReviews.length}
-                  userId={popcornReview.userId}
-                  nickName={popcornReview.nickName}
-                  profileImgNum={(popcornReview.profileImgNum % 3) + 1}
-                  afterScreening={popcornReview.afterScreening}
-                  review={popcornReview.review}
-                  createdAt={format(popcornReview.createdAt, 'yyyy.MM.dd')}
-                  idx={idx}
-                  complainOnPress={() => {
-                    setComplainId(popcornReview.userId);
-                    setComplainPopup(true);
-                  }}
-                  key={popcornReview.createdAt}
-                />
-              ))}
-              {!viewMoreComment && popcornReviews?.length! > 5 && (
-                <BoxButton
-                  onPress={() => setViewMoreComment(true)}
-                  mb={16}
-                  variant="default">
-                  더보기
-                </BoxButton>
-              )}
-            </>
-          )}
-          <Divider height={8} mt={8} mb={16} />
-        </DefaultContainer>
-      )}
-      <VoteNextPopcorn
-        popcornRecommendData={randomPopcornRecommendData.data?.data!}
-        title="팝콘 튀기고 싶은 다른 영화가 있다면?"
-        isLoading={false}
-        voteMovieMutate={voteMovieMutate}
-      />
-      <DetailBottomButtons
-        id={movieData?.popcornId!}
-        poster={movieData?.imageUrl!}
-        title={movieData?.movieTitle!}
-        directorname={movieData?.directorName!}
-      />
-    </ImageContentScrollContainer>
+    <>
+      <ImageContentScrollContainer
+        title={getWeekOfMonthString(null)!}
+        posterImage={movieData?.imageUrl!}
+        imageSize={imageSize}
+        queryKey={
+          currentTabBarNumber === 0
+            ? [
+                'popcornPartyDetailData',
+                'popcornRateData',
+                'randomPopcornRecommendData',
+              ]
+            : ['popcornReviewData', 'randomPopcornRecommendData']
+        }>
+        <Popup
+          title="정말 신고하시겠어요?"
+          content={`신고가 누적되면\n해당 유저의 서비스 이용이 제한돼요. `}
+          isVisible={complainPopup}
+          onClose={() => setComplainPopup(false)}
+          onPress={handleComplainReview}
+          type="error"
+        />
+        <DetailPopcorn
+          movieTitle={movieData?.movieTitle!}
+          directorName={movieData?.directorName!}
+          isMoreDetailMode={isMoreDetailMode}
+          detail={movieData?.detail!}
+          toggleNumberOfLinesState={toggleNumberOfLinesState}
+        />
+        <TabBar
+          currentTabBarNumber={currentTabBarNumber}
+          setCurrentTabBarNumber={setCurrentTabBarNumber}
+          tabBars={tabBars}
+        />
+        {/* 현재 tab bar에 맞는 컴포넌트 보여주기 */}
+        {currentTabBarNumber === 0 && (
+          <DefaultContainer>
+            <ScreeningRate
+              mode="popcornRate"
+              score={popcornRate === undefined ? 0 : Number(popcornRate)}>
+              <PopcornRate isOpen={isOpen} setIsOpen={setIsOpen} />
+            </ScreeningRate>
+            <Divider height={8} mt={-8} mb={16} />
+          </DefaultContainer>
+        )}
+        {currentTabBarNumber === 1 && (
+          <DefaultContainer>
+            {popcornReviewData.isLoading ? (
+              <Loading />
+            ) : popcornReviews?.length === 0 || !popcornReviewData.isSuccess ? (
+              <EmptyItem text="아직 리뷰가 없어요." />
+            ) : (
+              <>
+                {popcornReviews?.map((popcornReview, idx) => (
+                  <CommentItem
+                    totalComments={popcornReviews.length}
+                    userId={popcornReview.userId}
+                    nickName={popcornReview.nickName}
+                    profileImgNum={(popcornReview.profileImgNum % 3) + 1}
+                    afterScreening={popcornReview.afterScreening}
+                    review={popcornReview.review}
+                    createdAt={format(popcornReview.createdAt, 'yyyy.MM.dd')}
+                    idx={idx}
+                    complainOnPress={() => {
+                      setComplainId(popcornReview.userId);
+                      setComplainPopup(true);
+                    }}
+                    key={popcornReview.createdAt}
+                  />
+                ))}
+                {!viewMoreComment && popcornReviews?.length! > 5 && (
+                  <BoxButton
+                    onPress={() => setViewMoreComment(true)}
+                    mb={16}
+                    variant="default">
+                    더보기
+                  </BoxButton>
+                )}
+              </>
+            )}
+            <Divider height={8} mt={8} mb={16} />
+          </DefaultContainer>
+        )}
+        <VoteNextPopcorn
+          popcornRecommendData={randomPopcornRecommendData.data?.data!}
+          title="팝콘 튀기고 싶은 다른 영화가 있다면?"
+          isLoading={false}
+          voteMovieMutate={voteMovieMutate}
+        />
+        <View style={popcornPartyDetailScreenStyles.button}>
+          <BoxButton
+            onPress={() =>
+              stackNavigation.navigate(stackScreens.WriteRecommandScreen)
+            }
+            variant="secondary">
+            다른 작품 추천하기
+          </BoxButton>
+        </View>
+      </ImageContentScrollContainer>
+      <View style={popcornPartyDetailScreenStyles.bottomButton}>
+        <BoxButton
+          onPress={() =>
+            stackNavigation.navigate(stackScreens.WriteReviewScreen, {
+              id: movieData?.popcornId!,
+              poster: movieData?.imageUrl!,
+              title: movieData?.movieTitle!,
+              directorname: movieData?.directorName!,
+            })
+          }
+          mb={42}>
+          나도 리뷰쓰기
+        </BoxButton>
+      </View>
+    </>
   );
 }
 

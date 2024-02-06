@@ -12,13 +12,15 @@ import {
 import DetailInfo from './components/detailInfo';
 import DetailContact from './components/detailContact';
 import {detailInfoStyles} from './DetailInfoPage.style';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface IDetailInfoProps {
   item: IScreeningDetailContent | IScreeningMyDetailResponse;
 }
 const DetailInfoPage = ({item}: IDetailInfoProps) => {
+  const {bottom} = useSafeAreaInsets();
   return (
-    <View>
+    <View style={{paddingBottom: bottom}}>
       <DefaultContainer>
         <View style={detailInfoStyles.title}>
           <DetailInfo title="주최명" content={item.hostName} />

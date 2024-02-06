@@ -35,7 +35,7 @@ const ImageContentScrollContainer = ({
   const {onRefresh, isRefresh} = useRefreshing();
   const {stackNavigation} = useNavigator();
   const {screenWidth} = getScreenSize();
-  const {top, bottom} = useSafeAreaInsets();
+  const {top} = useSafeAreaInsets();
 
   const [opacity, setOpacity] = useState<number>(1);
 
@@ -54,7 +54,7 @@ const ImageContentScrollContainer = ({
     height: imageSize.height,
   });
   return (
-    <View style={[styles.container, {paddingBottom: bottom}]}>
+    <View style={[styles.container]}>
       <View style={styles.topBarWrap}>
         <BackTitleTopBar opacity={opacity} goBack={handleGoBack} text={title} />
       </View>

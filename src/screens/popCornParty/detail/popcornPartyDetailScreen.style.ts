@@ -1,21 +1,16 @@
-import {getScreenSize} from '@/utils/getScreenSize';
+import palette from '@/styles/theme/color';
 import {StyleSheet} from 'react-native';
 
-const {screenWidth} = getScreenSize();
-
 const popcornPartyDetailScreenStyles = StyleSheet.create({
-  container: {
-    flex: 1,
+  button: {
+    paddingHorizontal: 16,
   },
-  image: {
-    width: screenWidth,
-    height: screenWidth,
-  },
-  imageBlur: {
-    zIndex: 1,
-    width: screenWidth,
-    height: screenWidth,
-    position: 'absolute',
+  bottomButton: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    marginTop: 24,
+    borderTopWidth: 1,
+    borderTopColor: palette.Primary.Normal,
   },
 });
 
