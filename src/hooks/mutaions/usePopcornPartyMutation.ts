@@ -57,7 +57,6 @@ const usePopcornPartyMutation = () => {
     mutationFn: postRecommendMovie,
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: ['randomPopcornRecommendData']});
-      queryClient.invalidateQueries({queryKey: ['searchMovie']});
       stackNavigation.goBack();
     },
     onError: err => {

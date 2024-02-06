@@ -72,11 +72,6 @@ function StackNavigator() {
     return <LoadingPage />;
   }
 
-  const handleGoPopcornPartyHome = () => {
-    queryClient.removeQueries({queryKey: ['searchMovie']});
-    handleGoBack();
-  };
-
   // 스크리닝 화면 뒤로 가기
   const handleGoBack = () => {
     stackNavigation.goBack();
@@ -228,10 +223,7 @@ function StackNavigator() {
         component={WriteRecommandScreen}
         options={{
           header: () => (
-            <CancelTopBar
-              text="팝콘작 추천하기"
-              onPress={handleGoPopcornPartyHome}
-            />
+            <CancelTopBar text="팝콘작 추천하기" onPress={handleGoBack} />
           ),
         }}
       />

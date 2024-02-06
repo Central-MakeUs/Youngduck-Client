@@ -14,8 +14,8 @@ const popcornPartyDetailScreenStyles = StyleSheet.create({
   bottomButton: {
     paddingHorizontal: 16,
     paddingTop: 16,
-    borderTopWidth: 1,
-    borderTopColor: palette.Primary.Normal,
+    borderTopWidth: 2,
+    borderTopColor: palette.Primary.Alternative,
   },
 });
 

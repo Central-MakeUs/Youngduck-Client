@@ -68,11 +68,6 @@ const StartReview = ({
           </View>
         </View>
       ))}
-      {notWatched && (
-        <Typography style="Title1">
-          관람한 영화만 리뷰를 작성할 수 있어요 :)
-        </Typography>
-      )}
     </View>
   );
 };
