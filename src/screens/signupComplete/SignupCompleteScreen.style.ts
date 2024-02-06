@@ -35,6 +35,7 @@ const signupCompleteScreenContainerStyles = ({
     innerWrap: {
       flex: 1,
       padding: 16,
+      marginTop: top + 24,
       justifyContent: 'space-between',
     },
   });
