@@ -4,6 +4,7 @@ import {
   IPopcornPartyDetailResponse,
   IPopcornRateResponse,
   IPopcornReviewResponse,
+  ITopThreeKeywordResponse,
 } from '@/models/popcornParty/reponse';
 
 export const getPopcornPartyDetailData = async (
@@ -24,6 +25,13 @@ export const getPopconrReviewData = async (
   popcornId: number,
 ): Promise<ResponseDTO<IPopcornReviewResponse[]>> => {
   const res = await api.get(`/popcorn/reviews/${popcornId}`);
+  return res.data;
+};
+
+export const getTopThreeKeywordData = async (
+  popcornId: number,
+): Promise<ResponseDTO<ITopThreeKeywordResponse>> => {
+  const res = await api.get(`/popcorn/top-keywords/${popcornId}`);
   return res.data;
 };
 

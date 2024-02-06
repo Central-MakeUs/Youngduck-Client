@@ -15,6 +15,7 @@ import {
   getPopconrRateData,
   getPopconrReviewData,
   getPopcornPartyDetailData,
+  getTopThreeKeywordData,
 } from '@/apis/popcornParty/detail/detail';
 import {getPopcornRecommendData} from '@/apis/popcornParty';
 import {useIsFocused} from '@react-navigation/native';
@@ -32,6 +33,7 @@ import useNavigator from '@/hooks/useNavigator';
 import popcornPartyDetailScreenStyles from './popcornPartyDetailScreen.style';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
+import PopcornKeyword from '@/components/popcornKeyword';
 
 interface IPopcornPartyDetailScreenProp {
   route: ScreenRouteProp<stackScreens.PopcornPartyDetailScreen>;
@@ -56,6 +58,7 @@ function PopcornPartyDetailScreen({
     popcornPartyDetailData,
     popcornRateData,
     popcornReviewData,
+    topThreeKeywordData,
     randomPopcornRecommendData,
   ] = useQueries({
     queries: [
@@ -70,6 +73,10 @@ function PopcornPartyDetailScreen({
       {
         queryKey: ['popcornReviewData'],
         queryFn: () => getPopconrReviewData(params.id),
+      },
+      {
+        queryKey: ['topThreeKeywordData'],
+        queryFn: () => getTopThreeKeywordData(params.id),
       },
       {
         queryKey: ['randomPopcornRecommendData'],
@@ -154,6 +161,14 @@ function PopcornPartyDetailScreen({
               score={popcornRate === undefined ? 0 : Number(popcornRate)}>
               <PopcornRate isOpen={isOpen} setIsOpen={setIsOpen} />
             </ScreeningRate>
+            <PopcornKeyword
+              participatedCount={
+                topThreeKeywordData.data?.data.participatedCount!
+              }
+              topThreeKeywords={
+                topThreeKeywordData.data?.data.topThreeKeywords!
+              }
+            />
           </DefaultContainer>
         )}
         {currentTabBarNumber === 1 && (
@@ -161,7 +176,7 @@ function PopcornPartyDetailScreen({
             {popcornReviewData.isLoading ? (
               <Loading />
             ) : popcornReviews?.length === 0 || !popcornReviewData.isSuccess ? (
-              <EmptyItem text="아직 리뷰가 없어요." />
+              <EmptyItem text="아직 리뷰가 없어요" />
             ) : (
               <>
                 <View style={popcornPartyDetailScreenStyles.reviewTitle}>
@@ -204,7 +219,7 @@ function PopcornPartyDetailScreen({
             )}
           </DefaultContainer>
         )}
-        <Divider height={8} mt={currentTabBarNumber ? 8 : -8} mb={16} />
+        <Divider height={8} mt={8} mb={16} />
         <VoteNextPopcorn
           popcornRecommendData={randomPopcornRecommendData.data?.data!}
           title="팝콘 튀기고 싶은 다른 영화가 있다면?"
