@@ -63,9 +63,9 @@ export interface IPopcornReviewProps {
     id: number;
     imageUrl: string;
     movieTitle: string;
-    recommendationReason: string;
     updatedAt: string;
   };
+  review: string;
   popcornPositive: TScreeningPositiveReview<boolean>;
   popcornNegative: TScreeningNegativeReview<boolean>;
 }
