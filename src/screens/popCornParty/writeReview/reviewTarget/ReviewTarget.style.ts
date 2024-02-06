@@ -7,9 +7,14 @@ const reviewTargetStyls = StyleSheet.create({
     marginTop: 16,
     paddingHorizontal: 16,
   },
+  wrap: {
+    justifyContent: 'space-between',
+    flex: 1,
+  },
   image: {
     width: 68,
     height: 68,
+    borderRadius: 16,
   },
 });
 
