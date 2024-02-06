@@ -1,4 +1,4 @@
-import {api} from '@/apis';
+import {apiWithoutToken} from '@/apis';
 import {ResponseDTO} from '@/models/common/responseDTO';
 import {
   IScreeningListOptionBodyRequest,
@@ -10,7 +10,7 @@ import {TScreeningListResponse} from '@/models/screening/response/listResponseDt
 export const getTimeOptionScreeningList = async (
   body: IScreeningListOptionBodyRequest,
 ): Promise<ResponseDTO<TScreeningListResponse>> => {
-  const res = await api.get(
+  const res = await apiWithoutToken.get(
     `/screening/screenings/search-by-date?category=${body.category}&page=${body.page}&size=${body.size}&sortBy=${body.sortBy}`,
   );
   return res.data;
@@ -20,7 +20,7 @@ export const getTimeOptionScreeningList = async (
 export const getSearchScreeningList = async (
   body: IScreeningListSearchBodyRequest,
 ): Promise<ResponseDTO<TScreeningListResponse>> => {
-  const res = await api.get(
+  const res = await apiWithoutToken.get(
     `/screening/screenings/search?title=${body.title}&category=${body.category}&page=${body.page}&size=${body.size}`,
   );
   return res.data;
