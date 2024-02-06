@@ -36,6 +36,13 @@ export interface IPopcornReviewResponse {
   createdAt: string;
 }
 
+export interface ITopThreeKeywordResponse {
+  participatedCount: number;
+  topThreeKeywords: {
+    [key: string]: number;
+  }[];
+}
+
 export type TTrendingMovieData = Omit<TTrendingData, 'popcornId'>;
 export type TTrendingPopcornData = Omit<TTrendingData, 'movieId' | 'rank'>;
 export type TPopcornRecommendData = {

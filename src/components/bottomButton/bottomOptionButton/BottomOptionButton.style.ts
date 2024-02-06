@@ -7,9 +7,8 @@ export const bottomOptionButtonStyles = ({bottom}: {bottom: number}) =>
     container: {
       backgroundColor: palette.Another.White,
       width: '100%',
-      height: 80,
       paddingTop: 12,
-      paddingBottom: 20 + bottom,
+      bottom,
       borderTopWidth: 2,
       borderTopColor: palette.Primary.Alternative,
       paddingHorizontal: 16,

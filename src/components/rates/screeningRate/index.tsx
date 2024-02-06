@@ -18,11 +18,11 @@ const ScreeningRate = ({score, mode, children}: IScreeningRate) => {
   const [tooltipHeight, setTooltipHeight] = useState<number>(0);
   const [percentageLength, setPercentageLength] = useState<number>(0);
 
-  // 100점 일 때 tooltip width 값인 47.333...을 빼줌
+  // 100에서 score만큼 TOOLTIP의 길이를 줄이고 뺌
   const screeningIndexLocation =
     score >= 100
       ? percentageLength - TOOLTIP_MAX_LENGTH
-      : (percentageLength * score) / 100 - TOOLTIP_MAX_LENGTH;
+      : (percentageLength * score) / 100 - TOOLTIP_MAX_LENGTH * (score / 100);
   const screeningIndex = score >= 100 ? '100' : score.toString();
 
   const style = screeningRateStyles({tooltipHeight});

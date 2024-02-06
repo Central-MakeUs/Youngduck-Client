@@ -7,12 +7,10 @@ import TextArea from '@/components/inputs/textArea';
 import SubTitleDescription from '@/components/title/subTitleDescription';
 import BoxButton from '@/components/buttons/boxButton';
 import Popup from '@/components/popup';
-import useNavigator from '@/hooks/useNavigator';
 import {getVoteDateRange} from '@/utils/getDate';
 
 import writeRecommandScreenStyles from './WriteRecommandScreen.style';
 import {IRecommendMovieProps} from '@/types/popcornParty';
-import {useQueryClient} from '@tanstack/react-query';
 import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
 import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
 

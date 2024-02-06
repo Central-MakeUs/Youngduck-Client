@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {AppState, Linking, Pressable, View} from 'react-native';
+import {AppState, Linking, Pressable, ScrollView, View} from 'react-native';
 import Config from 'react-native-config';
 
 import Divider from '@/components/divider';
@@ -99,80 +99,82 @@ const SettingScreen = () => {
         goBack={stackNavigation.goBack}
         opacity={0}
       />
-      <SubTitle text="알림 설정" />
-      <View style={settingScreenStyles.alarmWarp}>
-        <View>
-          <SubTitleDescription
-            text="PUSH 알림"
-            subTitle={`관심 스크리닝 스케줄 알림 등\n이용 편의를 위한 알림을 드려요`}
-            textStyle="Label1"
-            subTitleStyle="Body2"
+      <ScrollView bounces={false}>
+        <SubTitle text="알림 설정" />
+        <View style={settingScreenStyles.alarmWarp}>
+          <View>
+            <SubTitleDescription
+              text="서비스 이용 알림"
+              subTitle={`관심 스크리닝 스케줄 알림 등\n이용 편의를 위한 알림을 드려요.`}
+              textStyle="Label1"
+              subTitleStyle="Body2"
+            />
+          </View>
+          <Switch onPress={handleOnOffAlarm} isOn={isServiceAlarmOn} mt={16} />
+        </View>
+        <View style={settingScreenStyles.alarmWarp}>
+          <View>
+            <SubTitleDescription
+              text="광고성/혜택 정보 알림"
+              subTitle={`이벤트, 혜택 알림 등 마케팅 알림을 드려요.`}
+              textStyle="Label1"
+              subTitleStyle="Body2"
+            />
+          </View>
+          <Switch
+            onPress={handleOnOffMarketing}
+            isOn={isAdBenefitAlarmOn}
+            mt={16}
           />
         </View>
-        <Switch onPress={handleOnOffAlarm} isOn={isServiceAlarmOn} mt={16} />
-      </View>
-      <View style={settingScreenStyles.alarmWarp}>
-        <View>
-          <SubTitleDescription
-            text="마케팅 정보 수신 동의"
-            subTitle={`언제든 동의를 철회할 수 있어요`}
-            textStyle="Label1"
-            subTitleStyle="Body2"
-          />
-        </View>
-        <Switch
-          onPress={handleOnOffMarketing}
-          isOn={isAdBenefitAlarmOn}
-          mt={16}
+        <SubMenu
+          text="약관 보기"
+          onPress={() =>
+            stackNavigation.navigate(stackScreens.AgreementScreen, {
+              uri: Config.MARKETING_POLICY_URI,
+            })
+          }
+          textStyle="Body1"
+          mt={8}
         />
-      </View>
-      <SubMenu
-        text="약관 보기"
-        onPress={() =>
-          stackNavigation.navigate(stackScreens.AgreementScreen, {
-            uri: Config.MARKETING_POLICY_URI,
-          })
-        }
-        textStyle="Body1"
-        mt={8}
-      />
-      <Divider height={8} mt={16} mb={16} />
-      <SubTitle text="약관 및 개인정보 처리 방침" mb={8} />
-      <SubMenu
-        text="이용약관"
-        onPress={() =>
-          stackNavigation.navigate(stackScreens.AgreementScreen, {
-            uri: Config.USAGE_POLICY_URI,
-          })
-        }
-        mb={8}
-      />
-      <SubMenu
-        text="개인정보처리방침"
-        onPress={() =>
-          stackNavigation.navigate(stackScreens.AgreementScreen, {
-            uri: Config.PRIVACY_POLICY_URI,
-          })
-        }
-        mb={8}
-      />
-      <View style={settingScreenStyles.appVersionWrap}>
-        <Typography style="Body1">앱 버전</Typography>
-        <Typography style="Body2" color={palette.Text.Alternative}>
-          1.0
-        </Typography>
-      </View>
-      <Divider height={8} mt={16} mb={16} />
-      <Pressable
-        style={settingScreenStyles.buttonWrap}
-        onPress={() => setIsVisible(true)}>
-        <Typography style="Body1">로그아웃하기</Typography>
-      </Pressable>
-      <Pressable
-        style={settingScreenStyles.buttonWrap}
-        onPress={() => stackNavigation.navigate(stackScreens.WithdrawScreen)}>
-        <Typography style="Body1">탈퇴하기</Typography>
-      </Pressable>
+        <Divider height={8} mt={16} mb={16} />
+        <SubTitle text="약관 및 개인정보 처리 방침" mb={8} />
+        <SubMenu
+          text="이용약관"
+          onPress={() =>
+            stackNavigation.navigate(stackScreens.AgreementScreen, {
+              uri: Config.USAGE_POLICY_URI,
+            })
+          }
+          mb={8}
+        />
+        <SubMenu
+          text="개인정보처리방침"
+          onPress={() =>
+            stackNavigation.navigate(stackScreens.AgreementScreen, {
+              uri: Config.PRIVACY_POLICY_URI,
+            })
+          }
+          mb={8}
+        />
+        <View style={settingScreenStyles.appVersionWrap}>
+          <Typography style="Body1">앱 버전</Typography>
+          <Typography style="Body2" color={palette.Text.Alternative}>
+            1.0
+          </Typography>
+        </View>
+        <Divider height={8} mt={16} mb={16} />
+        <Pressable
+          style={settingScreenStyles.buttonWrap}
+          onPress={() => setIsVisible(true)}>
+          <Typography style="Body1">로그아웃하기</Typography>
+        </Pressable>
+        <Pressable
+          style={settingScreenStyles.buttonWrap}
+          onPress={() => stackNavigation.navigate(stackScreens.WithdrawScreen)}>
+          <Typography style="Body1">탈퇴하기</Typography>
+        </Pressable>
+      </ScrollView>
     </>
   );
 };

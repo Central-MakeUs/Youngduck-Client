@@ -58,6 +58,7 @@ const WithdrawScreen = () => {
           <SubTitleDescription
             text="정말 탈퇴하시겠어요?"
             subTitle="탈퇴 시 모든 개인 정보는 삭제돼요"
+            mb={16}
           />
           <Select
             options={korQuitReason}

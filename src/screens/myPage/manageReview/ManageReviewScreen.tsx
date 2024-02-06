@@ -75,7 +75,7 @@ const ManageReviewScreen = ({route: {params}}: IManageReviewScreenProp) => {
       director={item.popcorn.directorName}
       popcornOfWeek={getWeekOfMonthString(item.popcorn.updatedAt)}
       chips={getReviewChips(item)}
-      review={item.popcorn.recommendationReason}
+      review={item.review}
     />
   );
   return (

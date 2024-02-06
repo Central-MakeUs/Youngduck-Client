@@ -8,10 +8,15 @@ interface IStartReviewProps {
   setStartReview: React.Dispatch<
     React.SetStateAction<{[key: string]: boolean | undefined}>
   >;
+  notWatched: boolean;
 }
 
-const StartReview = ({startReview, setStartReview}: IStartReviewProps) => {
-  const questions = [
+const StartReview = ({
+  startReview,
+  setStartReview,
+  notWatched,
+}: IStartReviewProps) => {
+  const questionList = [
     {
       category: 'hasWatched',
       question: '영화는 관람하셨나요?',
@@ -28,6 +33,7 @@ const StartReview = ({startReview, setStartReview}: IStartReviewProps) => {
       answers: ['기대만큼 좋았어요.', '기대보다 아쉬웠어요.'],
     },
   ];
+  const questions = notWatched ? [questionList[0]] : questionList;
   const selectButton = (category: string, index: number) => {
     if (
       (startReview[category] === true && index === 0) ||

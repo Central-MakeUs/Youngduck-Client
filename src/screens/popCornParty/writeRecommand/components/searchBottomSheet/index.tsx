@@ -12,14 +12,13 @@ import palette from '@/styles/theme/color';
 import Divider from '@/components/divider';
 import MovieItem from '@/components/items/movieItem';
 import BoxButton from '@/components/buttons/boxButton';
-import {useQuery, useQueryClient} from '@tanstack/react-query';
-import {getSearchMovieData} from '@/apis/popcornParty';
 import {
   IRecommendMovieProps,
   ISearchMovieDataProps,
 } from '@/types/popcornParty';
 import getMovieList from '@/utils/getMovieList';
 import EmptyItem from '@/components/items/emptyItem';
+import useSearchMovieMutation from '../../hook/useSearchMovieMutation';
 
 interface ISearchBottomSheetProp {
   bottomDrawerRef: React.RefObject<BottomDrawerMethods>;
@@ -37,19 +36,10 @@ const SearchBottomSheet = ({
     movieId: 'K',
     movieSeq: '',
   });
+  const {searchMovieData, searchMovieMutate} = useSearchMovieMutation(movie);
   const styles = searchBottomSheetStyles({bottom});
 
-  const {
-    data: searchMovieData,
-    refetch,
-    status,
-  } = useQuery({
-    queryKey: ['searchMovie'],
-    queryFn: () => getSearchMovieData(movie),
-    enabled: false,
-  });
   const searchResults = getMovieList(searchMovieData!);
-  const queryClient = useQueryClient();
 
   const renderItem = ({item}: Record<'item', ISearchMovieDataProps>) => (
     <MovieItem
@@ -67,13 +57,12 @@ const SearchBottomSheet = ({
 
   const closeModal = () => {
     setMovie('');
-    queryClient.removeQueries({queryKey: ['searchMovie']});
     bottomDrawerRef?.current?.close();
   };
 
-  // 팝콘작 추천하기 -> 영화 검색
-  const searchMovies = async () => {
-    await refetch();
+  const submitEditing = () => {
+    Keyboard.dismiss();
+    searchMovieMutate();
   };
 
   const setRecommandMovie = () => {
@@ -86,7 +75,10 @@ const SearchBottomSheet = ({
   };
 
   return (
-    <BottomSheet drawerRef={bottomDrawerRef} height={530 + bottom}>
+    <BottomSheet
+      onBackdropPress={() => setMovie('')}
+      drawerRef={bottomDrawerRef}
+      height={530 + bottom}>
       <View style={styles.container}>
         <View style={styles.wrap}>
           <Typography style="Subtitle2">영화 찾기</Typography>
@@ -101,8 +93,8 @@ const SearchBottomSheet = ({
             maxLength={15}
             mode="search"
             returnKeyType="done"
-            onSubmitEditing={Keyboard.dismiss}
-            onSearchPress={searchMovies}
+            onSubmitEditing={submitEditing}
+            onSearchPress={searchMovieMutate}
           />
           <View style={styles.totalResultWrap}>
             <Typography style="Label3">영화 검색결과 총 </Typography>
@@ -114,14 +106,13 @@ const SearchBottomSheet = ({
           </View>
           <Divider height={1} mb={8} mt={8} />
           <View style={styles.responseWrap}>
-            {searchMovieData?.length === 0 ||
-              (searchMovieData === undefined && (
-                <EmptyItem text="검색 결과가 나오지 않아요." size="large" />
-              ))}
-            {searchMovieData?.length! > 0 && status === 'success' && (
+            {(searchMovieData?.length === 0 ||
+              searchMovieData === undefined) && (
+              <EmptyItem text="검색 결과가 나오지 않아요." size="large" />
+            )}
+            {searchMovieData?.length! > 0 && (
               <FlatList data={searchResults} renderItem={renderItem} />
             )}
-
             <BoxButton onPress={setRecommandMovie}>선택하기</BoxButton>
           </View>
         </DefaultContainer>
