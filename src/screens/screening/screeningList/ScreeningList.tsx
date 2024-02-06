@@ -33,7 +33,7 @@ const ScreeningListScreen = () => {
         <View style={screeningListStyles.container}>
           <Input
             value={searchInput}
-            placeholder="상영회 타이틀, 주최명으로 검색"
+            placeholder="상영회 타이틀로 검색"
             onChangeInput={value => setSearchInput(value)}
             mode="search"
             onSearchPress={() => {}}
