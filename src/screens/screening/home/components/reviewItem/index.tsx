@@ -2,7 +2,7 @@ import {Image, TouchableOpacity, View} from 'react-native';
 import {DateParsable} from 'react-native-calendar-picker';
 
 import Typography from '@/components/typography';
-import ChatIcon from '@/assets/icons/chat.svg';
+import HeartIcon from '@/assets/icons/heart.svg';
 import useNavigator from '@/hooks/useNavigator';
 import palette from '@/styles/theme/color';
 import stackScreens from '@/constants/stackScreens';
@@ -60,8 +60,8 @@ const ReviewItem = ({
             {getDateRange(startDate, endDate)}
           </Typography>
           <View style={reviewItemStyles.flex}>
-            <ChatIcon />
-            <Typography style="Body2" color={palette.Text.Alternative} ml={7}>
+            <HeartIcon />
+            <Typography style="Body2" color={palette.Text.Alternative} ml={4}>
               {chatCount.toString()}
             </Typography>
           </View>

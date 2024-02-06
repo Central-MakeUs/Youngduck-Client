@@ -7,7 +7,7 @@ import {
 } from '@/models/popcornParty/reponse';
 import {IRecommendMovieBodyRequest} from '@/models/popcornParty/request';
 import Config from 'react-native-config';
-import {api} from '@/apis';
+import {api, apiWithoutToken} from '@/apis';
 
 export const getSearchMovieData = async (
   movie: string,
@@ -25,21 +25,21 @@ export const getSearchMovieData = async (
 export const getTrendingPopcornData = async (): Promise<
   ResponseDTO<TTrendingPopcornData[]>
 > => {
-  const res = await api.get('/popcorn');
+  const res = await apiWithoutToken.get('/popcorn');
   return res.data;
 };
 
 export const getTrendingMovieData = async (): Promise<
   ResponseDTO<TTrendingMovieData[]>
 > => {
-  const res = await api.get('/diverse/toprated');
+  const res = await apiWithoutToken.get('/diverse/toprated');
   return res.data;
 };
 
 export const getPopcornRecommendData = async (): Promise<
   ResponseDTO<TPopcornRecommendData[]>
 > => {
-  const res = await api.get('/popcorn/recommend');
+  const res = await apiWithoutToken.get('/popcorn/recommend');
   return res.data;
 };
 

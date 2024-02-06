@@ -87,7 +87,7 @@ function HomeScreen() {
                   date={item.screeningStartDate}
                   category={item.category}
                   img={item.posterImgUrl}
-                  hostName={item.hostName}
+                  hostName={item.screeningTitle}
                 />
               ))}
             </ScrollView>
