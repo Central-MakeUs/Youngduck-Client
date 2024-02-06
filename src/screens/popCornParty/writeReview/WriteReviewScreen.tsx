@@ -16,6 +16,8 @@ import BoxButton from '@/components/buttons/boxButton';
 import {ScreenRouteProp} from '@/types/navigator';
 import stackScreens from '@/constants/stackScreens';
 import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
+import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface IWriteReviewScreenProps {
   route: ScreenRouteProp<stackScreens.WriteReviewScreen>;
@@ -24,6 +26,7 @@ interface IWriteReviewScreenProps {
 function WriteReviewScreen({route: {params}}: IWriteReviewScreenProps) {
   const [currentScreen, setCurrentScreen] = useState<number>(0);
   const [isAgree, setIsAgree] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {movieReviewMutate} = usePopcornPartyMutation();
   const [startReview, setStartReview] = useState<{
     [key: string]: boolean | undefined;
@@ -135,9 +138,11 @@ function WriteReviewScreen({route: {params}}: IWriteReviewScreenProps) {
 
   const toggleIsAgreeState = () => setIsAgree(!isAgree);
   const onClickCompleteReview = () => {
-    stackNavigation.goBack();
+    setIsLoading(true);
     movieReviewMutate({popcornId: params.id, body});
   };
+
+  const {bottom} = useSafeAreaInsets();
   return (
     <View style={writeReviewScreenStyles.container}>
       <BackCancelTopBar onPress={goBackOrPreviousScreen} text="리뷰 작성하기" />
@@ -156,17 +161,22 @@ function WriteReviewScreen({route: {params}}: IWriteReviewScreenProps) {
         showsHorizontalScrollIndicator={false}
         ref={scrollViewRef}>
         <View style={writeReviewScreenStyles.commonContainer}>
-          <StartReview
-            startReview={startReview}
-            setStartReview={setStartReview}
-          />
-          <MultiButton
-            leftButtonText="이전"
-            rightButtonText="다음"
-            onLeftButtonPress={goBackOrPreviousScreen}
-            onRightButtonPress={nextScreen}
-            disabled={!reviewAllSelceted}
-          />
+          <DefaultScrollContainer>
+            <StartReview
+              startReview={startReview}
+              setStartReview={setStartReview}
+            />
+          </DefaultScrollContainer>
+          <View
+            style={{marginBottom: 0, paddingTop: 10, paddingBottom: bottom}}>
+            <MultiButton
+              leftButtonText="이전"
+              rightButtonText="다음"
+              onLeftButtonPress={goBackOrPreviousScreen}
+              onRightButtonPress={nextScreen}
+              disabled={!reviewAllSelceted}
+            />
+          </View>
         </View>
         <View style={writeReviewScreenStyles.commonContainer}>
           <SelectReview
@@ -194,35 +204,38 @@ function WriteReviewScreen({route: {params}}: IWriteReviewScreenProps) {
           />
         </View>
         <View style={writeReviewScreenStyles.commonContainer}>
-          <SubTitleDescription
-            text="더 적고 싶은 후기가 있다면 적어주세요"
-            subTitle="키워드 후기가 아쉽다면 추가적으로 적어주세요."
-            mb={16}
-          />
-          <TextArea
-            value={moreReview}
-            onChangeInput={inputMoreReview}
-            maxLength={300}
-            placeholder={'300자 이하 입력 가능해요'}
-            height={144}
-            title="영화 후기"
-          />
-          <View style={writeReviewScreenStyles.agreementWrap}>
+          <DefaultScrollContainer>
             <SubTitleDescription
-              text="게시글 정책을 확인했어요."
-              subTitle="팝콘작 추천하기는 수정이나 삭제를 할 수 없어요."
+              text="더 적고 싶은 후기가 있다면 적어주세요"
+              subTitle="키워드 후기가 아쉽다면 추가적으로 적어주세요."
+              mb={16}
             />
-            <View style={writeReviewScreenStyles.paddingCheckBox}>
-              <CheckBox
-                state={isAgree ? 'on' : 'off'}
-                onPress={toggleIsAgreeState}
+            <TextArea
+              value={moreReview}
+              onChangeInput={inputMoreReview}
+              maxLength={300}
+              placeholder={'300자 이하 입력 가능해요'}
+              height={144}
+              title="영화 후기"
+            />
+            <View style={writeReviewScreenStyles.agreementWrap}>
+              <SubTitleDescription
+                text="게시글 정책을 확인했어요."
+                subTitle="팝콘작 추천하기는 수정이나 삭제를 할 수 없어요."
               />
+              <View style={writeReviewScreenStyles.paddingCheckBox}>
+                <CheckBox
+                  state={isAgree ? 'on' : 'off'}
+                  onPress={toggleIsAgreeState}
+                />
+              </View>
             </View>
-          </View>
-          <View
-            style={{flex: 1, justifyContent: 'flex-end', paddingBottom: 40}}>
-            <BoxButton onPress={onClickCompleteReview} disabled={!isAgree}>
-              리뷰 작성하기
+          </DefaultScrollContainer>
+          <View style={{paddingBottom: 40}}>
+            <BoxButton
+              onPress={onClickCompleteReview}
+              disabled={!isAgree || isLoading}>
+              {isLoading ? '로딩 중..' : '리뷰 작성하기'}
             </BoxButton>
           </View>
         </View>

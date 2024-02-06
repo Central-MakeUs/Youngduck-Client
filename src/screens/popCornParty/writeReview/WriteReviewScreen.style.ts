@@ -7,7 +7,7 @@ const writeReviewScreenStyles = StyleSheet.create({
   container: {flex: 1},
   commonContainer: {
     width: screenWidth,
-    padding: 16,
+    paddingHorizontal: 16,
   },
   agreementWrap: {
     flexDirection: 'row',

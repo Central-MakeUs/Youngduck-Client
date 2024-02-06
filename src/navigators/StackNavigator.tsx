@@ -33,12 +33,14 @@ import MyDetailScreen from '@/screens/screening/myDetail/MyDetailScreen';
 import LoadingPage from '@/components/pages/loadingPage';
 import {useUserStore} from '@/stores/user';
 import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
+import {useQueryClient} from '@tanstack/react-query';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function StackNavigator() {
   const {stackNavigation} = useNavigator();
   const {user} = useUserStore();
+  const queryClient = useQueryClient();
 
   const [isSignIn, setIsSignIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -69,6 +71,11 @@ function StackNavigator() {
   if (isLoading) {
     return <LoadingPage />;
   }
+
+  const handleGoPopcornPartyHome = () => {
+    queryClient.removeQueries({queryKey: ['searchMovie']});
+    handleGoBack();
+  };
 
   // 스크리닝 화면 뒤로 가기
   const handleGoBack = () => {
@@ -218,7 +225,10 @@ function StackNavigator() {
         component={WriteRecommandScreen}
         options={{
           header: () => (
-            <CancelTopBar text="팝콘작 추천하기" onPress={handleGoBack} />
+            <CancelTopBar
+              text="팝콘작 추천하기"
+              onPress={handleGoPopcornPartyHome}
+            />
           ),
         }}
       />
