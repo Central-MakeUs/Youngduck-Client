@@ -112,16 +112,16 @@ function StackNavigator() {
           gestureEnabled: false,
         }}
       />
-      {/*닉네임 수정 페이지*/}
-      <Stack.Screen
-        name={stackScreens.ChangeNicknameScreen}
-        component={ChangeNicknameScreen}
-        options={{headerShown: false}}
-      />
       {/* 설정 페이지 */}
       <Stack.Screen
         name={stackScreens.SettingScreen}
         component={SettingScreen}
+        options={{headerShown: false}}
+      />
+      {/*닉네임 수정 페이지*/}
+      <Stack.Screen
+        name={stackScreens.ChangeNicknameScreen}
+        component={ChangeNicknameScreen}
         options={{headerShown: false}}
       />
       {/* 약관 동의 페이지 */}
@@ -185,6 +185,7 @@ function StackNavigator() {
         component={ReviewWritingScreen}
         options={{
           headerShown: false,
+          gestureEnabled: false,
           header: () => (
             <CancelTopBar text="리뷰 작성하기" onPress={handleGoBack} />
           ),
@@ -206,6 +207,7 @@ function StackNavigator() {
         component={PopcornPartyDetailScreen}
         options={{headerShown: false}}
       />
+      {/* 팝콘작 추천 목록 페이지 */}
       <Stack.Screen
         name={stackScreens.RecommandListScreen}
         component={RecommandListScreen}
@@ -220,6 +222,7 @@ function StackNavigator() {
           ),
         }}
       />
+      {/* 팝콘작 추천하기 페이지 */}
       <Stack.Screen
         name={stackScreens.WriteRecommandScreen}
         component={WriteRecommandScreen}
@@ -232,10 +235,11 @@ function StackNavigator() {
           ),
         }}
       />
+      {/* 팝콘작 리뷰 작성 페이지 */}
       <Stack.Screen
         name={stackScreens.WriteReviewScreen}
         component={WriteReviewScreen}
-        options={{headerShown: false}}
+        options={{headerShown: false, gestureEnabled: false}}
       />
     </Stack.Navigator>
   );
