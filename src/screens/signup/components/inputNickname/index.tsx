@@ -1,9 +1,12 @@
 import BoxButton from '@/components/buttons/boxButton';
-import Input from '@/components/input';
+import DuplicatedButton from '@/components/buttons/duplicatedButton';
+import CustomTextInput from '@/components/inputs/customTextInput';
 import SubTitleDescription from '@/components/title/subTitleDescription';
 import useCheckNicknameDuplication from '@/hooks/useCheckNicknameDuplication';
+import useHandleInputNickname from '@/hooks/useHandleInputNickname';
 import {useState} from 'react';
-import {View} from 'react-native';
+import {Keyboard, Pressable, View} from 'react-native';
+import inputNicknameStyles from './InputNickname.style';
 
 interface IInputNickname {
   handleMoveScreen: () => void;
@@ -17,39 +20,41 @@ const InputNickname = ({
   setNickname,
 }: IInputNickname) => {
   const [isDuplicated, setIsDuplicated] = useState<boolean>(true);
+  const {isError, errorMessage, handleInputNickname} =
+    useHandleInputNickname(setIsDuplicated);
 
   const {check} = useCheckNicknameDuplication(setIsDuplicated);
 
-  const handleInputNickname = (e: string) => setNickname(e);
-
   const checkDuplicate = () => check(nickname);
 
+  const handleInput = (e: string) => handleInputNickname(e, setNickname);
+
   return (
-    <>
+    <Pressable style={inputNicknameStyles.container} onPress={Keyboard.dismiss}>
       <View>
         <SubTitleDescription
           text="닉네임을 설정해주세요"
           subTitle={`닉네임은 자신의 활동명이 될거에요\n변경하고 싶다면 설정에 변경할 수 있어요`}
           mb={40}
         />
-        <Input
-          value={nickname}
-          placeholder="닉네임을 입력해주세요"
-          onChangeInput={handleInputNickname}
+        <CustomTextInput
           title="닉네임"
-          content="2~10자 입력 가능해요."
-          maxLength={10}
-          mode="check"
-          isDuplicated={isDuplicated}
-          checkDuplicate={checkDuplicate}
-        />
+          value={nickname}
+          onChangeText={handleInput}
+          placeholder="닉네임을 입력해주세요"
+          isError={isError}
+          errorMessage={errorMessage}>
+          <DuplicatedButton
+            value={nickname}
+            isDuplicated={isDuplicated}
+            onPress={checkDuplicate!}
+          />
+        </CustomTextInput>
       </View>
-      <BoxButton
-        disabled={nickname.length < 2 || isDuplicated}
-        onPress={handleMoveScreen}>
+      <BoxButton disabled={isDuplicated || isError} onPress={handleMoveScreen}>
         다음
       </BoxButton>
-    </>
+    </Pressable>
   );
 };
 

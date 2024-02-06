@@ -1,6 +1,5 @@
 import BoxButton from '@/components/buttons/boxButton';
 import DefaultContainer from '@/components/container/defaultContainer';
-import Input from '@/components/input';
 import Typography from '@/components/typography';
 import useNavigator from '@/hooks/useNavigator';
 import {useUserStore} from '@/stores/user';
@@ -11,21 +10,21 @@ import changeNicknameScreenStyles from './ChangeNicknameScreen.style';
 import TitleCenterTopBar from '@/components/topBar/titleCenterTopBar';
 import useUserMutation from '@/hooks/mutaions/useUserMutation';
 import useCheckNicknameDuplication from '@/hooks/useCheckNicknameDuplication';
+import CustomTextInput from '@/components/inputs/customTextInput';
+import DuplicatedButton from '@/components/buttons/duplicatedButton';
+import useHandleInputNickname from '@/hooks/useHandleInputNickname';
 
 const ChangeNicknameScreen = () => {
-  const {stackNavigation} = useNavigator();
-  const {bottom} = useSafeAreaInsets();
   const {user, setUser} = useUserStore();
   const [isDuplicated, setIsDuplicated] = useState<boolean>(true);
   const [nickname, setNickname] = useState<string>(user.nickname);
   const {updateNicknameMutate} = useUserMutation();
-  const style = changeNicknameScreenStyles({bottom});
   const {check} = useCheckNicknameDuplication(setIsDuplicated);
-
-  const handleInputNickname = (e: string) => {
-    setNickname(e);
-    setIsDuplicated(true);
-  };
+  const {bottom} = useSafeAreaInsets();
+  const {stackNavigation} = useNavigator();
+  const style = changeNicknameScreenStyles({bottom});
+  const {isError, errorMessage, handleInputNickname} =
+    useHandleInputNickname(setIsDuplicated);
 
   const handleUpdateNickname = () => {
     setUser({...user, nickname});
@@ -34,6 +33,8 @@ const ChangeNicknameScreen = () => {
   };
 
   const checkDuplicate = () => check(nickname);
+
+  const handleInput = (e: string) => handleInputNickname(e, setNickname);
 
   return (
     <Pressable style={{flex: 1}} onPress={Keyboard.dismiss}>
@@ -44,19 +45,23 @@ const ChangeNicknameScreen = () => {
             <Typography style="Subtitle2" mt={24} mb={40}>
               변경할 닉네임을 입력해 주세요
             </Typography>
-            <Input
-              value={nickname}
-              placeholder="닉네임을 입력해주세요"
-              onChangeInput={handleInputNickname}
+            <CustomTextInput
               title="닉네임"
-              content="2~10자 입력 가능해요."
-              maxLength={10}
-              mode="check"
-              isDuplicated={isDuplicated}
-              checkDuplicate={checkDuplicate}
-            />
+              value={nickname}
+              onChangeText={handleInput}
+              placeholder="닉네임을 입력해주세요"
+              isError={isError}
+              errorMessage={errorMessage}>
+              <DuplicatedButton
+                value={nickname}
+                isDuplicated={isDuplicated}
+                onPress={checkDuplicate!}
+              />
+            </CustomTextInput>
           </View>
-          <BoxButton onPress={handleUpdateNickname} disabled={isDuplicated}>
+          <BoxButton
+            onPress={handleUpdateNickname}
+            disabled={isDuplicated || isError}>
             변경하기
           </BoxButton>
         </View>
