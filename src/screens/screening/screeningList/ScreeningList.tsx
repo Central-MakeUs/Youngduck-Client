@@ -15,9 +15,10 @@ const ScreeningListScreen = () => {
   const [category, setCategory] = useState<TEngCategory | ''>('');
   const categoryOptions: {label: string; value: TEngCategory | ''}[] = [
     {label: '전체', value: ''},
-    {label: '졸업상영', value: 'ASSIGNMENT'},
-    {label: '과제상영', value: 'CASUAL'},
-    {label: '정기상영', value: 'SPECIAL'},
+    {label: '졸업상영', value: 'GRADUATE'},
+    {label: '과제상영', value: 'ASSIGNMENT'},
+    {label: '정기상영', value: 'CASUAL'},
+    {label: '특별상영', value: 'SPECIAL'},
     {label: '기타', value: 'ETC'},
   ];
 
