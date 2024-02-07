@@ -301,6 +301,7 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
             checkValue={() => {
               return checkURL(inputValues.formUrl);
             }}
+            keyboardType="url"
             essential
           />
         </View>
@@ -317,6 +318,7 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
             errorContent="전화번호 형식을 맞춰주세요"
             inputRef={phoneRef}
             returnKeyType="next"
+            keyboardType="phone-pad"
             onSubmitEditing={() => emailRef.current?.focus()}
             textContentType="telephoneNumber"
           />
@@ -339,6 +341,7 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
             }}
             inputRef={emailRef}
             autoComplete="email"
+            keyboardType="email-address"
             textContentType="emailAddress"
           />
         </View>
