@@ -5,6 +5,15 @@ export type TCategory = {
   ETC: '기타';
   GRADUATE: '졸업상영';
 };
+
+export const CategoryPair = [
+  {label: '전체', value: ''},
+  {label: '졸업상영', value: 'GRADUATE'},
+  {label: '과제상영', value: 'ASSIGNMENT'},
+  {label: '정기상영', value: 'CASUAL'},
+  {label: '특별상영', value: 'SPECIAL'},
+  {label: '기타', value: 'ETC'},
+];
 export type TEngCategory = keyof TCategory;
 export type TKorCategory = TCategory[TEngCategory];
 

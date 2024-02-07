@@ -9,4 +9,7 @@ export const weeklyStyles = StyleSheet.create({
     height: 100,
     borderRadius: 16,
   },
+  content: {
+    width: 120,
+  },
 });

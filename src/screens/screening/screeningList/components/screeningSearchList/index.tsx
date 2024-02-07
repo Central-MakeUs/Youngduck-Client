@@ -1,4 +1,10 @@
-import {FlatList, RefreshControl, View} from 'react-native';
+import {
+  FlatList,
+  Keyboard,
+  Pressable,
+  RefreshControl,
+  View,
+} from 'react-native';
 import {useInfiniteQuery} from '@tanstack/react-query';
 
 import DefaultContainer from '@/components/container/defaultContainer';
@@ -95,7 +101,11 @@ const ScreeningSearchList = ({
   };
 
   return (
-    <View style={screeningSearchListStyles.wrapper}>
+    <Pressable
+      style={screeningSearchListStyles.wrapper}
+      onPress={() => {
+        Keyboard.dismiss();
+      }}>
       <DefaultContainer>
         {screeningSearchLists?.length === 0 && (
           <View style={screeningSearchListStyles.wrapper}>
@@ -124,7 +134,7 @@ const ScreeningSearchList = ({
           </View>
         )}
       </DefaultContainer>
-    </View>
+    </Pressable>
   );
 };
 export default ScreeningSearchList;

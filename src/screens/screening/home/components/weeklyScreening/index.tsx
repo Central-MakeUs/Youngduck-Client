@@ -1,4 +1,4 @@
-import {Image, TouchableOpacity} from 'react-native';
+import {Image, TouchableOpacity, View} from 'react-native';
 import {DateParsable} from 'react-native-calendar-picker';
 
 import Typography from '@/components/typography';
@@ -44,10 +44,15 @@ const WeeklyScreening = ({
         }}
         style={weeklyStyles.image}
       />
+
       <Typography style="Label3" color={palette.Text.Alternative} mt={8}>
         {getCategory(category)}
       </Typography>
-      <Typography style="Label1">{hostName}</Typography>
+      <View style={weeklyStyles.content}>
+        <Typography style="Label1" numberOfLines={1}>
+          {hostName}
+        </Typography>
+      </View>
       <Typography style="Chips2" color={palette.Text.Alternative}>
         {getSimpleDate(date)}
       </Typography>
