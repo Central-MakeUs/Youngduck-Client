@@ -116,7 +116,7 @@ const ReviewWritingScreen = ({route: {params}}: IReviewWritingScreenProps) => {
       : stackNavigation.goBack();
 
   return (
-    <View>
+    <>
       <BackCancelTopBar onPress={goBackOrPreviousScreen} text="리뷰 작성하기" />
       <View>
         <ProgressBar totalScreens={4} animatedValue={animatedValue} />
@@ -153,7 +153,7 @@ const ReviewWritingScreen = ({route: {params}}: IReviewWritingScreenProps) => {
           setValue={(value, option) => onChangeOption(value, option)}
         />
       </ScrollView>
-    </View>
+    </>
   );
 };
 export default ReviewWritingScreen;

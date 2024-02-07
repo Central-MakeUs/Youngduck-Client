@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 import {getScreenSize} from '@/utils/getScreenSize';
+import palette from '@/styles/theme/color';
 
 const {screenWidth} = getScreenSize();
 
@@ -16,10 +17,10 @@ export const screeningReviewStyle = ({bottom}: {bottom: number}) =>
       flexWrap: 'wrap',
     },
     bottom: {
-      paddingBottom: bottom,
-      height: 88,
-      marginBottom: 40,
-      paddingTop: 10,
+      paddingBottom: bottom + 12,
+      paddingTop: 16,
+      borderTopWidth: 2,
+      borderTopColor: palette.Primary.Alternative,
     },
     notice: {marginTop: 16, marginBottom: 40},
   });
