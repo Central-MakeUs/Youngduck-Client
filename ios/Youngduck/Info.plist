@@ -68,8 +68,15 @@
 	<string>YOUR TEXT</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Fonts/PretendardVariable.ttf</string>
-		<string>Fonts/DancingScript-Bold.ttf</string>
+		<string>Fonts/Pretendard-Light.otf</string>
+		<string>Fonts/Pretendard-Medium.otf</string>
+		<string>Fonts/Pretendard-SemiBold.otf</string>
+		<string>Fonts/Pretendard-Bold.otf</string>
+		<string>Fonts/Pretendard-Regular.otf</string>
+		<string>Fonts/Pretendard-ExtraBold.otf</string>
+		<string>Fonts/Pretendard-Black.otf</string>
+		<string>Fonts/Pretendard-ExtraLight.otf</string>
+		<string>Fonts/Pretendard-Thin.otf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

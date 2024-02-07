@@ -41,8 +41,8 @@ const PopcornTrendingCard = ({
         <EmptyMedium />
       )}
 
-      {mode === 'with-ranking' && <Chip text={`${rank}위`} mt={4} mb={4} />}
-      <Typography style="Label1" numberOfLines={2}>
+      {mode === 'with-ranking' && <Chip text={`${rank}위`} mt={8} />}
+      <Typography style="Label1" numberOfLines={2} mt={4}>
         {movieTitle}
       </Typography>
     </Pressable>

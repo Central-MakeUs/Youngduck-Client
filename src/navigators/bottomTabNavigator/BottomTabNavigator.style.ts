@@ -21,7 +21,7 @@ export const bottomTabScreenOptions = ({
     fontWeight: '600',
     fontSize: 11,
     lineHeight: 16,
-    fontFamily: 'Pretendard Variable',
+    fontFamily: 'Pretendard-SemiBold',
     marginTop: 7,
   },
   tabBarHideOnKeyboard: true,

@@ -21,7 +21,7 @@ const loginScreenStyles = ({bottom}: ILoginScreenStylesProps) =>
       lineHeight: 42,
       color: palette.Primary.Dark,
       marginBottom: 8,
-      fontFamily: 'Pretendard Variable',
+      fontFamily: 'Pretendard-Regular',
     },
     image: {position: 'absolute', bottom: -bottom},
   });

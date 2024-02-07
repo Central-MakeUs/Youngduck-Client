@@ -13,6 +13,6 @@ export const dateRangleStyles = StyleSheet.create({
     backgroundColor: palette.Primary.Assistive,
   },
   text: {
-    fontFamily: 'Pretendard Variable',
+    fontFamily: 'Pretendard-Regular',
   },
 });

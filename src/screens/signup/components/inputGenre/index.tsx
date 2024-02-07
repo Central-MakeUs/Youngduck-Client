@@ -40,7 +40,7 @@ const InputGenre = ({nickname, idToken}: IInputGenreProps) => {
       <View>
         <SubTitleDescription
           text="좋아하는 영화 장르를 선택해주세요"
-          subTitle={`최소 1개 이상 선택해주세요!\n선택한 영화 장르는 프로필에 반영됩니다`}
+          subTitle={`최소 1개 ~ 최대 5개 선택해 주세요!\n선택한 영화 장르는 프로필에 반영됩니다`}
           mb={24}
         />
         <View style={inputGenreStyles.container}>

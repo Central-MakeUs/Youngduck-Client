@@ -12,6 +12,7 @@ const selectGenre = ({
   genre,
 }: ISelectGenreProps) => {
   if (!selectedGenres.includes(genre)) {
+    if (selectedGenres.length === 5) return;
     setSelectedGenres([...selectedGenres, genre]);
   } else {
     const newDatas = selectedGenres.filter(

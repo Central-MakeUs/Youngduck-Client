@@ -15,16 +15,18 @@ const ReviewTarget = ({imageURI, title, director}: IReviewTargetProps) => {
   return (
     <>
       <View style={reviewTargetStyles.container}>
-        {imageURI ? (
-          <Image
-            source={{
-              uri: imageURI,
-            }}
-            style={reviewTargetStyles.image}
-          />
-        ) : (
-          <EmptyMovie width={68} height={68} />
-        )}
+        <View style={reviewTargetStyles.imageWrap}>
+          {imageURI ? (
+            <Image
+              source={{
+                uri: imageURI,
+              }}
+              style={reviewTargetStyles.image}
+            />
+          ) : (
+            <EmptyMovie width={68} height={68} />
+          )}
+        </View>
 
         <View style={reviewTargetStyles.wrap}>
           <Typography style="Label2">작성할 리뷰 영화</Typography>

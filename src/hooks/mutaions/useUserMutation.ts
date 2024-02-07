@@ -10,6 +10,7 @@ import stackScreens from '@/constants/stackScreens';
 import {
   removeTokens,
   setIsInstalled,
+  setTokens,
 } from '@/services/localStorage/localStorage';
 import {IRegisterMutationProps} from '@/types/user';
 import {useUserStore} from '@/stores/user';
@@ -44,9 +45,10 @@ const useUserMutation = () => {
   const {mutate: signupMutate} = useMutation({
     mutationFn: (sendData: IRegisterMutationProps) =>
       postRegisterUser(sendData.type, sendData.idToken, sendData.body),
-    onSuccess: data => {
+    onSuccess: async data => {
       console.log('회원가입 성공');
       console.log(data);
+      await setTokens(data.data.refreshToken, data.data.accessToken);
       stackNavigation.navigate(stackScreens.SignupCompleteScreen);
     },
     onError: err => console.log(err),
