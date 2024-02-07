@@ -32,7 +32,7 @@ const Input = ({
   checkValue,
   ...props
 }: ITextInputProps) => {
-  const {onFocus, onError, onBlur, type} = useFocus();
+  const {onFocus, onBlur, type, onCheck} = useFocus();
 
   useEffect(() => {
     onBlur(value);
@@ -62,11 +62,7 @@ const Input = ({
           onFocus={onFocus}
           onBlur={() => {
             // value 유효성 체크 함수
-            if (checkValue && !checkValue()) {
-              onError();
-            } else {
-              onBlur(value);
-            }
+            onCheck(value, checkValue!!);
           }}
           placeholderTextColor={palette.Text.Assistive}
           importantForAutofill="yes"

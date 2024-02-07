@@ -35,7 +35,7 @@ const DateRangeInput = ({
   checkValue,
   errorContent,
 }: IDateRangeInputProps) => {
-  const {type, onFocus, onBlur, onError} = useFocus();
+  const {type, onFocus, onBlur, onError, onCheck} = useFocus();
   const [timeString, setTimeString] = useState<string>('');
   const bottomDrawerRef = useRef<BottomDrawerMethods>(null);
   const {bottom} = useSafeAreaInsets();
@@ -92,14 +92,10 @@ const DateRangeInput = ({
         onPress={() => {
           bottomDrawerRef.current?.open();
         }}
-        onPressIn={() => onFocus()}
+        onPressIn={onFocus}
         onPressOut={() => {
           // value 유효성 체크 함수
-          if (checkValue && !checkValue()) {
-            onError();
-          } else {
-            onBlur(timeString);
-          }
+          onCheck(timeString, checkValue!!);
         }}>
         <Typography
           style="Body1"
