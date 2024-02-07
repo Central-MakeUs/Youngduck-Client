@@ -58,11 +58,13 @@ function StackNavigator() {
 
     getIsInstalled().then((res: boolean) => {
       if (res) {
-        postAccessToken().then(() => {
-          const autoLogin = setTimeout(() => {
-            stackNavigation.navigate(stackScreens.BottomTabScreens);
-            clearTimeout(autoLogin);
-          }, 100);
+        postAccessToken().then((res: boolean) => {
+          if (res) {
+            const autoLogin = setTimeout(() => {
+              stackNavigation.navigate(stackScreens.BottomTabScreens);
+              clearTimeout(autoLogin);
+            }, 100);
+          }
           setIsLoading(false);
         });
       } else {
