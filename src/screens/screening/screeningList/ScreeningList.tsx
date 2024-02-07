@@ -2,11 +2,11 @@ import {useEffect, useState} from 'react';
 import {KeyboardAvoidingView, ScrollView, View} from 'react-native';
 
 import SelectButton from '@/components/buttons/selectButton';
-import Input from '@/components/input';
 import DateOption from './components/dateOption';
 import {TScreeningTimeOption} from '@/models/enums/time';
 import {TEngCategory} from '@/models/enums/category';
 import ScreeningSearchList from './components/screeningSearchList';
+import SearchBar from '@/components/searchBar';
 
 import {screeningListStyles} from './ScreeningList.style';
 
@@ -31,12 +31,10 @@ const ScreeningListScreen = () => {
     <KeyboardAvoidingView style={screeningListStyles.wrapper}>
       <View style={screeningListStyles.wrapper}>
         <View style={screeningListStyles.container}>
-          <Input
+          <SearchBar
             value={searchInput}
             placeholder="상영회 타이틀로 검색"
             onChangeInput={value => setSearchInput(value)}
-            mode="search"
-            onSearchPress={() => {}}
           />
         </View>
         <View

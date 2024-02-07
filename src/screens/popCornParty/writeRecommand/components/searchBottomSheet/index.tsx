@@ -5,7 +5,6 @@ import {View, Keyboard, FlatList} from 'react-native';
 import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import searchBottomSheetStyles from './SearchBottomSheet.style';
-import Input from '@/components/input';
 import {useState} from 'react';
 import DefaultContainer from '@/components/container/defaultContainer';
 import palette from '@/styles/theme/color';
@@ -19,6 +18,7 @@ import {
 import getMovieList from '@/utils/getMovieList';
 import EmptyItem from '@/components/items/emptyItem';
 import useSearchMovieMutation from '../../hook/useSearchMovieMutation';
+import SearchBar from '@/components/searchBar';
 
 interface ISearchBottomSheetProp {
   bottomDrawerRef: React.RefObject<BottomDrawerMethods>;
@@ -85,13 +85,13 @@ const SearchBottomSheet = ({
           <SvgIcons.CancelIcon onPress={closeModal} />
         </View>
         <DefaultContainer>
-          <Input
+          <SearchBar
             value={movie}
             title="영화"
             placeholder="영화 제목을 입력해 주세요"
             onChangeInput={inputMovie}
             maxLength={15}
-            mode="search"
+            errorContent="15자 이내로 작성해주세요"
             returnKeyType="done"
             onSubmitEditing={submitEditing}
             onSearchPress={searchMovieMutate}
