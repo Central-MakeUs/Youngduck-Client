@@ -21,6 +21,8 @@ interface IDateRangeInputProps {
   endDate: DateParsable | undefined;
   setEndDate: (date: Date | DateParsable | undefined) => void;
   placeholder: string;
+  checkValue?: () => boolean;
+  errorContent: string;
 }
 const DateRangeInput = ({
   title,
@@ -30,8 +32,10 @@ const DateRangeInput = ({
   placeholder,
   setStartDate,
   setEndDate,
+  checkValue,
+  errorContent,
 }: IDateRangeInputProps) => {
-  const {type, onFocus, onBlur} = useFocus();
+  const {type, onFocus, onBlur, onError} = useFocus();
   const [timeString, setTimeString] = useState<string>('');
   const bottomDrawerRef = useRef<BottomDrawerMethods>(null);
   const {bottom} = useSafeAreaInsets();
@@ -53,6 +57,10 @@ const DateRangeInput = ({
 
   useEffect(() => {
     onBlur(timeString);
+
+    if (checkValue && !checkValue() && selectedStartDate && selectedEndDate) {
+      onError();
+    }
   }, [timeString]);
 
   useEffect(() => {
@@ -85,7 +93,17 @@ const DateRangeInput = ({
           bottomDrawerRef.current?.open();
         }}
         onPressIn={() => onFocus()}
-        onPressOut={() => onBlur(timeString)}>
+        //onPressOut={() => {
+        //  // value 유효성 체크 함수
+        //  if (checkValue && !checkValue()) {
+        //    console.log('여기느 ㅜㅜ');
+        //    onError();
+        //  } else {
+        //    console.log('왜 여기에 오지?');
+        //    onBlur(timeString);
+        //  }
+        //}}
+      >
         <Typography
           style="Body1"
           color={timeString ? palette.Text.Normal : palette.Text.Assistive}>
@@ -94,6 +112,12 @@ const DateRangeInput = ({
 
         <Calendar />
       </Pressable>
+
+      {type === 'caution' && errorContent && (
+        <Typography style="Chips1" color={inputTypes[type].contentColor} mt={4}>
+          {errorContent}
+        </Typography>
+      )}
 
       <BottomSheet drawerRef={bottomDrawerRef} height={310 + bottom}>
         <DateRangePickerModal

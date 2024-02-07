@@ -26,6 +26,7 @@ import DateRangeInput from '@/components/dateRangeInput';
 import TimeInput from '@/components/timeInput';
 
 import {writingStyles} from './WritingScreen.style';
+import {getDatePrevious} from '@/utils/getDate';
 
 interface IWritingScreenProps {
   route: ScreenRouteProp<'WritingScreen'>;
@@ -186,6 +187,16 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
               setStartDate={value => onChangeInput('screeningStartDate', value)}
               setEndDate={value => onChangeInput('screeningEndDate', value)}
               endDate={inputValues.screeningEndDate}
+              errorContent={'상영회 시작일이 오늘보다 이전이에요'}
+              checkValue={() => {
+                if (
+                  inputValues.screeningStartDate &&
+                  inputValues.screeningEndDate
+                ) {
+                  return getDatePrevious(inputValues.screeningStartDate);
+                }
+                return false;
+              }}
               essential
             />
           )}
@@ -201,6 +212,16 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
                 }
                 setEndDate={value => onChangeInput('screeningEndDate', value)}
                 endDate={inputValues.screeningEndDate}
+                errorContent={'상영회 시작일이 오늘보다 이전이에요'}
+                checkValue={() => {
+                  if (
+                    inputValues.screeningStartDate &&
+                    inputValues.screeningEndDate
+                  ) {
+                    return getDatePrevious(inputValues.screeningStartDate);
+                  }
+                  return false;
+                }}
                 essential
               />
             )}
