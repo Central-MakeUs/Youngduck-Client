@@ -5,6 +5,6 @@ export const writingStyles = StyleSheet.create({
     marginBottom: 24,
   },
   bottom: {
-    marginBottom: 280,
+    marginBottom: 48,
   },
 });
