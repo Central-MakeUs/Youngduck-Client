@@ -6,7 +6,6 @@ const enum stackScreens {
   MyPageScreen = 'MyPageScreen',
   ChangeNicknameScreen = 'ChangeNicknameScreen',
   SettingScreen = 'SettingScreen',
-  AgreementScreen = 'AgreementScreen',
   WithdrawScreen = 'WithdrawScreen',
   ManageScreeningScreen = 'ManageScreeningScreen',
   ManageReviewScreen = 'ManageReviewScreen',
