@@ -11,10 +11,13 @@ const reviewTargetStyls = StyleSheet.create({
     justifyContent: 'space-between',
     flex: 1,
   },
+  imageWrap: {
+    borderRadius: 16,
+    overflow: 'hidden',
+  },
   image: {
     width: 68,
     height: 68,
-    borderRadius: 16,
   },
 });
 
