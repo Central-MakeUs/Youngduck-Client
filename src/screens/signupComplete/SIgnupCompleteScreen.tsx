@@ -5,9 +5,9 @@ import {Image, View} from 'react-native';
 import {defaultImages} from '@/assets';
 import SubTitleDescription from '@/components/title/subTitleDescription';
 import BoxButton from '@/components/buttons/boxButton';
-import useUserMutation from '@/hooks/mutaions/useUserMutation';
-import {useUserStore} from '@/stores/user';
 import PopcornSignup from '@/assets/icons/popcorn-signup.svg';
+import useNavigator from '@/hooks/useNavigator';
+import stackScreens from '@/constants/stackScreens';
 
 const SignupCompleteScreen = () => {
   const {top, bottom} = useSafeAreaInsets();
@@ -18,11 +18,10 @@ const SignupCompleteScreen = () => {
     width: screenWidth,
     height: screenHeight,
   });
-  const {loginMutate} = useUserMutation();
-  const {user, idToken} = useUserStore();
+  const {stackNavigation} = useNavigator();
 
   const startPopcornMate = async () =>
-    loginMutate({type: user.type, token: idToken});
+    stackNavigation.navigate(stackScreens.BottomTabScreens);
 
   return (
     <View style={styles.container}>
