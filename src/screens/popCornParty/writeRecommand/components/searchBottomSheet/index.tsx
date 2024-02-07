@@ -37,7 +37,6 @@ const SearchBottomSheet = ({
     movieSeq: '',
   });
   const {searchMovieData, searchMovieMutate} = useSearchMovieMutation(movie);
-  const styles = searchBottomSheetStyles({bottom});
 
   const searchResults = getMovieList(searchMovieData!);
 
@@ -79,8 +78,8 @@ const SearchBottomSheet = ({
       onBackdropPress={() => setMovie('')}
       drawerRef={bottomDrawerRef}
       height={530 + bottom}>
-      <View style={styles.container}>
-        <View style={styles.wrap}>
+      <View style={searchBottomSheetStyles.container}>
+        <View style={searchBottomSheetStyles.wrap}>
           <Typography style="Subtitle2">영화 찾기</Typography>
           <SvgIcons.CancelIcon onPress={closeModal} />
         </View>
@@ -96,7 +95,7 @@ const SearchBottomSheet = ({
             onSubmitEditing={submitEditing}
             onSearchPress={searchMovieMutate}
           />
-          <View style={styles.totalResultWrap}>
+          <View style={searchBottomSheetStyles.totalResultWrap}>
             <Typography style="Label3">영화 검색결과 총 </Typography>
             <Typography style="Label3" color={palette.Primary.Deep}>
               {`${
@@ -105,15 +104,21 @@ const SearchBottomSheet = ({
             </Typography>
           </View>
           <Divider height={1} mb={8} mt={8} />
-          <View style={styles.responseWrap}>
+          <View>
             {(searchMovieData?.length === 0 ||
               searchMovieData === undefined) && (
-              <EmptyItem text="검색 결과가 나오지 않아요." size="large" />
+              <View style={searchBottomSheetStyles.emptyResponseWrap}>
+                <EmptyItem text="검색 결과가 나오지 않아요." size="large" />
+              </View>
             )}
             {searchMovieData?.length! > 0 && (
-              <FlatList data={searchResults} renderItem={renderItem} />
+              <View style={searchBottomSheetStyles.emptyResponseWrap}>
+                <FlatList data={searchResults} renderItem={renderItem} />
+              </View>
             )}
-            <BoxButton onPress={setRecommandMovie}>선택하기</BoxButton>
+            <BoxButton onPress={setRecommandMovie} mt={16}>
+              선택하기
+            </BoxButton>
           </View>
         </DefaultContainer>
       </View>
