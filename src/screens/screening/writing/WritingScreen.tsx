@@ -10,7 +10,6 @@ import ButtonInput from '@/components/inputs/buttonInput';
 import Select from '@/components/select';
 import TextArea from '@/components/inputs/textArea';
 import DismissKeyboardView from '@/components/dismissKeyboardView';
-import Input from '@/components/input';
 import useHandleInput from './hooks/useHandleInput';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import {ScreenRouteProp} from '@/types/navigator';
@@ -21,6 +20,8 @@ import {KorCategoryValues} from '@/models/enums/category';
 import {getScreeningMyDetailContent} from '@/apis/screening/detail';
 import CancelTopBar from '@/components/topBar/cancelTopBar';
 import BottomBoxButton from '@/components/bottomButton/bottomBoxButton';
+import Input from '@/components/textInput';
+import {checkEmail, checkURL} from '@/utils/checkValue';
 
 import {writingStyles} from './WritingScreen.style';
 
@@ -139,9 +140,9 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
             value={inputValues.screeningTitle}
             title="타이틀"
             placeholder="상영회 제목을 입력하세요"
-            onChangeInput={value => onChangeInput('screeningTitle', value)}
+            setValue={value => onChangeInput('screeningTitle', value)}
             maxLength={15}
-            content="15자 이내로 상영회 제목을 입력해주세요"
+            detail="15자 이내로 상영회 제목을 입력해주세요"
             inputRef={titleRef}
             returnKeyType="next"
             onSubmitEditing={() => screeningRef.current?.focus()}
@@ -155,9 +156,9 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
             value={inputValues.hostName}
             title="주최명"
             placeholder="학과명, 동아리명 등 주최를 적어주세요."
-            onChangeInput={(value: string) => onChangeInput('hostName', value)}
+            setValue={(value: string) => onChangeInput('hostName', value)}
             maxLength={15}
-            content="15자 이내로 주최명을 입력해주세요"
+            detail="15자 이내로 주최명을 입력해주세요"
             inputRef={screeningRef}
             returnKeyType="next"
             essential
@@ -247,10 +248,15 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
             value={inputValues.formUrl}
             title="관람 신청 URL"
             placeholder="관람 신청 URL을 입력해주세요"
-            onChangeInput={value => onChangeInput('formUrl', value)}
+            detail="관람 신청 URL을 입력해주세요"
+            setValue={value => onChangeInput('formUrl', value)}
             inputRef={urlRef}
             returnKeyType="next"
+            errorContent="url 형식에 맞춰 입력해주세요(ex. https://www.)"
             onSubmitEditing={() => phoneRef.current?.focus()}
+            checkValue={() => {
+              return checkURL(inputValues.formUrl);
+            }}
             essential
           />
         </View>
@@ -261,8 +267,8 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
             value={inputValues.hostPhoneNumber}
             title="주최 연락처"
             placeholder="주최 연락처를 입력해주세요"
-            onChangeInput={value => onChangeInput('hostPhoneNumber', value)}
-            keyBoardType="phone"
+            detail="주최 연락처를 입력해주세요"
+            setValue={value => onChangeInput('hostPhoneNumber', value)}
             maxLength={13}
             errorContent="전화번호 형식을 맞춰주세요"
             inputRef={phoneRef}
@@ -278,9 +284,15 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
             value={inputValues.hostEmail}
             title="주최 이메일"
             placeholder="주최 이메일을 입력해주세요"
-            onChangeInput={value => onChangeInput('hostEmail', value)}
-            keyBoardType="email"
+            detail="주최 이메일을 입력해주세요"
+            setValue={value => onChangeInput('hostEmail', value)}
             errorContent="이메일 형식을 맞춰주세요"
+            checkValue={() => {
+              if (inputValues.hostEmail) {
+                return checkEmail(inputValues.hostEmail);
+              }
+              return true;
+            }}
             inputRef={emailRef}
             autoComplete="email"
             textContentType="emailAddress"
