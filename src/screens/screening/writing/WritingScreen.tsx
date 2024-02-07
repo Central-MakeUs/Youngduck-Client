@@ -22,10 +22,10 @@ import CancelTopBar from '@/components/topBar/cancelTopBar';
 import BottomBoxButton from '@/components/bottomButton/bottomBoxButton';
 import Input from '@/components/textInput';
 import {checkEmail, checkURL} from '@/utils/checkValue';
-
-import {writingStyles} from './WritingScreen.style';
 import DateRangeInput from '@/components/dateRangeInput';
 import TimeInput from '@/components/timeInput';
+
+import {writingStyles} from './WritingScreen.style';
 
 interface IWritingScreenProps {
   route: ScreenRouteProp<'WritingScreen'>;
@@ -96,13 +96,11 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
   const handleWriteScreening = async () => {
     setIsLoading(true);
     if (type === 'post') {
-      console.log(inputValues);
       await uploadScreening.mutateAsync(inputValues);
       setIsLoading(false);
     }
     if (type === 'modified' && data) {
       const body = {screeningId: data.data.screeningId, ...inputValues};
-      console.log(inputValues.hostPhoneNumber);
       await modifyScreening.mutateAsync(body);
       stackNavigation.navigate(stackScreens.MyDetailScreen, {
         id: data.data.screeningId,

@@ -77,7 +77,10 @@ const DateRangeInput = ({
       </Typography>
 
       <Pressable
-        style={inputStyles.buntton}
+        style={[
+          inputStyles.buntton,
+          {borderColor: inputTypes[type].borderColor},
+        ]}
         onPress={() => {
           bottomDrawerRef.current?.open();
         }}

@@ -53,7 +53,10 @@ const TimeInput = ({
         {title}
       </Typography>
       <Pressable
-        style={inputStyles.buntton}
+        style={[
+          inputStyles.buntton,
+          {borderColor: inputTypes[type].borderColor},
+        ]}
         onPress={() => setTimeModal(!timeModal)}
         onPressIn={() => onFocus()}
         onPressOut={() => onBlur(timeString)}>
