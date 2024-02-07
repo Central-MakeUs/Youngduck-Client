@@ -1,6 +1,6 @@
 import {Pressable, View, TouchableOpacity} from 'react-native';
 import ModalContainer from 'react-native-modal';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 
 import DownArrow from '@/assets/icons/down-arrow.svg';
 import TopArrow from '@/assets/icons/top-arrow.svg';
@@ -34,9 +34,6 @@ const Select = <T extends string>({
 
   const showOptions = () => setOptionVisible(prev => !prev);
 
-  useEffect(() => {
-    onBlur(value);
-  }, [value]);
   return (
     <View>
       <Typography
@@ -47,7 +44,10 @@ const Select = <T extends string>({
         {title}
       </Typography>
       <Pressable
-        style={inputStyles.buntton}
+        style={[
+          inputStyles.buntton,
+          {borderColor: inputTypes[type].borderColor},
+        ]}
         onPress={showOptions}
         onPressIn={() => onFocus()}
         onPressOut={() => onBlur(value)}>
