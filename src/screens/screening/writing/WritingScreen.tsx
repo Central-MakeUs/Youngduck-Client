@@ -27,6 +27,7 @@ import TimeInput from '@/components/timeInput';
 
 import {writingStyles} from './WritingScreen.style';
 import {getDatePrevious} from '@/utils/getDate';
+import {showSnackBar} from '@/utils/showSnackBar';
 
 interface IWritingScreenProps {
   route: ScreenRouteProp<'WritingScreen'>;
@@ -95,6 +96,26 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
   };
 
   const handleWriteScreening = async () => {
+    // 기간 유효성 검사
+    if (
+      inputValues.screeningStartDate &&
+      !getDatePrevious(inputValues.screeningStartDate)
+    ) {
+      showSnackBar('상영회 시작일을 다시 선택해주세요');
+      return;
+    }
+    // url 유효성 검사
+    if (inputValues.formUrl && !checkURL(inputValues.formUrl)) {
+      urlRef.current?.focus();
+      showSnackBar('상영회 url 형식에 맞춰 다시 작성해주세요');
+      return;
+    }
+    // 이메일 유효성 검사
+    if (inputValues.hostEmail && !checkEmail(inputValues.hostEmail)) {
+      emailRef.current?.focus();
+      showSnackBar('주최 이메일 형식에 맞춰 다시 작성해주세요');
+      return;
+    }
     setIsLoading(true);
     if (type === 'post') {
       await uploadScreening.mutateAsync(inputValues);
@@ -195,7 +216,7 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
                 ) {
                   return getDatePrevious(inputValues.screeningStartDate);
                 }
-                return false;
+                return true;
               }}
               essential
             />
@@ -220,7 +241,7 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
                   ) {
                     return getDatePrevious(inputValues.screeningStartDate);
                   }
-                  return false;
+                  return true;
                 }}
                 essential
               />

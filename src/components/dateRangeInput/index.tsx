@@ -93,17 +93,14 @@ const DateRangeInput = ({
           bottomDrawerRef.current?.open();
         }}
         onPressIn={() => onFocus()}
-        //onPressOut={() => {
-        //  // value 유효성 체크 함수
-        //  if (checkValue && !checkValue()) {
-        //    console.log('여기느 ㅜㅜ');
-        //    onError();
-        //  } else {
-        //    console.log('왜 여기에 오지?');
-        //    onBlur(timeString);
-        //  }
-        //}}
-      >
+        onPressOut={() => {
+          // value 유효성 체크 함수
+          if (checkValue && !checkValue()) {
+            onError();
+          } else {
+            onBlur(timeString);
+          }
+        }}>
         <Typography
           style="Body1"
           color={timeString ? palette.Text.Normal : palette.Text.Assistive}>
