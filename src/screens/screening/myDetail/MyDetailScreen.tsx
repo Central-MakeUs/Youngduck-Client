@@ -15,7 +15,6 @@ import TabBar from '@/components/tabBar';
 import useNavigator from '@/hooks/useNavigator';
 import {getScreeningMyDetailContent} from '@/apis/screening/detail';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
-import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
 import LoadingPage from '@/components/pages/loadingPage';
 import {getScreenSize} from '@/utils/getScreenSize';
 
@@ -63,41 +62,37 @@ const MyDetailScreen = ({route: {params}}: IMyDetailScreenProps) => {
 
   return (
     <>
-      <View>
-        <DefaultScrollContainer>
+      {data && (
+        <ImageContentScrollContainer
+          title={data?.data.screeningTitle}
+          posterImage={data?.data.posterImgUrl}
+          imageSize={imageSize}
+          queryKey={
+            currentTab === 1
+              ? ['screeningReview', 'screeningRate']
+              : currentTab === 2
+              ? ['screeningMyStatistic']
+              : []
+          }>
           {data && (
-            <ImageContentScrollContainer
+            <ScreeningTitle
               title={data?.data.screeningTitle}
-              posterImage={data?.data.posterImgUrl}
-              imageSize={imageSize}
-              queryKey={
-                currentTab === 1
-                  ? ['screeningReview', 'screeningRate']
-                  : currentTab === 2
-                  ? ['screeningMyStatistic']
-                  : []
-              }>
-              {data && (
-                <ScreeningTitle
-                  title={data?.data.screeningTitle}
-                  category={data?.data.category}
-                />
-              )}
-              <TabBar
-                currentTabBarNumber={currentTab}
-                setCurrentTabBarNumber={setCurrentTab}
-                tabBars={myScreeningTabBars}
-              />
-
-              <View>
-                {currentTab === 0 && <DetailInfoPage item={data?.data} />}
-                {currentTab === 1 && <DetailReviewPage id={params.id} />}
-                {currentTab === 2 && <DetailStatisticScreen id={params.id} />}
-              </View>
-            </ImageContentScrollContainer>
+              category={data?.data.category}
+            />
           )}
-        </DefaultScrollContainer>
-      </View>
+          <TabBar
+            currentTabBarNumber={currentTab}
+            setCurrentTabBarNumber={setCurrentTab}
+            tabBars={myScreeningTabBars}
+          />
+
+          <View>
+            {currentTab === 0 && <DetailInfoPage item={data?.data} />}
+            {currentTab === 1 && <DetailReviewPage id={params.id} />}
+            {currentTab === 2 && <DetailStatisticScreen id={params.id} />}
+          </View>
+        </ImageContentScrollContainer>
+      )}
 
       {data && (
         <MyDetailBottomButton

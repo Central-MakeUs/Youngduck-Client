@@ -23,7 +23,6 @@ import {getIsInstalled, setIsAlarm} from '@/services/localStorage/localStorage';
 import stackScreens from '@/constants/stackScreens';
 import ChangeNicknameScreen from '@/screens/myPage/changeNickname/ChangeNicknameScreen';
 import SettingScreen from '@/screens/myPage/setting/SettingScreen';
-import AgreementScreen from '@/screens/myPage/setting/screens/agreement/AgreementScreen';
 import WithdrawScreen from '@/screens/myPage/setting/screens/withdraw/WithdrawScreen';
 import ManageScreeningScreen from '@/screens/myPage/manageScreening/ManageScreeningScreen';
 import ManageReviewScreen from '@/screens/myPage/manageReview/ManageReviewScreen';
@@ -124,12 +123,6 @@ function StackNavigator() {
       <Stack.Screen
         name={stackScreens.ChangeNicknameScreen}
         component={ChangeNicknameScreen}
-        options={{headerShown: false}}
-      />
-      {/* 약관 동의 페이지 */}
-      <Stack.Screen
-        name={stackScreens.AgreementScreen}
-        component={AgreementScreen}
         options={{headerShown: false}}
       />
       {/* 회원 탈퇴 페이지 */}

@@ -1,8 +1,8 @@
-import {useState} from 'react';
 import {DateParsable} from 'react-native-calendar-picker';
 
 import {DetailBottomButtonType} from '@/types/ui';
 import {getDateAfter, getDatePrevious} from '@/utils/getDate';
+import {useState} from 'react';
 
 const useScreeningType = () => {
   const [buttonType, setButtonType] =
