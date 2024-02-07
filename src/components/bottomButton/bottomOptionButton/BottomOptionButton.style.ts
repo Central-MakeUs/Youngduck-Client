@@ -8,7 +8,7 @@ export const bottomOptionButtonStyles = ({bottom}: {bottom: number}) =>
       backgroundColor: palette.Another.White,
       width: '100%',
       paddingTop: 12,
-      bottom,
+      bottom: bottom + 12,
       borderTopWidth: 2,
       borderTopColor: palette.Primary.Alternative,
       paddingHorizontal: 16,
