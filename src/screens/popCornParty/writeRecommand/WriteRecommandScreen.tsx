@@ -5,7 +5,6 @@ import CheckBox from '@/components/checkBox';
 import ButtonInput from '@/components/inputs/buttonInput';
 import TextArea from '@/components/inputs/textArea';
 import SubTitleDescription from '@/components/title/subTitleDescription';
-import BoxButton from '@/components/buttons/boxButton';
 import Popup from '@/components/popup';
 import {getVoteDateRange} from '@/utils/getDate';
 
@@ -13,6 +12,8 @@ import writeRecommandScreenStyles from './WriteRecommandScreen.style';
 import {IRecommendMovieProps} from '@/types/popcornParty';
 import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
 import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
+import BottomBoxButton from '@/components/bottomButton/bottomBoxButton';
+import DismissKeyboardView from '@/components/dismissKeyboardView';
 
 function WriteRecommandScreen() {
   const [selectedMovie, setSelectedMovie] = useState<IRecommendMovieProps>({
@@ -48,7 +49,7 @@ function WriteRecommandScreen() {
   };
 
   return (
-    <>
+    <DismissKeyboardView>
       <Popup
         title="등록하시겠습니까?"
         content="등록 후에는 수정할 수 없어요"
@@ -83,6 +84,10 @@ function WriteRecommandScreen() {
             placeholder={'최소 10자에서 최대 100자까지 입력할 수 있어요'}
             height={144}
             title="추천하는 이유"
+            checkValue={() => {
+              return reason.length > 10;
+            }}
+            errorContent="추천하는 이유 10자 이상 적어주세요"
             essential
           />
           <View style={writeRecommandScreenStyles.agreementWrap}>
@@ -99,14 +104,13 @@ function WriteRecommandScreen() {
           </View>
         </Pressable>
       </DefaultScrollContainer>
-      <View style={writeRecommandScreenStyles.registerButton}>
-        <BoxButton
-          disabled={!canRegister || isLoading}
-          onPress={toggleIsVisibleState}>
-          {isLoading ? '로딩 중..' : '등록하기'}
-        </BoxButton>
-      </View>
-    </>
+
+      <BottomBoxButton
+        onPress={toggleIsVisibleState}
+        disabled={!canRegister || isLoading}>
+        {isLoading ? '로딩 중' : '등록하기'}
+      </BottomBoxButton>
+    </DismissKeyboardView>
   );
 }
 
