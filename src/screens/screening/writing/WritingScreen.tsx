@@ -34,8 +34,7 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
   const {type, search, id} = params;
   const {uploadScreening, modifyScreening} = useScreeningMutation();
   const {stackNavigation} = useNavigator();
-  const {setModify, inputValues, setInputValues, onChangeInput} =
-    useHandleInput();
+  const {setModify, inputValues, onChangeInput} = useHandleInput();
 
   useEffect(() => {
     onChangeInput('location', search);

@@ -50,6 +50,6 @@ const useHandleInput = () => {
     setInputValues({...inputValues, [inputName]: value});
   };
 
-  return {setModify, inputValues, setInputValues, onChangeInput};
+  return {setModify, inputValues, onChangeInput};
 };
 export default useHandleInput;
