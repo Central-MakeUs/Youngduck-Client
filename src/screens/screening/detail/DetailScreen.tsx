@@ -1,6 +1,5 @@
 import {useEffect, useState} from 'react';
 import {Image, View} from 'react-native';
-import {useIsFocused} from '@react-navigation/native';
 import {useQuery} from '@tanstack/react-query';
 
 import ImageContentScrollContainer from '@/components/container/imageContentScrollContainer';
@@ -14,14 +13,15 @@ import {getScreeningDetailContent} from '@/apis/screening/detail';
 import {screeningTabBars} from '@/constants/tabBars';
 import useScreeningType from './hooks/useScreeningType';
 import Popup from '@/components/popup';
-import {useWebviewStore} from '@/stores/webview';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import LoadingPage from '@/components/pages/loadingPage';
 import ScreeningTitle from '@/components/title/screeningTitle';
 import Tooltip from '@/components/tooltip';
+import {getScreenSize} from '@/utils/getScreenSize';
+import useNavigator from '@/hooks/useNavigator';
+import {openInappBrowser} from '@/services/inappBrowser';
 
 import {detailScreenStyles} from './DetailScreen.style';
-import {getScreenSize} from '@/utils/getScreenSize';
 
 type DetailScreenProps = {
   route: ScreenRouteProp<stackScreens.DetailScreen>;
@@ -33,8 +33,7 @@ const DetailScreen = ({route}: DetailScreenProps) => {
   const [tooltipeShow, setTooltipShow] = useState<boolean>(false);
   const [imageSize, setImageSize] = useState({width: 0, height: 0});
   const {screenWidth} = getScreenSize();
-
-  const {webview, setWebview} = useWebviewStore();
+  const {stackNavigation} = useNavigator();
 
   const {uploadScreeningBookmark} = useScreeningMutation();
 
@@ -46,14 +45,13 @@ const DetailScreen = ({route}: DetailScreenProps) => {
   const {
     buttonType,
     setDetailButtonType,
-    handleButtonOnPress,
     popupCancel,
     onClosePopupCancel,
     onClosePopupScreening,
     handleOptionOnPress,
     popupScreening,
     setPopupScreening,
-  } = useScreeningType(id);
+  } = useScreeningType();
 
   useEffect(() => {
     if (status === 'success') {
@@ -63,19 +61,8 @@ const DetailScreen = ({route}: DetailScreenProps) => {
         data?.data.screeningEndDate,
         data?.data.screeningStartDate,
       );
-      if (buttonType === 'default') {
-        setWebview({uri: data.data.formUrl, isVisited: false});
-      }
     }
-  }, [data, setWebview, status, buttonType]);
-
-  // 웹뷰 갔다와 관람 신청 모달 활성화
-  const state = useIsFocused();
-  useEffect(() => {
-    if (webview.isVisited && state && buttonType === 'default') {
-      setPopupScreening(true);
-    }
-  }, [state]);
+  }, [data, status, buttonType]);
 
   // 관람 신청 모달 네 클릭 시
   const handleScreeningPopupPress = () => {
@@ -86,6 +73,18 @@ const DetailScreen = ({route}: DetailScreenProps) => {
       },
     });
     onClosePopupScreening();
+  };
+
+  const handleButtonOnPress = () => {
+    if (buttonType === 'reviewStart') {
+      // 리뷰 작성하기로 이동
+      stackNavigation.navigate(stackScreens.ReviewWritingScreen, {id});
+    }
+    if (buttonType === 'default' && data) {
+      // 관람 신청 웹뷰 열기
+      openInappBrowser(data.data.formUrl);
+      setPopupScreening(true);
+    }
   };
 
   // 관람 취소 모달 네 클릭 시
