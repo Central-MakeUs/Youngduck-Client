@@ -20,6 +20,7 @@ import useUserMutation from '@/hooks/mutaions/useUserMutation';
 import settingScreenStyles from './SettingScreen.style';
 import {useQuery} from '@tanstack/react-query';
 import {getUserData} from '@/apis/user/user';
+import {openInappBrowser} from '@/services/inappBrowser';
 
 const SettingScreen = () => {
   const {stackNavigation} = useNavigator();
@@ -129,11 +130,7 @@ const SettingScreen = () => {
         </View>
         <SubMenu
           text="약관 보기"
-          onPress={() =>
-            stackNavigation.navigate(stackScreens.AgreementScreen, {
-              uri: Config.MARKETING_POLICY_URI,
-            })
-          }
+          onPress={() => openInappBrowser(Config.MARKETING_POLICY_URI)}
           textStyle="Body1"
           mt={8}
         />
@@ -141,20 +138,12 @@ const SettingScreen = () => {
         <SubTitle text="약관 및 개인정보 처리 방침" mb={8} />
         <SubMenu
           text="이용약관"
-          onPress={() =>
-            stackNavigation.navigate(stackScreens.AgreementScreen, {
-              uri: Config.USAGE_POLICY_URI,
-            })
-          }
+          onPress={() => openInappBrowser(Config.USAGE_POLICY_URI)}
           mb={8}
         />
         <SubMenu
           text="개인정보처리방침"
-          onPress={() =>
-            stackNavigation.navigate(stackScreens.AgreementScreen, {
-              uri: Config.PRIVACY_POLICY_URI,
-            })
-          }
+          onPress={() => openInappBrowser(Config.PRIVACY_POLICY_URI)}
           mb={8}
         />
         <View style={settingScreenStyles.appVersionWrap}>
