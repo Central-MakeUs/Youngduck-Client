@@ -33,16 +33,12 @@ import MyDetailScreen from '@/screens/screening/myDetail/MyDetailScreen';
 import LoadingPage from '@/components/pages/loadingPage';
 import {useUserStore} from '@/stores/user';
 import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
-import {useQueryClient} from '@tanstack/react-query';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function StackNavigator() {
   const {stackNavigation} = useNavigator();
   const {user} = useUserStore();
-  const queryClient = useQueryClient();
-
-  const [isSignIn, setIsSignIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -52,8 +48,11 @@ function StackNavigator() {
 
     getIsInstalled().then((res: boolean) => {
       if (res) {
-        postAccessToken().then(res => {
-          setIsSignIn(res);
+        postAccessToken().then(() => {
+          const autoLogin = setTimeout(() => {
+            stackNavigation.navigate(stackScreens.BottomTabScreens);
+            clearTimeout(autoLogin);
+          }, 100);
           setIsLoading(false);
         });
       } else {
@@ -78,10 +77,7 @@ function StackNavigator() {
   };
 
   return (
-    <Stack.Navigator
-      initialRouteName={
-        isSignIn ? stackScreens.BottomTabScreens : stackScreens.LoginScreen
-      }>
+    <Stack.Navigator initialRouteName={stackScreens.LoginScreen}>
       {/*로그인 페이지*/}
       <Stack.Screen
         name={stackScreens.LoginScreen}
