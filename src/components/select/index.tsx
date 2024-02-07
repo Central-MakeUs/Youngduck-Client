@@ -1,14 +1,14 @@
 import {Pressable, View, TouchableOpacity} from 'react-native';
 import ModalContainer from 'react-native-modal';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import DownArrow from '@/assets/icons/down-arrow.svg';
 import TopArrow from '@/assets/icons/top-arrow.svg';
 import useFocus from '@/hooks/useFocus';
 import Typography from '../typography';
-
 import palette from '@/styles/theme/color';
 import {inputStyles, inputTypes} from '@/styles/Input.style';
+
 import {selectStyles} from './Select.style';
 
 interface ISelectProps<T = string> {
@@ -33,6 +33,10 @@ const Select = <T extends string>({
   const [optionVisible, setOptionVisible] = useState(false);
 
   const showOptions = () => setOptionVisible(prev => !prev);
+
+  useEffect(() => {
+    onBlur(value);
+  }, [value]);
 
   return (
     <View>
