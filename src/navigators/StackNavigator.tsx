@@ -19,7 +19,7 @@ import {RootStackParamList} from '@/types/navigator';
 import CancelTopBar from '@/components/topBar/cancelTopBar';
 import useNavigator from '@/hooks/useNavigator';
 import {postAccessToken} from '@/apis/auth/auth';
-import {getIsInstalled} from '@/services/localStorage/localStorage';
+import {getIsInstalled, setIsAlarm} from '@/services/localStorage/localStorage';
 import stackScreens from '@/constants/stackScreens';
 import ChangeNicknameScreen from '@/screens/myPage/changeNickname/ChangeNicknameScreen';
 import SettingScreen from '@/screens/myPage/setting/SettingScreen';
@@ -33,6 +33,10 @@ import MyDetailScreen from '@/screens/screening/myDetail/MyDetailScreen';
 import LoadingPage from '@/components/pages/loadingPage';
 import {useUserStore} from '@/stores/user';
 import BackTitleTopBar from '@/components/topBar/backTitleTopBar';
+import {
+  checkAlarmPermission,
+  requestAlarmPermission,
+} from '@/services/permissionService';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -45,6 +49,12 @@ function StackNavigator() {
     const timer = setTimeout(() => {
       SplashScreen.hide();
     }, 1000); //스플래시 활성화 시간
+
+    // 알람 권한 물어보기
+    requestAlarmPermission();
+    checkAlarmPermission().then(res => {
+      setIsAlarm(res);
+    });
 
     getIsInstalled().then((res: boolean) => {
       if (res) {

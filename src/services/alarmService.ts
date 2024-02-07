@@ -16,6 +16,22 @@ const setupAlarm = () => {
     // 알림 도착해서 클릭 시 실행
     onNotification: function (notification: any) {
       console.log('NOTIFICATION:', notification);
+
+      // 포그라운드에서 실행 중일 때만 로컬 알림 표시
+      if (notification.foreground) {
+        // 로컬 알림 설정
+        PushNotification.localNotification({
+          /* 로컬 알림 설정 */
+          title: notification.title,
+          message: notification.message,
+          channelId: 'channel-id',
+          playSound: true,
+          soundName: 'default',
+          priority: 'high',
+          vibrate: true,
+        });
+      }
+
       // ios 설정
       notification.finish(PushNotificationIOS.FetchResult.NoData);
     },
@@ -40,20 +56,19 @@ const setupAlarm = () => {
     requestPermissions: true,
   });
 
-  // 알람 기본 설정 및 채널 구성
   PushNotification.createChannel(
     {
-      channelId: 'screening',
-      channelName: '앱 전반',
-      channelDescription: '앱 실행하는 알림',
+      channelId: 'channel-id',
+      channelName: 'My channel',
+      channelDescription: 'A channel to categorise your notifications',
+      playSound: false,
       soundName: 'default',
       importance: 4,
       vibrate: true,
     },
-    (created: boolean) => console.log(`채널 생성 성공 '${created}'`),
+    created => console.log(`createChannel returned '${created}'`),
   );
 };
-
 const getDeviceToken = async (userId: number) => {
   try {
     if (!messaging().isDeviceRegisteredForRemoteMessages) {
@@ -78,6 +93,7 @@ const alarmTest = async () => {
     }
     const token = await messaging().getToken();
     console.log('phone token', token);
+
     // 서버로 부터 토큰 api로 보내줌
   } catch (error) {
     console.error(error);
