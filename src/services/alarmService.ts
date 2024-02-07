@@ -41,17 +41,17 @@ const setupAlarm = () => {
   });
 
   // 알람 기본 설정 및 채널 구성
-  PushNotification.createChannel(
-    {
-      channelId: 'screening',
-      channelName: '앱 전반',
-      channelDescription: '앱 실행하는 알림',
-      soundName: 'default',
-      importance: 4,
-      vibrate: true,
-    },
-    (created: boolean) => console.log(`채널 생성 성공 '${created}'`),
-  );
+  //PushNotification.createChannel(
+  //  {
+  //    channelId: 'screening',
+  //    channelName: '앱 전반',
+  //    channelDescription: '앱 실행하는 알림',
+  //    soundName: 'default',
+  //    importance: 4,
+  //    vibrate: true,
+  //  },
+  //  (created: boolean) => console.log(`채널 생성 성공 '${created}'`),
+  //);
 };
 
 const getDeviceToken = async (userId: number) => {
@@ -72,12 +72,24 @@ const getDeviceToken = async (userId: number) => {
 
 const alarmTest = async () => {
   try {
+    PushNotification.createChannel(
+      {
+        channelId: 'screening',
+        channelName: '앱 전반',
+        channelDescription: '앱 실행하는 알림',
+        soundName: 'default',
+        importance: 4,
+        vibrate: true,
+      },
+      (created: boolean) => console.log(`채널 생성 성공 '${created}'`),
+    );
     if (!messaging().isDeviceRegisteredForRemoteMessages) {
       // 기기 등록
       await messaging().registerDeviceForRemoteMessages();
     }
     const token = await messaging().getToken();
     console.log('phone token', token);
+
     // 서버로 부터 토큰 api로 보내줌
   } catch (error) {
     console.error(error);
