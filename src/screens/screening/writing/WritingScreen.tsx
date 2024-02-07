@@ -194,12 +194,15 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
           {type === 'modified' &&
             inputValues.screeningStartDate &&
             inputValues.screeningEndDate && (
-              <ButtonInput
-                value={inputValues}
+              <DateRangeInput
                 title="날짜"
                 placeholder="시작일과 종료일을 선택해주세요"
-                category="date"
-                setValue={setInputValues}
+                startDate={inputValues.screeningStartDate}
+                setStartDate={value =>
+                  onChangeInput('screeningStartDate', value)
+                }
+                setEndDate={value => onChangeInput('screeningEndDate', value)}
+                endDate={inputValues.screeningEndDate}
                 essential
               />
             )}
