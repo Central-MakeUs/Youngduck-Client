@@ -51,8 +51,10 @@ const ReviewItem = ({
         style={reviewItemStyles.image}
       />
       <View style={reviewItemStyles.content}>
-        <Typography style="Label2">{getCategory(category)}</Typography>
-        <Typography style="Body1" mb={8}>
+        <Typography style="Body2" color={palette.Text.Alternative}>
+          {getCategory(category)}
+        </Typography>
+        <Typography style="Label1" color={palette.Text.Normal} mb={8}>
           {title}
         </Typography>
         <View style={reviewItemStyles.option}>
