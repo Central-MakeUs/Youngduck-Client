@@ -28,7 +28,6 @@ import WithdrawScreen from '@/screens/myPage/setting/screens/withdraw/WithdrawSc
 import ManageScreeningScreen from '@/screens/myPage/manageScreening/ManageScreeningScreen';
 import ManageReviewScreen from '@/screens/myPage/manageReview/ManageReviewScreen';
 import MyScreeningScreen from '@/screens/myPage/myScreening/MyScreeningScreen';
-import DetailWebviewScreen from '@/screens/screening/detailWebview/DetailWebviewScreen';
 import MyDetailScreen from '@/screens/screening/myDetail/MyDetailScreen';
 import LoadingPage from '@/components/pages/loadingPage';
 import {useUserStore} from '@/stores/user';
@@ -172,12 +171,6 @@ function StackNavigator() {
       <Stack.Screen
         name={stackScreens.MyDetailScreen}
         component={MyDetailScreen}
-        options={{headerShown: false}}
-      />
-      {/*상세 웹뷰 페이지*/}
-      <Stack.Screen
-        name={stackScreens.DetailWebviewScreen}
-        component={DetailWebviewScreen}
         options={{headerShown: false}}
       />
       {/*리뷰 작성 페이지*/}
