@@ -7,4 +7,8 @@ export const detailScreenStyles = StyleSheet.create({
     right: 16,
     zIndex: 9,
   },
+  content: {
+    flex: 1,
+    marginBottom: 13,
+  },
 });

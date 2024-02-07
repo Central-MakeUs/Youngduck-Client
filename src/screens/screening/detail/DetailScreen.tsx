@@ -129,34 +129,34 @@ const DetailScreen = ({route}: DetailScreenProps) => {
         onClose={onClosePopupCancel}
         onPress={handleCacelPopupPress}
       />
-
-      {data && (
-        <ImageContentScrollContainer
-          posterImage={data?.data.posterImgUrl}
-          title={data?.data.screeningTitle}
-          imageSize={imageSize}
-          queryKey={
-            currentTab === 0
-              ? ['screeningDetail']
-              : ['screeningReview', 'screeningRate']
-          }>
-          {data && (
-            <ScreeningTitle
-              title={data?.data.screeningTitle}
-              category={data?.data.category}
+      <View style={detailScreenStyles.content}>
+        {data && (
+          <ImageContentScrollContainer
+            posterImage={data?.data.posterImgUrl}
+            title={data?.data.screeningTitle}
+            imageSize={imageSize}
+            queryKey={
+              currentTab === 0
+                ? ['screeningDetail']
+                : ['screeningReview', 'screeningRate']
+            }>
+            {data && (
+              <ScreeningTitle
+                title={data?.data.screeningTitle}
+                category={data?.data.category}
+              />
+            )}
+            <TabBar
+              currentTabBarNumber={currentTab}
+              setCurrentTabBarNumber={setCurrentTab}
+              tabBars={screeningTabBars}
             />
-          )}
-          <TabBar
-            currentTabBarNumber={currentTab}
-            setCurrentTabBarNumber={setCurrentTab}
-            tabBars={screeningTabBars}
-          />
 
-          {currentTab === 0 && <DetailInfoPage item={data?.data} />}
-          {currentTab === 1 && <DetailReviewPage id={id} />}
-        </ImageContentScrollContainer>
-      )}
-
+            {currentTab === 0 && <DetailInfoPage item={data?.data} />}
+            {currentTab === 1 && <DetailReviewPage id={id} />}
+          </ImageContentScrollContainer>
+        )}
+      </View>
       {currentTab === 0 && tooltipeShow && (
         <View style={detailScreenStyles.tooltip}>
           <Tooltip
