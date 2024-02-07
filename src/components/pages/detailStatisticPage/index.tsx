@@ -24,7 +24,6 @@ const DetailStatisticScreen = ({id}: IDetailStatisticProp) => {
     queryKey: ['screeningMyStatistic'],
     queryFn: () => getScreeningMyStatistics(id),
   });
-  console.log('통계 데이터', data?.data);
 
   const [positive, setPositive] = useState<boolean>(false);
   const [negative, setNegative] = useState<boolean>(false);
