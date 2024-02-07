@@ -25,6 +25,7 @@ import {checkEmail, checkURL} from '@/utils/checkValue';
 
 import {writingStyles} from './WritingScreen.style';
 import DateRangeInput from '@/components/dateRangeInput';
+import TimeInput from '@/components/timeInput';
 
 interface IWritingScreenProps {
   route: ScreenRouteProp<'WritingScreen'>;
@@ -209,11 +210,10 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
 
         {/*시간*/}
         <View style={writingStyles.container}>
-          <ButtonInput
+          <TimeInput
             value={inputValues.screeningStartTime}
             placeholder="시간을 선택해주세요"
             title="시간"
-            category="time"
             setValue={value => onChangeInput('screeningStartTime', value)}
             essential
           />
