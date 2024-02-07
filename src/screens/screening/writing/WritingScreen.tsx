@@ -10,7 +10,6 @@ import ButtonInput from '@/components/inputs/buttonInput';
 import Select from '@/components/select';
 import TextArea from '@/components/inputs/textArea';
 import DismissKeyboardView from '@/components/dismissKeyboardView';
-import Input from '@/components/input';
 import useHandleInput from './hooks/useHandleInput';
 import useScreeningMutation from '@/hooks/mutaions/useScreeningMutation';
 import {ScreenRouteProp} from '@/types/navigator';
@@ -21,8 +20,14 @@ import {KorCategoryValues} from '@/models/enums/category';
 import {getScreeningMyDetailContent} from '@/apis/screening/detail';
 import CancelTopBar from '@/components/topBar/cancelTopBar';
 import BottomBoxButton from '@/components/bottomButton/bottomBoxButton';
+import Input from '@/components/textInput';
+import {checkEmail, checkURL} from '@/utils/checkValue';
+import DateRangeInput from '@/components/dateRangeInput';
+import TimeInput from '@/components/timeInput';
 
 import {writingStyles} from './WritingScreen.style';
+import {getDatePrevious} from '@/utils/getDate';
+import {showSnackBar} from '@/utils/showSnackBar';
 
 interface IWritingScreenProps {
   route: ScreenRouteProp<'WritingScreen'>;
@@ -32,8 +37,7 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
   const {type, search, id} = params;
   const {uploadScreening, modifyScreening} = useScreeningMutation();
   const {stackNavigation} = useNavigator();
-  const {setModify, inputValues, setInputValues, onChangeInput} =
-    useHandleInput();
+  const {setModify, inputValues, onChangeInput} = useHandleInput();
 
   useEffect(() => {
     onChangeInput('location', search);
@@ -92,15 +96,33 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
   };
 
   const handleWriteScreening = async () => {
+    // 기간 유효성 검사
+    if (
+      inputValues.screeningStartDate &&
+      !getDatePrevious(inputValues.screeningStartDate)
+    ) {
+      showSnackBar('상영회 시작일을 다시 선택해주세요');
+      return;
+    }
+    // url 유효성 검사
+    if (inputValues.formUrl && !checkURL(inputValues.formUrl)) {
+      urlRef.current?.focus();
+      showSnackBar('상영회 url 형식에 맞춰 다시 작성해주세요');
+      return;
+    }
+    // 이메일 유효성 검사
+    if (inputValues.hostEmail && !checkEmail(inputValues.hostEmail)) {
+      emailRef.current?.focus();
+      showSnackBar('주최 이메일 형식에 맞춰 다시 작성해주세요');
+      return;
+    }
     setIsLoading(true);
     if (type === 'post') {
-      console.log(inputValues);
       await uploadScreening.mutateAsync(inputValues);
       setIsLoading(false);
     }
     if (type === 'modified' && data) {
       const body = {screeningId: data.data.screeningId, ...inputValues};
-      console.log(inputValues.hostPhoneNumber);
       await modifyScreening.mutateAsync(body);
       stackNavigation.navigate(stackScreens.MyDetailScreen, {
         id: data.data.screeningId,
@@ -139,9 +161,9 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
             value={inputValues.screeningTitle}
             title="타이틀"
             placeholder="상영회 제목을 입력하세요"
-            onChangeInput={value => onChangeInput('screeningTitle', value)}
+            setValue={value => onChangeInput('screeningTitle', value)}
             maxLength={15}
-            content="15자 이내로 상영회 제목을 입력해주세요"
+            detail="15자 이내로 상영회 제목을 입력해주세요"
             inputRef={titleRef}
             returnKeyType="next"
             onSubmitEditing={() => screeningRef.current?.focus()}
@@ -155,9 +177,9 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
             value={inputValues.hostName}
             title="주최명"
             placeholder="학과명, 동아리명 등 주최를 적어주세요."
-            onChangeInput={(value: string) => onChangeInput('hostName', value)}
+            setValue={(value: string) => onChangeInput('hostName', value)}
             maxLength={15}
-            content="15자 이내로 주최명을 입력해주세요"
+            detail="15자 이내로 주최명을 입력해주세요"
             inputRef={screeningRef}
             returnKeyType="next"
             essential
@@ -179,24 +201,48 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
         {/*날짜*/}
         <View style={writingStyles.container}>
           {type === 'post' && (
-            <ButtonInput
-              value={inputValues}
+            <DateRangeInput
               title="날짜"
               placeholder="시작일과 종료일을 선택해주세요"
-              category="date"
-              setValue={setInputValues}
+              startDate={inputValues.screeningStartDate}
+              setStartDate={value => onChangeInput('screeningStartDate', value)}
+              setEndDate={value => onChangeInput('screeningEndDate', value)}
+              endDate={inputValues.screeningEndDate}
+              errorContent={'상영회 시작일이 오늘보다 이전이에요'}
+              checkValue={() => {
+                if (
+                  inputValues.screeningStartDate &&
+                  inputValues.screeningEndDate
+                ) {
+                  return getDatePrevious(inputValues.screeningStartDate);
+                }
+                return true;
+              }}
               essential
             />
           )}
           {type === 'modified' &&
             inputValues.screeningStartDate &&
             inputValues.screeningEndDate && (
-              <ButtonInput
-                value={inputValues}
+              <DateRangeInput
                 title="날짜"
                 placeholder="시작일과 종료일을 선택해주세요"
-                category="date"
-                setValue={setInputValues}
+                startDate={inputValues.screeningStartDate}
+                setStartDate={value =>
+                  onChangeInput('screeningStartDate', value)
+                }
+                setEndDate={value => onChangeInput('screeningEndDate', value)}
+                endDate={inputValues.screeningEndDate}
+                errorContent={'상영회 시작일이 오늘보다 이전이에요'}
+                checkValue={() => {
+                  if (
+                    inputValues.screeningStartDate &&
+                    inputValues.screeningEndDate
+                  ) {
+                    return getDatePrevious(inputValues.screeningStartDate);
+                  }
+                  return true;
+                }}
                 essential
               />
             )}
@@ -204,11 +250,10 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
 
         {/*시간*/}
         <View style={writingStyles.container}>
-          <ButtonInput
+          <TimeInput
             value={inputValues.screeningStartTime}
             placeholder="시간을 선택해주세요"
             title="시간"
-            category="time"
             setValue={value => onChangeInput('screeningStartTime', value)}
             essential
           />
@@ -247,10 +292,16 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
             value={inputValues.formUrl}
             title="관람 신청 URL"
             placeholder="관람 신청 URL을 입력해주세요"
-            onChangeInput={value => onChangeInput('formUrl', value)}
+            detail="관람 신청 URL을 입력해주세요"
+            setValue={value => onChangeInput('formUrl', value)}
             inputRef={urlRef}
             returnKeyType="next"
+            errorContent="url 형식에 맞춰 입력해주세요(ex. https://www.)"
             onSubmitEditing={() => phoneRef.current?.focus()}
+            checkValue={() => {
+              return checkURL(inputValues.formUrl);
+            }}
+            keyboardType="url"
             essential
           />
         </View>
@@ -261,12 +312,13 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
             value={inputValues.hostPhoneNumber}
             title="주최 연락처"
             placeholder="주최 연락처를 입력해주세요"
-            onChangeInput={value => onChangeInput('hostPhoneNumber', value)}
-            keyBoardType="phone"
+            detail="주최 연락처를 입력해주세요"
+            setValue={value => onChangeInput('hostPhoneNumber', value)}
             maxLength={13}
             errorContent="전화번호 형식을 맞춰주세요"
             inputRef={phoneRef}
             returnKeyType="next"
+            keyboardType="phone-pad"
             onSubmitEditing={() => emailRef.current?.focus()}
             textContentType="telephoneNumber"
           />
@@ -278,11 +330,18 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
             value={inputValues.hostEmail}
             title="주최 이메일"
             placeholder="주최 이메일을 입력해주세요"
-            onChangeInput={value => onChangeInput('hostEmail', value)}
-            keyBoardType="email"
+            detail="주최 이메일을 입력해주세요"
+            setValue={value => onChangeInput('hostEmail', value)}
             errorContent="이메일 형식을 맞춰주세요"
+            checkValue={() => {
+              if (inputValues.hostEmail) {
+                return checkEmail(inputValues.hostEmail);
+              }
+              return true;
+            }}
             inputRef={emailRef}
             autoComplete="email"
+            keyboardType="email-address"
             textContentType="emailAddress"
           />
         </View>

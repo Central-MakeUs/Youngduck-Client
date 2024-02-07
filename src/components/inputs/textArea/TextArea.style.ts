@@ -10,4 +10,5 @@ export const textAreaStyles = StyleSheet.create({
     marginTop: 4,
     justifyContent: 'flex-end',
   },
+  error: {flexDirection: 'row', justifyContent: 'space-between'},
 });

@@ -14,8 +14,9 @@ interface ITextAreaProps extends TextInputProps {
   placeholder?: string;
   height: number;
   essential?: boolean;
-
+  checkValue?: () => boolean;
   inputRef?: LegacyRef<TextInput> | undefined;
+  errorContent?: string;
 }
 
 const TextArea = ({
@@ -27,17 +28,16 @@ const TextArea = ({
   height,
   essential,
   inputRef,
+  checkValue,
+  errorContent,
   ...props
 }: ITextAreaProps) => {
-  const {type, onFocus, onBlur, onFocusout} = useFocus();
+  const {type, onFocus, onBlur, onCheck} = useFocus();
 
   const lengthNotice = `/ ${maxLength}`;
 
   useEffect(() => {
     onBlur(value);
-    if (maxLength) {
-      onFocusout(value, maxLength);
-    }
   }, [value]);
 
   return (
@@ -67,31 +67,44 @@ const TextArea = ({
         placeholder={placeholder}
         onChangeText={onChangeInput}
         onFocus={onFocus}
+        maxLength={maxLength}
         blurOnSubmit={false}
         ref={inputRef}
         onBlur={() => {
-          //focus out 일 때도 warnnig 확인
-          if (maxLength) onFocusout(value, maxLength);
+          // value 유효성 체크 함수
+          onCheck(value, checkValue!!);
         }}
         multiline={true}
         placeholderTextColor={palette.Text.Assistive}
       />
       {/*textArea 아래 value 길이 notice*/}
-      <View style={textAreaStyles.length}>
-        <Typography
-          style="Label3"
-          color={
-            type === 'caution' ? palette.State.Point : palette.Primary.Deep
-          }>
-          {value.length.toString()}
-        </Typography>
-        <Typography
-          style="Label3"
-          color={
-            type === 'caution' ? palette.State.Point : palette.Text.Normal
-          }>
-          {lengthNotice}
-        </Typography>
+      <View style={textAreaStyles.error}>
+        <View>
+          {type === 'caution' && errorContent && (
+            <Typography
+              style="Chips1"
+              color={inputTypes[type].contentColor}
+              mt={4}>
+              {errorContent}
+            </Typography>
+          )}
+        </View>
+        <View style={textAreaStyles.length}>
+          <Typography
+            style="Label3"
+            color={
+              type === 'caution' ? palette.State.Point : palette.Primary.Deep
+            }>
+            {value.length.toString()}
+          </Typography>
+          <Typography
+            style="Label3"
+            color={
+              type === 'caution' ? palette.State.Point : palette.Text.Normal
+            }>
+            {lengthNotice}
+          </Typography>
+        </View>
       </View>
     </View>
   );

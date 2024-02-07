@@ -6,9 +6,9 @@ import DownArrow from '@/assets/icons/down-arrow.svg';
 import TopArrow from '@/assets/icons/top-arrow.svg';
 import useFocus from '@/hooks/useFocus';
 import Typography from '../typography';
-
 import palette from '@/styles/theme/color';
 import {inputStyles, inputTypes} from '@/styles/Input.style';
+
 import {selectStyles} from './Select.style';
 
 interface ISelectProps<T = string> {
@@ -37,6 +37,7 @@ const Select = <T extends string>({
   useEffect(() => {
     onBlur(value);
   }, [value]);
+
   return (
     <View>
       <Typography
@@ -47,7 +48,10 @@ const Select = <T extends string>({
         {title}
       </Typography>
       <Pressable
-        style={inputStyles.buntton}
+        style={[
+          inputStyles.buntton,
+          {borderColor: inputTypes[type].borderColor},
+        ]}
         onPress={showOptions}
         onPressIn={() => onFocus()}
         onPressOut={() => onBlur(value)}>

@@ -1,6 +1,7 @@
 import {TextInputStyle, TextInputType} from '@/types/ui';
 import palette from './theme/color';
 import {StyleSheet, ViewStyle} from 'react-native';
+import text from './theme/typography';
 
 const commonInputStyles = {
   paddingHorizontal: 16,
@@ -40,9 +41,9 @@ export const inputTypes: Record<TextInputType, TextInputStyle> = {
 export const inputStyles = StyleSheet.create({
   input: {
     ...commonInputStyles,
-    fontSize: 16,
-    paddingVertical: 10,
+    paddingVertical: 8,
     textAlignVertical: 'center',
+    ...text['Body1'],
   },
   buntton: {
     ...commonInputStyles,
