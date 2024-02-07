@@ -20,6 +20,7 @@ import Popup from '@/components/popup';
 
 import {reviewScreenStyles} from './DetailReviewPage.style';
 import ScreeningRateCard from '@/components/cards/screeningRateCard';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface IDetailReviewProps {
   id: number;
@@ -28,6 +29,8 @@ const DetailReviewPage = ({id}: IDetailReviewProps) => {
   const [complainPopup, setComplainPopup] = useState<boolean>(false);
   const [reviewId, setReviewId] = useState<number>(0);
   const [moreComment, setMoreComment] = useState<boolean>(false);
+  const {bottom} = useSafeAreaInsets();
+  const styles = reviewScreenStyles({bottom});
 
   const [reviews, screeningRates] = useQueries({
     queries: [
@@ -74,7 +77,7 @@ const DetailReviewPage = ({id}: IDetailReviewProps) => {
   return (
     <DefaultContainer>
       {reviewList && (
-        <>
+        <View style={styles.commentWrap}>
           {/*신고 팝업 컴포넌트*/}
           <Popup
             title="정말 신고하시겠어요?"
@@ -89,7 +92,7 @@ const DetailReviewPage = ({id}: IDetailReviewProps) => {
           {/*상영 지수 아이템*/}
           {screeningRate && <ScreeningRateCard rates={screeningRate} />}
 
-          <View style={reviewScreenStyles.title}>
+          <View style={styles.title}>
             <Typography style="Subtitle2" color={palette.Another.Black}>
               관객 리뷰
             </Typography>
@@ -117,7 +120,7 @@ const DetailReviewPage = ({id}: IDetailReviewProps) => {
               />
             ))}
           {reviewList.length > 5 && !moreComment ? (
-            <View style={reviewScreenStyles.bottom}>
+            <View style={styles.bottom}>
               <BoxButton
                 onPress={() => {
                   setMoreComment(true);
@@ -147,7 +150,7 @@ const DetailReviewPage = ({id}: IDetailReviewProps) => {
               ))}
             </>
           )}
-        </>
+        </View>
       )}
     </DefaultContainer>
   );
