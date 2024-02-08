@@ -6,9 +6,10 @@ import DateOption from './components/dateOption';
 import {TScreeningTimeOption} from '@/models/enums/time';
 import {TEngCategory} from '@/models/enums/category';
 import ScreeningSearchList from './components/screeningSearchList';
-import SearchBar from '@/components/searchBar';
 
 import {screeningListStyles} from './ScreeningList.style';
+import CustomTextInput from '@/components/inputs/customTextInput';
+import SearchButton from '@/components/buttons/searchButton';
 
 const ScreeningListScreen = () => {
   const [searchInput, setSearchInput] = useState<string>('');
@@ -28,15 +29,17 @@ const ScreeningListScreen = () => {
     }
   }, [searchInput]);
   const [date, setDate] = useState<TScreeningTimeOption>('createdAt');
+  const onChangeInput = (e: string) => setSearchInput(e);
   return (
     <KeyboardAvoidingView style={screeningListStyles.wrapper}>
       <View style={screeningListStyles.wrapper}>
         <View style={screeningListStyles.container}>
-          <SearchBar
+          <CustomTextInput
             value={searchInput}
             placeholder="상영회 타이틀로 검색"
-            onChangeInput={value => setSearchInput(value)}
-          />
+            onChangeText={onChangeInput}>
+            <SearchButton onPress={() => {}} />
+          </CustomTextInput>
         </View>
         <View
           style={

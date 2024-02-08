@@ -10,7 +10,6 @@ const navTheme = {
     background: palette.Another.White,
   },
 };
-
 const Navigator = () => {
   return (
     <>
