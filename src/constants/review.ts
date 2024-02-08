@@ -227,8 +227,8 @@ interface IScreeningRate {
 export const screeningRateArray: IScreeningRate[] = [
   {
     title: '작품 감상',
-    negative: 'serviceCountNeg',
-    positive: 'serviceCountPos',
+    negative: 'movieReviewCountNeg',
+    positive: 'movieReviewCountPos',
   },
   {
     title: '상영 장소',
