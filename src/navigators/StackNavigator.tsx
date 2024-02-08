@@ -36,6 +36,7 @@ import {
   requestAlarmPermission,
 } from '@/services/permissionService';
 import DetailWebviewScreen from '@/screens/screening/detailWebview/DetailWebviewScreen';
+import AgreementScreen from '@/screens/myPage/setting/screens/agreement/AgreementScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -131,6 +132,14 @@ function StackNavigator() {
         name={stackScreens.WithdrawScreen}
         component={WithdrawScreen}
         options={{headerShown: false}}
+      />
+
+      <Stack.Screen
+        name={stackScreens.AgreementScreen}
+        component={AgreementScreen}
+        options={{
+          headerShown: false,
+        }}
       />
       {/* 스크리닝 관리 페이지 */}
       <Stack.Screen
