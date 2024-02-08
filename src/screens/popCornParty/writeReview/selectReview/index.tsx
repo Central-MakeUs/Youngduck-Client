@@ -42,32 +42,30 @@ const SelectReview = ({
               : '없다면 [다음]을 눌러주세요.'
           }
         />
-        <View>
-          {questions.map(question => (
-            <View key={`${question.subject}-container`}>
-              <Typography style="Body2" mb={8} key={question.subject}>
-                {question.subject}
-              </Typography>
-              <View
-                style={selectReviewStyles.answersWrap}
-                key={`${question.subject}-answer-wrap`}>
-                {question.answers.map(answer => (
-                  <SelectButton
-                    onPress={() =>
-                      setReview({
-                        ...review,
-                        [answer.value]: !review[answer.value],
-                      })
-                    }
-                    type={answer.category}
-                    isSelected={review[answer.value]}
-                    key={answer.category}
-                  />
-                ))}
-              </View>
+        {questions.map(question => (
+          <View key={`${question.subject}-container`}>
+            <Typography style="Body2" mb={8} key={question.subject}>
+              {question.subject}
+            </Typography>
+            <View
+              style={selectReviewStyles.answersWrap}
+              key={`${question.subject}-answer-wrap`}>
+              {question.answers.map(answer => (
+                <SelectButton
+                  onPress={() =>
+                    setReview({
+                      ...review,
+                      [answer.value]: !review[answer.value],
+                    })
+                  }
+                  type={answer.category}
+                  isSelected={review[answer.value]}
+                  key={answer.category}
+                />
+              ))}
             </View>
-          ))}
-        </View>
+          </View>
+        ))}
       </DefaultScrollContainer>
       <View style={{paddingBottom: 40}}>
         <MultiButton

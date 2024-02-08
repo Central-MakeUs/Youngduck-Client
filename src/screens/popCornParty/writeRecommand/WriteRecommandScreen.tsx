@@ -49,68 +49,69 @@ function WriteRecommandScreen() {
   };
 
   return (
-    <DismissKeyboardView>
-      <Popup
-        title="등록하시겠습니까?"
-        content="등록 후에는 수정할 수 없어요"
-        isVisible={isVisible}
-        onClose={toggleIsVisibleState}
-        onPress={goToRecommandListScreen}
-      />
-      <DefaultScrollContainer>
-        <Pressable
-          style={writeRecommandScreenStyles.container}
-          onPress={Keyboard.dismiss}>
-          <SubTitleDescription
-            text="다음 주의 팝콘작을 추천해 주세요"
-            subTitle={`추천하신 영화는 ${startDate}부터\n${endDate}의 팝콘작 후보로 게시됩니다.`}
-            mt={24}
-            mb={32}
-          />
-          <View style={writeRecommandScreenStyles.buttonMargin}>
-            <ButtonInput
-              value={selectedMovie.title}
-              placeholder="클릭하면 영화를 검색할 수 있어요"
-              title="추천 영화"
-              category="search"
-              setValue={setSelectedMovie}
-              essential
-            />
-          </View>
-          <TextArea
-            value={reason}
-            onChangeInput={inputReason}
-            maxLength={100}
-            placeholder={'최소 10자에서 최대 100자까지 입력할 수 있어요'}
-            height={144}
-            title="추천하는 이유"
-            checkValue={() => {
-              return reason.length > 10;
-            }}
-            errorContent="추천하는 이유 10자 이상 적어주세요"
-            essential
-          />
-          <View style={writeRecommandScreenStyles.agreementWrap}>
+    <>
+      <DismissKeyboardView>
+        <Popup
+          title="등록하시겠습니까?"
+          content="등록 후에는 수정할 수 없어요"
+          isVisible={isVisible}
+          onClose={toggleIsVisibleState}
+          onPress={goToRecommandListScreen}
+        />
+        <DefaultScrollContainer>
+          <Pressable
+            style={writeRecommandScreenStyles.container}
+            onPress={Keyboard.dismiss}>
             <SubTitleDescription
-              text="게시글 정책을 확인했어요."
-              subTitle="팝콘작 추천하기는 수정이나 삭제를 할 수 없어요."
+              text="다음 주의 팝콘작을 추천해 주세요"
+              subTitle={`추천하신 영화는 ${startDate}부터\n${endDate}의 팝콘작 후보로 게시됩니다.`}
+              mt={24}
+              mb={32}
             />
-            <View style={writeRecommandScreenStyles.paddingCheckBox}>
-              <CheckBox
-                state={isAgree ? 'on' : 'off'}
-                onPress={toggleIsAgreeState}
+            <View style={writeRecommandScreenStyles.buttonMargin}>
+              <ButtonInput
+                value={selectedMovie.title}
+                placeholder="클릭하면 영화를 검색할 수 있어요"
+                title="추천 영화"
+                category="search"
+                setValue={setSelectedMovie}
+                essential
               />
             </View>
-          </View>
-        </Pressable>
-      </DefaultScrollContainer>
-
+            <TextArea
+              value={reason}
+              onChangeInput={inputReason}
+              maxLength={100}
+              placeholder={'최소 10자에서 최대 100자까지 입력할 수 있어요'}
+              height={144}
+              title="추천하는 이유"
+              checkValue={() => {
+                return reason.length > 10;
+              }}
+              errorContent="추천하는 이유 10자 이상 적어주세요"
+              essential
+            />
+            <View style={writeRecommandScreenStyles.agreementWrap}>
+              <SubTitleDescription
+                text="게시글 정책을 확인했어요."
+                subTitle="팝콘작 추천하기는 수정이나 삭제를 할 수 없어요."
+              />
+              <View style={writeRecommandScreenStyles.paddingCheckBox}>
+                <CheckBox
+                  state={isAgree ? 'on' : 'off'}
+                  onPress={toggleIsAgreeState}
+                />
+              </View>
+            </View>
+          </Pressable>
+        </DefaultScrollContainer>
+      </DismissKeyboardView>
       <BottomBoxButton
         onPress={toggleIsVisibleState}
         disabled={!canRegister || isLoading}>
         {isLoading ? '로딩 중' : '등록하기'}
       </BottomBoxButton>
-    </DismissKeyboardView>
+    </>
   );
 }
 

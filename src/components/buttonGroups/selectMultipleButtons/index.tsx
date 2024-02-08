@@ -6,7 +6,6 @@ import palette from '@/styles/theme/color';
 import {CommonMarginVerticalProps} from '@/types/ui';
 
 import {selectItemStyles} from './SelectMultipleButtons.style';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface ISelectItem {
   value: string;
@@ -27,8 +26,6 @@ const SelectMultipleButtons = ({
   mb,
   value,
 }: ISelectItemProps) => {
-  const {bottom} = useSafeAreaInsets();
-  const styles = selectItemStyles({bottom});
   return (
     <View
       style={{
@@ -39,7 +36,7 @@ const SelectMultipleButtons = ({
         {text}
       </Typography>
 
-      <View style={styles.flex}>
+      <View style={selectItemStyles.flex}>
         {labels.map(l => (
           <SelectButton
             size="small"
