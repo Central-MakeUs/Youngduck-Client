@@ -21,6 +21,7 @@ export type RootStackParamList = {
   ManageScreeningScreen: {
     isWatcedScreening: boolean;
   };
+  AgreementScreen: {uri: string};
   ManageReviewScreen: {isScreeningReview: boolean};
   MyScreeningScreen: undefined;
 } & PopcornPartyStackParamList &
@@ -46,6 +47,7 @@ export type ScreeningStackScreensParamList = {
     id?: number;
   };
   DetailScreen: {id: number};
+  DetailWebviewScreen: undefined;
   MyDetailScreen: {id: number};
   ReviewWritingScreen: {id: number};
   KakaoSearchScreen: {type: 'modified' | 'post'};

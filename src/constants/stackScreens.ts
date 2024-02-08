@@ -10,6 +10,7 @@ const enum stackScreens {
   ManageScreeningScreen = 'ManageScreeningScreen',
   ManageReviewScreen = 'ManageReviewScreen',
   MyScreeningScreen = 'MyScreeningScreen',
+  AgreementScreen = 'AgreementScreen',
 
   //스크리닝 페이지
   HomeScreen = 'HomeScreen',
@@ -19,6 +20,7 @@ const enum stackScreens {
   ReviewWritingScreen = 'ReviewWritingScreen',
   ScreeningListScreen = 'ScreeningListScreen',
   KakaoSearchScreen = 'KakaoSearchScreen',
+  DetailWebviewScreen = 'DetailWebviewScreen',
 
   // 팝콘파티 스크린
   PopcornPartyHomeScreen = 'PopcornPartyHomeScreen',
