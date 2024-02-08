@@ -5,7 +5,7 @@ import {TextInput, View} from 'react-native';
 import customTextInputStyles from './CustomTextInput.style';
 
 interface ICustomTextInputProps {
-  title: string;
+  title?: string;
   value: string;
   onChangeText: (e: string) => void;
   placeholder: string;
@@ -29,12 +29,14 @@ const CustomTextInput = ({
   const type = isError ? 'error' : isFocused ? 'focused' : 'default';
   return (
     <>
-      <Typography
-        style="Label2"
-        mb={4}
-        color={customTextInputStyles[type].color}>
-        {title}
-      </Typography>
+      {title && (
+        <Typography
+          style="Label2"
+          mb={4}
+          color={customTextInputStyles[type].color}>
+          {title}
+        </Typography>
+      )}
       <View style={{justifyContent: 'center'}}>
         <TextInput
           value={value}

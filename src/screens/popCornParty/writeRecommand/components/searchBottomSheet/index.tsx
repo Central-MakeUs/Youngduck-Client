@@ -1,7 +1,7 @@
 import SvgIcons from '@/assets/svgIcons';
 import BottomSheet from '@/components/bottomSheet';
 import Typography from '@/components/typography';
-import {View, Keyboard, FlatList, Pressable} from 'react-native';
+import {View, Keyboard, FlatList} from 'react-native';
 import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import searchBottomSheetStyles from './SearchBottomSheet.style';
@@ -18,8 +18,8 @@ import {
 import getMovieList from '@/utils/getMovieList';
 import EmptyItem from '@/components/items/emptyItem';
 import useSearchMovieMutation from '../../hook/useSearchMovieMutation';
-import Search from '@/assets/icons/search.svg';
 import CustomTextInput from '@/components/inputs/customTextInput';
+import SearchButton from '@/components/buttons/searchButton';
 
 interface ISearchBottomSheetProp {
   bottomDrawerRef: React.RefObject<BottomDrawerMethods>;
@@ -91,11 +91,7 @@ const SearchBottomSheet = ({
             placeholder="영화 제목을 입력해 주세요"
             onChangeText={inputMovie}
             onSubmitEditing={submitEditing}>
-            <Pressable
-              style={searchBottomSheetStyles.searchButton}
-              onPress={submitEditing}>
-              <Search />
-            </Pressable>
+            <SearchButton onPress={submitEditing} />
           </CustomTextInput>
           <View style={searchBottomSheetStyles.totalResultWrap}>
             <Typography style="Label3">영화 검색결과 총 </Typography>

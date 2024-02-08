@@ -1,18 +1,15 @@
-import {TouchableOpacity} from 'react-native';
+import {Pressable} from 'react-native';
 import Search from '@/assets/icons/search.svg';
-import {commonInputButtonStyles} from '@/styles/Input.style';
+import searchButtonStyle from './SearchButton.style';
 
 interface ISearchButtonProp {
   onPress: () => void;
 }
 const SearchButton = ({onPress}: ISearchButtonProp) => {
   return (
-    <TouchableOpacity
-      style={commonInputButtonStyles}
-      onPress={onPress}
-      activeOpacity={0.8}>
+    <Pressable style={searchButtonStyle.searchButton} onPress={onPress}>
       <Search />
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 export default SearchButton;
