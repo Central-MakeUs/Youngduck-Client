@@ -172,7 +172,9 @@ const SettingScreen = () => {
         <Pressable
           style={settingScreenStyles.buttonWrap}
           onPress={() => stackNavigation.navigate(stackScreens.WithdrawScreen)}>
-          <Typography style="Body1">탈퇴하기</Typography>
+          <Typography style="Body1" mb={16}>
+            탈퇴하기
+          </Typography>
         </Pressable>
       </ScrollView>
     </>

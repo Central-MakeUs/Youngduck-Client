@@ -12,6 +12,7 @@ interface ICustomTextInputProps {
   isError?: boolean;
   errorMessage?: string;
   children?: React.ReactNode;
+  onSubmitEditing?: () => void;
 }
 
 const CustomTextInput = ({
@@ -22,6 +23,7 @@ const CustomTextInput = ({
   isError,
   errorMessage,
   children,
+  onSubmitEditing,
 }: ICustomTextInputProps) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const type = isError ? 'error' : isFocused ? 'focused' : 'default';
@@ -45,6 +47,8 @@ const CustomTextInput = ({
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           placeholderTextColor={palette.Text.Assistive}
+          onSubmitEditing={onSubmitEditing}
+          returnKeyType={onSubmitEditing && 'search'}
         />
         {children}
       </View>

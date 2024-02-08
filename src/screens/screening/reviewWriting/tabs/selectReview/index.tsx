@@ -13,6 +13,7 @@ import {
 } from '@/models/enums/review';
 
 import {screeningReviewStyle} from '../ScreeningReview.style';
+import DefaultContainer from '@/components/container/defaultContainer';
 
 interface ISelectReviewProps {
   goNext: () => void;
@@ -42,7 +43,7 @@ const SelectReview = ({
   return (
     <View style={style.container}>
       <DefaultScrollContainer>
-        <View style={{paddingLeft: 16}}>
+        <DefaultContainer>
           <SubTitleDescription
             mt={24}
             text={`작품에서 ${
@@ -62,7 +63,7 @@ const SelectReview = ({
               mb={index === reviewTypes.length - 1 ? 28 : undefined}
             />
           ))}
-        </View>
+        </DefaultContainer>
       </DefaultScrollContainer>
       <View style={style.bottom}>
         <MultiButton

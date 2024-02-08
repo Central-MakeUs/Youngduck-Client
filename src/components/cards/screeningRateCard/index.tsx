@@ -13,8 +13,8 @@ const ScreeningRateCard = ({rates}: IDetailScreeningRate) => {
         <ReviewRate
           category={rateLabel.title}
           key={rateLabel.title}
-          negative={rates?.[rateLabel.negative]}
-          positive={rates?.[rateLabel.positive]}
+          negative={rates[rateLabel.negative]}
+          positive={rates[rateLabel.positive]}
         />
       ))}
     </ScreeningRate>

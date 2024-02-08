@@ -16,7 +16,9 @@ const useHandleAgreement = () => {
     const newData = agreements.map(
       (term: IAgreementProps, newIndex: number) => {
         const returnData = {
+          type: term.type,
           content: term.content,
+          uri: term.uri,
           isAgree: index === newIndex ? !term.isAgree : term.isAgree,
         };
 
@@ -34,7 +36,9 @@ const useHandleAgreement = () => {
   }: IUpdateAgreementTermProps) => {
     const newData = agreements.map((term: IAgreementProps) => {
       return {
+        type: term.type,
         content: term.content,
+        uri: term.uri,
         isAgree: !allAgreement,
       };
     });
