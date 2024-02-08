@@ -12,13 +12,23 @@ const DetailWebviewScreen = () => {
     setWebview({...webview, isVisited: true});
   }, []);
 
-  console.log(webview.uri);
-
   return (
     <SafeAreaView style={{flex: 1, paddingBottom: bottom}}>
       <WebView
-        source={{uri: 'https://forms.gle/zvVDyerCddtSay7U9'}}
-        style={{flex: 1}}
+        originWhitelist={['http://*', 'https://*', 'intent://*']}
+        onShouldStartLoadWithRequest={event => {
+          if (event.url.startsWith('intent:')) {
+            // forms.gle 형태로 넘어올 경우 url 변환 작업
+            const convertUri = event.url
+              .split('browser_fallback_url=')[1]
+              .split('%3')[0];
+            setWebview({...webview, uri: convertUri});
+
+            return false;
+          }
+          return true;
+        }}
+        source={{uri: webview.uri}}
       />
     </SafeAreaView>
   );
