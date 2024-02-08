@@ -8,6 +8,10 @@ const searchBottomSheetStyles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
   },
+  searchButton: {
+    position: 'absolute',
+    right: 16,
+  },
   totalResultWrap: {flexDirection: 'row', marginTop: 16},
   emptyResponseWrap: {
     height: 238,
