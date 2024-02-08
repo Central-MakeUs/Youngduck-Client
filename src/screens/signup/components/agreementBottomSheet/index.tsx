@@ -16,6 +16,7 @@ import {agreeBottomSheetStyles} from './AgreeBottomSheet.style';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useUserStore} from '@/stores/user';
 import useUserMutation from '@/hooks/mutaions/useUserMutation';
+import Config from 'react-native-config';
 
 interface IAgreementBottomSheetProps {
   bottomDrawerRef: React.RefObject<BottomDrawerMethods>;
@@ -33,9 +34,24 @@ const AgreeBottomSheet = ({
   const {bottom} = useSafeAreaInsets();
   const [allAgreement, setAllAgreement] = useState<boolean>(false);
   const [agreements, setAgreements] = useState<IAgreementProps[]>([
-    {content: '이용 약관동의 (필수)', isAgree: false},
-    {content: '개인정보 처리 방침 동의 (필수)', isAgree: false},
-    {content: '마케팅 정보 수신 동의 (선택)', isAgree: false},
+    {
+      type: '[필수]',
+      content: '이용약관 동의',
+      uri: Config.USAGE_POLICY_URI,
+      isAgree: false,
+    },
+    {
+      type: '[필수]',
+      content: '개인정보 처리방침 동의',
+      uri: Config.PRIVACY_POLICY_URI,
+      isAgree: false,
+    },
+    {
+      type: '[선택]',
+      content: '마케팅 활용을 위한 정보수집',
+      uri: Config.MARKETING_POLICY_URI,
+      isAgree: false,
+    },
   ]);
   const {signupMutate} = useUserMutation();
   const {updateAllAgreement} = useHandleAgreement();
@@ -99,7 +115,11 @@ const AgreeBottomSheet = ({
         </View>
         <View style={agreeBottomSheetStyles.wrap}>
           <Divider mb={16} height={1} />
-          <Agreement agreements={agreements} setAgreements={setAgreements} />
+          <Agreement
+            bottomDrawerRef={bottomDrawerRef}
+            agreements={agreements}
+            setAgreements={setAgreements}
+          />
           <BoxButton onPress={finishSignup} disabled={!canFinishSignup}>
             동의하기
           </BoxButton>
