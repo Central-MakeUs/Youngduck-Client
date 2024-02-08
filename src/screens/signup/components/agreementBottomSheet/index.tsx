@@ -48,7 +48,7 @@ const AgreeBottomSheet = ({
     },
     {
       type: '[선택]',
-      content: '마케팅 활용을 위한 정보수집',
+      content: '마케팅 정보 수신 동의',
       uri: Config.MARKETING_POLICY_URI,
       isAgree: false,
     },
