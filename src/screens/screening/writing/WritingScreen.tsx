@@ -273,7 +273,7 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
         </View>
 
         {/*추가 설명*/}
-        <View style={writingStyles.container}>
+        <View style={writingStyles.moreInformation}>
           <TextArea
             value={inputValues.information}
             onChangeInput={value => onChangeInput('information', value)}
