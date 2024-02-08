@@ -131,6 +131,7 @@ const MyPageScreen = () => {
         <SubMenu
           text="설정"
           onPress={() => stackNavigation.navigate(stackScreens.SettingScreen)}
+          mb={16}
         />
       </DefaultScrollContainer>
     </GradientContainer>
