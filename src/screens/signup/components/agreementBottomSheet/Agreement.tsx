@@ -43,10 +43,7 @@ const Agreement = ({
       {agreements.map((term: IAgreementProps, index: number) => (
         <TextButtonContainer mb={24} key={`${term.content}container`}>
           <View style={{flexDirection: 'row'}}>
-            <Typography
-              style="Body1"
-              key={`${term.content}-${term.type}`}
-              color={palette.Text.Strong}>
+            <Typography style="Label1" key={`${term.content}-${term.type}`}>
               {term.type}
             </Typography>
             <Typography style="Body1" key={`${term.content}-content`}>
