@@ -60,6 +60,7 @@ const AgreeBottomSheet = ({
     const body = {
       nickname,
       lawAgreement: true,
+      marketingAgreement: agreements[2].isAgree,
       genres: selectedGenres,
       name: user.name,
       email: user.email,
