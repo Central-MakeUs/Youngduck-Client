@@ -160,7 +160,7 @@ const SettingScreen = () => {
         <View style={settingScreenStyles.appVersionWrap}>
           <Typography style="Body1">앱 버전</Typography>
           <Typography style="Body2" color={palette.Text.Alternative}>
-            1.0.2
+            1.0.3
           </Typography>
         </View>
         <Divider height={8} mt={16} mb={16} />
