@@ -1,10 +1,11 @@
+import {useState} from 'react';
 import {DateParsable} from 'react-native-calendar-picker';
 
 import {DetailBottomButtonType} from '@/types/ui';
 import {getDateAfter, getDatePrevious} from '@/utils/getDate';
-import {useState} from 'react';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
+import {useWebviewStore} from '@/stores/webview';
 
 const useScreeningType = (id: number) => {
   const {stackNavigation} = useNavigator();
@@ -14,6 +15,7 @@ const useScreeningType = (id: number) => {
   const [popupCancel, setPopupCancel] = useState<boolean>(false);
   // 관람 신청 팝업
   const [popupScreening, setPopupScreening] = useState<boolean>(false);
+  const {setWebview, webview} = useWebviewStore();
 
   const setDetailButtonType = (
     reviewed: boolean,
@@ -45,13 +47,6 @@ const useScreeningType = (id: number) => {
     }
   };
 
-  const handleOptionOnPress = () => {
-    if (buttonType === 'complete') {
-      // 관람 취소 모달 열기
-      setPopupCancel(true);
-    }
-  };
-
   const handleButtonOnPress = () => {
     if (buttonType === 'reviewStart') {
       // 리뷰 작성하기로 이동
@@ -63,6 +58,13 @@ const useScreeningType = (id: number) => {
     }
   };
 
+  const handleOptionOnPress = () => {
+    if (buttonType === 'complete') {
+      // 관람 취소 모달 열기
+      setPopupCancel(true);
+    }
+  };
+
   // 관람 취소 모달 닫기
   const onClosePopupCancel = () => {
     setPopupCancel(false);
@@ -70,19 +72,20 @@ const useScreeningType = (id: number) => {
 
   // 관람 신청 모달 닫기
   const onClosePopupScreening = () => {
+    setWebview({...webview, isVisited: false});
     setPopupScreening(false);
   };
 
   return {
     buttonType,
     setDetailButtonType,
+    handleButtonOnPress,
     handleOptionOnPress,
     popupCancel,
     onClosePopupCancel,
     popupScreening,
     onClosePopupScreening,
     setPopupScreening,
-    handleButtonOnPress,
   };
 };
 export default useScreeningType;
