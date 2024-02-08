@@ -35,6 +35,7 @@ import {
   checkAlarmPermission,
   requestAlarmPermission,
 } from '@/services/permissionService';
+import DetailWebviewScreen from '@/screens/screening/detailWebview/DetailWebviewScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -188,6 +189,14 @@ function StackNavigator() {
           header: () => (
             <CancelTopBar text="상영회 장소 검색" onPress={handleGoBack} />
           ),
+        }}
+      />
+      {/*스크리닝 웹뷰 페이지*/}
+      <Stack.Screen
+        name={stackScreens.DetailWebviewScreen}
+        component={DetailWebviewScreen}
+        options={{
+          headerShown: false,
         }}
       />
       {/* 팝콘파티 스크린 */}
