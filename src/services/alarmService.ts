@@ -1,7 +1,7 @@
+import {postFcmAlarm} from '@/apis/fcm/alarm';
 import messaging from '@react-native-firebase/messaging';
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-import {postFcmAlarm} from '@/apis/fcm/alarm';
 
 const setupAlarm = () => {
   messaging().setBackgroundMessageHandler(async remoteMessage => {
