@@ -31,10 +31,11 @@ const Agreement = ({
     });
   };
 
-  const goToAgreement = (uri: string) => {
+  const goToAgreement = (uri: string, title: string) => {
     bottomDrawerRef.current?.close();
     stackNavigation.navigate(stackScreens.AgreementScreen, {
       uri,
+      title,
     });
   };
 
@@ -49,7 +50,10 @@ const Agreement = ({
             <Typography style="Body1" key={`${term.content}-content`}>
               {` ${term.content}`}
             </Typography>
-            <Pressable onPress={() => goToAgreement(term.uri)}>
+            <Pressable
+              onPress={() =>
+                goToAgreement(term.uri, term.content.replace(' 동의', ''))
+              }>
               <Typography
                 style="Body1"
                 key={`${term.content}-webview`}

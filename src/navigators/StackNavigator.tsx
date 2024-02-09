@@ -185,9 +185,7 @@ function StackNavigator() {
         options={{
           headerShown: false,
           gestureEnabled: false,
-          header: () => (
-            <CancelTopBar text="리뷰 작성하기" onPress={handleGoBack} />
-          ),
+          header: () => <CancelTopBar text="리뷰 작성하기" />,
         }}
       />
       {/*카카오 장소 검색 페이지*/}
@@ -195,9 +193,7 @@ function StackNavigator() {
         name={stackScreens.KakaoSearchScreen}
         component={KakaoSearchScreen}
         options={{
-          header: () => (
-            <CancelTopBar text="상영회 장소 검색" onPress={handleGoBack} />
-          ),
+          header: () => <CancelTopBar text="상영회 장소 검색" />,
         }}
       />
       {/*스크리닝 웹뷰 페이지*/}
@@ -234,9 +230,7 @@ function StackNavigator() {
         name={stackScreens.WriteRecommandScreen}
         component={WriteRecommandScreen}
         options={{
-          header: () => (
-            <CancelTopBar text="팝콘작 추천하기" onPress={handleGoBack} />
-          ),
+          header: () => <CancelTopBar text="팝콘작 추천하기" />,
         }}
       />
       {/* 팝콘작 리뷰 작성 페이지 */}

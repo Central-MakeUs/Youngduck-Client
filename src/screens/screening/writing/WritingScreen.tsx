@@ -131,16 +131,11 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
     }
   };
 
-  const handleGoBack = () => {
-    stackNavigation.goBack();
-  };
-
   return (
     <>
       <DismissKeyboardView>
         <CancelTopBar
           text={type === 'post' ? '상영회 등록하기' : '상영회 수정하기'}
-          onPress={handleGoBack}
         />
         <DefaultContainer>
           <Typography

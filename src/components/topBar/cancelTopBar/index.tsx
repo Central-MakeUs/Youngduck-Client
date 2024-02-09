@@ -2,32 +2,33 @@ import SvgIcons from '@/assets/svgIcons';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 
-import {CommonMarginVerticalProps} from '@/types/ui';
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {cancelStyles} from './CancelTopBar.style';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import useNavigator from '@/hooks/useNavigator';
 
-interface CancelTopBarProps extends CommonMarginVerticalProps {
-  onPress: () => void;
+interface ICancelTopBarProps {
   text: string;
 }
 
-const CancelTopBar = ({text, onPress, mb, mt}: CancelTopBarProps) => {
+const CancelTopBar = ({text}: ICancelTopBarProps) => {
   const {top} = useSafeAreaInsets();
-  const style = cancelStyles({top});
+  const {stackNavigation} = useNavigator();
+  const styles = cancelStyles({top});
   return (
-    <View
-      style={{
-        ...style.container,
-        marginTop: mt ? mt : undefined,
-        marginBottom: mb ? mb : undefined,
-      }}>
-      <View style={style.content}>
-        <Typography style="Label1" color={palette.Another.Black} ml={24}>
+    <View style={styles.container}>
+      <View style={styles.content}>
+        <Typography style="Label1" color={palette.Another.Black}>
           {text}
         </Typography>
       </View>
-      <SvgIcons.CancelIcon onPress={onPress} />
+
+      <TouchableOpacity
+        style={styles.cancelButton}
+        onPress={stackNavigation.goBack}
+        activeOpacity={0.8}>
+        <SvgIcons.CancelIcon />
+      </TouchableOpacity>
     </View>
   );
 };
