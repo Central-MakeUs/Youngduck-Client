@@ -132,6 +132,7 @@ const SettingScreen = () => {
           onPress={() =>
             stackNavigation.navigate(stackScreens.AgreementScreen, {
               uri: Config.MARKETING_POLICY_URI,
+              title: '마케팅 정보 수신',
             })
           }
           textStyle="Body1"
@@ -144,15 +145,17 @@ const SettingScreen = () => {
           onPress={() =>
             stackNavigation.navigate(stackScreens.AgreementScreen, {
               uri: Config.USAGE_POLICY_URI,
+              title: '이용약관',
             })
           }
           mb={8}
         />
         <SubMenu
-          text="개인정보처리방침"
+          text="개인정보 처리방침"
           onPress={() =>
             stackNavigation.navigate(stackScreens.AgreementScreen, {
               uri: Config.PRIVACY_POLICY_URI,
+              title: '개인정보 처리방침',
             })
           }
           mb={8}
@@ -160,7 +163,7 @@ const SettingScreen = () => {
         <View style={settingScreenStyles.appVersionWrap}>
           <Typography style="Body1">앱 버전</Typography>
           <Typography style="Body2" color={palette.Text.Alternative}>
-            1.0.3
+            1.0.4
           </Typography>
         </View>
         <Divider height={8} mt={16} mb={16} />

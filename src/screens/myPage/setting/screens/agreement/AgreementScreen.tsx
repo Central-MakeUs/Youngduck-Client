@@ -1,6 +1,7 @@
+import CancelTopBar from '@/components/topBar/cancelTopBar';
 import stackScreens from '@/constants/stackScreens';
 import {ScreenRouteProp} from '@/types/navigator';
-import {SafeAreaView} from 'react-native';
+import {View} from 'react-native';
 import WebView from 'react-native-webview';
 
 interface IAgreementScreenProp {
@@ -9,13 +10,16 @@ interface IAgreementScreenProp {
 
 const AgreementScreen = ({route: {params}}: IAgreementScreenProp) => {
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <WebView
-        source={{
-          uri: params.uri,
-        }}
-      />
-    </SafeAreaView>
+    <>
+      <CancelTopBar text={params.title} />
+      <View style={{flex: 1}}>
+        <WebView
+          source={{
+            uri: params.uri,
+          }}
+        />
+      </View>
+    </>
   );
 };
 
