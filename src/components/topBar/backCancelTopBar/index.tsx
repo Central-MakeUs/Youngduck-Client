@@ -24,7 +24,9 @@ const BackCancelTopBar = ({onPress, text, mb, mt}: BackTitleTopBarProps) => {
         marginTop: mt ? mt : undefined,
         marginBottom: mb ? mb : undefined,
       }}>
-      <SvgIcons.BackArrowIcon onPress={onPress} />
+      <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
+        <SvgIcons.BackArrowIcon />
+      </TouchableOpacity>
       <Typography style="Label1" color={palette.Another.Black}>
         {text}
       </Typography>
