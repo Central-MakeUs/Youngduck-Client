@@ -2,7 +2,7 @@
 import SvgIcons from '@/assets/svgIcons';
 
 import {CommonMarginVerticalProps} from '@/types/ui';
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {backStyles} from './BackTopBar.style';
 
 interface BackTitleTopBarProps extends CommonMarginVerticalProps {
@@ -17,7 +17,9 @@ const BackTopBar = ({onPress, mb, mt}: BackTitleTopBarProps) => {
         marginTop: mt ? mt : undefined,
         marginBottom: mb ? mb : undefined,
       }}>
-      <SvgIcons.BackArrowIcon onPress={onPress} />
+      <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
+        <SvgIcons.BackArrowIcon />
+      </TouchableOpacity>
     </View>
   );
 };

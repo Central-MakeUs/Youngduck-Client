@@ -1,7 +1,7 @@
 import SvgIcons from '@/assets/svgIcons';
 
 import {CommonMarginVerticalProps} from '@/types/ui';
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import useNavigator from '@/hooks/useNavigator';
@@ -24,11 +24,15 @@ const BackCancelTopBar = ({onPress, text, mb, mt}: BackTitleTopBarProps) => {
         marginTop: mt ? mt : undefined,
         marginBottom: mb ? mb : undefined,
       }}>
-      <SvgIcons.BackArrowIcon onPress={onPress} />
+      <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
+        <SvgIcons.BackArrowIcon />
+      </TouchableOpacity>
       <Typography style="Label1" color={palette.Another.Black}>
         {text}
       </Typography>
-      <SvgIcons.CancelIcon onPress={stackNavigation.goBack} />
+      <TouchableOpacity onPress={stackNavigation.goBack} activeOpacity={0.8}>
+        <SvgIcons.CancelIcon />
+      </TouchableOpacity>
     </View>
   );
 };
