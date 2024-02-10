@@ -1,7 +1,7 @@
 import SvgIcons from '@/assets/svgIcons';
 import BottomSheet from '@/components/bottomSheet';
 import Typography from '@/components/typography';
-import {View, Keyboard, FlatList} from 'react-native';
+import {View, Keyboard, FlatList, TouchableOpacity} from 'react-native';
 import {BottomDrawerMethods} from 'react-native-animated-bottom-drawer';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import searchBottomSheetStyles from './SearchBottomSheet.style';
@@ -82,7 +82,9 @@ const SearchBottomSheet = ({
       <View style={searchBottomSheetStyles.container}>
         <View style={searchBottomSheetStyles.wrap}>
           <Typography style="Subtitle2">영화 찾기</Typography>
-          <SvgIcons.CancelIcon onPress={closeModal} />
+          <TouchableOpacity onPress={closeModal} activeOpacity={0.8}>
+            <SvgIcons.CancelIcon />
+          </TouchableOpacity>
         </View>
         <DefaultContainer>
           <CustomTextInput
