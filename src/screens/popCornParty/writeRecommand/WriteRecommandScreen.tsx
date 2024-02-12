@@ -31,7 +31,7 @@ function WriteRecommandScreen() {
     updateText: setReason,
     isValid: reasonIsValid,
   } = useText(() => {
-    return reason.length >= 10;
+    return reason.length >= 9;
   });
 
   const {startDate, endDate} = getVoteDateRange();
