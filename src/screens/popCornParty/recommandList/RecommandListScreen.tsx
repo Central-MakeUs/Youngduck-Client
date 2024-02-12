@@ -9,6 +9,8 @@ import {getPopcornOfNextWeekData} from '@/apis/popcornParty/recommendList/recomm
 import {TPopcornRecommendData} from '@/models/popcornParty/reponse';
 import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
 import useRefreshing from '@/hooks/useRefresh';
+import LoadingPage from '@/components/pages/loadingPage';
+import EmptyItem from '@/components/items/emptyItem';
 
 function RecommandListScreen() {
   const {startDate, endDate} = getVoteDateRange();
@@ -32,6 +34,8 @@ function RecommandListScreen() {
     />
   );
 
+  if (isLoading) return <LoadingPage />;
+
   return (
     <DefaultContainer>
       <SubTitleDescription
@@ -39,7 +43,10 @@ function RecommandListScreen() {
         subTitle={`${startDate} ~ ${endDate}의 팝콘작을 선정해 주세요.\n상위 3편의 영화가 다음 주 오픈됩니다.`}
         mb={8}
       />
-      {!isLoading && (
+      {popcornOfNextWeekData?.data.length! === 0 && (
+        <EmptyItem size="large" text="아직 추천 목록이 없어요" />
+      )}
+      {popcornOfNextWeekData?.data.length! > 0 && (
         <FlatList
           data={popcornOfNextWeekData?.data}
           renderItem={renderPopcornItem}
