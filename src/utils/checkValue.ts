@@ -7,18 +7,18 @@ const removeWhitespace = (text: string) => {
 };
 
 // 공백이 있는 지 체크하는 함수
-export const notContainsWhiteSpace = (str: string) => {
+export const containsWhiteSpace = (str: string) => {
   const pattern = /\s/;
   const matches = str.match(pattern);
   if (matches && matches.length > 0) {
-    return false;
+    return true;
   }
-  return true;
+  return false;
 };
 
 // 이메일 체크하는 함수
-const checkEmail = (email: string) => {
-  if (email === '' || !email) {
+const checkValidateEmail = (email: string) => {
+  if (!email) {
     return true;
   }
   const regex =
@@ -27,8 +27,8 @@ const checkEmail = (email: string) => {
 };
 
 // URL을 체크하는 함수
-const checkURL = (text: string) => {
+const checkValidateURL = (text: string) => {
   return isUrlHttp(text);
 };
 
-export {removeWhitespace, checkEmail, checkURL};
+export {removeWhitespace, checkValidateEmail, checkValidateURL};

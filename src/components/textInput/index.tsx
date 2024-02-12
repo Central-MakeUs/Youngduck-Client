@@ -80,7 +80,7 @@ const Input = ({
         </Typography>
       )}
 
-      {type !== 'active' && type === 'caution' && errorContent && (
+      {type === 'caution' && errorContent && (
         <Typography style="Chips1" color={inputTypes[type].contentColor} mt={4}>
           {errorContent}
         </Typography>

@@ -1,10 +1,14 @@
-import {useCallback, useState} from 'react';
+import {useState} from 'react';
 import {DateParsable} from 'react-native-calendar-picker';
 
 import {IScreeningBodyRequest} from '@/models/screening/request/screeningRequestDto';
 import {IScreeningMyDetailResponse} from '@/models/screening/response/detailResponseDto';
 import {getCategory} from '@/utils/getCategory';
-import {checkEmail, checkURL, notContainsWhiteSpace} from '@/utils/checkValue';
+import {
+  checkValidateEmail,
+  checkValidateURL,
+  containsWhiteSpace,
+} from '@/utils/checkValue';
 
 const useHandleInput = () => {
   const [inputValues, setInputValues] = useState<IScreeningBodyRequest>({
@@ -60,53 +64,50 @@ const useHandleInput = () => {
     dateFormat: '상영회 시작일이 오늘보다 이전이에요',
   };
 
-  const onChangeInput = useCallback(
-    (
-      inputName: string,
-      value: string | DateParsable | undefined | boolean | Date,
-    ) => {
-      setInputValues({...inputValues, [inputName]: value});
+  const onChangeInput = (
+    inputName: string,
+    value: string | DateParsable | undefined | boolean | Date,
+  ) => {
+    setInputValues({...inputValues, [inputName]: value});
 
-      if (inputName === 'hostEmail') {
-        if (!notContainsWhiteSpace(value as string)) {
-          setInputIsValid(prev => ({
-            ...prev,
-            emailIsValid: errorMessages.spaceEmailFormat,
-          }));
-        } else if (!checkEmail(value as string)) {
-          setInputIsValid(prev => ({
-            ...prev,
-            emailIsValid: errorMessages.emailFormat,
-          }));
-        } else {
-          setInputIsValid(prev => ({
-            ...prev,
-            emailIsValid: '',
-          }));
-        }
+    if (inputName === 'hostEmail') {
+      if (containsWhiteSpace(value as string)) {
+        setInputIsValid(prev => ({
+          ...prev,
+          emailIsValid: errorMessages.spaceEmailFormat,
+        }));
+      } else if (!checkValidateEmail(value as string)) {
+        setInputIsValid(prev => ({
+          ...prev,
+          emailIsValid: errorMessages.emailFormat,
+        }));
+      } else {
+        setInputIsValid(prev => ({
+          ...prev,
+          emailIsValid: '',
+        }));
       }
+    }
 
-      if (inputName === 'formUrl') {
-        if (!notContainsWhiteSpace(value as string)) {
-          setInputIsValid(prev => ({
-            ...prev,
-            formUrlValid: errorMessages.spaceUrlFormat,
-          }));
-        } else if (!checkURL(value as string)) {
-          setInputIsValid(prev => ({
-            ...prev,
-            formUrlValid: errorMessages.urlFormat,
-          }));
-        } else {
-          setInputIsValid(prev => ({
-            ...prev,
-            formUrlValid: '',
-          }));
-        }
+    if (inputName === 'formUrl') {
+      if (containsWhiteSpace(value as string)) {
+        setInputIsValid(prev => ({
+          ...prev,
+          formUrlValid: errorMessages.spaceUrlFormat,
+        }));
+      } else if (!checkValidateURL(value as string)) {
+        setInputIsValid(prev => ({
+          ...prev,
+          formUrlValid: errorMessages.urlFormat,
+        }));
+      } else {
+        setInputIsValid(prev => ({
+          ...prev,
+          formUrlValid: '',
+        }));
       }
-    },
-    [inputValues],
-  );
+    }
+  };
   return {setModify, inputValues, onChangeInput, inputIsValid};
 };
 export default useHandleInput;
