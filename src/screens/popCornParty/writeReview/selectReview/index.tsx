@@ -58,6 +58,7 @@ const SelectReview = ({
                       [answer.value]: !review[answer.value],
                     })
                   }
+                  size="small"
                   type={answer.category}
                   isSelected={review[answer.value]}
                   key={answer.category}
