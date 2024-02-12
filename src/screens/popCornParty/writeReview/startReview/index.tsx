@@ -54,6 +54,7 @@ const StartReview = ({
             key={`${question.question}-answer-wrap`}>
             {question.answers.map((answer, index) => (
               <SelectButton
+                size="small"
                 onPress={() =>
                   setStartReview({
                     ...startReview,

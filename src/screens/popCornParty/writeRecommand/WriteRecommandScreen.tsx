@@ -14,6 +14,7 @@ import usePopcornPartyMutation from '@/hooks/mutaions/usePopcornPartyMutation';
 import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
 import BottomBoxButton from '@/components/bottomButton/bottomBoxButton';
 import DismissKeyboardView from '@/components/dismissKeyboardView';
+import useText from '@/hooks/useText';
 
 function WriteRecommandScreen() {
   const [selectedMovie, setSelectedMovie] = useState<IRecommendMovieProps>({
@@ -21,10 +22,16 @@ function WriteRecommandScreen() {
     movieId: 'K',
     movieSeq: '',
   });
-  const [reason, setReason] = useState<string>('');
   const [isAgree, setIsAgree] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const {
+    text: reason,
+    updateText: setReason,
+    isValid: reasonIsValid,
+  } = useText((value: string) => {
+    return value.length >= 10;
+  });
 
   const {startDate, endDate} = getVoteDateRange();
 
@@ -85,10 +92,9 @@ function WriteRecommandScreen() {
               placeholder={'최소 10자에서 최대 100자까지 입력할 수 있어요'}
               height={144}
               title="추천하는 이유"
-              checkValue={() => {
-                return reason.length > 10;
-              }}
-              errorContent="추천하는 이유 10자 이상 적어주세요"
+              errorContent={
+                !reasonIsValid ? '추천하는 이유 10자 이상 적어주세요' : ''
+              }
               essential
             />
             <View style={writeRecommandScreenStyles.agreementWrap}>

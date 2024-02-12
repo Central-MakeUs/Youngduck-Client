@@ -34,6 +34,7 @@ import popcornPartyDetailScreenStyles from './popcornPartyDetailScreen.style';
 import Typography from '@/components/typography';
 import palette from '@/styles/theme/color';
 import PopcornKeyword from '@/components/popcornKeyword';
+import BottomBoxButton from '@/components/bottomButton/bottomBoxButton';
 
 interface IPopcornPartyDetailScreenProp {
   route: ScreenRouteProp<stackScreens.PopcornPartyDetailScreen>;
@@ -238,20 +239,18 @@ function PopcornPartyDetailScreen({
           </BoxButton>
         </View>
       </ImageContentScrollContainer>
-      <View style={popcornPartyDetailScreenStyles.bottomButton}>
-        <BoxButton
-          onPress={() =>
-            stackNavigation.navigate(stackScreens.WriteReviewScreen, {
-              id: movieData?.popcornId!,
-              poster: movieData?.imageUrl!,
-              title: movieData?.movieTitle!,
-              directorname: movieData?.directorName!,
-            })
-          }
-          mb={42}>
-          나도 리뷰쓰기
-        </BoxButton>
-      </View>
+
+      <BottomBoxButton
+        onPress={() =>
+          stackNavigation.navigate(stackScreens.WriteReviewScreen, {
+            id: movieData?.popcornId!,
+            poster: movieData?.imageUrl!,
+            title: movieData?.movieTitle!,
+            directorname: movieData?.directorName!,
+          })
+        }>
+        나도 리뷰쓰기
+      </BottomBoxButton>
     </>
   );
 }
