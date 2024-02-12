@@ -38,7 +38,15 @@ const useFocus = () => {
     }
   };
 
-  const onCheck = (value: string, checkValue: () => boolean) => {
+  const onCheck = (value: string, errorContent: string) => {
+    if (errorContent) {
+      onError();
+    } else {
+      onBlur(value);
+    }
+  };
+
+  const onValidate = (value: string, checkValue: () => boolean) => {
     if (checkValue && !checkValue()) {
       onError();
     } else {
@@ -46,7 +54,7 @@ const useFocus = () => {
     }
   };
 
-  return {type, onFocus, onBlur, onError, onFocusout, onCheck};
+  return {type, onFocus, onBlur, onError, onFocusout, onCheck, onValidate};
 };
 
 export default useFocus;
