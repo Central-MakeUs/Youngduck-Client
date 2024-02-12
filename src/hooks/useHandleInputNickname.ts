@@ -15,7 +15,7 @@ const useHandleInputNickname = (
     if (e.length > 10) return setError('length');
     if (e.length < 2) setError('length');
     if (!nicknameRegex.test(e)) setError('regex');
-    if (e.length < 10 && e.length > 2 && nicknameRegex.test(e))
+    if (e.length <= 10 && e.length >= 2 && nicknameRegex.test(e))
       setError('none');
     setNickname(e);
     !isError && setIsDuplicated(true);
