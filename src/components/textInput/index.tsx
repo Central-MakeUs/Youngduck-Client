@@ -7,8 +7,6 @@ import {inputStyles, inputTypes} from '@/styles/Input.style';
 import palette from '@/styles/theme/color';
 
 interface ITextInputProps extends TextInputProps {
-  errorContent?: string;
-  detail: string;
   title: string;
   value: string;
   placeholder: string;
@@ -16,11 +14,14 @@ interface ITextInputProps extends TextInputProps {
   essential?: boolean;
   maxLength?: number;
   inputRef?: LegacyRef<TextInput> | undefined;
-  checkValue?: () => boolean;
+  detail: string;
+
+  //유효성 검증 prop
+  errorContent?: string;
 }
 
 const Input = ({
-  errorContent,
+  errorContent = '',
   detail,
   title,
   value,
@@ -29,13 +30,15 @@ const Input = ({
   essential,
   maxLength,
   inputRef,
-  checkValue,
   ...props
 }: ITextInputProps) => {
-  const {onFocus, onBlur, type, onCheck} = useFocus();
+  const {onFocus, onBlur, type, onCheck, onError} = useFocus();
 
   useEffect(() => {
     onBlur(value);
+    if (errorContent && type !== 'default') {
+      onError();
+    }
   }, [value]);
 
   return (
@@ -62,7 +65,7 @@ const Input = ({
           onFocus={onFocus}
           onBlur={() => {
             // value 유효성 체크 함수
-            onCheck(value, checkValue!!);
+            onCheck(value, errorContent);
           }}
           placeholderTextColor={palette.Text.Assistive}
           importantForAutofill="yes"
@@ -71,12 +74,13 @@ const Input = ({
         />
       </View>
 
-      {detail && type === 'active' && (
+      {type === 'active' && (
         <Typography style="Chips1" color={inputTypes[type].contentColor} mt={4}>
           {detail}
         </Typography>
       )}
-      {type === 'caution' && errorContent && (
+
+      {type !== 'active' && type === 'caution' && errorContent && (
         <Typography style="Chips1" color={inputTypes[type].contentColor} mt={4}>
           {errorContent}
         </Typography>

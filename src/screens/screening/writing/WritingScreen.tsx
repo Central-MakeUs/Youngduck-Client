@@ -21,7 +21,6 @@ import {getScreeningMyDetailContent} from '@/apis/screening/detail';
 import CancelTopBar from '@/components/topBar/cancelTopBar';
 import BottomBoxButton from '@/components/bottomButton/bottomBoxButton';
 import Input from '@/components/textInput';
-import {checkEmail, checkURL} from '@/utils/checkValue';
 import DateRangeInput from '@/components/dateRangeInput';
 import TimeInput from '@/components/timeInput';
 
@@ -37,7 +36,8 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
   const {type, search, id} = params;
   const {uploadScreening, modifyScreening} = useScreeningMutation();
   const {stackNavigation} = useNavigator();
-  const {setModify, inputValues, onChangeInput} = useHandleInput();
+  const {setModify, inputValues, onChangeInput, inputIsValid} =
+    useHandleInput();
 
   useEffect(() => {
     onChangeInput('location', search);
@@ -105,14 +105,12 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
       return;
     }
     // url 유효성 검사
-    if (inputValues.formUrl && !checkURL(inputValues.formUrl)) {
-      urlRef.current?.focus();
+    if (inputIsValid.formUrlValid) {
       showSnackBar('상영회 url 형식에 맞춰 다시 작성해주세요');
       return;
     }
     // 이메일 유효성 검사
-    if (inputValues.hostEmail && !checkEmail(inputValues.hostEmail)) {
-      emailRef.current?.focus();
+    if (inputIsValid.emailIsValid) {
       showSnackBar('주최 이메일 형식에 맞춰 다시 작성해주세요');
       return;
     }
@@ -294,11 +292,8 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
               setValue={value => onChangeInput('formUrl', value)}
               inputRef={urlRef}
               returnKeyType="next"
-              errorContent="url 형식에 맞춰 입력해주세요(ex. https://www.)"
+              errorContent={inputIsValid.formUrlValid}
               onSubmitEditing={() => phoneRef.current?.focus()}
-              checkValue={() => {
-                return checkURL(inputValues.formUrl);
-              }}
               keyboardType="url"
               essential
             />
@@ -313,7 +308,6 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
               detail="주최 연락처를 입력해주세요"
               setValue={value => onChangeInput('hostPhoneNumber', value)}
               maxLength={13}
-              errorContent="전화번호 형식을 맞춰주세요"
               inputRef={phoneRef}
               returnKeyType="next"
               keyboardType="phone-pad"
@@ -330,13 +324,7 @@ const WritingScreen = ({route: {params}}: IWritingScreenProps) => {
               placeholder="주최 이메일을 입력해주세요"
               detail="주최 이메일을 입력해주세요"
               setValue={value => onChangeInput('hostEmail', value)}
-              errorContent="이메일 형식을 맞춰주세요"
-              checkValue={() => {
-                if (inputValues.hostEmail) {
-                  return checkEmail(inputValues.hostEmail);
-                }
-                return true;
-              }}
+              errorContent={inputIsValid.emailIsValid}
               inputRef={emailRef}
               autoComplete="email"
               keyboardType="email-address"
