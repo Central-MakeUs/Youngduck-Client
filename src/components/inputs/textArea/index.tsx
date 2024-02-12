@@ -14,7 +14,6 @@ interface ITextAreaProps extends TextInputProps {
   placeholder?: string;
   height: number;
   essential?: boolean;
-  checkValue?: () => boolean;
   inputRef?: LegacyRef<TextInput> | undefined;
   errorContent?: string;
 }
@@ -28,16 +27,18 @@ const TextArea = ({
   height,
   essential,
   inputRef,
-  checkValue,
-  errorContent,
+  errorContent = '',
   ...props
 }: ITextAreaProps) => {
-  const {type, onFocus, onBlur, onCheck} = useFocus();
+  const {type, onFocus, onBlur, onCheck, onError} = useFocus();
 
   const lengthNotice = `/ ${maxLength}`;
 
   useEffect(() => {
     onBlur(value);
+    if (type !== 'default' && errorContent) {
+      onError();
+    }
   }, [value]);
 
   return (
@@ -72,7 +73,7 @@ const TextArea = ({
         ref={inputRef}
         onBlur={() => {
           // value 유효성 체크 함수
-          onCheck(value, checkValue!!);
+          onCheck(value, errorContent!!);
         }}
         multiline={true}
         placeholderTextColor={palette.Text.Assistive}
