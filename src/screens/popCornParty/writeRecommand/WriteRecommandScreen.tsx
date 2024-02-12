@@ -25,13 +25,12 @@ function WriteRecommandScreen() {
   const [isAgree, setIsAgree] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const {
     text: reason,
     updateText: setReason,
     isValid: reasonIsValid,
-  } = useText(() => {
-    return reason.length >= 9;
+  } = useText((value: string) => {
+    return value.length >= 10;
   });
 
   const {startDate, endDate} = getVoteDateRange();
