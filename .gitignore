@@ -68,3 +68,5 @@ ios/tmp.xcconfig
 .env
 
 android/app/google-services.json
+
+android/gradle.properties
