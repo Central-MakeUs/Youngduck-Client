@@ -36,7 +36,8 @@ const BackTitleTopBar = ({
           color: fontColor,
           marginLeft: 8,
           ...typography.Subtitle2,
-        }}>
+        }}
+        allowFontScaling={false}>
         {text}
       </Text>
     </View>
