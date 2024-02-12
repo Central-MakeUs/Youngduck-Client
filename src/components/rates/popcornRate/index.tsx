@@ -25,10 +25,10 @@ const PopcornRate = ({isOpen, setIsOpen}: IPopcornRateProps) => {
             팝콘 키워드
           </Typography>
           <Text
-            style={[
-              text['Body2'],
-              popcornRateStyles.manualDesc,
-            ]}>{`팝콘지수는 관람 전의 기대 대비 관람 후\n만족도를 나타내는 점수로,\n만족도가 높을 수록 팝콘이 바삭해집니다`}</Text>
+            style={[text['Body2'], popcornRateStyles.manualDesc]}
+            allowFontScaling={
+              false
+            }>{`팝콘지수는 관람 전의 기대 대비 관람 후\n만족도를 나타내는 점수로,\n만족도가 높을 수록 팝콘이 바삭해집니다`}</Text>
           <View style={popcornRateStyles.manual}>
             <DisappointedSvg />
             <Typography style="Label2">눅눅..</Typography>

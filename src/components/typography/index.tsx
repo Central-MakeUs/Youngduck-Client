@@ -30,6 +30,7 @@ function Typography({
         margin: m ? m : undefined,
         ...text[style],
       }}
+      allowFontScaling={false}
       numberOfLines={numberOfLines === -1 ? undefined : numberOfLines}>
       {children}
       {essential && <Text style={{color: palette.State.Point}}>*</Text>}

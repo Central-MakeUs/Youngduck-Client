@@ -44,7 +44,11 @@ const Popup = ({
           {title}
         </Typography>
         {content && (
-          <Text style={[text['Body1'], {textAlign: 'center'}]}>{content}</Text>
+          <Text
+            style={[text['Body1'], {textAlign: 'center'}]}
+            allowFontScaling={false}>
+            {content}
+          </Text>
         )}
 
         <View style={popupStyles.container}>

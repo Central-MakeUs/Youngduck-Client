@@ -25,7 +25,8 @@ function LoginScreen() {
         </View>
         <View style={styles.wrapper}>
           <Text
-            style={styles.description}>{`영잘알들의\n영화교류 플랫폼`}</Text>
+            style={styles.description}
+            allowFontScaling={false}>{`영잘알들의\n영화교류 플랫폼`}</Text>
           <PopcornMateLogo />
         </View>
         <View style={styles.wrapper}>

@@ -114,7 +114,8 @@ function PopcornPartyDetailScreen({
   if (
     popcornPartyDetailData.isLoading ||
     popcornRateData.isLoading ||
-    popcornReviewData.isLoading
+    popcornReviewData.isLoading ||
+    topThreeKeywordData.isLoading
   )
     return <LoadingPage />;
 
@@ -224,7 +225,7 @@ function PopcornPartyDetailScreen({
         <VoteNextPopcorn
           popcornRecommendData={randomPopcornRecommendData.data?.data!}
           title="팝콘 튀기고 싶은 다른 영화가 있다면?"
-          isLoading={false}
+          isLoading={randomPopcornRecommendData.isLoading}
           voteMovieMutate={voteMovieMutate}
         />
         <View style={popcornPartyDetailScreenStyles.button}>
