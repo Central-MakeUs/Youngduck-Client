@@ -104,7 +104,7 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
       </View>
       {isWatcedScreening ? (
         watchedScreeningData?.data?.data.length === 0 ? (
-          <EmptyItem text="아직 관람한 스크리닝이 없어요." size="large" />
+          <EmptyItem text="아직 관람한 스크리닝이 없어요" size="large" />
         ) : (
           <FlatList
             data={watchedScreeningData.data?.data}
@@ -113,7 +113,7 @@ const ManageScreeningScreen = ({route: {params}}: IManageScreeningProp) => {
           />
         )
       ) : jjimScreeningData?.data?.data.length === 0 ? (
-        <EmptyItem text="아직 관심 스크리닝이 없어요." size="large" />
+        <EmptyItem text="아직 관심 스크리닝이 없어요" size="large" />
       ) : (
         <FlatList
           data={jjimScreeningData.data?.data}
