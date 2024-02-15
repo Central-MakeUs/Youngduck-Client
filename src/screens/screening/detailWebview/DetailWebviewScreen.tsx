@@ -13,7 +13,6 @@ const DetailWebviewScreen = () => {
   useEffect(() => {
     setWebview({...webview, isVisited: true});
   }, []);
-
   return (
     <>
       <CancelTopBar text="관람신청" />
@@ -21,6 +20,10 @@ const DetailWebviewScreen = () => {
         <WebView
           originWhitelist={['http://*', 'https://*', 'intent://*']}
           onShouldStartLoadWithRequest={event => {
+            if (event.url.includes('%20')) {
+              setWebview({...webview, uri: event.url.replace(/%20/g, '')});
+              return false;
+            }
             if (event.url.startsWith('intent:')) {
               // forms.gle 형태로 넘어올 경우 url 변환 작업
               const convertUri = event.url

@@ -8,7 +8,7 @@ const popcornPartyDetailScreenStyles = StyleSheet.create({
   },
   button: {
     paddingHorizontal: 16,
-    marginBottom: 24,
+    marginBottom: 72,
   },
 });
 

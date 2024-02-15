@@ -67,6 +67,7 @@ const Input = ({
             // value 유효성 체크 함수
             onCheck(value, errorContent);
           }}
+          allowFontScaling={false}
           placeholderTextColor={palette.Text.Assistive}
           importantForAutofill="yes"
           blurOnSubmit={false}
