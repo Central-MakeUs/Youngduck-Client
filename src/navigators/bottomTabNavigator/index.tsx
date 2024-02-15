@@ -70,6 +70,7 @@ const BottomTabNavigator = () => {
           component={ScreeningStackNavigator}
           options={{
             tabBarLabel: bottomTabBarLabel.ScreeningScreen,
+            tabBarAllowFontScaling: false,
             headerShown: false,
           }}
         />
@@ -78,6 +79,7 @@ const BottomTabNavigator = () => {
           component={PopcornPartyHomeScreen}
           options={{
             tabBarLabel: bottomTabBarLabel.PopcornPartyHomeScreen,
+            tabBarAllowFontScaling: false,
             header: () => <TitleTopBar text="팝콘파티" />,
           }}
         />
@@ -86,6 +88,7 @@ const BottomTabNavigator = () => {
           component={MyPageScreen}
           options={{
             tabBarLabel: bottomTabBarLabel.MyPageScreen,
+            tabBarAllowFontScaling: false,
             headerShown: false,
           }}
           listeners={{
