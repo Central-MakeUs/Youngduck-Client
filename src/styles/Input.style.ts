@@ -1,12 +1,12 @@
 import {TextInputStyle, TextInputType} from '@/types/ui';
 import palette from './theme/color';
 import {StyleSheet, ViewStyle} from 'react-native';
-import text from './theme/typography';
 
 const commonInputStyles = {
   paddingHorizontal: 16,
   borderWidth: 1,
   borderRadius: 8,
+  fontFamily: 'Pretendard-Regular',
 };
 
 // 공통 input styles
@@ -41,9 +41,9 @@ export const inputTypes: Record<TextInputType, TextInputStyle> = {
 export const inputStyles = StyleSheet.create({
   input: {
     ...commonInputStyles,
-    paddingVertical: 8,
+    paddingVertical: 10,
     textAlignVertical: 'center',
-    ...text['Body1'],
+    fontSize: 16,
   },
   buntton: {
     ...commonInputStyles,
