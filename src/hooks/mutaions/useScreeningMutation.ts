@@ -29,6 +29,7 @@ const useScreeningMutation = () => {
       queryClient.invalidateQueries({queryKey: ['recentScreening']});
       queryClient.invalidateQueries({queryKey: ['mostCommentScreening']});
       queryClient.invalidateQueries({queryKey: ['screeningFilter']});
+      queryClient.invalidateQueries({queryKey: ['myScreeningData']});
     },
   });
 

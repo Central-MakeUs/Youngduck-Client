@@ -51,7 +51,8 @@ const ChangeNicknameScreen = () => {
               onChangeText={handleInput}
               placeholder="닉네임을 입력해주세요"
               isError={isError}
-              errorMessage={errorMessage}>
+              noticeMessage={errorMessage}
+              maxLength={10}>
               <DuplicatedButton
                 value={nickname}
                 isDuplicated={isDuplicated}
