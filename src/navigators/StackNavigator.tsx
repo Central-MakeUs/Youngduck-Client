@@ -76,7 +76,10 @@ function StackNavigator() {
     });
 
     if (user.isLookAround) {
-      stackNavigation.navigate(stackScreens.BottomTabScreens);
+      stackNavigation.reset({
+        index: 0,
+        routes: [{name: stackScreens.BottomTabScreens}],
+      });
     }
 
     return () => clearTimeout(timer);
