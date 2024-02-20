@@ -111,8 +111,8 @@ android {
         applicationId "com.popcornmate"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3
-        versionName "1.0.5"
+        versionCode 4
+        versionName "1.0.7"
         resValue "string", "build_config_package", "com.popcornmate"
     }
 
