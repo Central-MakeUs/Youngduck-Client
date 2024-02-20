@@ -17,13 +17,13 @@ function App() {
   const queryClient = new QueryClient();
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorPage}>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <ErrorBoundary FallbackComponent={ErrorPage}>
         <SafeAreaProvider>
           <Navigator />
         </SafeAreaProvider>
-      </QueryClientProvider>
-    </ErrorBoundary>
+      </ErrorBoundary>
+    </QueryClientProvider>
   );
 }
 
