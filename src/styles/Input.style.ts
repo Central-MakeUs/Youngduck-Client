@@ -41,7 +41,7 @@ export const inputTypes: Record<TextInputType, TextInputStyle> = {
 export const inputStyles = StyleSheet.create({
   input: {
     ...commonInputStyles,
-    paddingVertical: 10,
+    paddingVertical: 8,
     textAlignVertical: 'center',
     fontSize: 16,
   },
