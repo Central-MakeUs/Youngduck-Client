@@ -12,7 +12,10 @@ const LookAround = () => {
 
   const goToLookAround = () => {
     setUser({...user, isLookAround: true});
-    stackNavigation.navigate(stackScreens.BottomTabScreens);
+    //stackNavigation.popToTop();
+    stackNavigation.reset({
+      routes: [{name: stackScreens.BottomTabScreens}],
+    });
   };
   return (
     <TouchableOpacity

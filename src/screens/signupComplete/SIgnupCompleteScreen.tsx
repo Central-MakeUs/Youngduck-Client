@@ -20,8 +20,11 @@ const SignupCompleteScreen = () => {
   });
   const {stackNavigation} = useNavigator();
 
-  const startPopcornMate = async () =>
-    stackNavigation.navigate(stackScreens.BottomTabScreens);
+  const startPopcornMate = async () => {
+    stackNavigation.reset({
+      routes: [{name: stackScreens.BottomTabScreens}],
+    });
+  };
 
   return (
     <View style={styles.container}>
