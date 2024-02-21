@@ -5,6 +5,8 @@ import 'react-native-svg';
 
 import Navigator from './navigators/Navigator';
 import {alarmTest, setupAlarm} from './services/alarmService';
+import ErrorBoundary from 'react-native-error-boundary';
+import ErrorPage from './components/pages/errorPage';
 
 setupAlarm();
 
@@ -16,9 +18,11 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SafeAreaProvider>
-        <Navigator />
-      </SafeAreaProvider>
+      <ErrorBoundary FallbackComponent={ErrorPage}>
+        <SafeAreaProvider>
+          <Navigator />
+        </SafeAreaProvider>
+      </ErrorBoundary>
     </QueryClientProvider>
   );
 }
