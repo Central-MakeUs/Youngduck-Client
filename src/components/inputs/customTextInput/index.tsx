@@ -7,22 +7,24 @@ import customTextInputStyles from './CustomTextInput.style';
 interface ICustomTextInputProps {
   title?: string;
   value: string;
-  onChangeText: (e: string) => void;
   placeholder: string;
+  maxLength?: number;
   isError?: boolean;
-  errorMessage?: string;
+  noticeMessage?: string;
   children?: React.ReactNode;
+  onChangeText: (e: string) => void;
   onSubmitEditing?: () => void;
 }
 
 const CustomTextInput = ({
   title,
   value,
-  onChangeText,
   placeholder,
+  maxLength,
   isError,
-  errorMessage,
+  noticeMessage,
   children,
+  onChangeText,
   onSubmitEditing,
 }: ICustomTextInputProps) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -51,12 +53,14 @@ const CustomTextInput = ({
           placeholderTextColor={palette.Text.Assistive}
           onSubmitEditing={onSubmitEditing}
           returnKeyType={onSubmitEditing && 'search'}
+          allowFontScaling={false}
+          maxLength={maxLength}
         />
         {children}
       </View>
       {isError && (
         <Typography style="Chips1" mt={8} color={palette.State.Point}>
-          {errorMessage!}
+          {noticeMessage!}
         </Typography>
       )}
     </>

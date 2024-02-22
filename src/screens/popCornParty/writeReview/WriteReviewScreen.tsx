@@ -170,7 +170,11 @@ function WriteReviewScreen({route: {params}}: IWriteReviewScreenProps) {
             />
           </DefaultScrollContainer>
           <View
-            style={{marginBottom: 0, paddingTop: 10, paddingBottom: bottom}}>
+            style={{
+              marginBottom: 0,
+              paddingTop: 10,
+              paddingBottom: bottom + 12,
+            }}>
             <BoxButton
               onPress={notWatched ? goBackOrPreviousScreen : nextScreen}
               variant={notWatched ? 'default' : 'primary'}
@@ -232,7 +236,11 @@ function WriteReviewScreen({route: {params}}: IWriteReviewScreenProps) {
               </View>
             </View>
           </DefaultScrollContainer>
-          <View style={{paddingBottom: 40}}>
+          <View
+            style={{
+              paddingBottom: bottom + 12,
+              paddingTop: 16,
+            }}>
             <BoxButton
               onPress={onClickCompleteReview}
               disabled={!isAgree || isLoading}>

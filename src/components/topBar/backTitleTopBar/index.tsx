@@ -1,6 +1,6 @@
 import SvgIcons from '@/assets/svgIcons';
 import {CommonMarginVerticalProps} from '@/types/ui';
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {backTitleStyles} from './BackTitleTopBar.style';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import typography from '@/styles/theme/typography';
@@ -28,13 +28,16 @@ const BackTitleTopBar = ({
         marginTop: mt ? mt : undefined,
         marginBottom: mb ? mb : undefined,
       }}>
-      <SvgIcons.BackArrowIcon onPress={goBack} fill={fontColor} />
+      <TouchableOpacity onPress={goBack} activeOpacity={0.8}>
+        <SvgIcons.BackArrowIcon fill={fontColor} />
+      </TouchableOpacity>
       <Text
         style={{
           color: fontColor,
           marginLeft: 8,
           ...typography.Subtitle2,
-        }}>
+        }}
+        allowFontScaling={false}>
         {text}
       </Text>
     </View>

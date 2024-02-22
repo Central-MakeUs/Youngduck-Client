@@ -61,7 +61,10 @@ function StackNavigator() {
         postAccessToken().then((res: boolean) => {
           if (res) {
             const autoLogin = setTimeout(() => {
-              stackNavigation.navigate(stackScreens.BottomTabScreens);
+              stackNavigation.reset({
+                index: 0,
+                routes: [{name: stackScreens.BottomTabScreens}],
+              });
               clearTimeout(autoLogin);
             }, 100);
           }
@@ -73,7 +76,10 @@ function StackNavigator() {
     });
 
     if (user.isLookAround) {
-      stackNavigation.navigate(stackScreens.BottomTabScreens);
+      stackNavigation.reset({
+        index: 0,
+        routes: [{name: stackScreens.BottomTabScreens}],
+      });
     }
 
     return () => clearTimeout(timer);

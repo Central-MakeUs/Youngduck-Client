@@ -6,6 +6,7 @@ import selectReviewStyles from './SelectReview.style';
 import MultiButton from '@/components/buttons/multibutton';
 import getQuestions from '@/utils/getQuestions';
 import DefaultScrollContainer from '@/components/container/defaultScrollContainer';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface ISelectReviewProps {
   review: {[key: string]: boolean};
@@ -27,6 +28,7 @@ const SelectReview = ({
   disabled = false,
 }: ISelectReviewProps) => {
   const questions = getQuestions({isSelectedPositive});
+  const {bottom} = useSafeAreaInsets();
   return (
     <>
       <DefaultScrollContainer>
@@ -58,6 +60,7 @@ const SelectReview = ({
                       [answer.value]: !review[answer.value],
                     })
                   }
+                  size="small"
                   type={answer.category}
                   isSelected={review[answer.value]}
                   key={answer.category}
@@ -67,7 +70,11 @@ const SelectReview = ({
           </View>
         ))}
       </DefaultScrollContainer>
-      <View style={{paddingBottom: 40}}>
+      <View
+        style={{
+          paddingBottom: bottom + 12,
+          paddingTop: 16,
+        }}>
         <MultiButton
           leftButtonText="이전"
           rightButtonText="다음"

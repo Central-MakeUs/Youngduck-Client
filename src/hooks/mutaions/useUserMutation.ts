@@ -36,7 +36,10 @@ const useUserMutation = () => {
         });
       } else {
         setIsInstalled(true);
-        stackNavigation.navigate(stackScreens.BottomTabScreens);
+        stackNavigation.reset({
+          index: 0,
+          routes: [{name: stackScreens.BottomTabScreens}],
+        });
       }
     },
     onError: err => console.log(err),
@@ -58,18 +61,22 @@ const useUserMutation = () => {
     mutationFn: postLogoutUser,
 
     onSuccess: async () => {
-      stackNavigation.popToTop();
       showSnackBar('정상적으로 로그아웃 되었어요');
       await removeTokens();
+      stackNavigation.reset({
+        routes: [{name: stackScreens.LoginScreen}],
+      });
     },
   });
 
   const quitUser = useMutation({
     mutationFn: deleteUser,
     onSuccess: async () => {
-      stackNavigation.popToTop();
       showSnackBar('정상적으로 계정 탈퇴되었어요');
       await removeTokens();
+      stackNavigation.reset({
+        routes: [{name: stackScreens.LoginScreen}],
+      });
     },
   });
 

@@ -6,4 +6,6 @@ export default {
   component: BackTopBar,
 } as ComponentMeta<typeof BackTopBar>;
 
-export const Basic: ComponentStory<typeof BackTopBar> = () => <BackTopBar />;
+export const Basic: ComponentStory<typeof BackTopBar> = () => (
+  <BackTopBar onPress={() => {}} />
+);

@@ -8,6 +8,7 @@ import BoxButton from '@/components/buttons/boxButton';
 import PopcornSignup from '@/assets/icons/popcorn-signup.svg';
 import useNavigator from '@/hooks/useNavigator';
 import stackScreens from '@/constants/stackScreens';
+import {setIsInstalled} from '@/services/localStorage/localStorage';
 
 const SignupCompleteScreen = () => {
   const {top, bottom} = useSafeAreaInsets();
@@ -20,8 +21,12 @@ const SignupCompleteScreen = () => {
   });
   const {stackNavigation} = useNavigator();
 
-  const startPopcornMate = async () =>
-    stackNavigation.navigate(stackScreens.BottomTabScreens);
+  const startPopcornMate = async () => {
+    await setIsInstalled(true);
+    stackNavigation.reset({
+      routes: [{name: stackScreens.BottomTabScreens}],
+    });
+  };
 
   return (
     <View style={styles.container}>
