@@ -25,16 +25,17 @@ interface IImageContentScrollContainerProp {
   queryKey?: QueryKey[] | QueryKey;
 }
 
+const {screenWidth} = getScreenSize();
+
 const ImageContentScrollContainer = ({
   children,
   title,
   posterImage,
-  imageSize,
+  imageSize = {height: screenWidth, width: screenWidth},
   queryKey,
 }: IImageContentScrollContainerProp) => {
   const {onRefresh, isRefresh} = useRefreshing();
   const {stackNavigation} = useNavigator();
-  const {screenWidth} = getScreenSize();
   const {top} = useSafeAreaInsets();
 
   const [opacity, setOpacity] = useState<number>(1);
@@ -43,7 +44,7 @@ const ImageContentScrollContainer = ({
 
   const calculateOpacity = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const value =
-      1 - e.nativeEvent.contentOffset.y / (screenWidth - (top + 60));
+      1 - e.nativeEvent.contentOffset.y / (imageSize.height - (top + 60));
 
     if (value > 1) return setOpacity(2 - value);
     if (value < 0) return setOpacity(0);
