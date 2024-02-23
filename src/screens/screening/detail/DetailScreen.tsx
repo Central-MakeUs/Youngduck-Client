@@ -130,32 +130,29 @@ const DetailScreen = ({route}: DetailScreenProps) => {
         onPress={handleCacelPopupPress}
       />
       <View style={detailScreenStyles.content}>
-        {data && (
-          <ImageContentScrollContainer
-            posterImage={data?.data.posterImgUrl}
-            title={data?.data.screeningTitle}
-            imageSize={imageSize}
-            queryKey={
-              currentTab === 0
-                ? ['screeningDetail']
-                : ['screeningReview', 'screeningRate']
-            }>
-            {data && (
-              <ScreeningTitle
-                title={data?.data.screeningTitle}
-                category={data?.data.category}
-              />
-            )}
-            <TabBar
-              currentTabBarNumber={currentTab}
-              setCurrentTabBarNumber={setCurrentTab}
-              tabBars={screeningTabBars}
-            />
+        <ImageContentScrollContainer
+          posterImage={data?.data.posterImgUrl!}
+          title={data?.data.screeningTitle!}
+          imageSize={imageSize}
+          queryKey={
+            currentTab === 0
+              ? ['screeningDetail']
+              : ['screeningReview', 'screeningRate']
+          }>
+          <ScreeningTitle
+            title={data?.data.screeningTitle!}
+            category={data?.data.category!}
+          />
 
-            {currentTab === 0 && <DetailInfoPage item={data?.data} />}
-            {currentTab === 1 && <DetailReviewPage id={id} />}
-          </ImageContentScrollContainer>
-        )}
+          <TabBar
+            currentTabBarNumber={currentTab}
+            setCurrentTabBarNumber={setCurrentTab}
+            tabBars={screeningTabBars}
+          />
+
+          {currentTab === 0 && <DetailInfoPage item={data?.data!} />}
+          {currentTab === 1 && <DetailReviewPage id={id} />}
+        </ImageContentScrollContainer>
       </View>
       {currentTab === 0 && tooltipeShow && (
         <View style={detailScreenStyles.tooltip}>
