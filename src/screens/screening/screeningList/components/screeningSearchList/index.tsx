@@ -107,15 +107,14 @@ const ScreeningSearchList = ({
         Keyboard.dismiss();
       }}>
       <DefaultContainer>
-        {screeningSearchLists?.length === 0 && (
+        {data?.pages.flatMap(page => page.data.content)?.length === 0 ? (
           <View style={screeningSearchListStyles.wrapper}>
             <EmptyItem size="large" text="검색 결과가 나오지 않아요." />
           </View>
-        )}
-        {screeningSearchLists && screeningSearchLists?.length > 0 && (
+        ) : (
           <FlatList
             onEndReached={onEndReachedHandler}
-            data={screeningSearchLists}
+            data={data!.pages.flatMap(page => page.data.content)}
             renderItem={screeningListItem}
             keyExtractor={item => item.id.toString()}
             onEndReachedThreshold={0.6}

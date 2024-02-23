@@ -73,64 +73,57 @@ function HomeScreen() {
       queryKey={['weekScreening', 'recentScreening', 'mostCommentScreening']}>
       <Banner type="screening" onPress={handleGoWriting} />
       <SubTitle text="이번주 스크리닝" mt={12} />
-      {weekScreenings.data?.data.length === 0 && (
+      {weekScreenings.data?.data.length === 0 ? (
         <EmptyItem text="이번주 스크리닝은 준비하고 있어요" />
+      ) : (
+        <View style={screeningHomeStyle.content}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {weekScreenings?.data?.data?.map((item: IWeekScreeningData) => (
+              <WeeklyScreening
+                key={item.screeningId}
+                id={item.screeningId}
+                date={item.screeningStartDate}
+                category={item.category}
+                img={item.posterImgUrl}
+                hostName={item.screeningTitle}
+              />
+            ))}
+          </ScrollView>
+        </View>
       )}
-      {weekScreenings.status === 'success' &&
-        weekScreenings.data?.data.length > 0 && (
-          <View style={screeningHomeStyle.content}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {weekScreenings?.data?.data?.map((item: IWeekScreeningData) => (
-                <WeeklyScreening
-                  key={item.screeningId}
-                  id={item.screeningId}
-                  date={item.screeningStartDate}
-                  category={item.category}
-                  img={item.posterImgUrl}
-                  hostName={item.screeningTitle}
-                />
-              ))}
-            </ScrollView>
-          </View>
-        )}
 
       <SubTitle text="반응 좋았던 스크리닝" mb={8} />
       <View style={screeningHomeStyle.recent}>
-        {mostCommentScreenings.data?.data.length === 0 && (
+        {mostCommentScreenings.data?.data.length === 0 ? (
           <EmptyCard text={`최근에 방영했던 스크리닝은\n준비하고 있어요`} />
+        ) : (
+          <ReviewScreeningCarousel item={mostCommentScreenings?.data?.data!} />
         )}
-        {mostCommentScreenings.status === 'success' &&
-          mostCommentScreenings?.data?.data &&
-          mostCommentScreenings.data.data.length > 0 && (
-            <ReviewScreeningCarousel item={mostCommentScreenings?.data?.data} />
-          )}
       </View>
       <Divider height={8} />
 
       <SubTitle text="실시간 새 소식" mt={16} />
       <DefaultContainer>
-        {recentScreenings.data?.data.length === 0 && (
+        {recentScreenings.data?.data.length === 0 ? (
           <EmptyItem text="실시간 새 소식은 준비하고 있어요" />
+        ) : (
+          <View style={screeningHomeStyle.margin}>
+            {recentScreenings?.data?.data.map(screening => (
+              <ScreeningItem
+                key={screening.screeningId}
+                img={screening.posterImgUrl}
+                title={screening.screeningTitle}
+                startDate={screening.screeningStartDate}
+                endDate={screening.screeningEndDate}
+                hostName={screening.hostName}
+                id={screening.screeningId}
+              />
+            ))}
+            <BoxButton variant="default" onPress={handleGoScreeningList}>
+              실시간 새 소식 더보기
+            </BoxButton>
+          </View>
         )}
-        {recentScreenings.status === 'success' &&
-          recentScreenings.data?.data.length > 0 && (
-            <View style={screeningHomeStyle.margin}>
-              {recentScreenings?.data?.data.map(screening => (
-                <ScreeningItem
-                  key={screening.screeningId}
-                  img={screening.posterImgUrl}
-                  title={screening.screeningTitle}
-                  startDate={screening.screeningStartDate}
-                  endDate={screening.screeningEndDate}
-                  hostName={screening.hostName}
-                  id={screening.screeningId}
-                />
-              ))}
-              <BoxButton variant="default" onPress={handleGoScreeningList}>
-                실시간 새 소식 더보기
-              </BoxButton>
-            </View>
-          )}
       </DefaultContainer>
       <View style={screeningHomeStyle.bottom} />
     </DefaultScrollContainer>
